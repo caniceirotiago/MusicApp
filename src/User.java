@@ -7,16 +7,16 @@ public abstract class User {
     protected String password;
     protected String name;
     protected String email;
-    protected ArrayList<Music> allMusic = new ArrayList<>();
-    protected ArrayList<MusicCollection> allCollections = new ArrayList<>();
+    protected ArrayList<Music> allMusic;
+    protected ArrayList<MusicCollection> allCollections;
 
-    public User(String username, String password, String name, String email, ArrayList<Music> allMusic, ArrayList<MusicCollection> allCollections) {
+    public User(String username, String password, String name, String email) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
-        this.allMusic = allMusic;
-        this.allCollections = allCollections;
+        this.allMusic = new ArrayList<>();
+        this.allCollections = new ArrayList<>();
     }
     public abstract void newCollection(String name);
     public abstract ArrayList<MusicCollection> seeAllCollection();
