@@ -3,6 +3,7 @@ package src;
 import java.util.ArrayList;
 
 public class RockstarIncManager {
+    //so para testar mudanca
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
