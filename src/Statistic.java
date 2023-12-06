@@ -13,7 +13,13 @@ public class Statistic extends RockstarIncManager {
         this.newStats = newStats;
     }
 
-    public void numberOfUsers(){
 
+    public void numberOfUsers(){
+    }
+    public void totalMusicsByGenre(RockstarIncManager.genre genre){
+        //pesquisar musicas por genero
+    };
+    public void totalMusics(){
+        //pesquisa e retorna o numero total de musicas no sistema
     }
 }
