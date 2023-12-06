@@ -1,14 +1,17 @@
 package src;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RockstarIncManager {
+public class RockstarIncManager  implements Serializable {
     //so para testar mudanca
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
     public static enum genre{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto
-    public RockstarIncManager(){};//construtor vazio para já
+    public RockstarIncManager(){
+        this.musicList = new ArrayList<>();
+    };//construtor vazio para já
 
     //Métodos
     public void run(){};

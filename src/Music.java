@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Music {
-
     private String name;
     private RockstarIncManager.genre genre; //Confirmar localização do enum, para já acho que fica na classe manager
     private MusicCreator musicCreator;
