@@ -2,6 +2,8 @@ package src;
 
 import java.io.*;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
     // Para a lógica de gravação funcionar houve necessidade que seja estático, confirmar com prof
@@ -40,6 +42,26 @@ public class Main {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        //Inicialização de timer para gravação automática
+        Timer timer = new Timer(true); // true cria uma thread "Daemon "que encerra quando o programa desliga
+        int delay = 1000 * 60 * 2; // Tempo inicial de atraso em milissegundos primeira gravação automática
+        int interval = 1000 * 60 * 2; // Intervalo entre as execuções em milissegundos (exemplo: 2 minutos)
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    updateDataFile();
+                    System.out.println("Auto Update executed");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, delay, interval);
+
 
         //Corre o programa com o ficheiro de dados gravados
         gc.run();
