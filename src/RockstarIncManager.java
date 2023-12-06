@@ -1,21 +1,54 @@
 package src;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RockstarIncManager  implements Serializable {
-    //so para testar mudanca
+    public static enum genre{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
-    public static enum genre{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto
+
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
-    };//construtor vazio para já
-
+        this.userList = new ArrayList<>();
+    }
+    //Novo método para iniciar a compunente gráfica (É preciso estudar melhor este método)
+    public void startGUI() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                LoginFrame loginFrame = new LoginFrame(RockstarIncManager.this);
+                loginFrame.setVisible(true);
+            }
+        });
+    }
     //Métodos
-    public void run(){};
-    public void login(){};
+    public void run(){
+        //Criei um client só para experimentar Login.. depois é para apagar
+        userList.add(new Client("as","as","as","as",0));
+        //Inicia o método gráfico
+        startGUI();
+    };
+    public void login(String username, String password, JButton loginButton){
+        //Lógica essencial do login concluida
+        //Falta atribuir o corrent user se o login for bem feito
+        boolean sucessfulLogin = false;
+        for(User us : userList){
+            if(us.getUsername().equals(username) && us.getUsername().equals(username)) sucessfulLogin = true;
+        }
+        if(sucessfulLogin)  {
+            SwingUtilities.invokeLater(() -> {
+                loginButton.setText("Feito");
+            });
+        }
+        else {
+            SwingUtilities.invokeLater(() -> {
+                loginButton.setText("errado");
+            });
+        }
+    };
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
     public void newUser(){
         //new User (nome? condicao?) == super.User;

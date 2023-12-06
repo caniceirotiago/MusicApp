@@ -1,5 +1,6 @@
 package src;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Scanner;
 import java.util.Timer;
@@ -22,7 +23,8 @@ public class Main {
 
             FileOutputStream fos = new FileOutputStream("mainSaveFile");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(new RockstarIncManager());
+            gc = new RockstarIncManager();
+            oos.writeObject(gc);
             oos.close();
             System.out.println("Arquivo criado com sucesso.");
         } catch (IOException e) {

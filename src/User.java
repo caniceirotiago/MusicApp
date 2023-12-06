@@ -1,14 +1,24 @@
 package src;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class User {
+public abstract class User implements Serializable {
     protected String username;
     protected String password;
     protected String name;
     protected String email;
     protected ArrayList<Music> allMusic;
     protected ArrayList<MusicCollection> allCollections;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public User(String username, String password, String name, String email) {
         this.username = username;
