@@ -8,9 +8,14 @@ public abstract class MusicCollection {
     protected ArrayList<Music> musicList;
     protected LocalDateTime creationDate;
 
-    public MusicCollection(String name, LocalDateTime creationDate) {
+    public MusicCollection(String name) {
         this.name = name;
         this.musicList = new ArrayList<>();
+        this.creationDate = LocalDateTime.now();
+    }
+    public MusicCollection(String name, ArrayList<Music> musicList) {
+        this.name = name;
+        this.musicList = musicList;
         this.creationDate = LocalDateTime.now();
     }
     public abstract void addMusicToCollection();

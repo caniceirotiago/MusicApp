@@ -75,20 +75,35 @@ public class RockstarIncManager  implements Serializable {
         music.addEvaluation((Client)currentUser, evaluation);
     }
     public void newRandomPlaylist(GENRE genre, int nOfMusics){
-        ArrayList<Music> musicOfTheChossenGenre = new ArrayList<>();
+        ArrayList<Music> musicOfTheChosenGenre = new ArrayList<>();
+        ArrayList<Music> randomChosenMusic = new ArrayList<>();
         for(Music m : musicList){
-            if(m.getGenre().equals(genre)) musicOfTheChossenGenre.add(m);
+            if(m.getGenre().equals(genre)) musicOfTheChosenGenre.add(m);
         }
-        if(musicOfTheChossenGenre.size() < nOfMusics) System.out.println("there are not enought musics");
+        if(musicOfTheChosenGenre.size() < nOfMusics) System.out.println("there are not enought musics");
         else{
-            int[] listOdIndexes = new int[nOfMusics];
-            for(int i = 0; i < nOfMusics; i++){
-                boolean alreadyAddedIndex = false;
-                int randomIndex = (int)(Math.random()*nOfMusics);
-                for(int k = 0; k < nOfMusics; k++){
-                    if(listOdIndexes[k] == randomIndex) alreadyAddedIndex = true;
-                }
+            int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size());
+            for(int i = 0; i < listOfIndexes.length; i++){
+                randomChosenMusic.add(musicOfTheChosenGenre.get(listOfIndexes[0]));
             }
+            currentUser.newCollection(randomChosenMusic);
         }
+    }
+    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
+        //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades.
+        //Ver metodo nweRandomPLaylist
+        int[] listOfIndexes = new int[3];
+        ArrayList<Integer> addedIndexes = new ArrayList<>();
+
+        for (int i = 0; i < 3; i++) {
+            int randomIndex;
+            do {
+                randomIndex = (int) (Math.floor(Math.random() * 45));
+            } while (addedIndexes.contains(randomIndex));
+
+            listOfIndexes[i] = randomIndex;
+            addedIndexes.add(randomIndex);
+        }
+        return listOfIndexes;
     }
 }

@@ -29,6 +29,7 @@ public abstract class User implements Serializable {
         this.allCollections = new ArrayList<>();
     }
     public abstract void newCollection(String name);
+    public abstract void newCollection(ArrayList<Music> listMusic);
     public abstract ArrayList<MusicCollection> seeAllCollection();
     public abstract void addMusicToCollection(Music music, MusicCollection musicCollection);
 }
