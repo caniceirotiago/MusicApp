@@ -12,6 +12,10 @@ public class Music {
     private boolean isActive;
     private double classification;
 
+    public RockstarIncManager.GENRE getGenre() {
+        return genre;
+    }
+
     public Music(String name, RockstarIncManager.GENRE genre, MusicCreator musicCreator, double price) {
         this.name = name;
         this.genre = genre;

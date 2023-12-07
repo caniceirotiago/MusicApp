@@ -75,6 +75,20 @@ public class RockstarIncManager  implements Serializable {
         music.addEvaluation((Client)currentUser, evaluation);
     }
     public void newRandomPlaylist(GENRE genre, int nOfMusics){
-
+        ArrayList<Music> musicOfTheChossenGenre = new ArrayList<>();
+        for(Music m : musicList){
+            if(m.getGenre().equals(genre)) musicOfTheChossenGenre.add(m);
+        }
+        if(musicOfTheChossenGenre.size() < nOfMusics) System.out.println("there are not enought musics");
+        else{
+            int[] listOdIndexes = new int[nOfMusics];
+            for(int i = 0; i < nOfMusics; i++){
+                boolean alreadyAddedIndex = false;
+                int randomIndex = (int)(Math.random()*nOfMusics);
+                for(int k = 0; k < nOfMusics; k++){
+                    if(listOdIndexes[k] == randomIndex) alreadyAddedIndex = true;
+                }
+            }
+        }
     }
 }
