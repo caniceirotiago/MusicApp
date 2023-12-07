@@ -9,17 +9,18 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
+    private LoginFrame loginFrame;
 
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
         this.userList = new ArrayList<>();
     }
-    //Novo método para iniciar a compunente gráfica (É preciso estudar melhor este método)
+    //Novo método para iniciar a componente gráfica (É preciso estudar melhor este método)
     public void startGUI() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                LoginFrame loginFrame = new LoginFrame(RockstarIncManager.this);
+                loginFrame = new LoginFrame(RockstarIncManager.this);
                 loginFrame.setVisible(true);
             }
         });
@@ -40,7 +41,7 @@ public class RockstarIncManager  implements Serializable {
         }
         if(sucessfulLogin)  {
             SwingUtilities.invokeLater(() -> {
-                loginButton.setText("Feito");
+                loginFrame.dispose();
             });
         }
         else {
