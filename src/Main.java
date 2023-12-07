@@ -32,7 +32,7 @@ public class Main {
         }
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        /*
+        /* para depois reativar
         //Abre o ficheiro de objeto (cria um se não existir) e lê o ficheiro de objetos
         try{
             FileInputStream fis = new FileInputStream("mainSaveFile");
@@ -64,7 +64,7 @@ public class Main {
             }
         }, delay, interval);
         */
-        //para depois apagar
+        //para depois apagar abaixo
         FileInputStream fis = new FileInputStream("mainSaveFile");
         ObjectInputStream ois = new ObjectInputStream(fis);
         gc = (RockstarIncManager) ois.readObject();
