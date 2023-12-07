@@ -32,7 +32,7 @@ public class RockstarIncManager  implements Serializable {
         //Inicia o método gráfico
         startGUI();
     };
-    public void login(String username, String password, JButton loginButton){
+    public void login(String username, String password){
         //Lógica essencial do login concluida
         //Falta atribuir o corrent user se o login for bem feito
         boolean sucessfulLogin = false;
@@ -46,7 +46,7 @@ public class RockstarIncManager  implements Serializable {
         }
         else {
             SwingUtilities.invokeLater(() -> {
-                loginButton.setText("errado");
+
             });
         }
     };

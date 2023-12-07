@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public class LoginRegistrationFrame extends JFrame implements Serializable {
-    private JButton login;
-    private JButton registo;
-    private JButton sair;
+    private JButton btnLogin;
+    private JButton btnRegistration;
+    private JButton btnExit;
     private RockstarIncManager manager;
     private JLabel background;
     private Container c;
+    private JTextField usernameField;
+    private JPasswordField userPasswordField;
 
     public LoginRegistrationFrame(RockstarIncManager manager) {
         super("Login and Registration"); // Define o título da janela
@@ -36,8 +38,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
         pack();
 
         //botao login
-        login = new JButton("Login");
-        login.addActionListener(new ActionListener() {
+        btnLogin = new JButton("Login");
+        btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -47,16 +49,17 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                 constraints.gridx= GridBagConstraints.REMAINDER;
                 constraints.gridy = GridBagConstraints.RELATIVE;
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
-                background =  new JLabel(new ImageIcon("/Users/utilizador/Desktop/Acertar o Rumo/Project/imageLogin.jpeg"));
+                background =  new JLabel(new ImageIcon("imageLogin.jpeg"));
                 background.setLayout(new BorderLayout());
+
                 //elementos para meter no novo painel
-                JTextField userName = new JTextField("Set your username",15);
-                JPasswordField userPass = new JPasswordField(15);
-                JButton userLogin = new JButton("login");
-                userLogin.addActionListener(new ActionListener() {
+                usernameField = new JTextField("Set your username",15);
+                userPasswordField = new JPasswordField(15);
+                JButton loginConfirmationBtn = new JButton("Login");
+                loginConfirmationBtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Esta a funcionar");
+                        onLoginConfirmationBtnClick();
                     }
                 });
                 JButton userGoBack = new JButton("Go Back");
@@ -70,9 +73,9 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                     }
                 });
                 //adicional estes elementos ao painel
-                loginPanel.add(userName,constraints);
-                loginPanel.add(userPass, constraints);
-                loginPanel.add(userLogin, constraints);
+                loginPanel.add(usernameField,constraints);
+                loginPanel.add(userPasswordField, constraints);
+                loginPanel.add(loginConfirmationBtn, constraints);
                 loginPanel.add(userGoBack, constraints);
                 loginPanel.add(background,constraints);
                 getContentPane().remove(c);
@@ -83,8 +86,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
             }
         });
         //adicionar o action listener aqui ao botao;
-        registo = new JButton("registo");
-        registo.addActionListener(new ActionListener() {
+        btnRegistration = new JButton("registo");
+        btnRegistration.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel registoPanel = new JPanel(new GridBagLayout());
@@ -92,7 +95,7 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                 constraints.gridx= GridBagConstraints.REMAINDER;
                 constraints.gridy = GridBagConstraints.RELATIVE;
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
-                background =  new JLabel(new ImageIcon("/Users/utilizador/Desktop/Acertar o Rumo/Project/imageRegisto.jpeg"));
+                background =  new JLabel(new ImageIcon("imageRegisto.jpeg"));
                 background.setLayout(new BorderLayout());
 
                 //atributos deste painel
@@ -137,8 +140,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
             }
         });
         //adicionar action listener aqui
-        sair = new JButton("Sair");
-        sair.addActionListener(new ActionListener() {
+        btnExit = new JButton("Sair");
+        btnExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -148,15 +151,21 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
 
 
         //imagem de fundo do painel da app
-        background =  new JLabel(new ImageIcon("/Users/utilizador/Desktop/Acertar o Rumo/Project/backGroundImage.png"));//adicionar ficheiro de imagem );
+        background =  new JLabel(new ImageIcon("backGroundImage.png"));//adicionar ficheiro de imagem );
         background.setLayout(new BorderLayout());
         c.add(background,BorderLayout.CENTER);
 
         //painel botoes
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.add(login);
-        buttonsPanel.add(registo);
-        buttonsPanel.add(sair);
+        buttonsPanel.add(btnLogin);
+        buttonsPanel.add(btnRegistration);
+        buttonsPanel.add(btnExit);
         c.add(buttonsPanel, BorderLayout.SOUTH);
+    }
+    public void onLoginConfirmationBtnClick(){
+        String userField = usernameField.getText();
+        char[] passField = userPasswordField.getPassword();
+        String passToString = new String(passField);
+        manager.login(userField,passToString);
     }
 }

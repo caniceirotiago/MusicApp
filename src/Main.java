@@ -65,12 +65,10 @@ public class Main {
         }, delay, interval);
         */
         //para depois apagar abaixo
-        FileInputStream fis = new FileInputStream("mainSaveFile");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        gc = (RockstarIncManager) ois.readObject();
-        ois.close();
+
 
         //Corre o programa com o ficheiro de dados gravados
+        RockstarIncManager gc = new RockstarIncManager();
         gc.run();
 
         //grava dados do programa ao fechar
