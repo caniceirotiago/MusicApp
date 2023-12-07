@@ -9,7 +9,7 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
-    private LoginFrame loginFrame;
+    private LoginRegistrationFrame loginRegistrationFrame;
 
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
@@ -20,8 +20,8 @@ public class RockstarIncManager  implements Serializable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                loginFrame = new LoginFrame(RockstarIncManager.this);
-                loginFrame.setVisible(true);
+                loginRegistrationFrame = new LoginRegistrationFrame(RockstarIncManager.this);
+                loginRegistrationFrame.setVisible(true);
             }
         });
     }
@@ -41,7 +41,7 @@ public class RockstarIncManager  implements Serializable {
         }
         if(sucessfulLogin)  {
             SwingUtilities.invokeLater(() -> {
-                loginFrame.dispose();
+                loginRegistrationFrame.dispose();
             });
         }
         else {
