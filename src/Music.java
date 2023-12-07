@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class Music {
     private String name;
-    private RockstarIncManager.genre genre; //Confirmar localização do enum, para já acho que fica na classe manager
+    private RockstarIncManager.GENRE genre; //Confirmar localização do enum, para já acho que fica na classe manager
     private MusicCreator musicCreator;
     private ArrayList<MusicEvaluation> evaluationList;
     private double price;
     private boolean isActive;
     private double classification;
 
-    public Music(String name, RockstarIncManager.genre genre, MusicCreator musicCreator, double price) {
+    public Music(String name, RockstarIncManager.GENRE genre, MusicCreator musicCreator, double price) {
         this.name = name;
         this.genre = genre;
         this.musicCreator = musicCreator;        //Para já apenas um criador por musica

@@ -16,7 +16,7 @@ public class Statistic extends RockstarIncManager {
 
     public void numberOfUsers(){
     }
-    public void totalMusicsByGenre(RockstarIncManager.genre genre){
+    public void totalMusicsByGenre(RockstarIncManager.GENRE genre){
         //pesquisar musicas por genero
     };
     public void totalMusics(){
