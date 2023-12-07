@@ -12,7 +12,10 @@ public class MusicCreator extends User{
 
     @Override
     public void newCollection(String name) {
-
+        //Creating an empty
+    }
+    public void newCollection(ArrayList<Music> listMusic) {
+        //Creating random or other
     }
 
     @Override

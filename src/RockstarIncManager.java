@@ -75,6 +75,35 @@ public class RockstarIncManager  implements Serializable {
         music.addEvaluation((Client)currentUser, evaluation);
     }
     public void newRandomPlaylist(GENRE genre, int nOfMusics){
+        ArrayList<Music> musicOfTheChosenGenre = new ArrayList<>();
+        ArrayList<Music> randomChosenMusic = new ArrayList<>();
+        for(Music m : musicList){
+            if(m.getGenre().equals(genre)) musicOfTheChosenGenre.add(m);
+        }
+        if(musicOfTheChosenGenre.size() < nOfMusics) System.out.println("there are not enought musics");
+        else{
+            int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size());
+            for(int i = 0; i < listOfIndexes.length; i++){
+                randomChosenMusic.add(musicOfTheChosenGenre.get(listOfIndexes[0]));
+            }
+            currentUser.newCollection(randomChosenMusic);
+        }
+    }
+    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
+        //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades.
+        //Ver metodo nweRandomPLaylist
+        int[] listOfIndexes = new int[3];
+        ArrayList<Integer> addedIndexes = new ArrayList<>();
 
+        for (int i = 0; i < 3; i++) {
+            int randomIndex;
+            do {
+                randomIndex = (int) (Math.floor(Math.random() * 45));
+            } while (addedIndexes.contains(randomIndex));
+
+            listOfIndexes[i] = randomIndex;
+            addedIndexes.add(randomIndex);
+        }
+        return listOfIndexes;
     }
 }

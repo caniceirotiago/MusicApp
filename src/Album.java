@@ -8,16 +8,16 @@ public class Album extends MusicCollection {
     private ArrayList<MusicCreator> otherCreators;
 
     //construtor de album apenas com 1 criador
-    public Album(String name, LocalDateTime creationDate, MusicCreator mainCreator) {
-        super(name, creationDate);
+
+
+    public Album(String name, MusicCreator mainCreator) {
+        super(name);
         this.mainCreator = mainCreator;
     }
 
-    //contrutor de albuns em conjunto
-    public Album(String name, LocalDateTime creationDate, MusicCreator mainCreator, ArrayList<MusicCreator> otherCreators) {
-        super(name, creationDate);
+    public Album(String name, ArrayList<Music> musicList, MusicCreator mainCreator) {
+        super(name, musicList);
         this.mainCreator = mainCreator;
-        this.otherCreators = otherCreators;
     }
 
     @Override

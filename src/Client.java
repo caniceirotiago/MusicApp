@@ -17,7 +17,12 @@ public class Client extends User{
     }
 
     public void newCollection(String name){
-
+        //Creation of Empty playlist
+        allCollections.add(new Playlist("Random Creation", this));
+    };
+    public void newCollection(ArrayList<Music> listOfMusic){
+        //Creation of collection by random methods
+        allCollections.add(new Playlist("Random Creation", this, listOfMusic));
     };
     public ArrayList<MusicCollection> seeAllCollection(){
         return new ArrayList<>();
