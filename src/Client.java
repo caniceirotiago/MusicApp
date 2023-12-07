@@ -29,8 +29,7 @@ public class Client extends User{
         balance += moneyToAdd;
         listOfBalanceDeposits.add(new BalanceDeposit(moneyToAdd));
     }
-    public void classificateMusic(){}
-    public void newRandomPlaylist(){} //talvez seja melhor ir para a classe principal
+
     public void addMusicToAllMusicUserCollection(){}
     public void calculatePriceOfMusicToBuy(){}
     public void validationOfAquisition(){}

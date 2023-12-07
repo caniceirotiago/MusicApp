@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RockstarIncManager  implements Serializable {
-    public static enum genre{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
+    public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
@@ -69,5 +69,12 @@ public class RockstarIncManager  implements Serializable {
     public ArrayList<User> getCurrentUsers(){
         //vai buscar a lista toda de utilizadores
         return userList;
+    }
+    public void evaluateMusic(Music music, int evaluation){
+        //Chama método para adicionar avaliação na classe Music
+        music.addEvaluation((Client)currentUser, evaluation);
+    }
+    public void newRandomPlaylist(GENRE genre, int nOfMusics){
+
     }
 }
