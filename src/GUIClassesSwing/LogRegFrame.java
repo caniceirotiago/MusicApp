@@ -9,7 +9,7 @@ public class LogRegFrame extends JFrame {
         return constraints;
     }
     public LogRegFrame()  {
-        setSize(450,450);
+        setSize(250,350);
         setBackground(Color.GRAY);
         setUndecorated(true);
         setVisible(true);

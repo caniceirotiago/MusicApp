@@ -31,20 +31,34 @@ public class RockstarIncManager  implements Serializable {
     public void run(){
         //Criei um client só para experimentar Login.. depois é para apagar
         userList.add(new Client("as","as","as","as",0));
+        userList.add(new MusicCreator("qw","qw","qw","qw","qw"));
         //Inicia o método gráfico
         startGUI();
     };
-    public void login(String username, String password){
-        //Lógica essencial do login concluida
+    public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
+
         boolean sucessfulLogin = false;
+        // O loop passa por todos os users compara se o user é cliente e o pedido de login é de cliente
+        //compara se o user é musiccreator e o pedido do login também o é e os restantes e se os restantes parâmetros são verdadeiros
         for(User us : userList){
-            if(us.getUsername().equals(username) && us.getUsername().equals(username)){
-                sucessfulLogin = true;
-                currentUser = us;
+            if(us instanceof Client && !isMCreator && us.getUsername().equals(username) && us.getPassword().equals(password)){
+            sucessfulLogin = true;
+            currentUser = us;
+            }
+            else if(us instanceof MusicCreator && isMCreator && us.getUsername().equals(username) && us.getPassword().equals(password)){
+                if(((MusicCreator)us).getPin().equals(pin)){
+                    sucessfulLogin = true;
+                    currentUser = us;
+                }
             }
         }
         if(sucessfulLogin)  {
-           guiManager.sucessfullLogin();
+           guiManager.sucessfullLogin(currentUser.getUsername(), isMCreator);
+            System.out.println("Successful Login");
+        }
+        else {
+            System.out.println("Wrong Login");
+            guiManager.unsucessfullLogin();
         }
 
     };

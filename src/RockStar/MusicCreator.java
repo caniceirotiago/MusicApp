@@ -3,9 +3,13 @@ package src.RockStar;
 import java.util.ArrayList;
 
 public class MusicCreator extends User{
-    private int pin;
+    private String pin;
 
-    public MusicCreator(String name, String username, String password, String email, int pin) {
+    public String getPin() {
+        return pin;
+    }
+
+    public MusicCreator(String name, String username, String password, String email, String pin) {
         super(username, password, name, email);
         this.pin = pin;
     }

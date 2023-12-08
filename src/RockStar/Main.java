@@ -22,7 +22,7 @@ public class Main {
             gc = new RockstarIncManager();
             oos.writeObject(gc);
             oos.close();
-            System.out.println("Arquivo criado com sucesso.");
+            System.out.println("Save File created successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }

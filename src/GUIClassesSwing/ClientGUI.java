@@ -3,8 +3,8 @@ package src.GUIClassesSwing;
 import javax.swing.*;
 
 public class ClientGUI extends JFrame {
-    public ClientGUI(){
-        super("Client");
+    public ClientGUI(String username){
+        super("Client - " + username);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(750,750);
         setLocationRelativeTo(null);

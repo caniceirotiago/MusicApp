@@ -2,8 +2,6 @@ package src.GUIClassesSwing;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public class LoginRegistrationGUI extends JFrame implements Serializable {
@@ -11,15 +9,18 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
     private JLabel background;
     private JLabel userLoginLbl;
     private JLabel passwordLoginLbl;
+    private JLabel loginPinLbl;
     private JButton btnLoginOnMain;
     private JButton btnRegistrationOnMain;
     private JButton btnExitOnMain;
+    private JRadioButton musicCreatorLoginbtn;
     private JButton loginConfirmationBtn;
     private JButton btnConfirmRegistration;
     private JTextField usernameFieldOnLogin;
     private JPasswordField userPasswordFieldOnLogin;
     private JTextField firstNameOnRegistration;
     private JTextField usernameOnRegistration;
+    private JTextField loginPinField;
     private JPasswordField userPasswordFieldOnRegistation;
     private JPasswordField userPasswordFieldOnRegistationConf;
     private JTextField emailOnRegistration;
@@ -46,17 +47,14 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
         setVisible(true);
         setLocationRelativeTo(null);
         setResizable(false);
-
-
-
-
-        ImageIcon imageIcon = new ImageIcon("images/headphone.png");
+        ImageIcon imageIcon = new ImageIcon(ImagePaths.APP_ICON);
         setIconImage(imageIcon.getImage());
+
     }
     private void initComponents() {
 
         //Background image input
-        background =  new JLabel(new ImageIcon("images/backGroundImage.png"));
+        background =  new JLabel(new ImageIcon(ImagePaths.Login_Registration_Background));
 
         //Creating Main Container in a BorderLayout style
         Container mainContainer = new Container();
@@ -94,11 +92,16 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
                 if(loginFrame == null){
                     loginFrame = guiManager.creationLoginFrame();
                     GridBagConstraints constraints = loginFrame.getConstraints();
+
                     loginPanel =  new JPanel(new GridBagLayout());
                     userLoginLbl = new JLabel("Username");
                     usernameFieldOnLogin = new JTextField("",15);
                     passwordLoginLbl = new JLabel("Password");
-                    userPasswordFieldOnLogin = new JPasswordField("*******", 15);
+                    userPasswordFieldOnLogin = new JPasswordField("", 15);
+                    musicCreatorLoginbtn = new JRadioButton("Music Creator Access");
+                    musicCreatorLoginbtn.addActionListener(e -> onRadioMusicCreatorBtnClick());
+                    loginPinLbl = new JLabel("PIN");
+                    loginPinField = new JTextField("",6);
                     loginConfirmationBtn = new JButton("Login");
                     loginConfirmationBtn.addActionListener(e -> onLoginConfirmationBtnClick());
 
@@ -106,7 +109,12 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
                     loginPanel.add(usernameFieldOnLogin,constraints);
                     loginPanel.add(passwordLoginLbl,constraints);
                     loginPanel.add(userPasswordFieldOnLogin, constraints);
+                    loginPanel.add(musicCreatorLoginbtn,constraints);
+                    loginPanel.add(loginPinLbl,constraints);
+                    loginPanel.add(loginPinField,constraints);
                     loginPanel.add(loginConfirmationBtn, constraints);
+                    loginPinLbl.setVisible(false);
+                    loginPinField.setVisible(false);
 
                     loginFrame.setContentPane(loginPanel);
                     loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -117,7 +125,8 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
             case 2:
                 if(registrationFrame == null){
                     registrationFrame = guiManager.creationRegistrationFrame();
-                    GridBagConstraints constraints = loginFrame.getConstraints();
+                    GridBagConstraints constraints = registrationFrame.getConstraints();
+
                     registationPanel = new JPanel(new GridBagLayout());
                     firstNameOnRegistration =  new JTextField("First name",15);
                     usernameOnRegistration =  new JTextField("username",15);
@@ -150,7 +159,12 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
         String userField = usernameFieldOnLogin.getText();
         char[] passField = userPasswordFieldOnLogin.getPassword();
         String passToString = new String(passField);
-        guiManager.login(userField,passToString);
+        String pin = loginPinField.getText();
+        if(musicCreatorLoginbtn.isSelected()){
+            guiManager.loginAttempt(userField,passToString,true,pin);
+        } else if (!musicCreatorLoginbtn.isSelected()) {
+            guiManager.loginAttempt(userField,passToString,false,pin);
+        }
     }
     public void onbtnConfirmRegistrationClick(){
         String name = firstNameOnRegistration.getText();
@@ -163,9 +177,22 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
 
         String passToString = new String(passField);
         String passToStringConf = new String(passFieldConfirmation);
-        if(!passToString.equals(passToStringConf)) System.out.println("diferent passwords");
+        if(!passToString.equals(passToStringConf)) System.out.println("different passwords");
         else{
             guiManager.newUser(name,usernameField,passToString,email);
         }
     };
+    public void onRadioMusicCreatorBtnClick(){
+        if(musicCreatorLoginbtn.isSelected()){
+            loginPinLbl.setVisible(true);
+            loginPinField.setVisible(true);
+            loginPanel.revalidate();
+            loginPanel.repaint();
+        } else if (!musicCreatorLoginbtn.isSelected()) {
+            loginPinLbl.setVisible(false);
+            loginPinField.setVisible(false);
+            loginPanel.revalidate();
+            loginPanel.repaint();
+        }
+    }
 }
