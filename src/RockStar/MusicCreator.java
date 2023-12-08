@@ -17,8 +17,6 @@ public class MusicCreator extends User{
     }
     public void newCollection(ArrayList<Music> listMusic) {
 
-        //
-
     }
 
     @Override
@@ -28,7 +26,9 @@ public class MusicCreator extends User{
     @Override
     public void addMusicToCollection(Music music, MusicCollection musicCollection) {
         //sera que isto assim funciona?
-        allMusic.add(music);
+        //lista de albuns
+        //pega numa musica especifica e num album especifico e coloca-a la dentro
+
     }
 
     public void editMusic(Music music, MusicCollection musicCollection){
@@ -36,11 +36,12 @@ public class MusicCreator extends User{
         //music.setPrice();
     };
 
-    //esta funcao esta bem?
-    public void createMusic(Music music, RockstarIncManager.GENRE genre, double price){
-        new Music("artist", genre,this, price);
+    public Music createMusic(String name, RockstarIncManager.GENRE genre, double price){
+        Music music = new Music(name, genre,this, price);
         //adiciona logo a musica à all music?
         allMusic.add(music);
+        return music;
+
     }
     public void seeStatistics(){};
 }

@@ -113,4 +113,7 @@ public class RockstarIncManager  implements Serializable {
         }
         return listOfIndexes;
     }
+    public void newMusic( MusicCreator creator){
+
+    }
 }
