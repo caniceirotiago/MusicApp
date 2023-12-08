@@ -51,4 +51,14 @@ public class Music {
     }
     //Se o cliente já existir atribui um valor diferente à classificação já existente evitando duplicados
     //Se o cliente não tiver atribuido uma classificação faz uma nova
+
+    //getters e setters para a edição da musica por parte do music creator
+
+    public String getName() {return name;}
+
+    public void setName(String name) {this.name = name;}
+
+    public double getPrice() {return price;}
+
+    public void setPrice(double price) {this.price = price;}
 }
