@@ -11,7 +11,10 @@ public class LogRegFrame extends JFrame {
     public LogRegFrame()  {
         setSize(450,450);
         setBackground(Color.GRAY);
+        setUndecorated(true);
+        setVisible(true);
         setLocationRelativeTo(null);
+        setResizable(false);
         getContentPane();
         constraints =  new GridBagConstraints();
         constraints.gridx= GridBagConstraints.REMAINDER;

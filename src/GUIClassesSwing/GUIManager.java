@@ -8,7 +8,8 @@ import java.io.Serializable;
 public class GUIManager implements Serializable {
     private ClientGUI clientFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
-    private LogRegFrame logRegFrame;
+    private LogRegFrame loginFrame;
+    private LogRegFrame registrationFrame;
     private RockstarIncManager logicManager;
 
     public GUIManager(RockstarIncManager logicManager) {
@@ -24,15 +25,21 @@ public class GUIManager implements Serializable {
         SwingUtilities.invokeLater(() -> {
             new ClientGUI();
             loginRegistrationGUI.setVisible(false);
-            logRegFrame.dispose();
+            loginFrame.dispose();
+            if(registrationFrame != null) registrationFrame.dispose();
         });
     }
     public void newUser(String name,String usernameField,String password,String email){
         logicManager.newUser(name, usernameField,password,email);
     }
-    public LogRegFrame creationLogRegFrame(){
-        LogRegFrame lrf = new LogRegFrame();
-        this.logRegFrame = lrf;
-        return lrf;
+    public LogRegFrame creationLoginFrame(){
+        LogRegFrame lf = new LogRegFrame();
+        this.loginFrame = lf;
+        return lf;
+    }
+    public LogRegFrame creationRegistrationFrame(){
+        LogRegFrame rf = new LogRegFrame();
+        this.registrationFrame = rf;
+        return rf;
     }
 }

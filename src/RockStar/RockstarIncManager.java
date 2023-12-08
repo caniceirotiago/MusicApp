@@ -113,7 +113,9 @@ public class RockstarIncManager  implements Serializable {
         }
         return listOfIndexes;
     }
-    public void newMusic( MusicCreator creator){
-
+    public void newCreationOfMusic(String name,GENRE genre, double price){
+        Music music = new Music(name, genre,(MusicCreator) currentUser, price);
+        musicList.add(music);
+        ((MusicCreator) currentUser).addCreatedMusic(music);
     }
 }

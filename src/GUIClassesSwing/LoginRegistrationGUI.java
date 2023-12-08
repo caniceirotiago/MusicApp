@@ -25,7 +25,8 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
     private JTextField emailOnRegistration;
     private JPopupMenu userTypeOnRegistration;
     private JTextField pinOnRegistration;
-    private LogRegFrame loginOrRegistFrame;
+    private LogRegFrame loginFrame = null;
+    private LogRegFrame registrationFrame = null;
     private Container loginOrRegistContainer;
     private JPanel loginPanel;
     private JPanel registationPanel;
@@ -40,12 +41,17 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
         // Configurações padrão da janela
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(750, 750);
-        setLocationRelativeTo(null); // Centraliza a janela na tela
-        //setCursor(Cursor.getDefaultCursor());
+
+        setUndecorated(true);
         setVisible(true);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+
+
+
         ImageIcon imageIcon = new ImageIcon("images/headphone.png");
         setIconImage(imageIcon.getImage());
-
     }
     private void initComponents() {
 
@@ -70,72 +76,73 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
         mainContainer.add(btnContainer,"South");
         mainContainer.add(background);
 
+
         btnLoginOnMain.addActionListener(e -> {
             creationOfLoginAndRegistrationFrame(1);
         });
-
         btnRegistrationOnMain.addActionListener(e -> {
             creationOfLoginAndRegistrationFrame(2);
         });
-        //adicionar action listener aqui
+        btnExitOnMain.addActionListener(e -> System.exit(0)); // nao pode ser system on exit, (fazer metodo update)
 
-        btnExitOnMain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        this.add(mainContainer);
+        add(mainContainer);
     }
     public void creationOfLoginAndRegistrationFrame(int option){
-        loginOrRegistFrame = guiManager.creationLogRegFrame();
-        GridBagConstraints constraints = loginOrRegistFrame.getConstraints();
+        //adicionar nota explicativa
         switch (option){
             case 1:
-                loginPanel =  new JPanel(new GridBagLayout());
-                userLoginLbl = new JLabel("Username");
-                usernameFieldOnLogin = new JTextField("",15);
-                passwordLoginLbl = new JLabel("Password");
-                userPasswordFieldOnLogin = new JPasswordField("*******", 15);
-                loginConfirmationBtn = new JButton("Login");
-                loginConfirmationBtn.addActionListener(e -> onLoginConfirmationBtnClick());
+                if(loginFrame == null){
+                    loginFrame = guiManager.creationLoginFrame();
+                    GridBagConstraints constraints = loginFrame.getConstraints();
+                    loginPanel =  new JPanel(new GridBagLayout());
+                    userLoginLbl = new JLabel("Username");
+                    usernameFieldOnLogin = new JTextField("",15);
+                    passwordLoginLbl = new JLabel("Password");
+                    userPasswordFieldOnLogin = new JPasswordField("*******", 15);
+                    loginConfirmationBtn = new JButton("Login");
+                    loginConfirmationBtn.addActionListener(e -> onLoginConfirmationBtnClick());
 
-                loginPanel.add(userLoginLbl,constraints);
-                loginPanel.add(usernameFieldOnLogin,constraints);
-                loginPanel.add(passwordLoginLbl,constraints);
-                loginPanel.add(userPasswordFieldOnLogin, constraints);
-                loginPanel.add(loginConfirmationBtn, constraints);
+                    loginPanel.add(userLoginLbl,constraints);
+                    loginPanel.add(usernameFieldOnLogin,constraints);
+                    loginPanel.add(passwordLoginLbl,constraints);
+                    loginPanel.add(userPasswordFieldOnLogin, constraints);
+                    loginPanel.add(loginConfirmationBtn, constraints);
 
-                loginOrRegistFrame.setContentPane(loginPanel);
-                loginOrRegistFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                loginOrRegistFrame.setVisible(true);
+                    loginFrame.setContentPane(loginPanel);
+                    loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    loginFrame.setVisible(true);
+                } else loginFrame.setVisible(true);
+
                 break;
             case 2:
-                registationPanel = new JPanel(new GridBagLayout());
+                if(registrationFrame == null){
+                    registrationFrame = guiManager.creationRegistrationFrame();
+                    GridBagConstraints constraints = loginFrame.getConstraints();
+                    registationPanel = new JPanel(new GridBagLayout());
+                    firstNameOnRegistration =  new JTextField("First name",15);
+                    usernameOnRegistration =  new JTextField("username",15);
+                    userPasswordFieldOnRegistation = new JPasswordField("password",15);
+                    userPasswordFieldOnRegistationConf = new JPasswordField("password ",15);
+                    emailOnRegistration =  new JTextField("Add your email",15);
+                    userTypeOnRegistration =  new JPopupMenu("Choose your account type");
+                    pinOnRegistration =  new JTextField(5);
+                    btnConfirmRegistration = new JButton("Confirm Registration");
+                    btnConfirmRegistration.addActionListener(e -> onbtnConfirmRegistrationClick());
 
-                firstNameOnRegistration =  new JTextField("First name",15);
-                usernameOnRegistration =  new JTextField("username",15);
-                userPasswordFieldOnRegistation = new JPasswordField("password",15);
-                userPasswordFieldOnRegistationConf = new JPasswordField("password ",15);
-                emailOnRegistration =  new JTextField("Add your email",15);
-                userTypeOnRegistration =  new JPopupMenu("Choose your account type");
-                pinOnRegistration =  new JTextField(5);
-                btnConfirmRegistration = new JButton("Confirm Registration");
-                btnConfirmRegistration.addActionListener(e -> onbtnConfirmRegistrationClick());
+                    registationPanel.add(firstNameOnRegistration,constraints);
+                    registationPanel.add(usernameOnRegistration,constraints);
+                    registationPanel.add(userPasswordFieldOnRegistation,constraints);
+                    registationPanel.add(userPasswordFieldOnRegistationConf,constraints);
+                    registationPanel.add(emailOnRegistration,constraints);
+                    registationPanel.add(userTypeOnRegistration,constraints);
+                    registationPanel.add(pinOnRegistration,constraints);
+                    registationPanel.add(btnConfirmRegistration,constraints);
 
-                registationPanel.add(firstNameOnRegistration,constraints);
-                registationPanel.add(usernameOnRegistration,constraints);
-                registationPanel.add(userPasswordFieldOnRegistation,constraints);
-                registationPanel.add(userPasswordFieldOnRegistationConf,constraints);
-                registationPanel.add(emailOnRegistration,constraints);
-                registationPanel.add(userTypeOnRegistration,constraints);
-                registationPanel.add(pinOnRegistration,constraints);
-                registationPanel.add(btnConfirmRegistration,constraints);
+                    registrationFrame.setContentPane(registationPanel);
+                    registrationFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    registrationFrame.setVisible(true);
+                } else registrationFrame.setVisible(true);
 
-                loginOrRegistFrame.setContentPane(registationPanel);
-                loginOrRegistFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                loginOrRegistFrame.setVisible(true);
                 break;
         }
     }

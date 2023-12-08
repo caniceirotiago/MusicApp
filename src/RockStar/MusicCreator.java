@@ -36,12 +36,8 @@ public class MusicCreator extends User{
         //music.setPrice();
     };
 
-    public Music createMusic(String name, RockstarIncManager.GENRE genre, double price){
-        Music music = new Music(name, genre,this, price);
-        //adiciona logo a musica à all music?
+    public void addCreatedMusic(Music music){
         allMusic.add(music);
-        return music;
-
     }
     public void seeStatistics(){};
 }
