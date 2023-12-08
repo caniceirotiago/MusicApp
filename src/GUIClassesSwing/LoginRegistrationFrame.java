@@ -36,6 +36,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
         setLocationRelativeTo(null); // Centraliza a janela na tela
         setCursor(Cursor.getDefaultCursor());
         setVisible(true);
+        ImageIcon imageIcon = new ImageIcon("images/headphone.png");
+        setIconImage(imageIcon.getImage());
 
     }
     private void initComponents() {
@@ -56,7 +58,7 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                 constraints.gridx= GridBagConstraints.REMAINDER;
                 constraints.gridy = GridBagConstraints.RELATIVE;
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
-                background =  new JLabel(new ImageIcon("imageLogin.jpeg"));
+                background =  new JLabel(new ImageIcon("images/imageLogin.jpeg"));
                 background.setLayout(new BorderLayout());
 
                 //elementos para meter no novo painel
@@ -102,7 +104,7 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                 constraints.gridx= GridBagConstraints.REMAINDER;
                 constraints.gridy = GridBagConstraints.RELATIVE;
                 constraints.gridwidth = GridBagConstraints.REMAINDER;
-                background =  new JLabel(new ImageIcon("imageRegisto.jpeg"));
+                background =  new JLabel(new ImageIcon("images/imageRegisto.jpeg"));
                 background.setLayout(new BorderLayout());
 
                 //atributos deste painel
@@ -158,7 +160,7 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
 
 
         //imagem de fundo do painel da app
-        background =  new JLabel(new ImageIcon("backGroundImage.png"));//adicionar ficheiro de imagem );
+        background =  new JLabel(new ImageIcon("images/backGroundImage.png"));//adicionar ficheiro de imagem );
         background.setLayout(new BorderLayout());
         c.add(background,BorderLayout.CENTER);
 

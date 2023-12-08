@@ -14,7 +14,6 @@ public class GUIManager implements Serializable {
     }
     public void run(){
         loginRegistrationFrame = new LoginRegistrationFrame(GUIManager.this);
-        loginRegistrationFrame.setVisible(true);
     }
     public void login(String userField,String passToString){
         logicManager.login(userField,passToString);
