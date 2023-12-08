@@ -1,4 +1,7 @@
-package src;
+package src.RockStar;
+
+import src.GUIClassesSwing.GUIManager;
+import src.GUIClassesSwing.LoginRegistrationFrame;
 
 import javax.swing.*;
 import java.io.Serializable;
@@ -9,7 +12,7 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
     private User currentUser;
-    private LoginRegistrationFrame loginRegistrationFrame;
+    private GUIManager guiManager;
 
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
@@ -20,8 +23,8 @@ public class RockstarIncManager  implements Serializable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                loginRegistrationFrame = new LoginRegistrationFrame(RockstarIncManager.this);
-                loginRegistrationFrame.setVisible(true);
+                guiManager = new GUIManager(RockstarIncManager.this);
+                guiManager.run();
             }
         });
     }
@@ -34,26 +37,31 @@ public class RockstarIncManager  implements Serializable {
     };
     public void login(String username, String password){
         //Lógica essencial do login concluida
-        //Falta atribuir o corrent user se o login for bem feito
         boolean sucessfulLogin = false;
         for(User us : userList){
-            if(us.getUsername().equals(username) && us.getUsername().equals(username)) sucessfulLogin = true;
+            if(us.getUsername().equals(username) && us.getUsername().equals(username)){
+                sucessfulLogin = true;
+                currentUser = us;
+            }
         }
         if(sucessfulLogin)  {
-            SwingUtilities.invokeLater(() -> {
-                loginRegistrationFrame.dispose();
-            });
+           guiManager.sucessfullLogin();
         }
-        else {
-            SwingUtilities.invokeLater(() -> {
 
-            });
-        }
     };
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
-    public void newUser(){
-        //new User (nome? condicao?) == super.User;
-        //this new user is added to users arraylist;
+    public void newUser(String name,String username,String password,String email){
+        boolean emailAlreadyExists = false;
+        for(User us : userList){
+            if(us.getEmail().equals(email)){
+                System.out.println("Registo already exists");
+                emailAlreadyExists = true;
+            }
+        }
+        if(!emailAlreadyExists){
+            userList.add(new Client(name, username,password,email,0));
+            System.out.println("New client created");
+        }
     };
 
     public ArrayList<Music> listByOrder(ArrayList<Music> musicList){

@@ -1,4 +1,4 @@
-package src;
+package src.GUIClassesSwing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,25 +7,32 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public class LoginRegistrationFrame extends JFrame implements Serializable {
-    private JButton btnLogin;
-    private JButton btnRegistration;
-    private JButton btnExit;
-    private RockstarIncManager manager;
+    GUIManager guiManager;
+    private JButton btnLoginOnMain;
+    private JButton btnRegistrationOnMain;
+    private JButton btnExitOnMain;
     private JLabel background;
     private Container c;
-    private JTextField usernameField;
-    private JPasswordField userPasswordField;
+    private JTextField usernameFieldOnLogin;
+    private JPasswordField userPasswordFieldOnLogin;
+    private JTextField firstNameOnRegistration;
+    private JTextField usernameOnRegistration;
+    private JPasswordField userPasswordFieldOnRegistation;
+    private JPasswordField userPasswordFieldOnRegistationConf;
+    private JTextField emailOnRegistration;
+    private JPopupMenu userTypeOnRegistration;
+    private JTextField pinOnRegistration;
 
-    public LoginRegistrationFrame(RockstarIncManager manager) {
+    public LoginRegistrationFrame(GUIManager guiManager) {
         super("Login and Registration"); // Define o título da janela
 
-        this.manager = manager;
+        this.guiManager = guiManager;
         // Inicializa os componentes gráficos
         initComponents();
 
         // Configurações padrão da janela
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(750, 750);
         setLocationRelativeTo(null); // Centraliza a janela na tela
         setCursor(Cursor.getDefaultCursor());
         setVisible(true);
@@ -38,8 +45,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
         pack();
 
         //botao login
-        btnLogin = new JButton("Login");
-        btnLogin.addActionListener(new ActionListener() {
+        btnLoginOnMain = new JButton("Login");
+        btnLoginOnMain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -53,8 +60,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                 background.setLayout(new BorderLayout());
 
                 //elementos para meter no novo painel
-                usernameField = new JTextField("Set your username",15);
-                userPasswordField = new JPasswordField(15);
+                usernameFieldOnLogin = new JTextField("Set your username",15);
+                userPasswordFieldOnLogin = new JPasswordField(15);
                 JButton loginConfirmationBtn = new JButton("Login");
                 loginConfirmationBtn.addActionListener(new ActionListener() {
                     @Override
@@ -73,8 +80,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                     }
                 });
                 //adicional estes elementos ao painel
-                loginPanel.add(usernameField,constraints);
-                loginPanel.add(userPasswordField, constraints);
+                loginPanel.add(usernameFieldOnLogin,constraints);
+                loginPanel.add(userPasswordFieldOnLogin, constraints);
                 loginPanel.add(loginConfirmationBtn, constraints);
                 loginPanel.add(userGoBack, constraints);
                 loginPanel.add(background,constraints);
@@ -86,8 +93,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
             }
         });
         //adicionar o action listener aqui ao botao;
-        btnRegistration = new JButton("registo");
-        btnRegistration.addActionListener(new ActionListener() {
+        btnRegistrationOnMain = new JButton("registo");
+        btnRegistrationOnMain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel registoPanel = new JPanel(new GridBagLayout());
@@ -99,20 +106,18 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                 background.setLayout(new BorderLayout());
 
                 //atributos deste painel
-                JTextField firstName =  new JTextField("First name",15);
-                JTextField lastName =  new JTextField(15);
-                JTextField email =  new JTextField("Add your email",15);
-                JPopupMenu userType =  new JPopupMenu("Choose your account type");
-                JTextField pin =  new JTextField(5);
-                JButton goToLoginPage = new JButton("Go to login");
-                goToLoginPage.addActionListener(new ActionListener() {
+                firstNameOnRegistration =  new JTextField("First name",15);
+                usernameOnRegistration =  new JTextField("username",15);
+                userPasswordFieldOnRegistation = new JPasswordField("password",15);
+                userPasswordFieldOnRegistationConf = new JPasswordField("password ",15);
+                emailOnRegistration =  new JTextField("Add your email",15);
+                userTypeOnRegistration =  new JPopupMenu("Choose your account type");
+                pinOnRegistration =  new JTextField(5);
+                JButton btnConfirmRegistration = new JButton("Confirm Registration");
+                btnConfirmRegistration.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        getContentPane().remove(registoPanel);
-                        setContentPane(c);//aqui falta colocar a opcao de ir diretamente para o login e vice versa
-                        //problema é que o panel do login esta fora de scope e nao sei como o ir buscar;
-                        revalidate();
-                        repaint();
+                        onbtnConfirmRegistrationClick();
                     }
                 });
                 JButton goToMainPage = new JButton("Go to main page");
@@ -125,12 +130,14 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
                         repaint();
                     }
                 });
-                registoPanel.add(firstName,constraints);
-                registoPanel.add(lastName,constraints);
-                registoPanel.add(email,constraints);
-                registoPanel.add(userType,constraints);
-                registoPanel.add(pin,constraints);
-                registoPanel.add(goToLoginPage,constraints);
+                registoPanel.add(firstNameOnRegistration,constraints);
+                registoPanel.add(usernameOnRegistration,constraints);
+                registoPanel.add(userPasswordFieldOnRegistation,constraints);
+                registoPanel.add(userPasswordFieldOnRegistationConf,constraints);
+                registoPanel.add(emailOnRegistration,constraints);
+                registoPanel.add(userTypeOnRegistration,constraints);
+                registoPanel.add(pinOnRegistration,constraints);
+                registoPanel.add(btnConfirmRegistration,constraints);
                 registoPanel.add(goToMainPage,constraints);
                 registoPanel.add(background,constraints);
                 getContentPane().remove(c);
@@ -140,8 +147,8 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
             }
         });
         //adicionar action listener aqui
-        btnExit = new JButton("Sair");
-        btnExit.addActionListener(new ActionListener() {
+        btnExitOnMain = new JButton("Sair");
+        btnExitOnMain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -157,15 +164,31 @@ public class LoginRegistrationFrame extends JFrame implements Serializable {
 
         //painel botoes
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.add(btnLogin);
-        buttonsPanel.add(btnRegistration);
-        buttonsPanel.add(btnExit);
+        buttonsPanel.add(btnLoginOnMain);
+        buttonsPanel.add(btnRegistrationOnMain);
+        buttonsPanel.add(btnExitOnMain);
         c.add(buttonsPanel, BorderLayout.SOUTH);
     }
     public void onLoginConfirmationBtnClick(){
-        String userField = usernameField.getText();
-        char[] passField = userPasswordField.getPassword();
+        String userField = usernameFieldOnLogin.getText();
+        char[] passField = userPasswordFieldOnLogin.getPassword();
         String passToString = new String(passField);
-        manager.login(userField,passToString);
+        guiManager.login(userField,passToString);
     }
+    public void onbtnConfirmRegistrationClick(){
+        String name = firstNameOnRegistration.getText();
+        String usernameField = usernameOnRegistration.getText();
+        char[] passField = userPasswordFieldOnRegistation.getPassword();
+        char[] passFieldConfirmation = userPasswordFieldOnRegistationConf.getPassword();
+        String email = emailOnRegistration.getText();
+
+        //falta o tipo de user para já apenas regista client
+
+        String passToString = new String(passField);
+        String passToStringConf = new String(passFieldConfirmation);
+        if(!passToString.equals(passToStringConf)) System.out.println("diferent passwords");
+        else{
+            guiManager.newUser(name,usernameField,passToString,email);
+        }
+    };
 }

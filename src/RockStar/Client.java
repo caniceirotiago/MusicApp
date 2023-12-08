@@ -1,4 +1,4 @@
-package src;
+package src.RockStar;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,8 @@ public class Client extends User{
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
     ArrayList<Music> listOfMusicsToBuy;
 
-    public Client(String username, String password, String name, String email, double balance) {
+
+    public Client(String name, String username, String password, String email, double balance) {
         super(username, password, name, email);
         this.balance = balance;
         this.listOfAcquisitions = new ArrayList<>();

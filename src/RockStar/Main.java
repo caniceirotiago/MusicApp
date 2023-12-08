@@ -1,10 +1,6 @@
-package src;
+package src.RockStar;
 
-import javax.swing.*;
 import java.io.*;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Main {
     // Para a lógica de gravação funcionar houve necessidade que seja estático, confirmar com prof

@@ -1,4 +1,4 @@
-package src;
+package src.RockStar;
 
 public class MusicAquisition {
 }

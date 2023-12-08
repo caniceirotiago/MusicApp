@@ -1,6 +1,5 @@
-package src;
+package src.RockStar;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -20,7 +19,11 @@ public abstract class User implements Serializable {
         return password;
     }
 
-    public User(String username, String password, String name, String email) {
+    public String getEmail() {
+        return email;
+    }
+
+    public User(String name, String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.name = name;

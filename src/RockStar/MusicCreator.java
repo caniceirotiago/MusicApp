@@ -1,11 +1,11 @@
-package src;
+package src.RockStar;
 
 import java.util.ArrayList;
 
 public class MusicCreator extends User{
     private int pin;
 
-    public MusicCreator(String username, String password, String name, String email, int pin) {
+    public MusicCreator(String name, String username, String password, String email, int pin) {
         super(username, password, name, email);
         this.pin = pin;
     }
