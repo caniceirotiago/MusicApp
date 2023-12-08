@@ -1,7 +1,6 @@
 package src.RockStar;
 
 import src.GUIClassesSwing.GUIManager;
-import src.GUIClassesSwing.LoginRegistrationFrame;
 
 import javax.swing.*;
 import java.io.Serializable;
