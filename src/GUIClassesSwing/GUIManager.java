@@ -1,6 +1,5 @@
 package src.GUIClassesSwing;
 
-import src.RockStar.MusicCreator;
 import src.RockStar.RockstarIncManager;
 
 import javax.swing.*;
@@ -20,9 +19,11 @@ public class GUIManager implements Serializable {
     public void run(){
         loginRegistrationGUI = new LoginRegistrationGUI(GUIManager.this);
     }
+    //Passa a lógica da tentativa de login para a classe lógica
     public void loginAttempt(String userField, String passToString, boolean isMCreator, String pin){
         logicManager.loginAttempt(userField,passToString,isMCreator,pin);
     }
+    //Inicia a frame correta no caso de o login ser bem sucedido
     public void sucessfullLogin(String username, boolean isMCreator){
         if(isMCreator){
             SwingUtilities.invokeLater(() -> {
@@ -40,11 +41,23 @@ public class GUIManager implements Serializable {
             });
         }
     }
-    public void unsucessfullLogin(){
-        JOptionPane.showMessageDialog(null,"Unsucessfull Login");
+    //Caixa de diálogo em caso de login sem sucesso
+    public void unsuccessfulLogin(){
+        JOptionPane.showMessageDialog(null,"Unsuccessful Login");
     };
-    public void newUser(String name,String usernameField,String password,String email){
-        logicManager.newUser(name, usernameField,password,email);
+    public void newUserAttempt(String name,String usernameField,String password,String email,boolean isMCreator, String pin){
+        logicManager.newUserAttempt(name, usernameField,password,email, isMCreator, pin);
+    }
+    public void successfulRegistration(){
+        JOptionPane.showMessageDialog(null,"New User Created");
+    }
+    public void unsuccessfulRegistration(int cod){
+        switch (cod){
+            case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The email already exists");
+                break;
+            case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
+        }
+
     }
     public LogRegFrame creationLoginFrame(){
         LogRegFrame lf = new LogRegFrame();

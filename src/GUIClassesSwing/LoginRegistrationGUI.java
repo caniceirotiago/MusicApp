@@ -10,10 +10,17 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
     private JLabel userLoginLbl;
     private JLabel passwordLoginLbl;
     private JLabel loginPinLbl;
+    private JLabel registPinLbl;
+    private JLabel lblFirstNameOnReg;
+    private JLabel lblUsernameOnReg;
+    private JLabel lblPasswordOnReg;
+    private JLabel lblPasswordConfOnReg;
+    private JLabel lblEmailOnReg;
     private JButton btnLoginOnMain;
     private JButton btnRegistrationOnMain;
     private JButton btnExitOnMain;
     private JRadioButton musicCreatorLoginbtn;
+    private JRadioButton musicCreatorRegistbtn;
     private JButton loginConfirmationBtn;
     private JButton btnConfirmRegistration;
     private JTextField usernameFieldOnLogin;
@@ -24,8 +31,7 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
     private JPasswordField userPasswordFieldOnRegistation;
     private JPasswordField userPasswordFieldOnRegistationConf;
     private JTextField emailOnRegistration;
-    private JPopupMenu userTypeOnRegistration;
-    private JTextField pinOnRegistration;
+    private JTextField registPinField;
     private LogRegFrame loginFrame = null;
     private LogRegFrame registrationFrame = null;
     private Container loginOrRegistContainer;
@@ -99,7 +105,7 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
                     passwordLoginLbl = new JLabel("Password");
                     userPasswordFieldOnLogin = new JPasswordField("", 15);
                     musicCreatorLoginbtn = new JRadioButton("Music Creator Access");
-                    musicCreatorLoginbtn.addActionListener(e -> onRadioMusicCreatorBtnClick());
+                    musicCreatorLoginbtn.addActionListener(e -> onRadioLoginMusicCreatorBtnClick());
                     loginPinLbl = new JLabel("PIN");
                     loginPinField = new JTextField("",6);
                     loginConfirmationBtn = new JButton("Login");
@@ -128,24 +134,39 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
                     GridBagConstraints constraints = registrationFrame.getConstraints();
 
                     registationPanel = new JPanel(new GridBagLayout());
-                    firstNameOnRegistration =  new JTextField("First name",15);
-                    usernameOnRegistration =  new JTextField("username",15);
-                    userPasswordFieldOnRegistation = new JPasswordField("password",15);
-                    userPasswordFieldOnRegistationConf = new JPasswordField("password ",15);
-                    emailOnRegistration =  new JTextField("Add your email",15);
-                    userTypeOnRegistration =  new JPopupMenu("Choose your account type");
-                    pinOnRegistration =  new JTextField(5);
+                    lblFirstNameOnReg = new JLabel("First Name");
+                    firstNameOnRegistration =  new JTextField("",15);
+                    lblUsernameOnReg = new JLabel("Username");
+                    usernameOnRegistration =  new JTextField("",15);
+                    lblPasswordOnReg = new JLabel("Password");
+                    userPasswordFieldOnRegistation = new JPasswordField("",15);
+                    lblPasswordConfOnReg = new JLabel("Password Confirmation");
+                    userPasswordFieldOnRegistationConf = new JPasswordField("",15);
+                    lblEmailOnReg = new JLabel("Email");
+                    emailOnRegistration =  new JTextField("",15);
+                    musicCreatorRegistbtn = new JRadioButton("Music Creator Registration");
+                    musicCreatorRegistbtn.addActionListener(e -> onRadioRegistMusicCreatorBtnClick());
+                    registPinLbl = new JLabel("PIN");
+                    registPinField = new JTextField("",6);
                     btnConfirmRegistration = new JButton("Confirm Registration");
                     btnConfirmRegistration.addActionListener(e -> onbtnConfirmRegistrationClick());
 
+                    registationPanel.add(lblFirstNameOnReg,constraints);
                     registationPanel.add(firstNameOnRegistration,constraints);
+                    registationPanel.add(lblUsernameOnReg,constraints);
                     registationPanel.add(usernameOnRegistration,constraints);
+                    registationPanel.add(lblPasswordOnReg,constraints);
                     registationPanel.add(userPasswordFieldOnRegistation,constraints);
+                    registationPanel.add(lblPasswordConfOnReg,constraints);
                     registationPanel.add(userPasswordFieldOnRegistationConf,constraints);
+                    registationPanel.add(lblEmailOnReg,constraints);
                     registationPanel.add(emailOnRegistration,constraints);
-                    registationPanel.add(userTypeOnRegistration,constraints);
-                    registationPanel.add(pinOnRegistration,constraints);
+                    registationPanel.add(musicCreatorRegistbtn,constraints);
+                    registationPanel.add(registPinLbl,constraints);
+                    registationPanel.add(registPinField,constraints);
                     registationPanel.add(btnConfirmRegistration,constraints);
+                    registPinLbl.setVisible(false);
+                    registPinField.setVisible(false);
 
                     registrationFrame.setContentPane(registationPanel);
                     registrationFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -172,17 +193,23 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
         char[] passField = userPasswordFieldOnRegistation.getPassword();
         char[] passFieldConfirmation = userPasswordFieldOnRegistationConf.getPassword();
         String email = emailOnRegistration.getText();
-
-        //falta o tipo de user para já apenas regista client
-
         String passToString = new String(passField);
         String passToStringConf = new String(passFieldConfirmation);
-        if(!passToString.equals(passToStringConf)) System.out.println("different passwords");
-        else{
-            guiManager.newUser(name,usernameField,passToString,email);
+        String pin = registPinField.getText();
+        if(!passToString.equals(passToStringConf)) {
+            System.out.println("different passwords");
+            JOptionPane.showMessageDialog(null,"The two passwords are different");
         }
+        else{
+            if(musicCreatorRegistbtn.isSelected()){
+                guiManager.newUserAttempt(name,usernameField,passToString,email,true,pin);
+            } else if (!musicCreatorRegistbtn.isSelected()) {
+                guiManager.newUserAttempt(name,usernameField,passToString,email, false,pin);
+            }
+        }
+
     };
-    public void onRadioMusicCreatorBtnClick(){
+    public void onRadioLoginMusicCreatorBtnClick(){
         if(musicCreatorLoginbtn.isSelected()){
             loginPinLbl.setVisible(true);
             loginPinField.setVisible(true);
@@ -193,6 +220,19 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
             loginPinField.setVisible(false);
             loginPanel.revalidate();
             loginPanel.repaint();
+        }
+    }
+    public void onRadioRegistMusicCreatorBtnClick(){
+        if(musicCreatorRegistbtn.isSelected()){
+            registPinLbl.setVisible(true);
+            registPinField.setVisible(true);
+            registationPanel.revalidate();
+            registationPanel.repaint();
+        } else if (!musicCreatorRegistbtn.isSelected()) {
+            registPinLbl.setVisible(false);
+            registPinField.setVisible(false);
+            registationPanel.revalidate();
+            registationPanel.repaint();
         }
     }
 }
