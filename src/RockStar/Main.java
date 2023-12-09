@@ -68,6 +68,6 @@ public class Main {
         gc.run();
 
         //grava dados do programa ao fechar
-        updateDataFile();
+        //updateDataFile();
     }
 }

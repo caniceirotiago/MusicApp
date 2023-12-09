@@ -10,7 +10,7 @@ public class MusicCreator extends User{
     }
 
     public MusicCreator(String name, String username, String password, String email, String pin) {
-        super(username, password, name, email);
+        super(name, username, password, email);
         this.pin = pin;
     }
 

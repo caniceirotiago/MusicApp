@@ -8,9 +8,8 @@ public class Client extends User{
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
     ArrayList<Music> listOfMusicsToBuy;
 
-
     public Client(String name, String username, String password, String email, double balance) {
-        super(username, password, name, email);
+        super(name, username, password, email);
         this.balance = balance;
         this.listOfAcquisitions = new ArrayList<>();
         this.listOfBalanceDeposits = new ArrayList<>();

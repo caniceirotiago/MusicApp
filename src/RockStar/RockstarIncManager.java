@@ -30,7 +30,7 @@ public class RockstarIncManager  implements Serializable {
     //Métodos
     public void run(){
         //Criei um client só para experimentar Login.. depois é para apagar
-        userList.add(new Client("as","as","as","as",0));
+        userList.add(new Client("nome","user","pass","email",0));
         userList.add(new MusicCreator("qw","qw","qw","qw","qw"));
         //Inicia o método gráfico
         startGUI();
@@ -102,7 +102,7 @@ public class RockstarIncManager  implements Serializable {
         //if musicList. genre == string
         return musicList;
     }
-    public ArrayList<User> getCurrentUsers(){
+    public ArrayList<User> getCurrentUsers(){  // O que é que isto faz?
         //vai buscar a lista toda de utilizadores
         return userList;
     }
