@@ -10,6 +10,7 @@ public class RockstarIncManager  implements Serializable {
     public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
+
     private User currentUser;
     private GUIManager guiManager;
 
@@ -49,6 +50,7 @@ public class RockstarIncManager  implements Serializable {
 
     };
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
+    //verificação é feita aqui, condicoes para registar
     public void newUser(String name,String username,String password,String email){
         boolean emailAlreadyExists = false;
         for(User us : userList){
@@ -118,4 +120,16 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(music);
         ((MusicCreator) currentUser).addCreatedMusic(music);
     }
+
+    public void editSongTitleName (Music music,String name){
+        music.setName(name);
+    }
+    public void editSongPrice(Music music, double price){
+        //fazer um registo dos precos que vao sendo alterados
+
+        music.setPrice(price);
+
+
+    }
+
 }

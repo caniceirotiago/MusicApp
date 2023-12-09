@@ -9,6 +9,7 @@ public class Music {
     private MusicCreator musicCreator;
     private ArrayList<MusicEvaluation> evaluationList;
     private double price;
+    private ArrayList<PriceHistory> priceHistory;
     private boolean isActive;
     private double classification;
 
@@ -22,7 +23,11 @@ public class Music {
         this.musicCreator = musicCreator;        //Para já apenas um criador por musica
         this.evaluationList = new ArrayList<>();
         this.price = price;               //O preço seria atribuido durante a criação ?!
-        this.isActive = true;         //musica assim que criada está ativa
+        this.isActive = true;//musica assim que criada está ativa
+        this.priceHistory = new ArrayList<>();
+
+
+
     }
 
     public void calculateClassification(){
@@ -61,4 +66,5 @@ public class Music {
     public double getPrice() {return price;}
 
     public void setPrice(double price) {this.price = price;}
-}
+    }
+
