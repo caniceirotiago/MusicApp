@@ -170,13 +170,13 @@ public class RockstarIncManager  implements Serializable {
     public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
         //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades.
         //Ver metodo nweRandomPLaylist
-        int[] listOfIndexes = new int[3];
+        int[] listOfIndexes = new int[SizeOfNewVector];
         ArrayList<Integer> addedIndexes = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < SizeOfNewVector; i++) {
             int randomIndex;
             do {
-                randomIndex = (int) (Math.floor(Math.random() * 45));
+                randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
             } while (addedIndexes.contains(randomIndex));
 
             listOfIndexes[i] = randomIndex;
