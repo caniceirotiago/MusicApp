@@ -6,6 +6,10 @@ public class Playlist extends MusicCollection{
     private Boolean isPublic;
     private Client clientCreator;
 
+    public Boolean getPublic() {
+        return isPublic;
+    }
+
     public Playlist(String name, Client clientCreator) {
         //Creation of empty playlist
         super(name);

@@ -23,6 +23,10 @@ public abstract class User implements Serializable {
         return email;
     }
 
+    public ArrayList<MusicCollection> getAllCollections() {
+        return allCollections;
+    }
+
     public User(String name, String username, String password, String email) {
         this.username = username;
         this.password = password;

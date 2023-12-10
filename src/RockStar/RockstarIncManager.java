@@ -30,7 +30,7 @@ public class RockstarIncManager  implements Serializable {
     //Métodos
     public void run(){
         //Criei um client só para experimentar Login.. depois é para apagar
-        userList.add(new Client("nome","user","pass","email",0));
+        userList.add(new Client("as","as","as","as",0));
         userList.add(new MusicCreator("qw","qw","qw","qw","qw"));
         //Inicia o método gráfico
         startGUI();
@@ -98,9 +98,46 @@ public class RockstarIncManager  implements Serializable {
         return musicList;
     };
 
-    public ArrayList<Music> searchByCriteria(ArrayList<Music> musicList, String genre) {
-        //if musicList. genre == string
-        return musicList;
+    public Search search(String searchTerm) {
+        //no enunciado pede apenas para pesquisar musica.. aqui já estou a complicar um bocado e a pesquisar por musica album e artista
+        //Este método cria objetos da classe Search, a classe search tem dois construtores:
+        //      1 - Lista de Musicas, lista de colecções de musica e lista de artistas (tipo de pesquisa apenas do utilizador normal )
+        //      2 - Lista de Musicas, lista de colecções do próprio criador (tipo de pesquisa apenas do criador de musica)
+        //Na primeira condição do presente método é tratada a pesquisa de utilizador normal onde são escolhidas as músicas,
+        //os albuns e as playlists publicas que corrreespondem ao termo da pesquisa.
+        //Na segunda é tratada a pesquisa se o utilizador for um criador de música, apenas retornará as músicas e albuns do próprio.
+        //
+        ArrayList<Music> foundMusics= new ArrayList<>();
+        ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
+        ArrayList<MusicCreator> foundMusicCreators = new ArrayList<>();
+
+        if(currentUser instanceof Client){
+            //Pesquisa de Musica
+            for(Music m : musicList){
+                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
+            }
+            //Pesquisa de colleções de musica e artistas; apenas playlists publicas e todos os albuns.
+            for(User us :  userList){
+                if(us instanceof MusicCreator && us.name.toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCreators.add((MusicCreator) us);
+                for(MusicCollection mc : us.getAllCollections()){
+                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublic()) foundMusicCollections.add(mc);
+                }
+            }
+            return new Search(foundMusics,foundMusicCollections,foundMusicCreators);
+        } else {//se o current user for music creator apenas poderá pesquisar as proprias criações
+            for(Music m : musicList){
+                if(m.getMusicCreator().equals(currentUser) && m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
+            }
+            //Pesquisa de albuns e artistas
+            for(User us :  userList){
+                if(us.equals(currentUser)){
+                    for(MusicCollection mc : us.getAllCollections()){
+                        if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCollections.add(mc);
+                    }
+                };
+            }
+            return new Search(foundMusics,foundMusicCollections);
+        }
     }
     public ArrayList<User> getCurrentUsers(){  // O que é que isto faz?
         //vai buscar a lista toda de utilizadores
@@ -111,6 +148,11 @@ public class RockstarIncManager  implements Serializable {
         music.addEvaluation((Client)currentUser, evaluation);
     }
     public void newRandomPlaylist(GENRE genre, int nOfMusics){
+        //este método cria uma playlist de forma aleatória por género musical para o utilizador normal
+        //Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
+        // de uma Arraylist de Musicas.
+        //O presente método pede um número de musicas e um género e devolve um arraylist
+        //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
         ArrayList<Music> musicOfTheChosenGenre = new ArrayList<>();
         ArrayList<Music> randomChosenMusic = new ArrayList<>();
         for(Music m : musicList){

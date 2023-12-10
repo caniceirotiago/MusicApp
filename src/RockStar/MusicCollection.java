@@ -8,6 +8,10 @@ public abstract class MusicCollection {
     protected ArrayList<Music> musicList;
     protected LocalDateTime creationDate;
 
+    public String getName() {
+        return name;
+    }
+
     public MusicCollection(String name) {
         this.name = name;
         this.musicList = new ArrayList<>();
