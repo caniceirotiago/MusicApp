@@ -13,6 +13,10 @@ public class Music {
     private boolean isActive;
     private double classification;
 
+    public MusicCreator getMusicCreator() {
+        return musicCreator;
+    }
+
     public RockstarIncManager.GENRE getGenre() {
         return genre;
     }

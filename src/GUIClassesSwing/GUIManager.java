@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.io.Serializable;
 
 public class GUIManager implements Serializable {
+
     private ClientGUI clientFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
     private LogRegFrame loginFrame;
@@ -18,19 +19,45 @@ public class GUIManager implements Serializable {
     public void run(){
         loginRegistrationGUI = new LoginRegistrationGUI(GUIManager.this);
     }
-    public void login(String userField,String passToString){
-        logicManager.login(userField,passToString);
+    //Passa a lógica da tentativa de login para a classe lógica
+    public void loginAttempt(String userField, String passToString, boolean isMCreator, String pin){
+        logicManager.loginAttempt(userField,passToString,isMCreator,pin);
     }
-    public void sucessfullLogin(){
-        SwingUtilities.invokeLater(() -> {
-            new ClientGUI();
-            loginRegistrationGUI.setVisible(false);
-            loginFrame.dispose();
-            if(registrationFrame != null) registrationFrame.dispose();
-        });
+    //Inicia a frame correta no caso de o login ser bem sucedido
+    public void sucessfullLogin(String username, boolean isMCreator){
+        if(isMCreator){
+            SwingUtilities.invokeLater(() -> {
+                new MusicCreatorGUI(username);
+                loginRegistrationGUI.setVisible(false);
+                loginFrame.dispose();
+                if(registrationFrame != null) registrationFrame.dispose();
+            });
+        } else {
+            SwingUtilities.invokeLater(() -> {
+                new ClientGUI(username);
+                loginRegistrationGUI.setVisible(false);
+                loginFrame.dispose();
+                if(registrationFrame != null) registrationFrame.dispose();
+            });
+        }
     }
-    public void newUser(String name,String usernameField,String password,String email){
-        logicManager.newUser(name, usernameField,password,email);
+    //Caixa de diálogo em caso de login sem sucesso
+    public void unsuccessfulLogin(){
+        JOptionPane.showMessageDialog(null,"Unsuccessful Login");
+    };
+    public void newUserAttempt(String name,String usernameField,String password,String email,boolean isMCreator, String pin){
+        logicManager.newUserAttempt(name, usernameField,password,email, isMCreator, pin);
+    }
+    public void successfulRegistration(){
+        JOptionPane.showMessageDialog(null,"New User Created");
+    }
+    public void unsuccessfulRegistration(int cod){
+        switch (cod){
+            case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The email already exists");
+                break;
+            case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
+        }
+
     }
     public LogRegFrame creationLoginFrame(){
         LogRegFrame lf = new LogRegFrame();
