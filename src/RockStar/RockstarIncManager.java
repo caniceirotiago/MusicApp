@@ -120,7 +120,9 @@ public class RockstarIncManager  implements Serializable {
             for(User us :  userList){
                 if(us instanceof MusicCreator && us.name.toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCreators.add((MusicCreator) us);
                 for(MusicCollection mc : us.getAllCollections()){
-                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublic()) foundMusicCollections.add(mc);
+                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && (mc instanceof Album || (mc instanceof Playlist && ((Playlist)mc).getPublic()))){
+                        foundMusicCollections.add(mc);
+                    }
                 }
             }
             return new Search(foundMusics,foundMusicCollections,foundMusicCreators);
