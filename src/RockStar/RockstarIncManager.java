@@ -19,12 +19,9 @@ public class RockstarIncManager  implements Serializable {
     }
     //Novo método para iniciar a componente gráfica (É preciso estudar melhor este método)
     public void startGUI() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                guiManager = new GUIManager(RockstarIncManager.this);
-                guiManager.run();
-            }
+        SwingUtilities.invokeLater(() -> {
+            guiManager = new GUIManager(RockstarIncManager.this);
+            guiManager.run();
         });
     }
     //Métodos
@@ -34,7 +31,7 @@ public class RockstarIncManager  implements Serializable {
         userList.add(new MusicCreator("qw","qw","qw","qw","qw"));
         //Inicia o método gráfico
         startGUI();
-    };
+    }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
         boolean sucessfulLogin = false;
@@ -61,7 +58,7 @@ public class RockstarIncManager  implements Serializable {
             guiManager.unsuccessfulLogin();
         }
 
-    };
+    }
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
     public void newUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
         boolean emailAlreadyExists = false;
@@ -86,17 +83,17 @@ public class RockstarIncManager  implements Serializable {
         }
         if(!emailAlreadyExists && !usernameAlreadyExists){
             if(!isCreator) userList.add(new Client(name, username,password,email,0));
-            else if (isCreator) userList.add(new MusicCreator(name,username,password,email,pin));
+            else userList.add(new MusicCreator(name,username,password,email,pin));
             System.out.println("New client created");
             guiManager.successfulRegistration();
         }
-    };
+    }
 
     public ArrayList<Music> listByOrder(ArrayList<Music> musicList){
         //que ordem se coloca aqui? Faz se uma escolha dentro deste metodo, para ser alfabeticamente ou por data?
         //tambem seria interessante ordenar por rating
         return musicList;
-    };
+    }
 
     public Search search(String searchTerm) {
         //no enunciado pede apenas para pesquisar musica.. aqui já estou a complicar um bocado e a pesquisar por musica album e artista
