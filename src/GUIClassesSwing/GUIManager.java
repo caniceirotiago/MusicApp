@@ -5,7 +5,7 @@ import src.RockStar.RockstarIncManager;
 import javax.swing.*;
 import java.io.Serializable;
 
-public class GUIManager implements Serializable {
+public class GUIManager implements Serializable { //O Serializable não deveria ficar aqui
 
     private ClientGUI clientFrame;
     private LoginRegistrationGUI loginRegistrationGUI;

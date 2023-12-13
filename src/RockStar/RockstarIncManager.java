@@ -61,6 +61,7 @@ public class RockstarIncManager  implements Serializable {
     }
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
     public void newUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
+
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
         //This loop allows for an already created MusiCreator regist could make a new account as a Client and vice versa.
