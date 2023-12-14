@@ -65,6 +65,8 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
                 break;
             case 4: JOptionPane.showMessageDialog(null, "The username does not have the size requirements (MIN:3 MAX 10)");
             break;
+            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8)");
+            break;
         }
 
     }

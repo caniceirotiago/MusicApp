@@ -88,6 +88,14 @@ public class RockstarIncManager  implements Serializable {
         //booleana final para se usar na criacao do user
         boolean validRegistration = false;
 
+        //validação pin
+        boolean pinValido = false;
+        if (pin.isBlank() || pin.length() >8){
+            guiManager.unsuccessfulRegistration(5);
+        } else {
+            pinValido = true;
+        }
+
         //username
         //username tem no minimo 3 letras e maximo 15
         boolean validUserName = false;
@@ -109,7 +117,7 @@ public class RockstarIncManager  implements Serializable {
             System.out.println("email not valid");
             guiManager.unsuccessfulRegistration(3);
         }
-        if (validEmail && validUserName){
+        if (validEmail && validUserName && pinValido){
             validRegistration = true;
         }
 
