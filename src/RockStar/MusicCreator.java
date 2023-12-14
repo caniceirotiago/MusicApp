@@ -28,11 +28,8 @@ public class MusicCreator extends User{
 
     //poderia mudar o metodo create music para retornar para este metodo um objeto tipo musica?
     @Override
-    public void addMusicToCollection(Music music, MusicCollection musicCollection) {
-        //sera que isto assim funciona?
-        //lista de albuns
-        //pega numa musica especifica e num album especifico e coloca-a la dentro
-
+    public void addMusicToCollection(Music music, MusicCollection album) {
+        music.setAssociatedAlbum((Album) album);
     }
 
     public void editMusic(Music music, MusicCollection musicCollection){

@@ -1,6 +1,7 @@
 package src.GUIClassesSwing;
 
 import src.RockStar.RockstarIncManager;
+import src.RockStar.User;
 
 import javax.swing.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
     private LogRegFrame loginFrame;
     private LogRegFrame registrationFrame;
     private RockstarIncManager logicManager;
+    private User currentUser;
 
     public GUIManager(RockstarIncManager logicManager) {
         this.logicManager = logicManager;
@@ -24,17 +26,18 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
         logicManager.loginAttempt(userField,passToString,isMCreator,pin);
     }
     //Inicia a frame correta no caso de o login ser bem sucedido
-    public void sucessfullLogin(String username, boolean isMCreator){
+    public void sucessfullLogin(User currentUser, boolean isMCreator){
+        this.currentUser = currentUser;
         if(isMCreator){
             SwingUtilities.invokeLater(() -> {
-                new MusicCreatorGUI(username);
+                new MusicCreatorGUI(currentUser);
                 loginRegistrationGUI.setVisible(false);
                 loginFrame.dispose();
                 if(registrationFrame != null) registrationFrame.dispose();
             });
         } else {
             SwingUtilities.invokeLater(() -> {
-                new ClientGUI(username);
+                new ClientGUI(currentUser);
                 loginRegistrationGUI.setVisible(false);
                 loginFrame.dispose();
                 if(registrationFrame != null) registrationFrame.dispose();

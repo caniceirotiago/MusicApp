@@ -26,9 +26,27 @@ public class RockstarIncManager  implements Serializable {
     }
     //Métodos
     public void run(){
+
         //Criei um client só para experimentar Login.. depois é para apagar
-        userList.add(new Client("as","as","as","as",0));
-        userList.add(new MusicCreator("qw","qw","qw","qw","qw"));
+        Client tiago = new Client("as","as","as","as",0);
+        userList.add(tiago);
+        MusicCreator pedro = new MusicCreator("qw","qw","qw","qw","qw");
+        userList.add(pedro);
+
+        //Playlist experiencia
+        tiago.newCollection("Rock Luso");
+        tiago.newCollection("Mamonas Assassinas");
+
+        //Musica Experiencia
+        Music m1 = new Music("Olá Joana", GENRE.POP,pedro,0);
+        musicList.add(m1);
+        tiago.addMusicToCollection(m1,tiago.getAllCollections().get(0));
+
+        Music m2 = new Music("Carolina", GENRE.POP,pedro,0);
+        musicList.add(m2);
+        tiago.addMusicToCollection(m2,tiago.getAllCollections().get(1));
+
+
         //Inicia o método gráfico
         startGUI();
     }
@@ -50,7 +68,7 @@ public class RockstarIncManager  implements Serializable {
             }
         }
         if(sucessfulLogin)  {
-           guiManager.sucessfullLogin(currentUser.getUsername(), isMCreator);
+           guiManager.sucessfullLogin(currentUser, isMCreator);
             System.out.println("Successful Login");
         }
         else {

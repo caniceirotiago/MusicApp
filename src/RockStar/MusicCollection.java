@@ -12,6 +12,10 @@ public abstract class MusicCollection {
         return name;
     }
 
+    public ArrayList<Music> getMusicList() {
+        return musicList;
+    }
+
     public MusicCollection(String name) {
         this.name = name;
         this.musicList = new ArrayList<>();
@@ -22,6 +26,11 @@ public abstract class MusicCollection {
         this.musicList = musicList;
         this.creationDate = LocalDateTime.now();
     }
-    public abstract void addMusicToCollection();
+    public abstract void addMusicToCollection(Music music);
     public abstract void removeMusicFromCollection();
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
