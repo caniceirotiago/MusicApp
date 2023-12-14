@@ -24,8 +24,8 @@ public class Playlist extends MusicCollection{
     }
 
     @Override
-    public void addMusicToCollection() {
-
+    public void addMusicToCollection(Music music) {
+        super.musicList.add(music);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Album extends MusicCollection {
     }
 
     @Override
-    public void addMusicToCollection() {
+    public void addMusicToCollection(Music music) {
 
     }
 

@@ -18,7 +18,7 @@ public class Client extends User{
 
     public void newCollection(String name){
         //Creation of Empty playlist
-        allCollections.add(new Playlist("Random Creation", this));
+        allCollections.add(new Playlist(name, this));
     };
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
@@ -28,7 +28,7 @@ public class Client extends User{
         return new ArrayList<>();
     };
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
-
+        musicCollection.addMusicToCollection(music);
     };
     public void addMoney(double moneyToAdd){
         balance += moneyToAdd;

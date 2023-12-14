@@ -1,12 +1,18 @@
 package src.GUIClassesSwing;
 
+import src.RockStar.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Collection;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class ClientGUI extends JFrame {
-    public ClientGUI(String username){
-        super("Client - " + username);
+    private User currentUser;
+    public ClientGUI(User currentUser){
+        super("Client - " + currentUser.getUsername());
+        this.currentUser = currentUser;
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1100,1000);
@@ -14,7 +20,7 @@ public class ClientGUI extends JFrame {
         setVisible(true);
         ImageIcon imageIcon = new ImageIcon(ImagePaths.APP_ICON);
         setIconImage(imageIcon.getImage());
-        setMinimumSize(new Dimension(1100, 950));
+        setMinimumSize(new Dimension(900, 700));
     }
     public void initComponents(){
         Container mainContainer = new Container();
@@ -33,15 +39,13 @@ public class ClientGUI extends JFrame {
 
 
         //Criação de lista
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        listModel.addElement("Item 1");
-        listModel.addElement("Item 2");
-        listModel.addElement("Item 3");
-        listModel.addElement("Item 3");
-
+        DefaultListModel<MusicCollection> listModel = new DefaultListModel<>();
+        for(MusicCollection cl : currentUser.getAllCollections()){
+            listModel.addElement(cl);
+        }
 
         // Cria a JList e define o modelo
-        JList<String> playlistList = new JList<>(listModel);
+        JList<MusicCollection> playlistList = new JList<>(listModel);
 
         // Coloca a JList em um JScrollPane
         JScrollPane scrollPane = new JScrollPane(playlistList);
@@ -212,17 +216,19 @@ public class ClientGUI extends JFrame {
         //----------------------------------PAINEL CENTER--------------------------------
 
         // Nomes das colunas
-        String[] columnNames = {"Column 1", "Column 2", "Column 3"};
-
-        // Dados da tabela (substitua com os seus dados)
-        Object[][] data = {
-                {"Data 1-1", "Data 1-2", "Data 1-3"},
-                {"Data 2-1", "Data 2-2", "Data 2-3"},
-                // ... mais linhas de dados ...
-        };
+        String[] columnNames = {"Title", "Album", "Clasification"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames,0);
+        System.out.println("Número de músicas: " + currentUser.getAllCollections().get(0).getMusicList().size());
+        for(Music ms : currentUser.getAllCollections().get(0).getMusicList()){
+            Vector <Object> line = new Vector<>();
+            line.add(ms.getName());
+            line.add(ms.getAssociatedAlbum());
+            line.add(ms.getClassification());
+            tableModel.addRow(line);
+        }
 
         // Criação do modelo da tabela e da tabela
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
+
         JTable table = new JTable(tableModel);
 
         // Colocando a tabela em um JScrollPane

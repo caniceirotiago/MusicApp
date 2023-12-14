@@ -12,6 +12,19 @@ public class Music {
     private ArrayList<PriceHistory> priceHistory;
     private boolean isActive;
     private double classification;
+    private Album associatedAlbum;
+
+    public void setAssociatedAlbum(Album associatedAlbum) {
+        this.associatedAlbum = associatedAlbum;
+    }
+
+    public double getClassification() {
+        return classification;
+    }
+
+    public Album getAssociatedAlbum() {
+        return associatedAlbum;
+    }
 
     public MusicCreator getMusicCreator() {
         return musicCreator;
