@@ -226,7 +226,15 @@ public class ClientGUI extends JFrame {
         //----------------------------------PAINEL CENTER--------------------------------
 
         String[] columnNames = {"Title", "Album", "Clasification"};
-        centralTableModel = new DefaultTableModel(columnNames,0);
+        centralTableModel = new DefaultTableModel(columnNames,0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Retorna false para todas as células, tornando-as não editáveis
+                return false;
+            }
+        };
+
+
         for(Music ms : currentUser.getAllMusic()){
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
@@ -234,9 +242,10 @@ public class ClientGUI extends JFrame {
             line.add(ms.getClassification());
             centralTableModel.addRow(line);
         }
-        JTable table = new JTable(centralTableModel);
+        JTable centralTable = new JTable(centralTableModel);
+        centralTable.getTableHeader().setReorderingAllowed(false);
         // Colocando a tabela em um JScrollPane
-        JScrollPane scrollPane3 = new JScrollPane(table);
+        JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -265,5 +274,6 @@ public class ClientGUI extends JFrame {
         }
         centerPanel.revalidate();
         centerPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
 }
