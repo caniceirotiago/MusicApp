@@ -10,11 +10,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class ClientGUI extends JFrame {
     private User currentUser;
+    private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private JPanel centerPanel;
-    public ClientGUI(User currentUser){
+    public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
+        this.guiManager = guiManager;
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1100,1000);
@@ -176,6 +178,7 @@ public class ClientGUI extends JFrame {
 
         //Criação de Botão para Criar logout
         JButton logOutbtn = new JButton("Logout");
+        logOutbtn.addActionListener(e -> onlogOutbtnClick());
 
 
         JPanel northPanel = new JPanel(new GridBagLayout());
@@ -276,4 +279,7 @@ public class ClientGUI extends JFrame {
         centerPanel.repaint();
         //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
+    public void onlogOutbtnClick(){
+        guiManager.logoutClient();
+    }
 }

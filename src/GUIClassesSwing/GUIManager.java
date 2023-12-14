@@ -37,7 +37,7 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
             });
         } else {
             SwingUtilities.invokeLater(() -> {
-                new ClientGUI(currentUser);
+                clientFrame = new ClientGUI(currentUser,this);
                 loginRegistrationGUI.setVisible(false);
                 loginFrame.dispose();
                 if(registrationFrame != null) registrationFrame.dispose();
@@ -69,6 +69,11 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
             break;
         }
 
+    }
+    public void logoutClient(){
+        clientFrame.dispose();
+        currentUser = null;
+        run();
     }
     public LogRegFrame creationLoginFrame(){
         LogRegFrame lf = new LogRegFrame();

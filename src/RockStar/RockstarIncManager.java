@@ -198,10 +198,6 @@ public class RockstarIncManager  implements Serializable {
             return new Search(foundMusics,foundMusicCollections);
         }
     }
-    public ArrayList<User> getCurrentUsers(){  // O que é que isto faz?
-        //vai buscar a lista toda de utilizadores
-        return userList;
-    }
     public void evaluateMusic(Music music, int evaluation){
         //Chama método para adicionar avaliação na classe Music
         music.addEvaluation((Client)currentUser, evaluation);
