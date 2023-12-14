@@ -58,8 +58,8 @@ public class LoginRegistrationGUI extends JFrame implements Serializable {
 
     }
     private void initComponents() {
-
         //Background image input
+
         background =  new JLabel(new ImageIcon(ImagePaths.Login_Registration_Background));
 
         //Creating Main Container in a BorderLayout style
