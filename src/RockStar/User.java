@@ -11,6 +11,10 @@ public abstract class User implements Serializable {
     protected ArrayList<Music> allMusic;
     protected ArrayList<MusicCollection> allCollections;
 
+    public ArrayList<Music> getAllMusic() {
+        return allMusic;
+    }
+
     public String getUsername() {
         return username;
     }

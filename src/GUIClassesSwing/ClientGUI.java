@@ -4,12 +4,14 @@ import src.RockStar.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class ClientGUI extends JFrame {
     private User currentUser;
+    private DefaultTableModel centralTableModel;
+    private JPanel centerPanel;
     public ClientGUI(User currentUser){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -46,7 +48,15 @@ public class ClientGUI extends JFrame {
 
         // Cria a JList e define o modelo
         JList<MusicCollection> playlistList = new JList<>(listModel);
-
+        //Listner de seleção de playlist
+        playlistList.addListSelectionListener(e -> {
+            if(!e.getValueIsAdjusting()){
+                MusicCollection selectedPlaylist = playlistList.getSelectedValue();
+                if(selectedPlaylist != null){
+                    updateMusicJTableModel(selectedPlaylist.getMusicList());
+                }
+            }
+        });
         // Coloca a JList em um JScrollPane
         JScrollPane scrollPane = new JScrollPane(playlistList);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -215,28 +225,31 @@ public class ClientGUI extends JFrame {
 
         //----------------------------------PAINEL CENTER--------------------------------
 
-        // Nomes das colunas
         String[] columnNames = {"Title", "Album", "Clasification"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames,0);
-        System.out.println("Número de músicas: " + currentUser.getAllCollections().get(0).getMusicList().size());
-        for(Music ms : currentUser.getAllCollections().get(0).getMusicList()){
+        centralTableModel = new DefaultTableModel(columnNames,0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Retorna false para todas as células, tornando-as não editáveis
+                return false;
+            }
+        };
+
+
+        for(Music ms : currentUser.getAllMusic()){
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
             line.add(ms.getAssociatedAlbum());
             line.add(ms.getClassification());
-            tableModel.addRow(line);
+            centralTableModel.addRow(line);
         }
-
-        // Criação do modelo da tabela e da tabela
-
-        JTable table = new JTable(tableModel);
-
+        JTable centralTable = new JTable(centralTableModel);
+        centralTable.getTableHeader().setReorderingAllowed(false);
         // Colocando a tabela em um JScrollPane
-        JScrollPane scrollPane3 = new JScrollPane(table);
+        JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        JPanel centerPanel = new JPanel();
+        centerPanel = new JPanel();
         centerPanel.add(scrollPane3);
 
 
@@ -249,4 +262,18 @@ public class ClientGUI extends JFrame {
 
         add(mainContainer);
     }
+    public void updateMusicJTableModel(ArrayList<Music> selectedPlaylist){
+        centralTableModel.setRowCount(0);
+        System.out.println("Número de músicas: " + selectedPlaylist.size());
+        for(Music ms : selectedPlaylist){
+            Vector <Object> line = new Vector<>();
+            line.add(ms.getName());
+            line.add(ms.getAssociatedAlbum());
+            line.add(ms.getClassification());
+            centralTableModel.addRow(line);
+        }
+        centerPanel.revalidate();
+        centerPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
+    };
 }

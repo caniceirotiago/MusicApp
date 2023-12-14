@@ -17,8 +17,8 @@ public class LogRegFrame extends JFrame {
         setResizable(false);
         getContentPane();
         constraints =  new GridBagConstraints();
-        constraints.gridx= GridBagConstraints.REMAINDER;
-        constraints.gridy = GridBagConstraints.RELATIVE;
+        constraints.gridx= GridBagConstraints.REMAINDER; //Ocupa o restante espaço na linha
+        constraints.gridy = GridBagConstraints.RELATIVE; // O compunente é colucado na linha seguinte do ultimo compunente
         constraints.gridwidth = GridBagConstraints.REMAINDER;
     }
 }
