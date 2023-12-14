@@ -168,7 +168,7 @@ public class RockstarIncManager  implements Serializable {
         }
     }
     public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
-        //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades.
+        //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
         //Ver metodo nweRandomPLaylist
         int[] listOfIndexes = new int[SizeOfNewVector];
         ArrayList<Integer> addedIndexes = new ArrayList<>();
