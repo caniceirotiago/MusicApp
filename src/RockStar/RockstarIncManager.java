@@ -78,10 +78,42 @@ public class RockstarIncManager  implements Serializable {
 
     }
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
+    //acho que este método devia chamar se newRegistration
     public void newUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
-
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
+
+
+        //Registo, validacao dados
+        //booleana final para se usar na criacao do user
+        boolean validRegistration = false;
+
+        //username
+        //username tem no minimo 3 letras e maximo 15
+        boolean validUserName = false;
+        if (username.length()<3 || username.length()>10){
+            guiManager.unsuccessfulRegistration(4);
+        } else validUserName = true;
+
+
+        //email
+        boolean validEmail = false;
+        int indexAt = email.indexOf("@");
+        int indexDotCom = email.indexOf(".com");
+        if (email.isBlank() ){
+            guiManager.unsuccessfulRegistration(3);
+        }
+        else if (indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom){
+            validEmail = true;
+        } else {
+            System.out.println("email not valid");
+            guiManager.unsuccessfulRegistration(3);
+        }
+        if (validEmail && validUserName){
+            validRegistration = true;
+        }
+
+
         //This loop allows for an already created MusiCreator regist could make a new account as a Client and vice versa.
         //It sends a code message for GUI to apply an error box "1" for invalid email and "2" for invalid username
         for(User us : userList){
@@ -100,7 +132,8 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
         }
-        if(!emailAlreadyExists && !usernameAlreadyExists){
+        //adicionar aqui booleana ou valor que confirme passagens entre barreiras
+        if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
             if(!isCreator) userList.add(new Client(name, username,password,email,0));
             else userList.add(new MusicCreator(name,username,password,email,pin));
             System.out.println("New client created");

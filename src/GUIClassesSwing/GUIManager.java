@@ -59,6 +59,12 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
             case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The email already exists");
                 break;
             case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
+                break;
+                //switches de validacao
+            case 3: JOptionPane.showMessageDialog(null,"That email is not valid");
+                break;
+            case 4: JOptionPane.showMessageDialog(null, "The username does not have the size requirements (MIN:3 MAX 10)");
+            break;
         }
 
     }
