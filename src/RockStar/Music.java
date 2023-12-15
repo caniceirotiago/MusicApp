@@ -1,9 +1,10 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Music {
+public class Music implements Serializable {
     private String name;
     private RockstarIncManager.GENRE genre; //Confirmar localização do enum, para já acho que fica na classe manager
     private MusicCreator musicCreator;

@@ -1,8 +1,9 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Client extends User{
+public class Client extends User implements Serializable {
     private double balance = 0;
     ArrayList<MusicAquisition> listOfAcquisitions;
     ArrayList<BalanceDeposit> listOfBalanceDeposits;

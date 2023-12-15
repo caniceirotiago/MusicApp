@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -100,6 +101,7 @@ public class ClientGUI extends JFrame {
 
         //Criação de Botão para Criar Playlist
         JButton newPlaylistbtn = new JButton("New PLaylist");
+        //newPlaylistbtn.addActionListener(e -> );
 
         //Criação de painel com GRIDBAGLAYOUT
         JPanel westPanel = new JPanel(new GridBagLayout());
@@ -212,7 +214,13 @@ public class ClientGUI extends JFrame {
 
         //Criação de Botão para Criar logout
         JButton logOutbtn = new JButton("Logout");
-        logOutbtn.addActionListener(e -> onlogOutbtnClick());
+        logOutbtn.addActionListener(e -> {
+            try {
+                onlogOutbtnClick();
+            } catch (IOException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
 
         JPanel northPanel = new JPanel(new GridBagLayout());
@@ -333,7 +341,7 @@ public class ClientGUI extends JFrame {
         centerPanel.repaint();
         //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
-    public void onlogOutbtnClick(){
+    public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
         guiManager.logoutClient();
     }
     public Music getSelectedMusic(){

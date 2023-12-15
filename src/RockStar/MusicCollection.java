@@ -1,9 +1,10 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class MusicCollection {
+public abstract class MusicCollection implements Serializable {
     protected String name;
     protected ArrayList<Music> musicList;
     protected LocalDateTime creationDate;

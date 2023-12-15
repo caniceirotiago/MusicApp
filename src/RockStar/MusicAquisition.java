@@ -1,4 +1,6 @@
 package src.RockStar;
 
-public class MusicAquisition {
+import java.io.Serializable;
+
+public class MusicAquisition implements Serializable {
 }

@@ -10,8 +10,8 @@ public class RockstarIncManager  implements Serializable {
     public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
-    private User currentUser;
-    private GUIManager guiManager;
+    private transient User currentUser;
+    private transient GUIManager guiManager;
 
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();

@@ -1,8 +1,9 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MusicCreator extends User{
+public class MusicCreator extends User implements Serializable {
     private String pin;
 
     public String getPin() {

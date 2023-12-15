@@ -1,8 +1,9 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Playlist extends MusicCollection{
+public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
     private Client clientCreator;
 

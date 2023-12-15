@@ -4,9 +4,12 @@ import src.RockStar.RockstarIncManager;
 import src.RockStar.User;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.io.Serializable;
 
-public class GUIManager implements Serializable { //O Serializable não deveria ficar aqui
+import static src.RockStar.Main.updateDataFile;
+
+public class GUIManager { //O Serializable não deveria ficar aqui
 
     private ClientGUI clientFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
@@ -70,9 +73,10 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
         }
 
     }
-    public void logoutClient(){
+    public void logoutClient() throws IOException, ClassNotFoundException {
         clientFrame.dispose();
         currentUser = null;
+        updateDataFile();
         run();
     }
     public LogRegFrame creationLoginFrame(){
