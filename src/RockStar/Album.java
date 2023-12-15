@@ -19,12 +19,12 @@ public class Album extends MusicCollection {
         this.mainCreator = mainCreator;
     }
 
-    @Override
+
     public void addMusicToCollection(Music music) {
 
     }
 
-    @Override
+
     public void removeMusicFromCollection() {
 
     }

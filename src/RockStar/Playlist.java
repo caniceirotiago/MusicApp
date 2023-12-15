@@ -17,18 +17,18 @@ public class Playlist extends MusicCollection{
         this.clientCreator = clientCreator;
     }
     public Playlist(String name, Client clientCreator, ArrayList<Music> musicList) {
-        //Creation of random playlist
+        //Creation of random playlist or temporary Gui Playlist
         super(name, musicList);
         this.isPublic = true;
         this.clientCreator = clientCreator;
     }
 
-    @Override
+
     public void addMusicToCollection(Music music) {
-        super.musicList.add(music);
+        musicList.add(music);
     }
 
-    @Override
+
     public void removeMusicFromCollection() {
     }
 }

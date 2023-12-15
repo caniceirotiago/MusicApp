@@ -41,10 +41,16 @@ public class RockstarIncManager  implements Serializable {
         Music m1 = new Music("Olá Joana", GENRE.POP,pedro,0);
         musicList.add(m1);
         tiago.addMusicToCollection(m1,tiago.getAllCollections().get(0));
+        tiago.newMusicToAllCollection(m1);
 
         Music m2 = new Music("Carolina", GENRE.POP,pedro,0);
         musicList.add(m2);
+        tiago.newMusicToAllCollection(m2);
         tiago.addMusicToCollection(m2,tiago.getAllCollections().get(1));
+
+        Music m3 = new Music("Mariazinha", GENRE.POP,pedro,0);
+        musicList.add(m3);
+        tiago.newMusicToAllCollection(m3);
 
 
         //Inicia o método gráfico

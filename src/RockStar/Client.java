@@ -30,12 +30,17 @@ public class Client extends User{
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
         musicCollection.addMusicToCollection(music);
     };
+    public void newMusicToAllCollection(Music music){
+        allMusic.add(music);
+    }
+    public void removeMusicFromCollection(Music music, MusicCollection collection){
+        collection.getMusicList().remove(music);
+    };
     public void addMoney(double moneyToAdd){
         balance += moneyToAdd;
         listOfBalanceDeposits.add(new BalanceDeposit(moneyToAdd));
     }
 
-    public void addMusicToAllMusicUserCollection(){}
     public void calculatePriceOfMusicToBuy(){}
     public void validationOfAquisition(){}
 }

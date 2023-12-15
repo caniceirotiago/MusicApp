@@ -31,7 +31,12 @@ public class MusicCreator extends User{
     public void addMusicToCollection(Music music, MusicCollection album) {
         music.setAssociatedAlbum((Album) album);
     }
+    public void newMusicToAllCollection(Music music){
 
+    }
+    public void removeMusicFromCollection(Music music, MusicCollection collection){
+
+    };
     public void editMusic(Music music, MusicCollection musicCollection){
         //music.setName();
         //music.setPrice();

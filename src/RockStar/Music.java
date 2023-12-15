@@ -42,9 +42,6 @@ public class Music {
         this.price = price;               //O preço seria atribuido durante a criação ?!
         this.isActive = true;//musica assim que criada está ativa
         this.priceHistory = new ArrayList<>();
-
-
-
     }
 
     public void calculateClassification(){

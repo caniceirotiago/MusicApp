@@ -4,6 +4,10 @@ import src.RockStar.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +17,11 @@ public class ClientGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private JPanel centerPanel;
+    private MusicCollection selectedPlaylist;
+    private JTable centralTable;
+    private JMenuItem addToPlaylist;
+    private int lastPositionMouseRightClickX;
+    private int lastPositionMouseRightClickY;
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -30,20 +39,44 @@ public class ClientGUI extends JFrame {
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
+        //---------------------ADDING POPUPMENUS AND SUBMENUS-----------------------------
+
+
+        //Central PUM when allMusic selected
+        JPopupMenu centralTablePUM = new JPopupMenu();
+        addToPlaylist = new JMenuItem("Add to Playlit");
+        JMenuItem evaluateMusic = new JMenuItem("Evaluate Music");
+        centralTablePUM.add(addToPlaylist);
+        centralTablePUM.add(evaluateMusic);
+        addToPlaylist.addActionListener(e -> addMusicToPlaylistOnClick());
+
+        //Central PUM when a playlist is selected
+        JPopupMenu centralTablePUM2 = new JPopupMenu();
+        JMenuItem removeFromPlaylist = new JMenuItem("Remove from Playlit");
+        JMenuItem evaluateMusic2 = new JMenuItem("Evaluate Music");
+        centralTablePUM2.add(removeFromPlaylist);
+        centralTablePUM2.add(evaluateMusic2);
+        removeFromPlaylist.addActionListener(e -> onRemoveFromPlaylistClick());
 
 
 
         //---------------------PAINEL WEST---------------------------------
 
 
-
         //Label a dizer Playlist
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Playlist");
 
-
         //Criação de lista
+        //Nas seguintes linhas de código é criado o modelo da lista
+        //Em primeiro lugar é adicionada a lista de musicas das quais o cliente é proprietario
+        //Para este efeito é criado um novo objeto playlist temporario pois esta lista está guardada como arraylist
+        //no User, como a MusicCollection é uma classe abstrata temos de criar uma plylist aqui e será um album no caso do
+        //Music creator. Depois disso dão adicionadas as restantes playlists do utilizador com o ciclo
+
         DefaultListModel<MusicCollection> listModel = new DefaultListModel<>();
+        MusicCollection currentUserCollection = new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+        listModel.addElement(currentUserCollection);
         for(MusicCollection cl : currentUser.getAllCollections()){
             listModel.addElement(cl);
         }
@@ -51,9 +84,10 @@ public class ClientGUI extends JFrame {
         // Cria a JList e define o modelo
         JList<MusicCollection> playlistList = new JList<>(listModel);
         //Listner de seleção de playlist
+        selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
         playlistList.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){
-                MusicCollection selectedPlaylist = playlistList.getSelectedValue();
+                selectedPlaylist = playlistList.getSelectedValue();
                 if(selectedPlaylist != null){
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
                 }
@@ -245,16 +279,36 @@ public class ClientGUI extends JFrame {
             line.add(ms.getClassification());
             centralTableModel.addRow(line);
         }
-        JTable centralTable = new JTable(centralTableModel);
+        centralTable = new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(false);
-        // Colocando a tabela em um JScrollPane
+
+        //Reparar que este ,ouse listener se comporta de maneira diferente consuante a playlist selecionada
+        centralTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //Primeiro guarda a posição do click para depois localizar o submenu
+                lastPositionMouseRightClickX = e.getX();
+                lastPositionMouseRightClickY = e.getY();
+                if(SwingUtilities.isRightMouseButton(e)){
+                    int row = centralTable.rowAtPoint(e.getPoint());
+                    if(row>=0 && row < centralTable.getRowCount()){
+                        centralTable.setRowSelectionInterval(row,row);
+                        if(selectedPlaylist.equals(currentUserCollection)){
+                            centralTablePUM.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                        } else {
+                            centralTablePUM2.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                        }
+                    }
+                }
+            }
+        });
+
         JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        centerPanel = new JPanel();
-        centerPanel.add(scrollPane3);
-
+        centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(scrollPane3,"Center");
 
 
         //Adding all panels
@@ -281,5 +335,48 @@ public class ClientGUI extends JFrame {
     };
     public void onlogOutbtnClick(){
         guiManager.logoutClient();
+    }
+    public Music getSelectedMusic(){
+        int row = centralTable.getSelectedRow();
+        if(row != -1){
+            ArrayList<Music> musics = selectedPlaylist.getMusicList();
+            return musics.get(row);
+        }
+        return null;
+    }
+    public void onRemoveFromPlaylistClick(){
+        Music selectedMusic = getSelectedMusic();
+        if(selectedMusic!= null){
+            currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
+            updateMusicJTableModel(selectedPlaylist.getMusicList());
+            centerPanel.revalidate();
+            centerPanel.repaint();
+            System.out.println("Music eliminated from playlist");
+        }
+    }
+    public void addMusicToPlaylistOnClick(){ //Este metodo tambem cria um submenu para o efeito
+        JPopupMenu playlistMenu =new JPopupMenu();
+
+        int nOfPlaylists = currentUser.getAllCollections().size();
+
+        if(nOfPlaylists == 0){
+            JMenuItem emptyList = new JMenuItem("No Playlists to Show");
+            playlistMenu.add(emptyList);
+        } else{
+            for(MusicCollection pl: currentUser.getAllCollections()){
+                JMenuItem playlistItem  = new JMenuItem(pl.getName());
+                playlistItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Music selectedMusic = getSelectedMusic();
+                        if(selectedMusic != null){
+                            currentUser.addMusicToCollection(selectedMusic,pl);
+                        }
+                    }
+                });
+                playlistMenu.add(playlistItem);
+            }
+        }
+        playlistMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
 }

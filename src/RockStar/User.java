@@ -43,4 +43,6 @@ public abstract class User implements Serializable {
     public abstract void newCollection(ArrayList<Music> listMusic);
     public abstract ArrayList<MusicCollection> seeAllCollection();
     public abstract void addMusicToCollection(Music music, MusicCollection musicCollection);
+    public abstract void newMusicToAllCollection(Music music);
+    public abstract void removeMusicFromCollection(Music music, MusicCollection collection);
 }
