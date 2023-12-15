@@ -123,7 +123,7 @@ public class RockstarIncManager  implements Serializable {
             System.out.println("email not valid");
             guiManager.unsuccessfulRegistration(3);
         }
-        if (validEmail && validUserName && pinValido){
+        if (validEmail && validUserName){
             validRegistration = true;
         }
 
@@ -149,9 +149,11 @@ public class RockstarIncManager  implements Serializable {
         //adicionar aqui booleana ou valor que confirme passagens entre barreiras
         if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
             if(!isCreator) userList.add(new Client(name, username,password,email,0));
-            else userList.add(new MusicCreator(name,username,password,email,pin));
-            System.out.println("New client created");
-            guiManager.successfulRegistration();
+            else if (pinValido) {
+                userList.add(new MusicCreator(name, username, password, email, pin));
+                System.out.println("New client created");
+                guiManager.successfulRegistration();
+            }
         }
     }
 
