@@ -122,10 +122,26 @@ public class MusicCreatorGUI extends JFrame {
         JTextField searchArea = new JTextField("Search", 20);
         JButton searchButton =  new JButton("\uD83D\uDD0D");
         //adicionar aqui botao logout
+        JButton btnLogOut =  new JButton("LogOut");
+        //btnLogOut.addEventListener
+
 
         JPanel northPanel =  new JPanel(new GridBagLayout());
         GridBagConstraints npConstraints =  new GridBagConstraints(); //np é northpanel
         northPanel.setPreferredSize(new Dimension(0,100));
+
+        npConstraints.gridx = 0;
+        npConstraints.gridy = 0;
+        npConstraints.weightx = 0.01;
+        npConstraints.weighty = 1;
+        npConstraints.fill = GridBagConstraints.NONE;
+        npConstraints.anchor = GridBagConstraints.WEST;
+        npConstraints.insets = new Insets(0,40,0,0);
+        northPanel.add(logo, npConstraints);
+
+        //espacador invisivel para centralizar
+
+
 
 
 
