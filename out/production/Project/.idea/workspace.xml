@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="pin" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2Z8G40kcbCmJnJCPvoTp8ZCJzKw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="" />
+      <created>1701796098681</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701796098681</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Classes album, playlist, criador de musica">
+      <option name="closed" value="true" />
+      <created>1701861474765</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701861474765</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Adicionado RockStar e comecar a fazer statistics">
+      <option name="closed" value="true" />
+      <created>1701862869849</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701862869849</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Adicionado RockStar e comecar a fazer statistics">
+      <option name="closed" value="true" />
+      <created>1701863075578</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1701863075578</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Adicionado RockStar e comecar a fazer statistics">
+      <option name="closed" value="true" />
+      <created>1701863971284</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701863971284</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais">
+      <option name="closed" value="true" />
+      <created>1701973682707</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1701973682707</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais">
+      <option name="closed" value="true" />
+      <created>1701973729383</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701973729383</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais">
+      <option name="closed" value="true" />
+      <created>1701973825578</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701973825578</updated>
+    </task>
+    <task id="LOCAL-00008" summary="acrescentei o codigo na parte do music creator e album e uns setter e getters na music para poder editar como music creator">
+      <option name="closed" value="true" />
+      <created>1702056446628</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702056446628</updated>
+    </task>
+    <task id="LOCAL-00009" summary="music creator">
+      <option name="closed" value="true" />
+      <created>1702059801595</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702059801595</updated>
+    </task>
+    <task id="LOCAL-00010" summary="music creator">
+      <option name="closed" value="true" />
+      <created>1702059912333</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1702059912333</updated>
+    </task>
+    <task id="LOCAL-00011" summary="music creator">
+      <option name="closed" value="true" />
+      <created>1702127183022</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1702127183022</updated>
+    </task>
+    <task id="LOCAL-00012" summary="validação de dados">
+      <option name="closed" value="true" />
+      <created>1702577779927</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1702577779927</updated>
+    </task>
+    <task id="LOCAL-00013" summary="validação de dados">
+      <option name="closed" value="true" />
+      <created>1702579253369</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1702579253369</updated>
+    </task>
+    <task id="LOCAL-00014" summary="validação de dados">
+      <option name="closed" value="true" />
+      <created>1702582422432</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1702582422432</updated>
+    </task>
+    <task id="LOCAL-00015" summary="pin">
+      <option name="closed" value="true" />
+      <created>1702635175158</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1702635175158</updated>
+    </task>
+    <task id="LOCAL-00016" summary="pin">
+      <option name="closed" value="true" />
+      <created>1702642689128</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1702642689129</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Classes album, playlist, criador de musica" />
+    <MESSAGE value="Adicionado RockStar e comecar a fazer statistics" />
+    <MESSAGE value="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais" />
+    <MESSAGE value="acrescentei o codigo na parte do music creator e album e uns setter e getters na music para poder editar como music creator" />
+    <MESSAGE value="music creator" />
+    <MESSAGE value="validação de dados" />
+    <MESSAGE value="pin" />
+    <option name="LAST_COMMIT_MESSAGE" value="pin" />
+  </component>
+</project>
