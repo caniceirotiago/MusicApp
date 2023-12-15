@@ -30,7 +30,7 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
         this.currentUser = currentUser;
         if(isMCreator){
             SwingUtilities.invokeLater(() -> {
-                new MusicCreatorGUI(currentUser);
+                new MusicCreatorGUI(currentUser, this);
                 loginRegistrationGUI.setVisible(false);
                 loginFrame.dispose();
                 if(registrationFrame != null) registrationFrame.dispose();

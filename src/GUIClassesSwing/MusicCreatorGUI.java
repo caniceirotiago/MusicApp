@@ -14,9 +14,14 @@ public class MusicCreatorGUI extends JFrame {
     private MusicCollection selectedPlayList;
     private DefaultTableModel centralTableModel;
     private JPanel centerPanel;
-    public MusicCreatorGUI(User currentUser){
+    private JTable centralTable;
+    private JMenuItem addToAlbum;
+    private int lastPositionMouseRightClick;
+    private int lastPositionMouseLeftClick;
+    public MusicCreatorGUI(User currentUser, GUIManager guiManager){
         super("Music Creator - " + currentUser.getUsername());
         this.currentUser = currentUser;
+        this.guiManager = guiManager;
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000,1000);
