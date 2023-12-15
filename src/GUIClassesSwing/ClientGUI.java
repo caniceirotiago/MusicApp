@@ -33,7 +33,7 @@ public class ClientGUI extends JFrame {
         setVisible(true);
         ImageIcon imageIcon = new ImageIcon(ImagePaths.APP_ICON);
         setIconImage(imageIcon.getImage());
-        setMinimumSize(new Dimension(900, 700));
+        setMinimumSize(new Dimension(1200, 700));
     }
     public void initComponents(){
         Container mainContainer = new Container();
