@@ -86,22 +86,50 @@ public class RockstarIncManager  implements Serializable {
     //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
     //acho que este método devia chamar se newRegistration
     public void newUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
+        boolean validRegistration = termValidationOnUserAttempt(name,username, password, email,  isCreator, pin);
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
 
-
+        //This loop allows for an already created MusiCreator regist could make a new account as a Client and vice versa.
+        //It sends a code message for GUI to apply an error box "1" for invalid email and "2" for invalid username
+        for(User us : userList){
+            if(us.getEmail().equals(email)){
+                if((isCreator && us instanceof MusicCreator) || (!isCreator && us instanceof Client)){
+                    System.out.println("email already exists");
+                    emailAlreadyExists = true;
+                    guiManager.unsuccessfulRegistration(1);
+                }
+            }
+            if(us.getUsername().equals(username)){
+                if((isCreator && us instanceof MusicCreator) || (!isCreator && us instanceof Client)){
+                    System.out.println("username already exists");
+                    usernameAlreadyExists = true;
+                    guiManager.unsuccessfulRegistration(2);
+                }
+            }
+        }
+        //adicionar aqui booleana ou valor que confirme passagens entre barreiras
+        if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
+            userList.add(new Client(name, username,password,email,0));
+            userList.add(new MusicCreator(name, username, password, email, pin));
+            System.out.println("New client created");
+            guiManager.successfulRegistration();
+        }
+    }
+    public boolean termValidationOnUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
         //Registo, validacao dados
         //booleana final para se usar na criacao do user
         boolean validRegistration = false;
 
         //validação pin
-        boolean pinValido = false;
-        if (pin.isBlank() || pin.length() >8){
-            guiManager.unsuccessfulRegistration(5);
-        } else {
-            pinValido = true;
+        if(isCreator){
+            boolean pinValido = false;
+            if (pin.isBlank() || pin.length() >8){
+                guiManager.unsuccessfulRegistration(5);
+            } else {
+                pinValido = true;
+            }
         }
-
         //username
         //username tem no minimo 3 letras e maximo 15
         boolean validUserName = false;
@@ -126,35 +154,7 @@ public class RockstarIncManager  implements Serializable {
         if (validEmail && validUserName){
             validRegistration = true;
         }
-
-
-        //This loop allows for an already created MusiCreator regist could make a new account as a Client and vice versa.
-        //It sends a code message for GUI to apply an error box "1" for invalid email and "2" for invalid username
-        for(User us : userList){
-            if(us.getEmail().equals(email)){
-                if((isCreator && us instanceof MusicCreator) || (!isCreator && us instanceof Client)){
-                    System.out.println("email already exists");
-                    emailAlreadyExists = true;
-                    guiManager.unsuccessfulRegistration(1);
-                }
-            }
-            if(us.getUsername().equals(username)){
-                if((isCreator && us instanceof MusicCreator) || (!isCreator && us instanceof Client)){
-                    System.out.println("username already exists");
-                    usernameAlreadyExists = true;
-                    guiManager.unsuccessfulRegistration(2);
-                }
-            }
-        }
-        //adicionar aqui booleana ou valor que confirme passagens entre barreiras
-        if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
-            if(!isCreator) userList.add(new Client(name, username,password,email,0));
-            else if (pinValido) {
-                userList.add(new MusicCreator(name, username, password, email, pin));
-                System.out.println("New client created");
-                guiManager.successfulRegistration();
-            }
-        }
+        return validRegistration;
     }
 
     public ArrayList<Music> listByOrder(ArrayList<Music> musicList){
