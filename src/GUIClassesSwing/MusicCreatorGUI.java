@@ -35,8 +35,8 @@ public class MusicCreatorGUI extends JFrame {
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
+//---------------------------------WEST PANEL------------------------------------
 
-        //painel west
         //label albuns
         JLabel albumLabel = new JLabel();
         albumLabel.setText("Albums");
@@ -59,12 +59,84 @@ public class MusicCreatorGUI extends JFrame {
                 }
             }
         });
+        //colocar a jlist num JScrollPane
+        JScrollPane scrollPane = new JScrollPane(albumList);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        //criacao do botao para criar album
+        JButton newAlbumButton = new JButton("New Album");
+
+        //criacao do painel com GRIDBAG
+        JPanel westPanel = new JPanel(new GridBagLayout());
+        westPanel.setPreferredSize(new Dimension(175,0));
+        GridBagConstraints wpConstraints = new GridBagConstraints();// wp é west panel
+        wpConstraints.gridx= 0;
+        wpConstraints.gridy = 0;
+        wpConstraints.weightx=1;
+
+        wpConstraints.anchor=GridBagConstraints.CENTER;
+        wpConstraints.fill = GridBagConstraints.NONE;
+        westPanel.add(albumLabel,wpConstraints);
+
+        wpConstraints.gridy++;
+        wpConstraints.weighty = 0.6;
+        wpConstraints.fill = GridBagConstraints.BOTH;
+        westPanel.add(scrollPane, wpConstraints);
+
+        wpConstraints.gridy++;
+        wpConstraints.weighty = 0.2;
+        wpConstraints.fill = GridBagConstraints.NONE;
+        wpConstraints.anchor = GridBagConstraints.PAGE_START;
+        westPanel.add(newAlbumButton, wpConstraints);
+
+//------------------------------END OF WEST PANEL-----------------
 
 
-        //painel east
-        //painel north
+//-------------------------------EAST PANEL-----------------------
+//criar uma label e um botao para adicionar uma nova musica
+        JLabel newMusiclbl = new JLabel();
+        newMusiclbl.setText("Add new music");
+        JButton addMusicButton =  new JButton("New Music");
+
+        //criar painel east
+        JPanel eastPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints epConstraints =  new GridBagConstraints();
+        epConstraints.anchor = GridBagConstraints.CENTER;
+        epConstraints.gridy = 0;
+        epConstraints.fill = GridBagConstraints.BOTH;
+        eastPanel.setPreferredSize(new Dimension(175,0));
+        eastPanel.add(newMusiclbl,epConstraints);
+        eastPanel.add(addMusicButton,epConstraints);
+
+//-------------------------------END OF EAST PANEL-----------------------
+// ------------------------------NORTH PANEL------------------------------
+        //criacao do label logotipo
+        int newWidth = 100;
+        int newHeigth = 100;
+        ImageIcon originalIcon = new ImageIcon(ImagePaths.APP_ICON);
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeigth, Image.SCALE_SMOOTH);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+        JLabel logo = new JLabel(resizedIcon);
+
+        JTextField searchArea = new JTextField("Search", 20);
+        JButton searchButton =  new JButton("\uD83D\uDD0D");
+        //adicionar aqui botao logout
+
+        JPanel northPanel =  new JPanel(new GridBagLayout());
+        GridBagConstraints npConstraints =  new GridBagConstraints(); //np é northpanel
+        northPanel.setPreferredSize(new Dimension(0,100));
+
+
+
+
+
+//------------------------------END OF NORTH PANEL
         //painel center
         //painel south (estatisticas)
+        mainContainer.add(westPanel,"West");
+        mainContainer.add(eastPanel,"East");
+        add(mainContainer);
     }
     //criacao da lista
     public void updateMusicJtableModel(ArrayList<Music> selectedPlaylist ){
@@ -81,8 +153,5 @@ public class MusicCreatorGUI extends JFrame {
         centerPanel.revalidate();
         centerPanel.repaint();
     }
-
-
-
 
 }
