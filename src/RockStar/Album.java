@@ -6,6 +6,7 @@ public class Album extends MusicCollection {
     private MusicCreator mainCreator;
     private ArrayList<MusicCreator> otherCreators;
 
+
     //construtor de album apenas com 1 criador
 
 

@@ -282,7 +282,7 @@ public class ClientGUI extends JFrame {
         centralTable = new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(false);
 
-        //Reparar que este ,ouse listener se comporta de maneira diferente consoante a playlist selecionada
+        //Reparar que este mouse listener se comporta de maneira diferente consoante a playlist selecionada
         centralTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
