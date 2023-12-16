@@ -405,10 +405,30 @@ public class ClientGUI extends JFrame {
                     westPanel.revalidate();
                     westPanel.repaint();
                 }else {
-                    JOptionPane.showInputDialog("Playlist name already exists");
+                    JOptionPane.showMessageDialog(null,"Playlist name already exists");
                 }
 
             }
+        } else if(userChoice == 1){
+
+            RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
+            RockstarIncManager.GENRE selectedGenre = (RockstarIncManager.GENRE) JOptionPane.showInputDialog(null,
+                    "Chose the genre: ","Genre", JOptionPane.QUESTION_MESSAGE,null, genres,genres[0]);
+
+            String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
+            int nMusics;
+
+            try {
+                nMusics = Integer.parseInt(nMusicsString);
+                if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
+                else{
+                    guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
+                    updateMusicJListModel(currentUser.getAllCollections());
+                }
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Please insert a valid number");
+            }
+
         }
     }
     public void updateMusicJListModel(ArrayList<MusicCollection> playlists){

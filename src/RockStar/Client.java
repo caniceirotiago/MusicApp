@@ -16,6 +16,9 @@ public class Client extends User implements Serializable {
         this.listOfBalanceDeposits = new ArrayList<>();
         this.listOfMusicsToBuy = new ArrayList<>();
     }
+    public void addMusicToMusicToBuy(Music music){
+        listOfMusicsToBuy.add(music);
+    }
 
     public void newCollection(String name){
         //Creation of Empty playlist
