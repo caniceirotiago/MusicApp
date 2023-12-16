@@ -19,7 +19,8 @@ public class Client extends User implements Serializable {
 
     public void newCollection(String name){
         //Creation of Empty playlist
-        allCollections.add(new Playlist(name, this));
+        Playlist newPlaylist = new Playlist(name, this);
+        allCollections.add(newPlaylist);
     };
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
