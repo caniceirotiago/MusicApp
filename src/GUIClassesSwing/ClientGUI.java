@@ -24,7 +24,8 @@ public class ClientGUI extends JFrame {
     private JPanel eastPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
-    private JMenuItem addToPlaylist;
+    private JMenuItem addToPlaylistMenu;
+    private JMenuItem evaluateMusicMenu;
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
     private MusicCollection currentUserCollection;
@@ -52,11 +53,12 @@ public class ClientGUI extends JFrame {
 
         //Central PUM when allMusic selected
         JPopupMenu centralTablePUM = new JPopupMenu();
-        addToPlaylist = new JMenuItem("Add to Playlit");
-        JMenuItem evaluateMusic = new JMenuItem("Evaluate Music");
-        centralTablePUM.add(addToPlaylist);
-        centralTablePUM.add(evaluateMusic);
-        addToPlaylist.addActionListener(e -> addMusicToPlaylistOnClick());
+        addToPlaylistMenu = new JMenuItem("Add to Playlit");
+        evaluateMusicMenu = new JMenuItem("Evaluate Music");
+        centralTablePUM.add(addToPlaylistMenu);
+        centralTablePUM.add(evaluateMusicMenu);
+        addToPlaylistMenu.addActionListener(e -> addMusicToPlaylistOnClick());
+        evaluateMusicMenu.addActionListener(e -> addEvaluationClick());
 
         //Central PUM when a playlist is selected
         JPopupMenu centralTablePUM2 = new JPopupMenu();
@@ -65,6 +67,7 @@ public class ClientGUI extends JFrame {
         centralTablePUM2.add(removeFromPlaylist);
         centralTablePUM2.add(evaluateMusic2);
         removeFromPlaylist.addActionListener(e -> onRemoveFromPlaylistClick());
+        evaluateMusic2.addActionListener(e -> addEvaluationClick());
 
 
 
@@ -84,6 +87,8 @@ public class ClientGUI extends JFrame {
 
         listModelWest = new DefaultListModel<>();
         updateMusicJListModel(currentUser.getAllCollections());
+
+        if(currentUserCollection == null) currentUserCollection = new Playlist();  // em caso de novo utilizador
         selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
 
         // Cria a JList e define o modelo
@@ -313,6 +318,7 @@ public class ClientGUI extends JFrame {
                     int row = centralTable.rowAtPoint(e.getPoint());
                     if(row>=0 && row < centralTable.getRowCount()){
                         centralTable.setRowSelectionInterval(row,row);
+                        if(selectedPlaylist == null) selectedPlaylist = currentUserCollection;
                         if(selectedPlaylist.equals(currentUserCollection)){
                             centralTablePUM.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
                         } else {
@@ -399,6 +405,26 @@ public class ClientGUI extends JFrame {
         }
         playlistMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
+    public void addEvaluationClick(){
+        JPopupMenu evaluationMenu =new JPopupMenu();
+        for(int i = 0; i < 11; i++){
+            JMenuItem evaluationItem  = new JMenuItem(String.valueOf(i));
+            int finalI = i;
+            evaluationItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Music selectedMusic = getSelectedMusic();
+                    if(selectedMusic != null){
+                        selectedMusic.addEvaluation((Client)currentUser, finalI);
+                        updateMusicJTableModel(selectedPlaylist.getMusicList());
+                    }
+                }
+            });
+            evaluationMenu.add(evaluationItem);
+        }
+
+        evaluationMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+    }
     public void onNewPlaylistbtnClick(){
         String[] options = {"Empty Playlist","Random Playlist"};
         int userChoice = JOptionPane.showOptionDialog(null,"Create Playlist","Type of Playlist",
@@ -481,6 +507,7 @@ public class ClientGUI extends JFrame {
                     updateBalance();
                     updateBascketJListModel();
                     updateTotalBascketPrice();
+                    updateMusicJTableModel(currentUserCollection.getMusicList());
                     JOptionPane.showMessageDialog(null,"All the musics were acquired");
                     westPanel.revalidate();
                     westPanel.repaint();

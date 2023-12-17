@@ -7,6 +7,10 @@ public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
     private Client clientCreator;
 
+    public Playlist() {
+        super();
+    }
+
     public Boolean getPublic() {
         return isPublic;
     }
