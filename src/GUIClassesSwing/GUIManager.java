@@ -1,11 +1,15 @@
 package src.GUIClassesSwing;
 
+import src.RockStar.Client;
+import src.RockStar.Music;
 import src.RockStar.RockstarIncManager;
 import src.RockStar.User;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 import static src.RockStar.Main.updateDataFile;
 
@@ -61,13 +65,16 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     public void randomPlaylistCreationAttempt(RockstarIncManager.GENRE selectedGenre,int nMusics){
         logicManager.newRandomPlaylist(selectedGenre,nMusics);
     }
-    public void notEnoughMusicForRandom(int maxSize){
+    public void notEnoughMusicForRandom(int maxSize,boolean freeMusics){
+        String freeMusicsString = "";
+        if(freeMusics) freeMusicsString = "free";
         JOptionPane.showMessageDialog(null,"Not enough musics for this random playlist " +
-                "\nOn the selected genre there are only " + maxSize + " musics available");
+                "\nOn the selected genre there are only " + maxSize + " " + freeMusicsString + " musics available");
     }
 
 
-     //---------------------------------Frame management--------------------------------
+
+    //---------------------------------Frame and JDialog management--------------------------------
 
     public LogRegFrame creationLoginFrame(){
         LogRegFrame lf = new LogRegFrame();
@@ -98,5 +105,11 @@ public class GUIManager { //O Serializable não deveria ficar aqui
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
         }
+    }
+    public int randomPlaylistPaidSongsChoose(ArrayList<String> notFreeMusicSelection, double totalPrice,boolean canBuy) {
+        RandonPlaylistPay rpp = new RandonPlaylistPay(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
+        int userOption = rpp.getReturnValue();
+        System.out.println(userOption);
+        return userOption;
     }
 }

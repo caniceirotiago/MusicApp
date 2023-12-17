@@ -26,7 +26,7 @@ public class RockstarIncManager  implements Serializable {
     public void run(){
 
         //Criei um client só para experimentar Login.. depois é para apagar
-        Client tiago = new Client("as","as","as","as",0);
+        Client tiago = new Client("as","as","as","as",600);
         userList.add(tiago);
         MusicCreator pedro = new MusicCreator("qw","qw","qw","qw","qw");
         userList.add(pedro);
@@ -51,11 +51,11 @@ public class RockstarIncManager  implements Serializable {
         tiago.newMusicToAllCollection(m3);
 
         musicList.add(new Music("Silvana", GENRE.POP,pedro,0));
-        musicList.add(new Music("Luna", GENRE.POP, pedro, 10));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 5));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 20));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 15));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 8));
+        musicList.add(new Music("Luna", GENRE.POP, pedro, 0));
+        musicList.add(new Music("Estrella", GENRE.POP, pedro, 0));
+        musicList.add(new Music("Marisol", GENRE.POP, pedro, 0));
+        musicList.add(new Music("Aurora", GENRE.POP, pedro, 0));
+        musicList.add(new Music("Cielo", GENRE.POP, pedro, 0));
         musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
         musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
         musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
@@ -242,10 +242,13 @@ public class RockstarIncManager  implements Serializable {
         int maxSize = musicOfTheChosenGenre.size();
         if(musicOfTheChosenGenre.size() < nOfMusics) {
             System.out.println("There are not enough musics");
-            guiManager.notEnoughMusicForRandom(maxSize);
+            guiManager.notEnoughMusicForRandom(maxSize,false);
         }
         else{
-            int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size());
+            int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size(),false);
+            ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
+            ArrayList<String> notFreeMusicNames = new ArrayList<>();
+            double totalPrice = 0;
 
             for (int listOfIndex : listOfIndexes) {
                 Music music = musicOfTheChosenGenre.get(listOfIndex);
@@ -255,29 +258,99 @@ public class RockstarIncManager  implements Serializable {
                     currentUser.newMusicToAllCollection(music);
                     randomChosenMusic.add(music);
                 } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
-                    //currentUser.addMusicToMusicToBuy(music);
+                    notFreeMusicSelection.add(music);
+                    notFreeMusicNames.add(music.getName());
+                    totalPrice += music.getPrice();
                 }
-
             }
-            currentUser.newCollection(randomChosenMusic);
+
+            double balance= ((Client)currentUser).getBalance();
+            boolean canBuy  = totalPrice < balance;
+
+            if(!notFreeMusicSelection.isEmpty()){
+                //Este metodo retorna um inteiro que corresponde à seleção do utilizador
+                //1 - adicionar ao carrinho
+                //2 - comprar as musicas
+                //3 - apenas selecionar musicas gratuitas
+                int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicNames, totalPrice,canBuy);
+                switch (userOption){
+                    case 1:
+                        for (Music m : notFreeMusicSelection){
+                            ((Client)currentUser).addMusicToMusicToBuy(m); //Se optar por adicionar ao carrinho apenas as musicas gratuitas serão adicionadas
+                        }
+                        currentUser.newCollection(randomChosenMusic);
+                        break;
+                    case 2:
+                        if(canBuy){
+                            ((Client)currentUser).validationOfAquisition(notFreeMusicSelection);
+                            randomChosenMusic.addAll(notFreeMusicSelection); //Se optar por fazer a compra ele adiciona as musicas pagas àS gratuitas
+                        }
+                        else System.out.println("Not enough money");
+                        currentUser.newCollection(randomChosenMusic);
+                        break;
+                    case 3:
+                        newRandomPlaylistOnlyFree(musicOfTheChosenGenre,nOfMusics,randomChosenMusic);
+                        break;
+                }
+            }
+
         }
     }
-    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
+    public void newRandomPlaylistOnlyFree(ArrayList<Music> musicOfTheChosenGenre, int nOfMusics, ArrayList<Music> randomChosenMusic){
+        ArrayList<Music> onlyFreeMusicByGenre = new ArrayList<>();
+        for(Music m : musicOfTheChosenGenre){
+            if(m.getPrice() == 0) onlyFreeMusicByGenre.add(m);
+        }
+        int maxSyzeFreeMusic = onlyFreeMusicByGenre.size();
+        if(maxSyzeFreeMusic >= nOfMusics){
+            int[] listOfIndexesFreeMusic = randomIndexVector(nOfMusics, onlyFreeMusicByGenre.size(),true);
+            randomChosenMusic.clear();
+            for (int listOfIndexesfree : listOfIndexesFreeMusic) {
+                Music music = onlyFreeMusicByGenre.get(listOfIndexesfree);
+                if (currentUser.getAllMusic().contains(music)) {
+                    randomChosenMusic.add(music);
+                } else  {
+                    currentUser.newMusicToAllCollection(music);
+                    randomChosenMusic.add(music);
+                }
+            }
+            currentUser.newCollection(randomChosenMusic);
+        } else{
+            guiManager.notEnoughMusicForRandom(maxSyzeFreeMusic,true);
+        }
+    }
+    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample, boolean onlyFree){
         //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
         //Ver metodo nweRandomPLaylist
-        int[] listOfIndexes = new int[SizeOfNewVector];
-        ArrayList<Integer> addedIndexes = new ArrayList<>();
+        if(!onlyFree){
+            int[] listOfIndexes = new int[SizeOfNewVector];
+            ArrayList<Integer> addedIndexes = new ArrayList<>();
 
-        for (int i = 0; i < SizeOfNewVector; i++) {
-            int randomIndex;
-            do {
-                randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
-            } while (addedIndexes.contains(randomIndex));
+            for (int i = 0; i < SizeOfNewVector; i++) {
+                int randomIndex;
+                do {
+                    randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
+                } while (addedIndexes.contains(randomIndex));
 
-            listOfIndexes[i] = randomIndex;
-            addedIndexes.add(randomIndex);
+                listOfIndexes[i] = randomIndex;
+                addedIndexes.add(randomIndex);
+            }
+            return listOfIndexes;
+        }else{
+            int[] listOfIndexes = new int[SizeOfNewVector];
+            ArrayList<Integer> addedIndexes = new ArrayList<>();
+
+            for (int i = 0; i < SizeOfNewVector; i++) {
+                int randomIndex;
+                do {
+                    randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
+                } while (addedIndexes.contains(randomIndex));
+
+                listOfIndexes[i] = randomIndex;
+                addedIndexes.add(randomIndex);
+            }
+            return listOfIndexes;
         }
-        return listOfIndexes;
     }
     public void newCreationOfMusic(String name,GENRE genre, double price){
         Music music = new Music(name, genre,(MusicCreator) currentUser, price);
