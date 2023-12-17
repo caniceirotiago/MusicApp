@@ -117,6 +117,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
         clientFrame.updateMusicJTableModel(currentUser.getAllMusic());
         clientFrame.updateBascketJListModel();
         clientFrame.updateBalance();
+        clientFrame.updateTotalBascketPrice();
         clientFrame.revalidate();
         clientFrame.repaint();
     }

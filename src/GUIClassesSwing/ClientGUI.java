@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +29,7 @@ public class ClientGUI extends JFrame {
     private int lastPositionMouseRightClickY;
     private MusicCollection currentUserCollection;
     private JLabel balancelbl;
+    private JLabel totallbl;
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -142,6 +142,10 @@ public class ClientGUI extends JFrame {
         balancelbl.setText("Balance" +
                 "\n" + ((Client)currentUser).getBalance() + "€");
 
+        //Criação botão addBalance
+        JButton addBalancebtn = new JButton("Add Money");
+        addBalancebtn.addActionListener(e -> onAddBalancebtnClick());
+
         //Label a dizer o Basket
         JLabel Basketlbl =  new JLabel();
         Basketlbl.setText("Basket");
@@ -159,8 +163,9 @@ public class ClientGUI extends JFrame {
         scrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         //Label a dizer o Total
-        JLabel totallbl =  new JLabel();
-        totallbl.setText("Total");
+        totallbl =  new JLabel();
+        double totalPrice = updateTotalBascketPrice();
+        totallbl.setText("Total " + totalPrice + "€");
 
         //Criação de Botão para Criar Purchase
         JButton purchasebtn = new JButton("Purchase");
@@ -178,8 +183,13 @@ public class ClientGUI extends JFrame {
         ce.anchor = GridBagConstraints.CENTER;
         eastPanel.add(balancelbl, ce);
 
+
         ce.gridy++;
-        ce.weighty = 0.1;
+        ce.weighty = 0.05;
+        eastPanel.add(addBalancebtn,ce);
+
+        ce.gridy++;
+        ce.weighty = 0.05;
         eastPanel.add(Basketlbl, ce);
 
         ce.gridy++;
@@ -415,21 +425,21 @@ public class ClientGUI extends JFrame {
             RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
             RockstarIncManager.GENRE selectedGenre = (RockstarIncManager.GENRE) JOptionPane.showInputDialog(null,
                     "Chose the genre: ","Genre", JOptionPane.QUESTION_MESSAGE,null, genres,genres[0]);
+            if(selectedGenre != null){
+                String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
+                int nMusics;
 
-            String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
-            int nMusics;
-
-            try {
-                nMusics = Integer.parseInt(nMusicsString);
-                if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
-                else{
-                    guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
-                    updateMusicJListModel(currentUser.getAllCollections());
+                try {
+                    nMusics = Integer.parseInt(nMusicsString);
+                    if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
+                    else{
+                        guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
+                        updateMusicJListModel(currentUser.getAllCollections());
+                    }
+                } catch (NumberFormatException e){
+                    JOptionPane.showMessageDialog(null,"Please insert a valid number");
                 }
-            } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Please insert a valid number");
             }
-
         }
     }
     public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
@@ -459,6 +469,51 @@ public class ClientGUI extends JFrame {
                 "\n" + ((Client)currentUser).getBalance() + "€");
     }
     public void onPurchasebtnClick(){
+        if(updateTotalBascketPrice() > ((Client)currentUser).getBalance()){
+            JOptionPane.showMessageDialog(null,"There are not enough money");
+        }
+        else {
+            int userOption = JOptionPane.showConfirmDialog(null,
+                    "Confirm purchase", "Buy",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            switch (userOption){
+                case 0: ((Client)currentUser).validationOfAquisition(((Client)currentUser).getListOfMusicsToBuy());
+                    ((Client)currentUser).getListOfMusicsToBuy().clear();
+                    updateBalance();
+                    updateBascketJListModel();
+                    updateTotalBascketPrice();
+                    JOptionPane.showMessageDialog(null,"All the musics were acquired");
+                    westPanel.revalidate();
+                    westPanel.repaint();
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null,"Canceled");
+                    break;
+            }
 
+        }
+    }
+    public double updateTotalBascketPrice(){
+        double totalPrice = 0;
+        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+            totalPrice += m.getPrice();
+        }
+        totallbl.setText("Total " + totalPrice + "€");
+        return totalPrice;
+    }
+    public void onAddBalancebtnClick(){
+
+        String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
+
+        double money;
+        try {
+            money = Integer.parseInt(moneyToAdd);
+            if(money < 5 || money > 999)  JOptionPane.showMessageDialog(null,"Minimum is 5€\nMaximum is 999€");
+            else{
+                ((Client)currentUser).addMoney(money);
+                updateBalance();
+            }
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Please insert a valid number\nHas to be an Integer");
+        }
     }
 }

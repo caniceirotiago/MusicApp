@@ -17,7 +17,7 @@ public class Client extends User implements Serializable {
         this.listOfMusicsToBuy = new ArrayList<>();
     }
     public void addMusicToMusicToBuy(Music music){
-        listOfMusicsToBuy.add(music);
+        if(!listOfMusicsToBuy.contains(music))listOfMusicsToBuy.add(music);
     }
 
     public double getBalance() {
