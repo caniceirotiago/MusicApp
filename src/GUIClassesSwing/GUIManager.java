@@ -115,6 +115,8 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     public void randomPLSuccssefullyCreated(){
         JOptionPane.showMessageDialog(null,"Random playlist created");
         clientFrame.updateMusicJTableModel(currentUser.getAllMusic());
+        clientFrame.updateBascketJListModel();
+        clientFrame.updateBalance();
         clientFrame.revalidate();
         clientFrame.repaint();
     }

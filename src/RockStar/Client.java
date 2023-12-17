@@ -24,6 +24,10 @@ public class Client extends User implements Serializable {
         return balance;
     }
 
+    public ArrayList<Music> getListOfMusicsToBuy() {
+        return listOfMusicsToBuy;
+    }
+
     public void newCollection(String name){
         //Creation of Empty playlist
         Playlist newPlaylist = new Playlist(name, this);
@@ -31,7 +35,8 @@ public class Client extends User implements Serializable {
     };
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
-        allCollections.add(new Playlist("Random Creation", this, listOfMusic));
+        String genre = listOfMusic.get(0).getGenre().name();
+        allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
     };
     public ArrayList<MusicCollection> seeAllCollection(){
         return new ArrayList<>();

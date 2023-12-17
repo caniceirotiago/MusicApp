@@ -19,14 +19,17 @@ public class ClientGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private DefaultListModel<MusicCollection> listModelWest;
+    private DefaultListModel<Music> listModelEast;
     private JPanel centerPanel;
     private JPanel westPanel;
+    private JPanel eastPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
     private JMenuItem addToPlaylist;
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
-    MusicCollection currentUserCollection;
+    private MusicCollection currentUserCollection;
+    private JLabel balancelbl;
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -133,25 +136,22 @@ public class ClientGUI extends JFrame {
         //----------------------------------PAINEL EAST--------------------------------
 
 
-
+        eastPanel = new JPanel(new GridBagLayout());
         //Label a dizer o Balance
-        JLabel balancelbl =  new JLabel();
-        balancelbl.setText("Balance");
+        balancelbl =  new JLabel();
+        balancelbl.setText("Balance" +
+                "\n" + ((Client)currentUser).getBalance() + "€");
 
         //Label a dizer o Basket
         JLabel Basketlbl =  new JLabel();
         Basketlbl.setText("Basket");
 
         //Criação de lista de compras
-        DefaultListModel<String> listModel1 = new DefaultListModel<>();
-        listModel1.addElement("Item 1");
-        listModel1.addElement("Item 2");
-        listModel1.addElement("Item 3");
-        listModel1.addElement("Item 3");
-
+        listModelEast = new DefaultListModel<>();
+        updateBascketJListModel();
 
         // Cria a JList e define o modelo
-        JList<String> basketList = new JList<>(listModel1);
+        JList<Music> basketList = new JList<>(listModelEast);
 
         // Coloca a JList em um JScrollPane
         JScrollPane scrollPane2 = new JScrollPane(basketList);
@@ -164,9 +164,10 @@ public class ClientGUI extends JFrame {
 
         //Criação de Botão para Criar Purchase
         JButton purchasebtn = new JButton("Purchase");
+        purchasebtn.addActionListener(e -> onPurchasebtnClick());
 
         //Criação de painel com GRIDBAGLAYOUT
-        JPanel eastPanel = new JPanel(new GridBagLayout());
+
         eastPanel.setPreferredSize(new Dimension(175, 0));
         GridBagConstraints ce = new GridBagConstraints();
         ce.gridx = 0;
@@ -291,7 +292,7 @@ public class ClientGUI extends JFrame {
         centralTable = new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(false);
 
-        //Reparar que este ,ouse listener se comporta de maneira diferente consoante a playlist selecionada
+        //Reparar que este mouse listener se comporta de maneira diferente consoante a playlist selecionada
         centralTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -442,4 +443,22 @@ public class ClientGUI extends JFrame {
         westPanel.repaint();
         //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
+    public void updateBascketJListModel(){
+        listModelEast.removeAllElements();
+        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+            listModelEast.addElement(m);
+            System.out.println("Adicionando música ao basket: " + m);
+        }
+
+        eastPanel.revalidate();
+        eastPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
+    }
+    public void updateBalance(){
+        balancelbl.setText("Balance" +
+                "\n" + ((Client)currentUser).getBalance() + "€");
+    }
+    public void onPurchasebtnClick(){
+
+    }
 }
