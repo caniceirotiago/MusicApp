@@ -26,7 +26,7 @@ public class RockstarIncManager  implements Serializable {
     public void run(){
 
         //Criei um client só para experimentar Login.. depois é para apagar
-        Client tiago = new Client("as","as","as","as",600);
+        Client tiago = new Client("as","as","as","as",180);
         userList.add(tiago);
         MusicCreator pedro = new MusicCreator("qw","qw","qw","qw","qw");
         userList.add(pedro);
@@ -232,6 +232,7 @@ public class RockstarIncManager  implements Serializable {
         // de uma Arraylist de Musicas.
         //O presente método pede um número de musicas e um género e devolve um arraylist
         //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
+        boolean successfullyCreated = false;
         ArrayList<Music> musicOfTheChosenGenre = new ArrayList<>();
         ArrayList<Music> randomChosenMusic = new ArrayList<>();
 
@@ -279,6 +280,7 @@ public class RockstarIncManager  implements Serializable {
                             ((Client)currentUser).addMusicToMusicToBuy(m); //Se optar por adicionar ao carrinho apenas as musicas gratuitas serão adicionadas
                         }
                         currentUser.newCollection(randomChosenMusic);
+                        successfullyCreated = true;
                         break;
                     case 2:
                         if(canBuy){
@@ -287,16 +289,23 @@ public class RockstarIncManager  implements Serializable {
                         }
                         else System.out.println("Not enough money");
                         currentUser.newCollection(randomChosenMusic);
+                        successfullyCreated = true;
                         break;
                     case 3:
                         newRandomPlaylistOnlyFree(musicOfTheChosenGenre,nOfMusics,randomChosenMusic);
                         break;
                 }
             }
+            else {
+                currentUser.newCollection(randomChosenMusic);
+                successfullyCreated = true;
+            }
 
         }
+        if(successfullyCreated) guiManager.randomPLSuccssefullyCreated();
     }
     public void newRandomPlaylistOnlyFree(ArrayList<Music> musicOfTheChosenGenre, int nOfMusics, ArrayList<Music> randomChosenMusic){
+
         ArrayList<Music> onlyFreeMusicByGenre = new ArrayList<>();
         for(Music m : musicOfTheChosenGenre){
             if(m.getPrice() == 0) onlyFreeMusicByGenre.add(m);
@@ -315,6 +324,7 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
             currentUser.newCollection(randomChosenMusic);
+            guiManager.randomPLSuccssefullyCreated();
         } else{
             guiManager.notEnoughMusicForRandom(maxSyzeFreeMusic,true);
         }
