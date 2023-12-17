@@ -20,6 +20,10 @@ public class Client extends User implements Serializable {
         listOfMusicsToBuy.add(music);
     }
 
+    public double getBalance() {
+        return balance;
+    }
+
     public void newCollection(String name){
         //Creation of Empty playlist
         Playlist newPlaylist = new Playlist(name, this);
@@ -47,5 +51,17 @@ public class Client extends User implements Serializable {
     }
 
     public void calculatePriceOfMusicToBuy(){}
-    public void validationOfAquisition(){}
+    public boolean validationOfAquisition(ArrayList<Music> musics){
+        double totalPrice = 0;
+        for(Music m : musics){
+            totalPrice += m.getPrice();
+        }
+        if(totalPrice <= balance){
+            listOfAcquisitions.add(new MusicAquisition(musics));
+            balance -= totalPrice;
+            allMusic.addAll(musics);
+            return true;
+        }
+        return false; //Se a compra não é efetuada por falta de saldo
+    }
 }
