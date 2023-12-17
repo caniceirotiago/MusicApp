@@ -5,6 +5,7 @@ import src.RockStar.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -98,6 +99,8 @@ public class MusicCreatorGUI extends JFrame {
         newMusiclbl.setText("Add new music");
         JButton addMusicButton =  new JButton("New Music");
 
+        //aqui falta adicionar as funcionalidades das musicas
+
         //criar painel east
         JPanel eastPanel = new JPanel(new GridBagLayout());
         GridBagConstraints epConstraints =  new GridBagConstraints();
@@ -124,6 +127,13 @@ public class MusicCreatorGUI extends JFrame {
         //adicionar aqui botao logout
         JButton btnLogOut =  new JButton("LogOut");
         //btnLogOut.addEventListener
+        btnLogOut.addActionListener(e -> {
+            try {
+                onbtnLogOutClick();
+            } catch (IOException | ClassNotFoundException ex){
+                throw new RuntimeException(ex);
+            }
+        });
 
 
         JPanel northPanel =  new JPanel(new GridBagLayout());
@@ -140,18 +150,40 @@ public class MusicCreatorGUI extends JFrame {
         northPanel.add(logo, npConstraints);
 
         //espacador invisivel para centralizar
+        npConstraints.gridx++;
+        npConstraints.weighty = 0.25;
+        npConstraints.fill = GridBagConstraints.HORIZONTAL;
+        northPanel.add(Box.createHorizontalStrut(0), npConstraints);
 
+        //campo de pesquisa
+        npConstraints.gridx++;
+        npConstraints.weightx = 0;
+        npConstraints.fill = GridBagConstraints.NONE;
+        northPanel.add(searchArea, npConstraints);
+        //botao de pesquisa
+        npConstraints.gridx++;
+        npConstraints.weightx = 0;
+        npConstraints.fill = GridBagConstraints.HORIZONTAL;
+        northPanel.add(searchButton,npConstraints);
 
+        //Espacador invisivel
+        npConstraints.gridx++;
+        npConstraints.weighty = 0.25;
+        npConstraints.fill = GridBagConstraints.HORIZONTAL;
+        northPanel.add(Box.createHorizontalStrut(0), npConstraints);
 
-
-
-
-
+        //configuracao botao logout
+        npConstraints.gridx ++;
+        npConstraints.weightx = 0.01;
+        npConstraints.anchor =GridBagConstraints.EAST;
+        npConstraints.insets = new Insets(0,0,0,40);
+        northPanel.add(btnLogOut, npConstraints);
 //------------------------------END OF NORTH PANEL
         //painel center
         //painel south (estatisticas)
         mainContainer.add(westPanel,"West");
         mainContainer.add(eastPanel,"East");
+        mainContainer.add(northPanel, "North");
         add(mainContainer);
     }
     //criacao da lista
@@ -168,6 +200,9 @@ public class MusicCreatorGUI extends JFrame {
         }
         centerPanel.revalidate();
         centerPanel.repaint();
+    }
+    public void onbtnLogOutClick() throws IOException, ClassNotFoundException {
+        guiManager.logoutMCreator();
     }
 
 }

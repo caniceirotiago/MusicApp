@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="pin" />
+    <list default="true" id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="pedro">
+      <change afterPath="$PROJECT_DIR$/mainSaveFile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/GUIManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/GUIManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUI.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +180,39 @@
       <option name="project" value="LOCAL" />
       <updated>1702642689129</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="pin">
+      <option name="closed" value="true" />
+      <created>1702653381415</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1702653381415</updated>
+    </task>
+    <task id="LOCAL-00018" summary="pin">
+      <option name="closed" value="true" />
+      <created>1702653390045</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1702653390045</updated>
+    </task>
+    <task id="LOCAL-00019" summary="paineis criador">
+      <option name="closed" value="true" />
+      <created>1702660225116</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1702660225117</updated>
+    </task>
+    <task id="LOCAL-00020" summary="pedro">
+      <option name="closed" value="true" />
+      <created>1702665718384</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1702665718385</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -198,6 +234,8 @@
     <MESSAGE value="music creator" />
     <MESSAGE value="validação de dados" />
     <MESSAGE value="pin" />
-    <option name="LAST_COMMIT_MESSAGE" value="pin" />
+    <MESSAGE value="paineis criador" />
+    <MESSAGE value="pedro" />
+    <option name="LAST_COMMIT_MESSAGE" value="pedro" />
   </component>
 </project>
