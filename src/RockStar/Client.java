@@ -1,8 +1,9 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Client extends User{
+public class Client extends User implements Serializable {
     private double balance = 0;
     ArrayList<MusicAquisition> listOfAcquisitions;
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
@@ -15,10 +16,14 @@ public class Client extends User{
         this.listOfBalanceDeposits = new ArrayList<>();
         this.listOfMusicsToBuy = new ArrayList<>();
     }
+    public void addMusicToMusicToBuy(Music music){
+        listOfMusicsToBuy.add(music);
+    }
 
     public void newCollection(String name){
         //Creation of Empty playlist
-        allCollections.add(new Playlist(name, this));
+        Playlist newPlaylist = new Playlist(name, this);
+        allCollections.add(newPlaylist);
     };
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods

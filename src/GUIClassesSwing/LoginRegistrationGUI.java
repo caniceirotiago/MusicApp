@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
-public class LoginRegistrationGUI extends JFrame implements Serializable {
+public class LoginRegistrationGUI extends JFrame {
     GUIManager guiManager;
     private JLabel background;
     private JLabel userLoginLbl;

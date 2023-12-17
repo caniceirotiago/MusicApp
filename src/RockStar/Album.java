@@ -1,8 +1,9 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Album extends MusicCollection {
+public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
     private ArrayList<MusicCreator> otherCreators;
 

@@ -8,7 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,12 +18,15 @@ public class ClientGUI extends JFrame {
     private User currentUser;
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
+    private DefaultListModel<MusicCollection> listModelWest;
     private JPanel centerPanel;
+    private JPanel westPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
     private JMenuItem addToPlaylist;
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
+    MusicCollection currentUserCollection;
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -62,7 +67,7 @@ public class ClientGUI extends JFrame {
 
         //---------------------PAINEL WEST---------------------------------
 
-
+        westPanel = new JPanel(new GridBagLayout());
         //Label a dizer Playlist
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Playlist");
@@ -74,17 +79,14 @@ public class ClientGUI extends JFrame {
         //no User, como a MusicCollection é uma classe abstrata temos de criar uma plylist aqui e será um album no caso do
         //Music creator. Depois disso dão adicionadas as restantes playlists do utilizador com o ciclo
 
-        DefaultListModel<MusicCollection> listModel = new DefaultListModel<>();
-        MusicCollection currentUserCollection = new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
-        listModel.addElement(currentUserCollection);
-        for(MusicCollection cl : currentUser.getAllCollections()){
-            listModel.addElement(cl);
-        }
+        listModelWest = new DefaultListModel<>();
+        updateMusicJListModel(currentUser.getAllCollections());
+        selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
 
         // Cria a JList e define o modelo
-        JList<MusicCollection> playlistList = new JList<>(listModel);
+        JList<MusicCollection> playlistList = new JList<>(listModelWest);
         //Listner de seleção de playlist
-        selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
+
         playlistList.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){
                 selectedPlaylist = playlistList.getSelectedValue();
@@ -100,9 +102,10 @@ public class ClientGUI extends JFrame {
 
         //Criação de Botão para Criar Playlist
         JButton newPlaylistbtn = new JButton("New PLaylist");
+        newPlaylistbtn.addActionListener(e -> onNewPlaylistbtnClick());
 
         //Criação de painel com GRIDBAGLAYOUT
-        JPanel westPanel = new JPanel(new GridBagLayout());
+
         westPanel.setPreferredSize(new Dimension(175, 0));
         GridBagConstraints cw = new GridBagConstraints();
         cw.gridx = 0;
@@ -212,7 +215,13 @@ public class ClientGUI extends JFrame {
 
         //Criação de Botão para Criar logout
         JButton logOutbtn = new JButton("Logout");
-        logOutbtn.addActionListener(e -> onlogOutbtnClick());
+        logOutbtn.addActionListener(e -> {
+            try {
+                onlogOutbtnClick();
+            } catch (IOException | ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
 
         JPanel northPanel = new JPanel(new GridBagLayout());
@@ -333,7 +342,7 @@ public class ClientGUI extends JFrame {
         centerPanel.repaint();
         //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
-    public void onlogOutbtnClick(){
+    public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
         guiManager.logoutClient();
     }
     public Music getSelectedMusic(){
@@ -379,4 +388,58 @@ public class ClientGUI extends JFrame {
         }
         playlistMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
+    public void onNewPlaylistbtnClick(){
+        String[] options = {"Empty Playlist","Random Playlist"};
+        int userChoice = JOptionPane.showOptionDialog(null,"Create Playlist","Type of Playlist",
+                JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+        if(userChoice == 0){
+            String playlistName = JOptionPane.showInputDialog("Enter the name of the new playlist");
+            if(playlistName != null && !playlistName.trim().isEmpty()){
+                boolean nameAlreadyExists = false;
+                for(MusicCollection mc: currentUser.getAllCollections()){
+                    if(mc.getName().equals(playlistName)) nameAlreadyExists = true;
+                }
+                if(!nameAlreadyExists){
+                    currentUser.newCollection(playlistName);
+                    updateMusicJListModel(currentUser.getAllCollections());
+                    westPanel.revalidate();
+                    westPanel.repaint();
+                }else {
+                    JOptionPane.showMessageDialog(null,"Playlist name already exists");
+                }
+
+            }
+        } else if(userChoice == 1){
+
+            RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
+            RockstarIncManager.GENRE selectedGenre = (RockstarIncManager.GENRE) JOptionPane.showInputDialog(null,
+                    "Chose the genre: ","Genre", JOptionPane.QUESTION_MESSAGE,null, genres,genres[0]);
+
+            String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
+            int nMusics;
+
+            try {
+                nMusics = Integer.parseInt(nMusicsString);
+                if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
+                else{
+                    guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
+                    updateMusicJListModel(currentUser.getAllCollections());
+                }
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Please insert a valid number");
+            }
+
+        }
+    }
+    public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
+        currentUserCollection = new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+        listModelWest.removeAllElements();
+        listModelWest.addElement(currentUserCollection);
+        for(MusicCollection cl : currentUser.getAllCollections()){
+            listModelWest.addElement(cl);
+        }
+        westPanel.revalidate();
+        westPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
+    };
 }

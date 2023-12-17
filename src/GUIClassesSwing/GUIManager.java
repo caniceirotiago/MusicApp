@@ -4,15 +4,18 @@ import src.RockStar.RockstarIncManager;
 import src.RockStar.User;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.io.Serializable;
 
-public class GUIManager implements Serializable { //O Serializable não deveria ficar aqui
+import static src.RockStar.Main.updateDataFile;
+
+public class GUIManager { //O Serializable não deveria ficar aqui
 
     private ClientGUI clientFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
     private LogRegFrame loginFrame;
     private LogRegFrame registrationFrame;
-    private RockstarIncManager logicManager;
+    private final RockstarIncManager logicManager;
     private User currentUser;
 
     public GUIManager(RockstarIncManager logicManager) {
@@ -21,30 +24,15 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
     public void run(){
         loginRegistrationGUI = new LoginRegistrationGUI(GUIManager.this);
     }
-    //Passa a lógica da tentativa de login para a classe lógica
+
+
+
+    //---------Comunication with logicManager and creation of dialog messages-------
+
     public void loginAttempt(String userField, String passToString, boolean isMCreator, String pin){
         logicManager.loginAttempt(userField,passToString,isMCreator,pin);
     }
     //Inicia a frame correta no caso de o login ser bem sucedido
-    public void sucessfullLogin(User currentUser, boolean isMCreator){
-        this.currentUser = currentUser;
-        if(isMCreator){
-            SwingUtilities.invokeLater(() -> {
-                new MusicCreatorGUI(currentUser, this);
-                loginRegistrationGUI.setVisible(false);
-                loginFrame.dispose();
-                if(registrationFrame != null) registrationFrame.dispose();
-            });
-        } else {
-            SwingUtilities.invokeLater(() -> {
-                clientFrame = new ClientGUI(currentUser,this);
-                loginRegistrationGUI.setVisible(false);
-                loginFrame.dispose();
-                if(registrationFrame != null) registrationFrame.dispose();
-            });
-        }
-    }
-    //Caixa de diálogo em caso de login sem sucesso
     public void unsuccessfulLogin(){
         JOptionPane.showMessageDialog(null,"Unsuccessful Login");
     };
@@ -70,11 +58,17 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
         }
 
     }
-    public void logoutClient(){
-        clientFrame.dispose();
-        currentUser = null;
-        run();
+    public void randomPlaylistCreationAttempt(RockstarIncManager.GENRE selectedGenre,int nMusics){
+        logicManager.newRandomPlaylist(selectedGenre,nMusics);
     }
+    public void notEnoughMusicForRandom(int maxSize){
+        JOptionPane.showMessageDialog(null,"Not enough musics for this random playlist " +
+                "\nOn the selected genre there are only " + maxSize + " musics available");
+    }
+
+
+     //---------------------------------Frame management--------------------------------
+
     public LogRegFrame creationLoginFrame(){
         LogRegFrame lf = new LogRegFrame();
         this.loginFrame = lf;
@@ -84,5 +78,25 @@ public class GUIManager implements Serializable { //O Serializable não deveria 
         LogRegFrame rf = new LogRegFrame();
         this.registrationFrame = rf;
         return rf;
+    }
+    public void logoutClient() throws IOException, ClassNotFoundException {
+        clientFrame.dispose();
+        currentUser = null;
+        updateDataFile();
+        run();
+    }
+    public void sucessfullLogin(User currentUser, boolean isMCreator){
+        this.currentUser = currentUser;
+        if(isMCreator){
+            new MusicCreatorGUI(currentUser);
+            loginRegistrationGUI.setVisible(false);
+            loginFrame.dispose();
+            if(registrationFrame != null) registrationFrame.dispose();
+        } else {
+            clientFrame = new ClientGUI(currentUser,this);
+            loginRegistrationGUI.setVisible(false);
+            loginFrame.dispose();
+            if(registrationFrame != null) registrationFrame.dispose();
+        }
     }
 }

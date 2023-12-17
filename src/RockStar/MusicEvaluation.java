@@ -1,8 +1,9 @@
 package src.RockStar;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class MusicEvaluation {
+public class MusicEvaluation implements Serializable {
     private Client client;
     private LocalDateTime evaluationDateTime;
     private int evaluation;

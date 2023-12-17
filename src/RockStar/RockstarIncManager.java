@@ -10,8 +10,8 @@ public class RockstarIncManager  implements Serializable {
     public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
     private ArrayList<User> userList;
     private ArrayList<Music> musicList;
-    private User currentUser;
-    private GUIManager guiManager;
+    private transient User currentUser;
+    private transient GUIManager guiManager;
 
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
@@ -19,10 +19,8 @@ public class RockstarIncManager  implements Serializable {
     }
     //Novo método para iniciar a componente gráfica (É preciso estudar melhor este método)
     public void startGUI() {
-        SwingUtilities.invokeLater(() -> {
-            guiManager = new GUIManager(RockstarIncManager.this);
-            guiManager.run();
-        });
+        guiManager = new GUIManager(RockstarIncManager.this);
+        guiManager.run();
     }
     //Métodos
     public void run(){
@@ -51,6 +49,24 @@ public class RockstarIncManager  implements Serializable {
         Music m3 = new Music("Mariazinha", GENRE.POP,pedro,0);
         musicList.add(m3);
         tiago.newMusicToAllCollection(m3);
+
+        musicList.add(new Music("Silvana", GENRE.POP,pedro,0));
+        musicList.add(new Music("Luna", GENRE.POP, pedro, 10));
+        musicList.add(new Music("Estrella", GENRE.POP, pedro, 5));
+        musicList.add(new Music("Marisol", GENRE.POP, pedro, 20));
+        musicList.add(new Music("Aurora", GENRE.POP, pedro, 15));
+        musicList.add(new Music("Cielo", GENRE.POP, pedro, 8));
+        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
+        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
+        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+
 
 
         //Inicia o método gráfico
@@ -218,14 +234,30 @@ public class RockstarIncManager  implements Serializable {
         //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
         ArrayList<Music> musicOfTheChosenGenre = new ArrayList<>();
         ArrayList<Music> randomChosenMusic = new ArrayList<>();
+
         for(Music m : musicList){
             if(m.getGenre().equals(genre)) musicOfTheChosenGenre.add(m);
         }
-        if(musicOfTheChosenGenre.size() < nOfMusics) System.out.println("there are not enought musics");
+
+        int maxSize = musicOfTheChosenGenre.size();
+        if(musicOfTheChosenGenre.size() < nOfMusics) {
+            System.out.println("There are not enough musics");
+            guiManager.notEnoughMusicForRandom(maxSize);
+        }
         else{
             int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size());
-            for(int i = 0; i < listOfIndexes.length; i++){
-                randomChosenMusic.add(musicOfTheChosenGenre.get(listOfIndexes[0]));
+
+            for (int listOfIndex : listOfIndexes) {
+                Music music = musicOfTheChosenGenre.get(listOfIndex);
+                if (currentUser.getAllMusic().contains(music)) {
+                    randomChosenMusic.add(music);
+                } else if (!currentUser.getAllMusic().contains(music) && music.getPrice() == 0) {
+                    currentUser.newMusicToAllCollection(music);
+                    randomChosenMusic.add(music);
+                } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
+                    //currentUser.addMusicToMusicToBuy(music);
+                }
+
             }
             currentUser.newCollection(randomChosenMusic);
         }

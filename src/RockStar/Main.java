@@ -1,6 +1,8 @@
 package src.RockStar;
 
 import java.io.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
     // Para a lógica de gravação funcionar houve necessidade que seja estático, confirmar com prof
@@ -12,11 +14,11 @@ public class Main {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(gc);
         oos.close();
+        System.out.println("File Updated");
     }
     // Criar um novo arquivo caso nao haja
-    private static void createArchive() {
+    /*private static void createArchive() {
         try {
-
             FileOutputStream fos = new FileOutputStream("mainSaveFile");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             gc = new RockstarIncManager();
@@ -27,16 +29,20 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+     */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        /* para depois reativar
+        //para depois reativar
         //Abre o ficheiro de objeto (cria um se não existir) e lê o ficheiro de objetos
+        /*
         try{
             FileInputStream fis = new FileInputStream("mainSaveFile");
             ObjectInputStream ois = new ObjectInputStream(fis);
             gc = (RockstarIncManager) ois.readObject();
             ois.close();
         }catch (FileNotFoundException e){
-            createArchive();
+           // createArchive();
+            gc= new RockstarIncManager();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -59,15 +65,15 @@ public class Main {
                 }
             }
         }, delay, interval);
-        */
+
         //para depois apagar abaixo
 
-
         //Corre o programa com o ficheiro de dados gravados
+
+         */
         RockstarIncManager gc = new RockstarIncManager();
         gc.run();
 
-        //grava dados do programa ao fechar
         //updateDataFile();
     }
 }
