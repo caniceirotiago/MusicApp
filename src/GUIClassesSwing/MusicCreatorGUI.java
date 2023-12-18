@@ -5,6 +5,10 @@ import src.RockStar.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -17,8 +21,8 @@ public class MusicCreatorGUI extends JFrame {
     private JPanel centerPanel;
     private JTable centralTable;
     private JMenuItem addToAlbum;
-    private int lastPositionMouseRightClick;
-    private int lastPositionMouseLeftClick;
+    private int lastPositionMouseRightClickX;
+    private int lastPositionMouseRightClickY;
     public MusicCreatorGUI(User currentUser, GUIManager guiManager){
         super("Music Creator - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -35,6 +39,16 @@ public class MusicCreatorGUI extends JFrame {
     public void initComponents() {
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
+
+//---------------------------------menus and popup menus
+        JPopupMenu centralTablePUM =  new JPopupMenu();
+        addToAlbum = new JMenuItem("Add to album");
+        //ver o que colocar aqui no caso do criador de musica
+        JMenuItem evaluateMusic = new JMenuItem("Evaluate music");
+        centralTablePUM.add(addToAlbum);
+        centralTablePUM.add(evaluateMusic);
+        addToAlbum.addActionListener(e-> addMusicToAlbumOnClick());
+//-------------------------------------------------------
 
 //---------------------------------WEST PANEL------------------------------------
 
@@ -179,6 +193,45 @@ public class MusicCreatorGUI extends JFrame {
         npConstraints.insets = new Insets(0,0,0,40);
         northPanel.add(btnLogOut, npConstraints);
 //------------------------------END OF NORTH PANEL
+//------------------------------center panel
+        String [] columnNames = {"TItle", "Author", "Genre", "Price"};
+        centralTableModel =  new DefaultTableModel(columnNames, 0) {
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            }
+        };
+        for (Music ms : currentUser.getAllMusic()){
+            Vector<Object> line =  new Vector<>();
+            line.add(ms.getName());
+            line.add(ms.getMusicCreator());
+            line.add(ms.getGenre());
+            line.add(ms.getPrice());
+            centralTableModel.addRow(line);
+        }
+
+        centralTable =  new JTable(centralTableModel);
+        centralTable.getTableHeader().setReorderingAllowed(false);
+        centralTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //guarda a posicao do click para abrir o submenu
+                lastPositionMouseRightClickX = e.getX();
+                lastPositionMouseRightClickY = e.getY();
+                if (SwingUtilities.isRightMouseButton(e)){
+                    int row = centralTable.rowAtPoint(e.getPoint());
+                    if (row > 0 && row <centralTable.getRowCount()){
+                        centralTable.setRowSelectionInterval(row,row);
+                        if (selectedPlayList.equals(currentUserCollection)){
+                            centralTablePUM.show(e.getComponent(), lastPositionMouseRightClickX, lastPositionMouseRightClickY);
+                        }
+
+                    }
+                }
+            }
+        });
+//------------------------------end of center panel
+//------------------------------south panel
+//------------------------------end of south panel
         //painel center
         //painel south (estatisticas)
         mainContainer.add(westPanel,"West");
@@ -203,6 +256,38 @@ public class MusicCreatorGUI extends JFrame {
     }
     public void onbtnLogOutClick() throws IOException, ClassNotFoundException {
         guiManager.logoutMCreator();
+    }
+    public Music getSelectedMusic(){
+        int row = centralTable.getSelectedRow();
+        if (row != -1){
+            ArrayList<Music> musics = selectedPlayList.getMusicList();
+            return musics.get(row);
+        }
+        return null;
+    }
+    public void addMusicToAlbumOnClick(){
+        JPopupMenu albumMenu =  new JPopupMenu();
+        int noAlbums = currentUser.getAllCollections().size();
+        if (noAlbums == 0) {
+            JMenuItem emptyAlbum = new JMenuItem("No albums to show");
+            albumMenu.add(emptyAlbum);
+        }else {
+            for (MusicCollection al : currentUser.getAllCollections()){
+                JMenuItem albumItem = new JMenuItem(al.getName());
+                albumItem.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Music selectedMusic = getSelectedMusic();
+                        if (selectedMusic != null){
+                            currentUser.addMusicToCollection(selectedMusic, al);
+                        }
+                    }
+                });
+                albumMenu.add(albumItem);
+            }
+            albumMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+
+        }
     }
 
 }

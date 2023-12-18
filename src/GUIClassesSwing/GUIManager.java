@@ -103,7 +103,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     public void sucessfullLogin(User currentUser, boolean isMCreator){
         this.currentUser = currentUser;
         if(isMCreator){
-            new MusicCreatorGUI(currentUser, this);
+            musicCreatorFrame = new MusicCreatorGUI(currentUser, this);
             loginRegistrationGUI.setVisible(false);
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
