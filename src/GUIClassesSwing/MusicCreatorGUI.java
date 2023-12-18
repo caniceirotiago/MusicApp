@@ -48,6 +48,8 @@ public class MusicCreatorGUI extends JFrame {
         centralTablePUM.add(addToAlbum);
         centralTablePUM.add(evaluateMusic);
         addToAlbum.addActionListener(e-> addMusicToAlbumOnClick());
+
+
 //-------------------------------------------------------
 
 //---------------------------------WEST PANEL------------------------------------
@@ -193,8 +195,9 @@ public class MusicCreatorGUI extends JFrame {
         npConstraints.insets = new Insets(0,0,0,40);
         northPanel.add(btnLogOut, npConstraints);
 //------------------------------END OF NORTH PANEL
+
 //------------------------------center panel
-        String [] columnNames = {"TItle", "Author", "Genre", "Price"};
+        String [] columnNames = {"Title", "Author", "Genre", "Price"};
         centralTableModel =  new DefaultTableModel(columnNames, 0) {
             public boolean isCellEditable(int row, int col) {
                 return false;
@@ -223,6 +226,8 @@ public class MusicCreatorGUI extends JFrame {
                         centralTable.setRowSelectionInterval(row,row);
                         if (selectedPlayList.equals(currentUserCollection)){
                             centralTablePUM.show(e.getComponent(), lastPositionMouseRightClickX, lastPositionMouseRightClickY);
+                        } else {
+
                         }
 
                     }
@@ -237,6 +242,7 @@ public class MusicCreatorGUI extends JFrame {
         mainContainer.add(westPanel,"West");
         mainContainer.add(eastPanel,"East");
         mainContainer.add(northPanel, "North");
+        mainContainer.add(centerPanel,"Center");
         add(mainContainer);
     }
     //criacao da lista
@@ -251,8 +257,7 @@ public class MusicCreatorGUI extends JFrame {
             line.add(ms.getMusicCreator());
             centralTableModel.addRow(line);
         }
-        centerPanel.revalidate();
-        centerPanel.repaint();
+
     }
     public void onbtnLogOutClick() throws IOException, ClassNotFoundException {
         guiManager.logoutMCreator();
