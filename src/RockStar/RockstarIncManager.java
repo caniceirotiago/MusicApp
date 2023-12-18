@@ -2,7 +2,6 @@ package src.RockStar;
 
 import src.GUIClassesSwing.GUIManager;
 
-import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -271,7 +270,7 @@ public class RockstarIncManager  implements Serializable {
             for(User us :  userList){
                 if(us instanceof MusicCreator && us.name.toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCreators.add((MusicCreator) us);
                 for(MusicCollection mc : us.getAllCollections()){
-                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && (mc instanceof Album || (mc instanceof Playlist && ((Playlist)mc).getPublic()))){
+                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && (mc instanceof Album || (mc instanceof Playlist && ((Playlist)mc).getPublicState()))){
                         foundMusicCollections.add(mc);
                     }
                 }

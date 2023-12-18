@@ -77,7 +77,7 @@ public class ClientGUI extends JFrame {
         westListPopMenu.add(deletePlaylist);
         westListPopMenu.add(changeVisibility);
         deletePlaylist.addActionListener(e -> onDeletePlaylistClick());
-        //changeVisibility.addActionListener(e -> onVisibilityClick());
+        changeVisibility.addActionListener(e -> onVisibilityClick());
 
         //-----------------------------PANEL WEST--------------------------------
 
@@ -167,8 +167,8 @@ public class ClientGUI extends JFrame {
         eastPanel = new JPanel(new GridBagLayout());
         //Label a dizer o Balance
         balancelbl =  new JLabel();
-        balancelbl.setText("Balance" +
-                "\n" + ((Client)currentUser).getBalance() + "€");
+        balancelbl.setText("Balance " +
+                "\n " + ((Client)currentUser).getBalance() + "€");
 
         //Criação botão addBalance
         JButton addBalancebtn = new JButton("Add Money");
@@ -579,7 +579,6 @@ public class ClientGUI extends JFrame {
     }
     public void onDeletePlaylistClick(){
         MusicCollection selected = getSelectedPlaylist();
-        System.out.println("as");
         if(selected != null){
             int confirmation = JOptionPane.showConfirmDialog(null, "Comfirm the elimination of " + selected.getName());
             if(confirmation == 0){
@@ -589,6 +588,31 @@ public class ClientGUI extends JFrame {
                 westPanel.repaint();
                 System.out.println("Playlist deleted");
             }
+        }
+    }
+    public void onVisibilityClick(){
+        MusicCollection selected = getSelectedPlaylist();
+        if(selected != null){
+            boolean isPublic = ((Playlist)selected).getPublicState();
+            String playlistState = "";
+            if(isPublic) playlistState = "public";
+            else playlistState = "private";
+            String[] options = {"Public","Private"};
+
+            int confirmation = JOptionPane.showOptionDialog(null, "The Playlist is " +
+                    playlistState + ". Select an option.", "Visibility",JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+
+            if(confirmation == 0){
+                ((Playlist) selected).setPublicState(true);
+            }
+            else {
+                ((Playlist) selected).setPublicState(false);
+            }
+            updateMusicJListModel(currentUser.getAllCollections());
+            westPanel.revalidate();
+            westPanel.repaint();
+            System.out.println("Playlist changed");
         }
     }
 }
