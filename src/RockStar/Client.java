@@ -17,7 +17,7 @@ public class Client extends User implements Serializable {
         this.listOfMusicsToBuy = new ArrayList<>();
     }
     public void addMusicToMusicToBuy(Music music){
-        if(!listOfMusicsToBuy.contains(music))listOfMusicsToBuy.add(music);
+        if(!listOfMusicsToBuy.contains(music)) listOfMusicsToBuy.add(music);
     }
 
     public double getBalance() {
@@ -49,6 +49,9 @@ public class Client extends User implements Serializable {
     }
     public void removeMusicFromCollection(Music music, MusicCollection collection){
         collection.getMusicList().remove(music);
+    };
+    public void removeMusicCollection(MusicCollection collection){
+        allCollections.remove(collection);
     };
     public void addMoney(double moneyToAdd){
         balance += moneyToAdd;

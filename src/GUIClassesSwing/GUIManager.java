@@ -106,7 +106,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
             if(registrationFrame != null) registrationFrame.dispose();
         }
     }
-    public int randomPlaylistPaidSongsChoose(ArrayList<String> notFreeMusicSelection, double totalPrice,boolean canBuy) {
+    public int randomPlaylistPaidSongsChoose(ArrayList<Music> notFreeMusicSelection, double totalPrice,boolean canBuy) {
         RandonPlaylistPay rpp = new RandonPlaylistPay(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
         int userOption = rpp.getReturnValue();
         System.out.println(userOption);

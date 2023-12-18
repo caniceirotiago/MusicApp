@@ -1,5 +1,7 @@
 package src.GUIClassesSwing;
 
+import src.RockStar.Music;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,16 +13,17 @@ public class RandonPlaylistPay  extends JDialog {
     private GUIManager guiManager;
     private int returnValue;
 
-    public RandonPlaylistPay(GUIManager guiManager, Frame associated, ArrayList<String> songNames, double totalPrice, boolean canBuy){
+    public RandonPlaylistPay(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
         super (associated,"Paid Music", true);
         this.guiManager = guiManager;
 
 
         JPanel musicListPanel = new JPanel();
+
         musicListPanel.setLayout(new BoxLayout(musicListPanel, BoxLayout.Y_AXIS));
-        musicListPanel.add(new Label("Paid Musics"));
-        for(String m : songNames){
-            musicListPanel.add(new JLabel(m));
+        musicListPanel.add(new Label("Some of the chosen songs are paid"));
+        for(Music m : songNames){
+            musicListPanel.add(new JLabel(m.toString()));
         }
         musicListPanel.add(new JLabel("Total price: " + totalPrice));
 
@@ -34,17 +37,23 @@ public class RandonPlaylistPay  extends JDialog {
         buyMusicbtn.addActionListener(e -> onBuyMusicbtnClick());
         onlyFreebtn.addActionListener(e -> onOnlyFreebtnClick());
 
+        JScrollPane scrollPane =  new JScrollPane(musicListPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
         JPanel btnPanel = new JPanel();
 
         btnPanel.add(addToBasketbtn);
         btnPanel.add(buyMusicbtn);
         btnPanel.add(onlyFreebtn);
 
-        getContentPane().add(new JScrollPane(musicListPanel),BorderLayout.CENTER);
+        getContentPane().add(scrollPane,BorderLayout.CENTER);
         getContentPane().add(btnPanel,BorderLayout.SOUTH);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(associated);
 
+        setPreferredSize(new Dimension(400,400));
+        setResizable(false);
         pack();
         setVisible(true);
     }

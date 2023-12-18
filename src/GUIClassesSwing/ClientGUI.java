@@ -24,6 +24,7 @@ public class ClientGUI extends JFrame {
     private JPanel eastPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
+    private JList<MusicCollection> playlistListWest;
     private JMenuItem addToPlaylistMenu;
     private JMenuItem evaluateMusicMenu;
     private int lastPositionMouseRightClickX;
@@ -48,19 +49,19 @@ public class ClientGUI extends JFrame {
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
-        //---------------------ADDING POPUPMENUS AND SUBMENUS-----------------------------
+        //---------------------ADDING POPUPMENUS AND SUBMENUS---------------------
 
-
-        //Central PUM when allMusic selected
-        JPopupMenu centralTablePUM = new JPopupMenu();
+        //<----Unfold
+        //Central PopMenu when a music on allMusic is selected
+        JPopupMenu centralTablePopMenu = new JPopupMenu();
         addToPlaylistMenu = new JMenuItem("Add to Playlit");
         evaluateMusicMenu = new JMenuItem("Evaluate Music");
-        centralTablePUM.add(addToPlaylistMenu);
-        centralTablePUM.add(evaluateMusicMenu);
+        centralTablePopMenu.add(addToPlaylistMenu);
+        centralTablePopMenu.add(evaluateMusicMenu);
         addToPlaylistMenu.addActionListener(e -> addMusicToPlaylistOnClick());
         evaluateMusicMenu.addActionListener(e -> addEvaluationClick());
 
-        //Central PUM when a playlist is selected
+        //Central PopMenu when a music on a playlist is selected
         JPopupMenu centralTablePUM2 = new JPopupMenu();
         JMenuItem removeFromPlaylist = new JMenuItem("Remove from Playlit");
         JMenuItem evaluateMusic2 = new JMenuItem("Evaluate Music");
@@ -69,10 +70,18 @@ public class ClientGUI extends JFrame {
         removeFromPlaylist.addActionListener(e -> onRemoveFromPlaylistClick());
         evaluateMusic2.addActionListener(e -> addEvaluationClick());
 
+        //West PopMenu when a playlist is selected
+        JPopupMenu westListPopMenu = new JPopupMenu();
+        JMenuItem deletePlaylist = new JMenuItem("Delete Playlist");
+        JMenuItem changeVisibility = new JMenuItem("Change Visibility");
+        westListPopMenu.add(deletePlaylist);
+        westListPopMenu.add(changeVisibility);
+        deletePlaylist.addActionListener(e -> onDeletePlaylistClick());
+        //changeVisibility.addActionListener(e -> onVisibilityClick());
 
+        //-----------------------------PANEL WEST--------------------------------
 
-        //---------------------PAINEL WEST---------------------------------
-
+        //<----Unfold
         westPanel = new JPanel(new GridBagLayout());
         //Label a dizer Playlist
         JLabel playlistLabel =  new JLabel();
@@ -92,19 +101,36 @@ public class ClientGUI extends JFrame {
         selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
 
         // Cria a JList e define o modelo
-        JList<MusicCollection> playlistList = new JList<>(listModelWest);
+        playlistListWest = new JList<>(listModelWest);
         //Listner de seleção de playlist
 
-        playlistList.addListSelectionListener(e -> {
+        playlistListWest.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){
-                selectedPlaylist = playlistList.getSelectedValue();
+                selectedPlaylist = playlistListWest.getSelectedValue();
                 if(selectedPlaylist != null){
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
                 }
             }
         });
+        playlistListWest.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //Primeiro guarda a posição do click para depois localizar o submenu
+                lastPositionMouseRightClickX = e.getX();
+                lastPositionMouseRightClickY = e.getY();
+                if(SwingUtilities.isRightMouseButton(e)){
+                    int row = playlistListWest.locationToIndex(e.getPoint());
+                    Rectangle rectangle = playlistListWest.getCellBounds(row,row);
+                    if(rectangle != null && rectangle.contains(e.getPoint()) &&
+                            row >= 1 && row < listModelWest.getSize()){ //mais 1 de forma a ignorar o primeiro elemento que não +e uma playlist tipica
+                        playlistListWest.setSelectedIndex(row);
+                        westListPopMenu.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                    }
+                }
+            }
+        });
         // Coloca a JList em um JScrollPane
-        JScrollPane scrollPane = new JScrollPane(playlistList);
+        JScrollPane scrollPane = new JScrollPane(playlistListWest);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -135,12 +161,9 @@ public class ClientGUI extends JFrame {
         cw.anchor = GridBagConstraints.PAGE_START;
         westPanel.add(newPlaylistbtn, cw);
 
+        //-----------------------------PANEL EAST--------------------------------
 
-
-
-        //----------------------------------PAINEL EAST--------------------------------
-
-
+        //<----Unfold
         eastPanel = new JPanel(new GridBagLayout());
         //Label a dizer o Balance
         balancelbl =  new JLabel();
@@ -213,10 +236,9 @@ public class ClientGUI extends JFrame {
         ce.anchor = GridBagConstraints.NORTH;
         eastPanel.add(purchasebtn, ce);
 
+        //-----------------------------PANEL NORTH--------------------------------
 
-
-        //----------------------------------PAINEL NORTH--------------------------------
-
+        //<----Unfold
         //Criação de Label logotipo
         int newWidth = 100;
         int newHeight = 100;
@@ -284,9 +306,9 @@ public class ClientGUI extends JFrame {
         cn.insets = new Insets(0, 0, 0, 40); // 10 pixels de margem da borda direita
         northPanel.add(logOutbtn, cn);
 
+        //-----------------------------PANEL CENTER--------------------------------
 
-        //----------------------------------PAINEL CENTER--------------------------------
-
+        //<----Unfold
         String[] columnNames = {"Title", "Album", "Clasification"};
         centralTableModel = new DefaultTableModel(columnNames,0){
             @Override
@@ -320,7 +342,7 @@ public class ClientGUI extends JFrame {
                         centralTable.setRowSelectionInterval(row,row);
                         if(selectedPlaylist == null) selectedPlaylist = currentUserCollection;
                         if(selectedPlaylist.equals(currentUserCollection)){
-                            centralTablePUM.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                            centralTablePopMenu.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
                         } else {
                             centralTablePUM2.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
                         }
@@ -337,6 +359,9 @@ public class ClientGUI extends JFrame {
         centerPanel.add(scrollPane3,"Center");
 
 
+
+
+        //--------------------------------------------------------------------------
         //Adding all panels
         mainContainer.add(northPanel,"North");
         mainContainer.add(centerPanel,"Center");
@@ -344,6 +369,7 @@ public class ClientGUI extends JFrame {
         mainContainer.add(westPanel,"West");
 
         add(mainContainer);
+
     }
     public void updateMusicJTableModel(ArrayList<Music> selectedPlaylist){
         centralTableModel.setRowCount(0);
@@ -541,6 +567,28 @@ public class ClientGUI extends JFrame {
             }
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Please insert a valid number\nHas to be an Integer");
+        }
+    }
+    public MusicCollection getSelectedPlaylist(){
+        int row = playlistListWest.getSelectedIndex()-1;
+        if(row != -1){
+            ArrayList<MusicCollection> playlist = currentUser.getAllCollections();
+            return playlist.get(row);
+        }
+        return null;
+    }
+    public void onDeletePlaylistClick(){
+        MusicCollection selected = getSelectedPlaylist();
+        System.out.println("as");
+        if(selected != null){
+            int confirmation = JOptionPane.showConfirmDialog(null, "Comfirm the elimination of " + selected.getName());
+            if(confirmation == 0){
+                currentUser.removeMusicCollection(selected);
+                updateMusicJListModel(currentUser.getAllCollections());
+                westPanel.revalidate();
+                westPanel.repaint();
+                System.out.println("Playlist deleted");
+            }
         }
     }
 }

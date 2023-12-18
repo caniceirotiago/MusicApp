@@ -84,7 +84,7 @@ public class Music implements Serializable {
 
     @Override
     public String toString() {
-        return name + "\t" + price + "€";
+        return name + " \t" + price + "€";
     }
 }
 

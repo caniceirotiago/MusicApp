@@ -318,7 +318,7 @@ public class RockstarIncManager  implements Serializable {
         else{
             int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size(),false);
             ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
-            ArrayList<String> notFreeMusicNames = new ArrayList<>();
+
             double totalPrice = 0;
 
             for (int listOfIndex : listOfIndexes) {
@@ -330,7 +330,7 @@ public class RockstarIncManager  implements Serializable {
                     randomChosenMusic.add(music);
                 } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
                     notFreeMusicSelection.add(music);
-                    notFreeMusicNames.add(music.getName());
+
                     totalPrice += music.getPrice();
                 }
             }
@@ -343,7 +343,7 @@ public class RockstarIncManager  implements Serializable {
                 //1 - adicionar ao carrinho
                 //2 - comprar as musicas
                 //3 - apenas selecionar musicas gratuitas
-                int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicNames, totalPrice,canBuy);
+                int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicSelection, totalPrice,canBuy);
                 switch (userOption){
                     case 1:
                         for (Music m : notFreeMusicSelection){
