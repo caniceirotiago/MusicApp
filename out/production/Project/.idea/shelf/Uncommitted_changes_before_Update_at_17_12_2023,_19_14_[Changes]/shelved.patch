@@ -1,0 +1,83 @@
+Index: src/GUIClassesSwing/GUIManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package src.GUIClassesSwing;\n\nimport src.RockStar.RockstarIncManager;\nimport src.RockStar.User;\n\nimport javax.swing.*;\nimport java.io.IOException;\nimport java.io.Serializable;\n\nimport static src.RockStar.Main.updateDataFile;\n\npublic class GUIManager { //O Serializable não deveria ficar aqui\n\n    private ClientGUI clientFrame;\n    private LoginRegistrationGUI loginRegistrationGUI;\n    private LogRegFrame loginFrame;\n    private LogRegFrame registrationFrame;\n    private final RockstarIncManager logicManager;\n    private User currentUser;\n\n    public GUIManager(RockstarIncManager logicManager) {\n        this.logicManager = logicManager;\n    }\n    public void run(){\n        loginRegistrationGUI = new LoginRegistrationGUI(GUIManager.this);\n    }\n\n\n\n    //---------Comunication with logicManager and creation of dialog messages-------\n\n    public void loginAttempt(String userField, String passToString, boolean isMCreator, String pin){\n        logicManager.loginAttempt(userField,passToString,isMCreator,pin);\n    }\n    //Inicia a frame correta no caso de o login ser bem sucedido\n    public void unsuccessfulLogin(){\n        JOptionPane.showMessageDialog(null,\"Unsuccessful Login\");\n    };\n    public void newUserAttempt(String name,String usernameField,String password,String email,boolean isMCreator, String pin){\n        logicManager.newUserAttempt(name, usernameField,password,email, isMCreator, pin);\n    }\n    public void successfulRegistration(){\n        JOptionPane.showMessageDialog(null,\"New User Created\");\n    }\n    public void unsuccessfulRegistration(int cod){\n        switch (cod){\n            case 1 : JOptionPane.showMessageDialog(null,\"Unsuccessful Registration - The email already exists\");\n                break;\n            case 2 : JOptionPane.showMessageDialog(null,\"Unsuccessful Registration - The username already exists\");\n                break;\n                //switches de validacao\n            case 3: JOptionPane.showMessageDialog(null,\"That email is not valid\");\n                break;\n            case 4: JOptionPane.showMessageDialog(null, \"The username does not have the size requirements (MIN:3 MAX 10)\");\n                break;\n            case 5: JOptionPane.showMessageDialog(null, \"The pin is not valid (MIN:4 MAX:8)\");\n                break;\n        }\n\n    }\n    public void randomPlaylistCreationAttempt(RockstarIncManager.GENRE selectedGenre,int nMusics){\n        logicManager.newRandomPlaylist(selectedGenre,nMusics);\n    }\n    public void notEnoughMusicForRandom(int maxSize){\n        JOptionPane.showMessageDialog(null,\"Not enough musics for this random playlist \" +\n                \"\\nOn the selected genre there are only \" + maxSize + \" musics available\");\n    }\n\n\n     //---------------------------------Frame management--------------------------------\n\n    public LogRegFrame creationLoginFrame(){\n        LogRegFrame lf = new LogRegFrame();\n        this.loginFrame = lf;\n        return lf;\n    }\n    public LogRegFrame creationRegistrationFrame(){\n        LogRegFrame rf = new LogRegFrame();\n        this.registrationFrame = rf;\n        return rf;\n    }\n    public void logoutClient() throws IOException, ClassNotFoundException {\n        clientFrame.dispose();\n        currentUser = null;\n        updateDataFile();\n        run();\n    }\n    public void sucessfullLogin(User currentUser, boolean isMCreator){\n        this.currentUser = currentUser;\n        if(isMCreator){\n            new MusicCreatorGUI(currentUser);\n            loginRegistrationGUI.setVisible(false);\n            loginFrame.dispose();\n            if(registrationFrame != null) registrationFrame.dispose();\n        } else {\n            clientFrame = new ClientGUI(currentUser,this);\n            loginRegistrationGUI.setVisible(false);\n            loginFrame.dispose();\n            if(registrationFrame != null) registrationFrame.dispose();\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GUIClassesSwing/GUIManager.java b/src/GUIClassesSwing/GUIManager.java
+--- a/src/GUIClassesSwing/GUIManager.java	(revision 342d38778cbde09e902b9063283ef04a8729950a)
++++ b/src/GUIClassesSwing/GUIManager.java	(date 1702821767063)
+@@ -88,7 +88,7 @@
+     public void sucessfullLogin(User currentUser, boolean isMCreator){
+         this.currentUser = currentUser;
+         if(isMCreator){
+-            new MusicCreatorGUI(currentUser);
++            new MusicCreatorGUI(currentUser, this);
+             loginRegistrationGUI.setVisible(false);
+             loginFrame.dispose();
+             if(registrationFrame != null) registrationFrame.dispose();
+Index: src/GUIClassesSwing/MusicCreatorGUI.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package src.GUIClassesSwing;\n\nimport src.RockStar.*;\n\nimport javax.swing.*;\nimport javax.swing.table.DefaultTableModel;\nimport java.awt.*;\nimport java.util.ArrayList;\nimport java.util.Vector;\n\npublic class MusicCreatorGUI extends JFrame {\n    private User currentUser;\n    private GUIManager guiManager;\n    private MusicCollection selectedPlayList;\n    private DefaultTableModel centralTableModel;\n    private JPanel centerPanel;\n    private JTable centralTable;\n    private JMenuItem addToAlbum;\n    private int lastPositionMouseRightClick;\n    private int lastPositionMouseLeftClick;\n    public MusicCreatorGUI(User currentUser, GUIManager guiManager){\n        super(\"Music Creator - \" + currentUser.getUsername());\n        this.currentUser = currentUser;\n        this.guiManager = guiManager;\n        initComponents();\n        setDefaultCloseOperation(EXIT_ON_CLOSE);\n        setSize(1000,1000);\n        setLocationRelativeTo(null);\n        setVisible(true);\n        ImageIcon imageIcon = new ImageIcon(\"images/headphone.png\");\n        setIconImage(imageIcon.getImage());\n        setMinimumSize(new Dimension(900, 700));\n    }\n    public void initComponents() {\n        Container mainContainer = new Container();\n        mainContainer.setLayout(new BorderLayout());\n\n//---------------------------------WEST PANEL------------------------------------\n\n        //label albuns\n        JLabel albumLabel = new JLabel();\n        albumLabel.setText(\"Albums\");\n        DefaultListModel<MusicCollection> listModel = new DefaultListModel<>();\n        MusicCollection currentUserCollection = new Album(\"Owned Music\", currentUser.getAllMusic(), (MusicCreator) currentUser);\n        listModel.addElement(currentUserCollection);\n        for (MusicCollection cl : currentUser.getAllCollections()){\n            listModel.addElement(cl);\n        }\n\n        //criar jlist e definir modelo\n        JList <MusicCollection> albumList =  new JList<>(listModel);\n        //istener de seleção de album\n        selectedPlayList = currentUserCollection;\n        albumList.addListSelectionListener(e -> {\n            if (!e.getValueIsAdjusting()){\n                selectedPlayList = albumList.getSelectedValue();\n                if (selectedPlayList != null){\n                  updateMusicJtableModel(selectedPlayList.getMusicList());  ;\n                }\n            }\n        });\n        //colocar a jlist num JScrollPane\n        JScrollPane scrollPane = new JScrollPane(albumList);\n        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);\n        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);\n        //criacao do botao para criar album\n        JButton newAlbumButton = new JButton(\"New Album\");\n\n        //criacao do painel com GRIDBAG\n        JPanel westPanel = new JPanel(new GridBagLayout());\n        westPanel.setPreferredSize(new Dimension(175,0));\n        GridBagConstraints wpConstraints = new GridBagConstraints();// wp é west panel\n        wpConstraints.gridx= 0;\n        wpConstraints.gridy = 0;\n        wpConstraints.weightx=1;\n\n        wpConstraints.anchor=GridBagConstraints.CENTER;\n        wpConstraints.fill = GridBagConstraints.NONE;\n        westPanel.add(albumLabel,wpConstraints);\n\n        wpConstraints.gridy++;\n        wpConstraints.weighty = 0.6;\n        wpConstraints.fill = GridBagConstraints.BOTH;\n        westPanel.add(scrollPane, wpConstraints);\n\n        wpConstraints.gridy++;\n        wpConstraints.weighty = 0.2;\n        wpConstraints.fill = GridBagConstraints.NONE;\n        wpConstraints.anchor = GridBagConstraints.PAGE_START;\n        westPanel.add(newAlbumButton, wpConstraints);\n\n//------------------------------END OF WEST PANEL-----------------\n\n\n//-------------------------------EAST PANEL-----------------------\n//criar uma label e um botao para adicionar uma nova musica\n        JLabel newMusiclbl = new JLabel();\n        newMusiclbl.setText(\"Add new music\");\n        JButton addMusicButton =  new JButton(\"New Music\");\n\n        //criar painel east\n        JPanel eastPanel = new JPanel(new GridBagLayout());\n        GridBagConstraints epConstraints =  new GridBagConstraints();\n        epConstraints.anchor = GridBagConstraints.CENTER;\n        epConstraints.gridy = 0;\n        epConstraints.fill = GridBagConstraints.BOTH;\n        eastPanel.setPreferredSize(new Dimension(175,0));\n        eastPanel.add(newMusiclbl,epConstraints);\n        eastPanel.add(addMusicButton,epConstraints);\n\n//-------------------------------END OF EAST PANEL-----------------------\n// ------------------------------NORTH PANEL------------------------------\n        //criacao do label logotipo\n        int newWidth = 100;\n        int newHeigth = 100;\n        ImageIcon originalIcon = new ImageIcon(ImagePaths.APP_ICON);\n        Image originalImage = originalIcon.getImage();\n        Image resizedImage = originalImage.getScaledInstance(newWidth, newHeigth, Image.SCALE_SMOOTH);\n        ImageIcon resizedIcon = new ImageIcon(resizedImage);\n        JLabel logo = new JLabel(resizedIcon);\n\n        JTextField searchArea = new JTextField(\"Search\", 20);\n        JButton searchButton =  new JButton(\"\\uD83D\\uDD0D\");\n        //adicionar aqui botao logout\n        JButton btnLogOut =  new JButton(\"LogOut\");\n        //btnLogOut.addEventListener\n\n\n        JPanel northPanel =  new JPanel(new GridBagLayout());\n        GridBagConstraints npConstraints =  new GridBagConstraints(); //np é northpanel\n        northPanel.setPreferredSize(new Dimension(0,100));\n\n        npConstraints.gridx = 0;\n        npConstraints.gridy = 0;\n        npConstraints.weightx = 0.01;\n        npConstraints.weighty = 1;\n        npConstraints.fill = GridBagConstraints.NONE;\n        npConstraints.anchor = GridBagConstraints.WEST;\n        npConstraints.insets = new Insets(0,40,0,0);\n        northPanel.add(logo, npConstraints);\n\n        //espacador invisivel para centralizar\n\n\n\n\n\n\n\n//------------------------------END OF NORTH PANEL\n        //painel center\n        //painel south (estatisticas)\n        mainContainer.add(westPanel,\"West\");\n        mainContainer.add(eastPanel,\"East\");\n        add(mainContainer);\n    }\n    //criacao da lista\n    public void updateMusicJtableModel(ArrayList<Music> selectedPlaylist ){\n        centralTableModel.setRowCount(0);\n        System.out.println(\"numero de musicas \" + selectedPlaylist);\n        for (Music ms : selectedPlaylist){\n            Vector<Object> line = new Vector<>();\n            line.add(ms.getName());\n            line.add(ms.getGenre());\n            line.add(ms.getPrice());\n            line.add(ms.getMusicCreator());\n            centralTableModel.addRow(line);\n        }\n        centerPanel.revalidate();\n        centerPanel.repaint();\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/GUIClassesSwing/MusicCreatorGUI.java b/src/GUIClassesSwing/MusicCreatorGUI.java
+--- a/src/GUIClassesSwing/MusicCreatorGUI.java	(revision 342d38778cbde09e902b9063283ef04a8729950a)
++++ b/src/GUIClassesSwing/MusicCreatorGUI.java	(date 1702822719478)
+@@ -98,6 +98,8 @@
+         newMusiclbl.setText("Add new music");
+         JButton addMusicButton =  new JButton("New Music");
+ 
++        //aqui falta adicionar as funcionalidades das musicas
++
+         //criar painel east
+         JPanel eastPanel = new JPanel(new GridBagLayout());
+         GridBagConstraints epConstraints =  new GridBagConstraints();
+@@ -140,18 +142,40 @@
+         northPanel.add(logo, npConstraints);
+ 
+         //espacador invisivel para centralizar
+-
+-
+-
++        npConstraints.gridx++;
++        npConstraints.weighty = 0.25;
++        npConstraints.fill = GridBagConstraints.HORIZONTAL;
++        northPanel.add(Box.createHorizontalStrut(0), npConstraints);
+ 
++        //campo de pesquisa
++        npConstraints.gridx++;
++        npConstraints.weightx = 0;
++        npConstraints.fill = GridBagConstraints.NONE;
++        northPanel.add(searchArea, npConstraints);
++        //botao de pesquisa
++        npConstraints.gridx++;
++        npConstraints.weightx = 0;
++        npConstraints.fill = GridBagConstraints.HORIZONTAL;
++        northPanel.add(searchButton,npConstraints);
+ 
++        //Espacador invisivel
++        npConstraints.gridx++;
++        npConstraints.weighty = 0.25;
++        npConstraints.fill = GridBagConstraints.HORIZONTAL;
++        northPanel.add(Box.createHorizontalStrut(0), npConstraints);
+ 
+-
++        //configuracao botao logout
++        npConstraints.gridx ++;
++        npConstraints.weightx = 0.01;
++        npConstraints.anchor =GridBagConstraints.EAST;
++        npConstraints.insets = new Insets(0,0,0,40);
++        northPanel.add(btnLogOut, npConstraints);
+ //------------------------------END OF NORTH PANEL
+         //painel center
+         //painel south (estatisticas)
+         mainContainer.add(westPanel,"West");
+         mainContainer.add(eastPanel,"East");
++        mainContainer.add(northPanel, "North");
+         add(mainContainer);
+     }
+     //criacao da lista
