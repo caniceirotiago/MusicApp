@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,14 +18,20 @@ public class ClientGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private DefaultListModel<MusicCollection> listModelWest;
+    private DefaultListModel<Music> listModelEast;
     private JPanel centerPanel;
     private JPanel westPanel;
+    private JPanel eastPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
-    private JMenuItem addToPlaylist;
+    private JList<MusicCollection> playlistListWest;
+    private JMenuItem addToPlaylistMenu;
+    private JMenuItem evaluateMusicMenu;
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
-    MusicCollection currentUserCollection;
+    private MusicCollection currentUserCollection;
+    private JLabel balancelbl;
+    private JLabel totallbl;
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -44,29 +49,39 @@ public class ClientGUI extends JFrame {
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
-        //---------------------ADDING POPUPMENUS AND SUBMENUS-----------------------------
+        //---------------------ADDING POPUPMENUS AND SUBMENUS---------------------
 
+        //<----Unfold
+        //Central PopMenu when a music on allMusic is selected
+        JPopupMenu centralTablePopMenu = new JPopupMenu();
+        addToPlaylistMenu = new JMenuItem("Add to Playlit");
+        evaluateMusicMenu = new JMenuItem("Evaluate Music");
+        centralTablePopMenu.add(addToPlaylistMenu);
+        centralTablePopMenu.add(evaluateMusicMenu);
+        addToPlaylistMenu.addActionListener(e -> addMusicToPlaylistOnClick());
+        evaluateMusicMenu.addActionListener(e -> addEvaluationClick());
 
-        //Central PUM when allMusic selected
-        JPopupMenu centralTablePUM = new JPopupMenu();
-        addToPlaylist = new JMenuItem("Add to Playlit");
-        JMenuItem evaluateMusic = new JMenuItem("Evaluate Music");
-        centralTablePUM.add(addToPlaylist);
-        centralTablePUM.add(evaluateMusic);
-        addToPlaylist.addActionListener(e -> addMusicToPlaylistOnClick());
-
-        //Central PUM when a playlist is selected
+        //Central PopMenu when a music on a playlist is selected
         JPopupMenu centralTablePUM2 = new JPopupMenu();
         JMenuItem removeFromPlaylist = new JMenuItem("Remove from Playlit");
         JMenuItem evaluateMusic2 = new JMenuItem("Evaluate Music");
         centralTablePUM2.add(removeFromPlaylist);
         centralTablePUM2.add(evaluateMusic2);
         removeFromPlaylist.addActionListener(e -> onRemoveFromPlaylistClick());
+        evaluateMusic2.addActionListener(e -> addEvaluationClick());
 
+        //West PopMenu when a playlist is selected
+        JPopupMenu westListPopMenu = new JPopupMenu();
+        JMenuItem deletePlaylist = new JMenuItem("Delete Playlist");
+        JMenuItem changeVisibility = new JMenuItem("Change Visibility");
+        westListPopMenu.add(deletePlaylist);
+        westListPopMenu.add(changeVisibility);
+        deletePlaylist.addActionListener(e -> onDeletePlaylistClick());
+        changeVisibility.addActionListener(e -> onVisibilityClick());
 
+        //-----------------------------PANEL WEST--------------------------------
 
-        //---------------------PAINEL WEST---------------------------------
-
+        //<----Unfold
         westPanel = new JPanel(new GridBagLayout());
         //Label a dizer Playlist
         JLabel playlistLabel =  new JLabel();
@@ -81,22 +96,41 @@ public class ClientGUI extends JFrame {
 
         listModelWest = new DefaultListModel<>();
         updateMusicJListModel(currentUser.getAllCollections());
+
+        if(currentUserCollection == null) currentUserCollection = new Playlist();  // em caso de novo utilizador
         selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
 
         // Cria a JList e define o modelo
-        JList<MusicCollection> playlistList = new JList<>(listModelWest);
+        playlistListWest = new JList<>(listModelWest);
         //Listner de seleção de playlist
 
-        playlistList.addListSelectionListener(e -> {
+        playlistListWest.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){
-                selectedPlaylist = playlistList.getSelectedValue();
+                selectedPlaylist = playlistListWest.getSelectedValue();
                 if(selectedPlaylist != null){
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
                 }
             }
         });
+        playlistListWest.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //Primeiro guarda a posição do click para depois localizar o submenu
+                lastPositionMouseRightClickX = e.getX();
+                lastPositionMouseRightClickY = e.getY();
+                if(SwingUtilities.isRightMouseButton(e)){
+                    int row = playlistListWest.locationToIndex(e.getPoint());
+                    Rectangle rectangle = playlistListWest.getCellBounds(row,row);
+                    if(rectangle != null && rectangle.contains(e.getPoint()) &&
+                            row >= 1 && row < listModelWest.getSize()){ //mais 1 de forma a ignorar o primeiro elemento que não +e uma playlist tipica
+                        playlistListWest.setSelectedIndex(row);
+                        westListPopMenu.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                    }
+                }
+            }
+        });
         // Coloca a JList em um JScrollPane
-        JScrollPane scrollPane = new JScrollPane(playlistList);
+        JScrollPane scrollPane = new JScrollPane(playlistListWest);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -127,31 +161,29 @@ public class ClientGUI extends JFrame {
         cw.anchor = GridBagConstraints.PAGE_START;
         westPanel.add(newPlaylistbtn, cw);
 
+        //-----------------------------PANEL EAST--------------------------------
 
-
-
-        //----------------------------------PAINEL EAST--------------------------------
-
-
-
+        //<----Unfold
+        eastPanel = new JPanel(new GridBagLayout());
         //Label a dizer o Balance
-        JLabel balancelbl =  new JLabel();
-        balancelbl.setText("Balance");
+        balancelbl =  new JLabel();
+        balancelbl.setText("Balance " +
+                "\n " + ((Client)currentUser).getBalance() + "€");
+
+        //Criação botão addBalance
+        JButton addBalancebtn = new JButton("Add Money");
+        addBalancebtn.addActionListener(e -> onAddBalancebtnClick());
 
         //Label a dizer o Basket
         JLabel Basketlbl =  new JLabel();
         Basketlbl.setText("Basket");
 
         //Criação de lista de compras
-        DefaultListModel<String> listModel1 = new DefaultListModel<>();
-        listModel1.addElement("Item 1");
-        listModel1.addElement("Item 2");
-        listModel1.addElement("Item 3");
-        listModel1.addElement("Item 3");
-
+        listModelEast = new DefaultListModel<>();
+        updateBascketJListModel();
 
         // Cria a JList e define o modelo
-        JList<String> basketList = new JList<>(listModel1);
+        JList<Music> basketList = new JList<>(listModelEast);
 
         // Coloca a JList em um JScrollPane
         JScrollPane scrollPane2 = new JScrollPane(basketList);
@@ -159,14 +191,16 @@ public class ClientGUI extends JFrame {
         scrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         //Label a dizer o Total
-        JLabel totallbl =  new JLabel();
-        totallbl.setText("Total");
+        totallbl =  new JLabel();
+        double totalPrice = updateTotalBascketPrice();
+        totallbl.setText("Total " + totalPrice + "€");
 
         //Criação de Botão para Criar Purchase
         JButton purchasebtn = new JButton("Purchase");
+        purchasebtn.addActionListener(e -> onPurchasebtnClick());
 
         //Criação de painel com GRIDBAGLAYOUT
-        JPanel eastPanel = new JPanel(new GridBagLayout());
+
         eastPanel.setPreferredSize(new Dimension(175, 0));
         GridBagConstraints ce = new GridBagConstraints();
         ce.gridx = 0;
@@ -177,8 +211,13 @@ public class ClientGUI extends JFrame {
         ce.anchor = GridBagConstraints.CENTER;
         eastPanel.add(balancelbl, ce);
 
+
         ce.gridy++;
-        ce.weighty = 0.1;
+        ce.weighty = 0.05;
+        eastPanel.add(addBalancebtn,ce);
+
+        ce.gridy++;
+        ce.weighty = 0.05;
         eastPanel.add(Basketlbl, ce);
 
         ce.gridy++;
@@ -197,10 +236,9 @@ public class ClientGUI extends JFrame {
         ce.anchor = GridBagConstraints.NORTH;
         eastPanel.add(purchasebtn, ce);
 
+        //-----------------------------PANEL NORTH--------------------------------
 
-
-        //----------------------------------PAINEL NORTH--------------------------------
-
+        //<----Unfold
         //Criação de Label logotipo
         int newWidth = 100;
         int newHeight = 100;
@@ -268,9 +306,9 @@ public class ClientGUI extends JFrame {
         cn.insets = new Insets(0, 0, 0, 40); // 10 pixels de margem da borda direita
         northPanel.add(logOutbtn, cn);
 
+        //-----------------------------PANEL CENTER--------------------------------
 
-        //----------------------------------PAINEL CENTER--------------------------------
-
+        //<----Unfold
         String[] columnNames = {"Title", "Album", "Clasification"};
         centralTableModel = new DefaultTableModel(columnNames,0){
             @Override
@@ -302,8 +340,9 @@ public class ClientGUI extends JFrame {
                     int row = centralTable.rowAtPoint(e.getPoint());
                     if(row>=0 && row < centralTable.getRowCount()){
                         centralTable.setRowSelectionInterval(row,row);
+                        if(selectedPlaylist == null) selectedPlaylist = currentUserCollection;
                         if(selectedPlaylist.equals(currentUserCollection)){
-                            centralTablePUM.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                            centralTablePopMenu.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
                         } else {
                             centralTablePUM2.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
                         }
@@ -320,6 +359,9 @@ public class ClientGUI extends JFrame {
         centerPanel.add(scrollPane3,"Center");
 
 
+
+
+        //--------------------------------------------------------------------------
         //Adding all panels
         mainContainer.add(northPanel,"North");
         mainContainer.add(centerPanel,"Center");
@@ -327,6 +369,7 @@ public class ClientGUI extends JFrame {
         mainContainer.add(westPanel,"West");
 
         add(mainContainer);
+
     }
     public void updateMusicJTableModel(ArrayList<Music> selectedPlaylist){
         centralTableModel.setRowCount(0);
@@ -388,6 +431,26 @@ public class ClientGUI extends JFrame {
         }
         playlistMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
+    public void addEvaluationClick(){
+        JPopupMenu evaluationMenu =new JPopupMenu();
+        for(int i = 0; i < 11; i++){
+            JMenuItem evaluationItem  = new JMenuItem(String.valueOf(i));
+            int finalI = i;
+            evaluationItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Music selectedMusic = getSelectedMusic();
+                    if(selectedMusic != null){
+                        selectedMusic.addEvaluation((Client)currentUser, finalI);
+                        updateMusicJTableModel(selectedPlaylist.getMusicList());
+                    }
+                }
+            });
+            evaluationMenu.add(evaluationItem);
+        }
+
+        evaluationMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+    }
     public void onNewPlaylistbtnClick(){
         String[] options = {"Empty Playlist","Random Playlist"};
         int userChoice = JOptionPane.showOptionDialog(null,"Create Playlist","Type of Playlist",
@@ -414,21 +477,21 @@ public class ClientGUI extends JFrame {
             RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
             RockstarIncManager.GENRE selectedGenre = (RockstarIncManager.GENRE) JOptionPane.showInputDialog(null,
                     "Chose the genre: ","Genre", JOptionPane.QUESTION_MESSAGE,null, genres,genres[0]);
+            if(selectedGenre != null){
+                String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
+                int nMusics;
 
-            String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
-            int nMusics;
-
-            try {
-                nMusics = Integer.parseInt(nMusicsString);
-                if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
-                else{
-                    guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
-                    updateMusicJListModel(currentUser.getAllCollections());
+                try {
+                    nMusics = Integer.parseInt(nMusicsString);
+                    if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
+                    else{
+                        guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
+                        updateMusicJListModel(currentUser.getAllCollections());
+                    }
+                } catch (NumberFormatException e){
+                    JOptionPane.showMessageDialog(null,"Please insert a valid number");
                 }
-            } catch (NumberFormatException e){
-                JOptionPane.showMessageDialog(null,"Please insert a valid number");
             }
-
         }
     }
     public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
@@ -442,4 +505,114 @@ public class ClientGUI extends JFrame {
         westPanel.repaint();
         //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
+    public void updateBascketJListModel(){
+        listModelEast.removeAllElements();
+        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+            listModelEast.addElement(m);
+            System.out.println("Adicionando música ao basket: " + m);
+        }
+
+        eastPanel.revalidate();
+        eastPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
+    }
+    public void updateBalance(){
+        balancelbl.setText("Balance" +
+                "\n" + ((Client)currentUser).getBalance() + "€");
+    }
+    public void onPurchasebtnClick(){
+        if(updateTotalBascketPrice() > ((Client)currentUser).getBalance()){
+            JOptionPane.showMessageDialog(null,"There are not enough money");
+        }
+        else {
+            int userOption = JOptionPane.showConfirmDialog(null,
+                    "Confirm purchase", "Buy",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+            switch (userOption){
+                case 0: ((Client)currentUser).validationOfAquisition(((Client)currentUser).getListOfMusicsToBuy());
+                    ((Client)currentUser).getListOfMusicsToBuy().clear();
+                    updateBalance();
+                    updateBascketJListModel();
+                    updateTotalBascketPrice();
+                    updateMusicJTableModel(currentUserCollection.getMusicList());
+                    JOptionPane.showMessageDialog(null,"All the musics were acquired");
+                    westPanel.revalidate();
+                    westPanel.repaint();
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null,"Canceled");
+                    break;
+            }
+
+        }
+    }
+    public double updateTotalBascketPrice(){
+        double totalPrice = 0;
+        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+            totalPrice += m.getPrice();
+        }
+        totallbl.setText("Total " + totalPrice + "€");
+        return totalPrice;
+    }
+    public void onAddBalancebtnClick(){
+
+        String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
+
+        double money;
+        try {
+            money = Integer.parseInt(moneyToAdd);
+            if(money < 5 || money > 999)  JOptionPane.showMessageDialog(null,"Minimum is 5€\nMaximum is 999€");
+            else{
+                ((Client)currentUser).addMoney(money);
+                updateBalance();
+            }
+        } catch (NumberFormatException e){
+            JOptionPane.showMessageDialog(null,"Please insert a valid number\nHas to be an Integer");
+        }
+    }
+    public MusicCollection getSelectedPlaylist(){
+        int row = playlistListWest.getSelectedIndex()-1;
+        if(row != -1){
+            ArrayList<MusicCollection> playlist = currentUser.getAllCollections();
+            return playlist.get(row);
+        }
+        return null;
+    }
+    public void onDeletePlaylistClick(){
+        MusicCollection selected = getSelectedPlaylist();
+        if(selected != null){
+            int confirmation = JOptionPane.showConfirmDialog(null, "Comfirm the elimination of " + selected.getName());
+            if(confirmation == 0){
+                currentUser.removeMusicCollection(selected);
+                updateMusicJListModel(currentUser.getAllCollections());
+                westPanel.revalidate();
+                westPanel.repaint();
+                System.out.println("Playlist deleted");
+            }
+        }
+    }
+    public void onVisibilityClick(){
+        MusicCollection selected = getSelectedPlaylist();
+        if(selected != null){
+            boolean isPublic = ((Playlist)selected).getPublicState();
+            String playlistState = "";
+            if(isPublic) playlistState = "public";
+            else playlistState = "private";
+            String[] options = {"Public","Private"};
+
+            int confirmation = JOptionPane.showOptionDialog(null, "The Playlist is " +
+                    playlistState + ". Select an option.", "Visibility",JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+
+            if(confirmation == 0){
+                ((Playlist) selected).setPublicState(true);
+            }
+            else {
+                ((Playlist) selected).setPublicState(false);
+            }
+            updateMusicJListModel(currentUser.getAllCollections());
+            westPanel.revalidate();
+            westPanel.repaint();
+            System.out.println("Playlist changed");
+        }
+    }
 }

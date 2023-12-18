@@ -9,6 +9,10 @@ public abstract class MusicCollection implements Serializable {
     protected ArrayList<Music> musicList;
     protected LocalDateTime creationDate;
 
+    public MusicCollection() {
+
+    }
+
     public String getName() {
         return name;
     }

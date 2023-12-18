@@ -38,6 +38,9 @@ public class MusicCreator extends User implements Serializable {
     public void removeMusicFromCollection(Music music, MusicCollection collection){
 
     };
+    public void removeMusicCollection(MusicCollection collection){
+
+    };
     public void editMusic(Music music, MusicCollection musicCollection){
         //music.setName();
         //music.setPrice();

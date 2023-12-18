@@ -2,7 +2,6 @@ package src.RockStar;
 
 import src.GUIClassesSwing.GUIManager;
 
-import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -56,6 +55,76 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(new Music("Marisol", GENRE.POP, pedro, 0));
         musicList.add(new Music("Aurora", GENRE.POP, pedro, 0));
         musicList.add(new Music("Cielo", GENRE.POP, pedro, 0));
+        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
+        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
+        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
+        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
+        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
+        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
+        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
+        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
+        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
+        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
+        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
+        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
+        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
+        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
+        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
+        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
         musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
         musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
         musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
@@ -201,7 +270,7 @@ public class RockstarIncManager  implements Serializable {
             for(User us :  userList){
                 if(us instanceof MusicCreator && us.name.toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCreators.add((MusicCreator) us);
                 for(MusicCollection mc : us.getAllCollections()){
-                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && (mc instanceof Album || (mc instanceof Playlist && ((Playlist)mc).getPublic()))){
+                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && (mc instanceof Album || (mc instanceof Playlist && ((Playlist)mc).getPublicState()))){
                         foundMusicCollections.add(mc);
                     }
                 }
@@ -248,7 +317,7 @@ public class RockstarIncManager  implements Serializable {
         else{
             int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size(),false);
             ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
-            ArrayList<String> notFreeMusicNames = new ArrayList<>();
+
             double totalPrice = 0;
 
             for (int listOfIndex : listOfIndexes) {
@@ -260,7 +329,7 @@ public class RockstarIncManager  implements Serializable {
                     randomChosenMusic.add(music);
                 } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
                     notFreeMusicSelection.add(music);
-                    notFreeMusicNames.add(music.getName());
+
                     totalPrice += music.getPrice();
                 }
             }
@@ -273,7 +342,7 @@ public class RockstarIncManager  implements Serializable {
                 //1 - adicionar ao carrinho
                 //2 - comprar as musicas
                 //3 - apenas selecionar musicas gratuitas
-                int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicNames, totalPrice,canBuy);
+                int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicSelection, totalPrice,canBuy);
                 switch (userOption){
                     case 1:
                         for (Music m : notFreeMusicSelection){

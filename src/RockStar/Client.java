@@ -17,11 +17,15 @@ public class Client extends User implements Serializable {
         this.listOfMusicsToBuy = new ArrayList<>();
     }
     public void addMusicToMusicToBuy(Music music){
-        listOfMusicsToBuy.add(music);
+        if(!listOfMusicsToBuy.contains(music)) listOfMusicsToBuy.add(music);
     }
 
     public double getBalance() {
         return balance;
+    }
+
+    public ArrayList<Music> getListOfMusicsToBuy() {
+        return listOfMusicsToBuy;
     }
 
     public void newCollection(String name){
@@ -31,7 +35,8 @@ public class Client extends User implements Serializable {
     };
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
-        allCollections.add(new Playlist("Random Creation", this, listOfMusic));
+        String genre = listOfMusic.get(0).getGenre().name();
+        allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
     };
     public ArrayList<MusicCollection> seeAllCollection(){
         return new ArrayList<>();
@@ -44,6 +49,9 @@ public class Client extends User implements Serializable {
     }
     public void removeMusicFromCollection(Music music, MusicCollection collection){
         collection.getMusicList().remove(music);
+    };
+    public void removeMusicCollection(MusicCollection collection){
+        allCollections.remove(collection);
     };
     public void addMoney(double moneyToAdd){
         balance += moneyToAdd;

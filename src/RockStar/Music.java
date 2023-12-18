@@ -81,5 +81,10 @@ public class Music implements Serializable {
     public double getPrice() {return price;}
 
     public void setPrice(double price) {this.price = price;}
+
+    @Override
+    public String toString() {
+        return name + " \t" + price + "€";
+    }
 }
 
