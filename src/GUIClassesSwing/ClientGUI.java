@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 public class ClientGUI extends JFrame {
     private User currentUser;
@@ -34,6 +32,8 @@ public class ClientGUI extends JFrame {
     private MusicCollection currentUserCollection;
     private JLabel balancelbl;
     private JLabel totallbl;
+    private CardLayout centralCardLayout;
+
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -96,9 +96,9 @@ public class ClientGUI extends JFrame {
         //no User, como a MusicCollection é uma classe abstrata temos de criar uma plylist aqui e será um album no caso do
         //Music creator. Depois disso dão adicionadas as restantes playlists do utilizador com o ciclo
 
+        //Cria modelo lista
         listModelWest = new DefaultListModel<>();
         updateMusicJListModel(currentUser.getAllCollections());
-
         if(currentUserCollection == null) currentUserCollection = new Playlist();  // em caso de novo utilizador
         selectedPlaylist = currentUserCollection; //Define a playlist selecionada na tabela como as musicas totais do user em primeiro lugar
 
@@ -107,7 +107,7 @@ public class ClientGUI extends JFrame {
         //Listner de seleção de playlist
 
         playlistListWest.addListSelectionListener(e -> {
-            if(!e.getValueIsAdjusting()){
+            if(!e.getValueIsAdjusting()){ //Ajusta tendo em conta que é um scrollabel panel
                 selectedPlaylist = playlistListWest.getSelectedValue();
                 if(selectedPlaylist != null){
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
@@ -122,7 +122,7 @@ public class ClientGUI extends JFrame {
                 lastPositionMouseRightClickY = e.getY();
                 if(SwingUtilities.isRightMouseButton(e)){
                     int row = playlistListWest.locationToIndex(e.getPoint());
-                    Rectangle rectangle = playlistListWest.getCellBounds(row,row);
+                    Rectangle rectangle = playlistListWest.getCellBounds(row,row); //É necessário definir o retangulo do item da lista
                     if(rectangle != null && rectangle.contains(e.getPoint()) &&
                             row >= 1 && row < listModelWest.getSize()){ //mais 1 de forma a ignorar o primeiro elemento que não +e uma playlist tipica
                         playlistListWest.setSelectedIndex(row);
@@ -144,10 +144,10 @@ public class ClientGUI extends JFrame {
 
         westPanel.setPreferredSize(new Dimension(175, 0));
         GridBagConstraints cw = new GridBagConstraints();
+
         cw.gridx = 0;
         cw.gridy = 0;
-        cw.weightx = 1;
-
+        cw.weightx = 0.2;
         cw.anchor = GridBagConstraints.CENTER; // Centraliza horizontalmente
         cw.fill = GridBagConstraints.NONE;
         westPanel.add(playlistLabel, cw);
@@ -160,7 +160,7 @@ public class ClientGUI extends JFrame {
         cw.gridy++;
         cw.weighty = 0.2; // Ajuste para o botão
         cw.fill = GridBagConstraints.NONE;
-        cw.anchor = GridBagConstraints.PAGE_START;
+        cw.anchor = GridBagConstraints.NORTH;
         westPanel.add(newPlaylistbtn, cw);
 
         //-----------------------------PANEL EAST--------------------------------
@@ -187,7 +187,7 @@ public class ClientGUI extends JFrame {
         // Cria a JList e define o modelo
         JList<Music> basketList = new JList<>(listModelEast);
 
-        // Coloca a JList em um JScrollPane
+        // Coloca a JList num JScrollPane
         JScrollPane scrollPane2 = new JScrollPane(basketList);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -311,16 +311,23 @@ public class ClientGUI extends JFrame {
         //-----------------------------PANEL CENTER--------------------------------
 
         //<----Unfold
-        String[] columnNames = {"Title", "Artist", "Album", "Clasification"};
+        String[] columnNames = {"Title", "Artist", "Album", "Classification"};
         centralTableModel = new DefaultTableModel(columnNames,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Retorna false para todas as células, tornando-as não editáveis
                 return false;
             }
+            public Class<?> getColumnClass(int column) {
+                // de forma a garantir que no momento da ordenmação é visto como um double
+                if(column == 3){
+                    return Double.class;
+                }
+                else {
+                    return String.class;
+                }
+            }
         };
-
-
         for(Music ms : currentUser.getAllMusic()){
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
@@ -331,14 +338,7 @@ public class ClientGUI extends JFrame {
         }
         centralTable = new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(true);
-
-
-        //Este metodo n\ao estã a funcioar bem.. teremos de ver alternativa
-        //TableRowSorter<TableModel> sorter = new TableRowSorter<>(centralTableModel);
-        //centralTable.setRowSorter(sorter);
-        //Teriamos de usar este seguinte em todo o lado para funcuonar
-        //int modelRowIndex = centralTable.convertRowIndexToModel(viewRowIndex);
-
+        centralTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
 
         //Reparar que este mouse listener se comporta de maneira diferente consoante a playlist selecionada
         centralTable.addMouseListener(new MouseAdapter() {
@@ -366,11 +366,18 @@ public class ClientGUI extends JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(scrollPane3,"Center");
+        //Criar painel de pesquisa 
 
+        JScrollPane scrollPane4 = new JScrollPane();
+        scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        centralCardLayout = new CardLayout();
+        centerPanel = new JPanel(centralCardLayout);
 
+        centerPanel.add(scrollPane3,"1");
+        centerPanel.add(scrollPane4,"2");
+        centralCardLayout.show(centerPanel, "1");
 
         //--------------------------------------------------------------------------
         //Adding all panels
@@ -393,20 +400,64 @@ public class ClientGUI extends JFrame {
             line.add(ms.getClassification());
             centralTableModel.addRow(line);
         }
+
         centerPanel.revalidate();
         centerPanel.repaint();
         //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     };
-    public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
-        guiManager.logoutClient();
+    public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
+        currentUserCollection = new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+        listModelWest.removeAllElements();
+        listModelWest.addElement(currentUserCollection);
+        for(MusicCollection cl : currentUser.getAllCollections()){
+            listModelWest.addElement(cl);
+        }
+        //westPanel.revalidate();
+        //westPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
+    };
+    public void updateBascketJListModel(){
+        listModelEast.removeAllElements();
+        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+            listModelEast.addElement(m);
+            System.out.println("Adicionando música ao basket: " + m);
+        }
+
+        eastPanel.revalidate();
+        eastPanel.repaint();
+        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
+    }
+    public void updateBalance(){
+        balancelbl.setText("Balance" +
+                "\n" + ((Client)currentUser).getBalance() + "€");
+    }
+    public double updateTotalBascketPrice(){
+        double totalPrice = 0;
+        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+            totalPrice += m.getPrice();
+        }
+        totallbl.setText("Total " + totalPrice + "€");
+        return totalPrice;
     }
     public Music getSelectedMusic(){
         int row = centralTable.getSelectedRow();
         if(row != -1){
+            int updatedIndex = centralTable.convertRowIndexToModel(row); //Este metodo atualiza o index do elemento
             ArrayList<Music> musics = selectedPlaylist.getMusicList();
-            return musics.get(row);
+            return musics.get(updatedIndex);
         }
         return null;
+    }
+    public MusicCollection getSelectedPlaylist(){
+        int row = playlistListWest.getSelectedIndex()-1;
+        if(row != -1){
+            ArrayList<MusicCollection> playlist = currentUser.getAllCollections();
+            return playlist.get(row);
+        }
+        return null;
+    }
+    public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
+        guiManager.logoutClient();
     }
     public void onRemoveFromPlaylistClick(){
         Music selectedMusic = getSelectedMusic();
@@ -492,7 +543,6 @@ public class ClientGUI extends JFrame {
             if(selectedGenre != null){
                 String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
                 int nMusics;
-
                 try {
                     nMusics = Integer.parseInt(nMusicsString);
                     if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
@@ -505,32 +555,6 @@ public class ClientGUI extends JFrame {
                 }
             }
         }
-    }
-    public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
-        currentUserCollection = new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
-        listModelWest.removeAllElements();
-        listModelWest.addElement(currentUserCollection);
-        for(MusicCollection cl : currentUser.getAllCollections()){
-            listModelWest.addElement(cl);
-        }
-        westPanel.revalidate();
-        westPanel.repaint();
-        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
-    };
-    public void updateBascketJListModel(){
-        listModelEast.removeAllElements();
-        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
-            listModelEast.addElement(m);
-            System.out.println("Adicionando música ao basket: " + m);
-        }
-
-        eastPanel.revalidate();
-        eastPanel.repaint();
-        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
-    }
-    public void updateBalance(){
-        balancelbl.setText("Balance" +
-                "\n" + ((Client)currentUser).getBalance() + "€");
     }
     public void onPurchasebtnClick(){
         if(updateTotalBascketPrice() > ((Client)currentUser).getBalance()){
@@ -557,14 +581,6 @@ public class ClientGUI extends JFrame {
 
         }
     }
-    public double updateTotalBascketPrice(){
-        double totalPrice = 0;
-        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
-            totalPrice += m.getPrice();
-        }
-        totallbl.setText("Total " + totalPrice + "€");
-        return totalPrice;
-    }
     public void onAddBalancebtnClick(){
 
         String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
@@ -580,14 +596,6 @@ public class ClientGUI extends JFrame {
         } catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null,"Please insert a valid number\nHas to be an Integer");
         }
-    }
-    public MusicCollection getSelectedPlaylist(){
-        int row = playlistListWest.getSelectedIndex()-1;
-        if(row != -1){
-            ArrayList<MusicCollection> playlist = currentUser.getAllCollections();
-            return playlist.get(row);
-        }
-        return null;
     }
     public void onDeletePlaylistClick(){
         MusicCollection selected = getSelectedPlaylist();
