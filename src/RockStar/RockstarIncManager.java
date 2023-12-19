@@ -258,6 +258,7 @@ public class RockstarIncManager  implements Serializable {
         //Na segunda é tratada a pesquisa se o utilizador for um criador de música, apenas retornará as músicas e albuns do próprio.
         //
         ArrayList<Music> foundMusics= new ArrayList<>();
+        ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
         ArrayList<MusicCreator> foundMusicCreators = new ArrayList<>();
 
@@ -265,7 +266,9 @@ public class RockstarIncManager  implements Serializable {
             //Pesquisa de Musica
             for(Music m : musicList){
                 if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
+                if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusicsByArtist.add(m);
             }
+
             //Pesquisa de colleções de musica e artistas; apenas playlists publicas e todos os albuns.
             for(User us :  userList){
                 if(us instanceof MusicCreator && us.name.toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCreators.add((MusicCreator) us);
@@ -275,7 +278,7 @@ public class RockstarIncManager  implements Serializable {
                     }
                 }
             }
-            return new Search(foundMusics,foundMusicCollections,foundMusicCreators);
+            return new Search(foundMusics,foundMusicsByArtist,foundMusicCollections,foundMusicCreators);
         } else {//se o current user for music creator apenas poderá pesquisar as proprias criações
             for(Music m : musicList){
                 if(m.getMusicCreator().equals(currentUser) && m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);

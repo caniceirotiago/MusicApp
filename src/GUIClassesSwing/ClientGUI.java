@@ -17,6 +17,7 @@ public class ClientGUI extends JFrame {
     private User currentUser;
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
+    private DefaultTableModel searchTableModel;
     private DefaultListModel<MusicCollection> listModelWest;
     private DefaultListModel<Music> listModelEast;
     private JPanel centerPanel;
@@ -24,6 +25,7 @@ public class ClientGUI extends JFrame {
     private JPanel eastPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
+    private JTable searchTable;
     private JList<MusicCollection> playlistListWest;
     private JMenuItem addToPlaylistMenu;
     private JMenuItem evaluateMusicMenu;
@@ -33,6 +35,8 @@ public class ClientGUI extends JFrame {
     private JLabel balancelbl;
     private JLabel totallbl;
     private CardLayout centralCardLayout;
+    private Search search;
+    private JTextField searchTextField;
 
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
@@ -250,8 +254,9 @@ public class ClientGUI extends JFrame {
         ImageIcon resizedIcon = new ImageIcon(resizedImage);
         JLabel logo =  new JLabel(resizedIcon);
 
-        JTextField searchTextField = new JTextField("Search",20);
+        searchTextField = new JTextField("",20);
         JButton searchbtn = new JButton("\uD83D\uDD0D");
+        searchbtn.addActionListener(e -> newSearch());
 
         //Criação de Botão para Criar logout
         JButton logOutbtn = new JButton("Logout");
@@ -366,19 +371,59 @@ public class ClientGUI extends JFrame {
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        //Criar painel de pesquisa 
 
-        JScrollPane scrollPane4 = new JScrollPane();
+
+        //Criar painel de pesquisa
+        if(search == null) search = new Search();
+        searchTableModel = new DefaultTableModel(columnNames,0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Retorna false para todas as células, tornando-as não editáveis
+                return false;
+            }
+            public Class<?> getColumnClass(int column) {
+                // de forma a garantir que no momento da ordenmação é visto como um double
+                if(column == 3){
+                    return Double.class;
+                }
+                else {
+                    return String.class;
+                }
+            }
+        };
+        updateSearchTable(search.getFoundMusics());
+
+
+
+        searchTable = new JTable(searchTableModel);
+        searchTable.getTableHeader().setReorderingAllowed(true);
+        searchTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
+
+
+        JButton backToMainbtn = new JButton("Back");
+
+        String[] filterOptions = {"Music", "Music By Artist", "Artist", "Collection"};
+        JComboBox comboSearchBox = new JComboBox<>(filterOptions);
+
+
+        JScrollPane scrollPane4 = new JScrollPane(searchTable);
         scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        searchPanel.add(backToMainbtn,"North");
+        searchPanel.add(scrollPane4,"Center");
+
+
+        //Formação de cardLayout
         centralCardLayout = new CardLayout();
         centerPanel = new JPanel(centralCardLayout);
 
         centerPanel.add(scrollPane3,"1");
-        centerPanel.add(scrollPane4,"2");
+        centerPanel.add(searchPanel,"2");
         centralCardLayout.show(centerPanel, "1");
 
+        backToMainbtn.addActionListener(e -> centralCardLayout.show(centerPanel, "1"));
         //--------------------------------------------------------------------------
         //Adding all panels
         mainContainer.add(northPanel,"North");
@@ -633,6 +678,26 @@ public class ClientGUI extends JFrame {
             westPanel.revalidate();
             westPanel.repaint();
             System.out.println("Playlist changed");
+        }
+    }
+    public void newSearch(){
+        centralCardLayout.show(centerPanel, "2");
+        search = guiManager.newSearch(searchTextField.getText());
+        updateSearchTable(search.getFoundMusics());
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
+    public void updateSearchTable(ArrayList<Music> list){
+        searchTableModel.setRowCount(0);
+        if(list != null){
+            for(Music ms : list){
+                Vector <Object> line = new Vector<>();
+                line.add(ms.getName());
+                line.add(ms.getArtistNameFromMusic());
+                line.add(ms.getAssociatedAlbum());
+                line.add(ms.getClassification());
+                searchTableModel.addRow(line);
+            }
         }
     }
 }
