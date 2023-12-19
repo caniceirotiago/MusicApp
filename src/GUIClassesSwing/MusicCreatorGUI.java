@@ -19,6 +19,10 @@ public class MusicCreatorGUI extends JFrame {
     private MusicCollection selectedPlayList;
     private DefaultTableModel centralTableModel;
     private JPanel centerPanel;
+    private JPanel westPanel;
+    private JPanel eastPanel;
+    private JPanel northPanel;
+    private JPanel southPanel;
     private JTable centralTable;
     private JMenuItem addToAlbum;
     private int lastPositionMouseRightClickX;
@@ -43,11 +47,14 @@ public class MusicCreatorGUI extends JFrame {
 //---------------------------------menus and popup menus
         JPopupMenu centralTablePUM =  new JPopupMenu();
         addToAlbum = new JMenuItem("Add to album");
-        //ver o que colocar aqui no caso do criador de musica
-        JMenuItem evaluateMusic = new JMenuItem("Evaluate music");
+        //colocar aqui o inativar musica
+        JMenuItem inactivateMusic = new JMenuItem("Inactivate music");
+        centralTablePUM.add(inactivateMusic);
         centralTablePUM.add(addToAlbum);
-        centralTablePUM.add(evaluateMusic);
         addToAlbum.addActionListener(e-> addMusicToAlbumOnClick());
+        //inativar musica quando selecionado no menu central
+        inactivateMusic.addActionListener(e -> setInactiveClick());
+
 
 
 //-------------------------------------------------------
@@ -84,7 +91,7 @@ public class MusicCreatorGUI extends JFrame {
         JButton newAlbumButton = new JButton("New Album");
 
         //criacao do painel com GRIDBAG
-        JPanel westPanel = new JPanel(new GridBagLayout());
+        westPanel = new JPanel(new GridBagLayout());
         westPanel.setPreferredSize(new Dimension(175,0));
         GridBagConstraints wpConstraints = new GridBagConstraints();// wp é west panel
         wpConstraints.gridx= 0;
@@ -118,7 +125,7 @@ public class MusicCreatorGUI extends JFrame {
         //aqui falta adicionar as funcionalidades das musicas
 
         //criar painel east
-        JPanel eastPanel = new JPanel(new GridBagLayout());
+        eastPanel = new JPanel(new GridBagLayout());
         GridBagConstraints epConstraints =  new GridBagConstraints();
         epConstraints.anchor = GridBagConstraints.CENTER;
         epConstraints.gridy = 0;
@@ -152,7 +159,7 @@ public class MusicCreatorGUI extends JFrame {
         });
 
 
-        JPanel northPanel =  new JPanel(new GridBagLayout());
+        northPanel =  new JPanel(new GridBagLayout());
         GridBagConstraints npConstraints =  new GridBagConstraints(); //np é northpanel
         northPanel.setPreferredSize(new Dimension(0,100));
 
@@ -203,6 +210,11 @@ public class MusicCreatorGUI extends JFrame {
                 return false;
             }
         };
+
+        centerPanel = new JPanel();
+        GridBagConstraints cpConstraints =  new GridBagConstraints(); //np é northpanel
+        centerPanel.setPreferredSize(new Dimension(0,100));
+
         for (Music ms : currentUser.getAllMusic()){
             Vector<Object> line =  new Vector<>();
             line.add(ms.getName());
@@ -226,14 +238,12 @@ public class MusicCreatorGUI extends JFrame {
                         centralTable.setRowSelectionInterval(row,row);
                         if (selectedPlayList.equals(currentUserCollection)){
                             centralTablePUM.show(e.getComponent(), lastPositionMouseRightClickX, lastPositionMouseRightClickY);
-                        } else {
-
                         }
-
                     }
                 }
             }
         });
+        centerPanel.add(scrollPane, cpConstraints);
 //------------------------------end of center panel
 //------------------------------south panel
 //------------------------------end of south panel
@@ -294,5 +304,12 @@ public class MusicCreatorGUI extends JFrame {
 
         }
     }
+    //falta capacidade para inativar musica
+    public void setInactiveClick(){
+        System.out.println("music is now inactive");
+
+
+    }
+    //falta conseguir adicionar uma musica as collections atraves da criacao de nova musica
 
 }
