@@ -94,10 +94,10 @@ public class MusicCreatorGUI extends JFrame {
         westPanel = new JPanel(new GridBagLayout());
         westPanel.setPreferredSize(new Dimension(175,0));
         GridBagConstraints wpConstraints = new GridBagConstraints();// wp é west panel
+
         wpConstraints.gridx= 0;
         wpConstraints.gridy = 0;
         wpConstraints.weightx=1;
-
         wpConstraints.anchor=GridBagConstraints.CENTER;
         wpConstraints.fill = GridBagConstraints.NONE;
         westPanel.add(albumLabel,wpConstraints);
