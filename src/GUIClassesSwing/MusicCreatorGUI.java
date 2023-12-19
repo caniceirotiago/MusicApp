@@ -1,5 +1,6 @@
 package src.GUIClassesSwing;
 
+import org.w3c.dom.ls.LSOutput;
 import src.RockStar.*;
 
 import javax.swing.*;
@@ -216,14 +217,7 @@ public class MusicCreatorGUI extends JFrame {
             }
         };
 
-        centerPanel = new JPanel();
-        GridBagConstraints cpConstraints =  new GridBagConstraints(); //np é northpanel
-        centerPanel.setPreferredSize(new Dimension(0,100));
 
-
-
-        centralTable =  new JTable(centralTableModel);
-        centralTable.getTableHeader().setReorderingAllowed(false);
         for (Music ms : currentUser.getAllMusic()){
             Vector<Object> line =  new Vector<>();
             line.add(ms.getName());
@@ -232,12 +226,16 @@ public class MusicCreatorGUI extends JFrame {
             line.add(ms.getPrice());
             centralTableModel.addRow(line);
         }
+        centralTable =  new JTable(centralTableModel);
+        centralTable.getTableHeader().setReorderingAllowed(false);
+
         centralTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 //guarda a posicao do click para abrir o submenu
                 lastPositionMouseRightClickX = e.getX();
                 lastPositionMouseRightClickY = e.getY();
+                System.out.println("regista tabela central");
                 if (SwingUtilities.isRightMouseButton(e)){
                     int row = centralTable.rowAtPoint(e.getPoint());
                     if (row > 0 && row <centralTable.getRowCount()){
@@ -249,16 +247,26 @@ public class MusicCreatorGUI extends JFrame {
                 }
             }
         });
-        centerPanel.add(scrollPane, cpConstraints);
+        centerPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints cpConstraints =  new GridBagConstraints();
+        JScrollPane scrollPaneCenter = new JScrollPane(centralTable);
+        scrollPaneCenter.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        cpConstraints.gridx = 0;
+        cpConstraints.gridy = 0;
+        cpConstraints.anchor = GridBagConstraints.CENTER;
+        cpConstraints.fill = GridBagConstraints.VERTICAL;
+        centerPanel.add(scrollPaneCenter, cpConstraints);
 //------------------------------end of center panel
 //------------------------------south panel
 //------------------------------end of south panel
 
         //painel south (estatisticas)
-        mainContainer.add(westPanel,BorderLayout.WEST);
+        mainContainer.add(westPanel,"West");
         mainContainer.add(eastPanel,"East");
         mainContainer.add(northPanel, "North");
-        //mainContainer.add(centerPanel,"Center");
+        mainContainer.add(centerPanel,"Center");
         add(mainContainer);
     }
     //criacao da lista
