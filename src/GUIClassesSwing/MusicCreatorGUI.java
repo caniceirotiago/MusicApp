@@ -18,6 +18,9 @@ public class MusicCreatorGUI extends JFrame {
     private GUIManager guiManager;
     private MusicCollection selectedPlayList;
     private DefaultTableModel centralTableModel;
+    private DefaultListModel <MusicCollection> westListModel;
+    private MusicCollection currentUserCollection;
+    private JList listMusicWest;
     private JPanel centerPanel;
     private JPanel westPanel;
     private JPanel eastPanel;
@@ -62,19 +65,16 @@ public class MusicCreatorGUI extends JFrame {
 //---------------------------------WEST PANEL------------------------------------
 
         //label albuns
+        westPanel = new JPanel(new GridBagLayout());
         JLabel albumLabel = new JLabel();
-        albumLabel.setText("Albums");
-        DefaultListModel<MusicCollection> listModel = new DefaultListModel<>();
-        MusicCollection currentUserCollection = new Album("Owned Music", currentUser.getAllMusic(), (MusicCreator) currentUser);
-        listModel.addElement(currentUserCollection);
-        for (MusicCollection cl : currentUser.getAllCollections()){
-            listModel.addElement(cl);
-        }
+        albumLabel.setText("Album collection");
 
-        //criar jlist e definir modelo
-        JList <MusicCollection> albumList =  new JList<>(listModel);
-        //istener de seleção de album
-        selectedPlayList = currentUserCollection;
+
+        westListModel = new DefaultListModel<>();
+        listMusicWest = new JList(westListModel);
+
+        //selecionar a lista sem o rato dar erro
+        /*selectedPlayList = currentUserCollection;
         albumList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()){
                 selectedPlayList = albumList.getSelectedValue();
@@ -82,22 +82,22 @@ public class MusicCreatorGUI extends JFrame {
                   updateMusicJtableModel(selectedPlayList.getMusicList());  ;
                 }
             }
-        });
+        });*/
         //colocar a jlist num JScrollPane
-        JScrollPane scrollPane = new JScrollPane(albumList);
+        JScrollPane scrollPane = new JScrollPane(listMusicWest);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         //criacao do botao para criar album
         JButton newAlbumButton = new JButton("New Album");
 
         //criacao do painel com GRIDBAG
-        westPanel = new JPanel(new GridBagLayout());
+
         westPanel.setPreferredSize(new Dimension(175,0));
         GridBagConstraints wpConstraints = new GridBagConstraints();// wp é west panel
 
         wpConstraints.gridx= 0;
         wpConstraints.gridy = 0;
-        wpConstraints.weightx=1;
+        wpConstraints.weightx=0.2;
         wpConstraints.anchor=GridBagConstraints.CENTER;
         wpConstraints.fill = GridBagConstraints.NONE;
         westPanel.add(albumLabel,wpConstraints);
@@ -105,6 +105,7 @@ public class MusicCreatorGUI extends JFrame {
         wpConstraints.gridy++;
         wpConstraints.weighty = 0.6;
         wpConstraints.fill = GridBagConstraints.BOTH;
+        wpConstraints.insets = new Insets(0,25,0,0);
         westPanel.add(scrollPane, wpConstraints);
 
         wpConstraints.gridy++;
@@ -118,21 +119,25 @@ public class MusicCreatorGUI extends JFrame {
 
 //-------------------------------EAST PANEL-----------------------
 //criar uma label e um botao para adicionar uma nova musica
-        JLabel newMusiclbl = new JLabel();
-        newMusiclbl.setText("Add new music");
-        JButton addMusicButton =  new JButton("New Music");
+
 
         //aqui falta adicionar as funcionalidades das musicas
 
         //criar painel east
         eastPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints epConstraints =  new GridBagConstraints();
-        epConstraints.anchor = GridBagConstraints.CENTER;
-        epConstraints.gridy = 0;
-        epConstraints.fill = GridBagConstraints.BOTH;
         eastPanel.setPreferredSize(new Dimension(175,0));
-        eastPanel.add(newMusiclbl,epConstraints);
-        eastPanel.add(addMusicButton,epConstraints);
+        GridBagConstraints epConstraints =  new GridBagConstraints();
+        //label east
+        JLabel newMusiclbl = new JLabel();
+        newMusiclbl.setText("Add new music");
+        epConstraints.gridx = 0;
+        epConstraints.gridy = 0;
+        epConstraints.anchor = GridBagConstraints.CENTER;
+        eastPanel.add(newMusiclbl, epConstraints);
+
+        JButton addMusicButton =  new JButton("New Music");
+        epConstraints.gridy ++;
+        eastPanel.add(addMusicButton, epConstraints);
 
 //-------------------------------END OF EAST PANEL-----------------------
 // ------------------------------NORTH PANEL------------------------------
@@ -215,6 +220,10 @@ public class MusicCreatorGUI extends JFrame {
         GridBagConstraints cpConstraints =  new GridBagConstraints(); //np é northpanel
         centerPanel.setPreferredSize(new Dimension(0,100));
 
+
+
+        centralTable =  new JTable(centralTableModel);
+        centralTable.getTableHeader().setReorderingAllowed(false);
         for (Music ms : currentUser.getAllMusic()){
             Vector<Object> line =  new Vector<>();
             line.add(ms.getName());
@@ -223,9 +232,6 @@ public class MusicCreatorGUI extends JFrame {
             line.add(ms.getPrice());
             centralTableModel.addRow(line);
         }
-
-        centralTable =  new JTable(centralTableModel);
-        centralTable.getTableHeader().setReorderingAllowed(false);
         centralTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -247,12 +253,12 @@ public class MusicCreatorGUI extends JFrame {
 //------------------------------end of center panel
 //------------------------------south panel
 //------------------------------end of south panel
-        //painel center
+
         //painel south (estatisticas)
-        mainContainer.add(westPanel,"West");
+        mainContainer.add(westPanel,BorderLayout.WEST);
         mainContainer.add(eastPanel,"East");
         mainContainer.add(northPanel, "North");
-        mainContainer.add(centerPanel,"Center");
+        //mainContainer.add(centerPanel,"Center");
         add(mainContainer);
     }
     //criacao da lista
