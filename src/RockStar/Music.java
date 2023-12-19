@@ -15,6 +15,7 @@ public class Music implements Serializable {
     private double classification;
     private Album associatedAlbum;
 
+
     public void setAssociatedAlbum(Album associatedAlbum) {
         this.associatedAlbum = associatedAlbum;
     }
@@ -29,6 +30,9 @@ public class Music implements Serializable {
 
     public MusicCreator getMusicCreator() {
         return musicCreator;
+    }
+    public String getArtistNameFromMusic(){
+        return musicCreator.getName();
     }
 
     public RockstarIncManager.GENRE getGenre() {
@@ -75,6 +79,7 @@ public class Music implements Serializable {
     //getters e setters para a edição da musica por parte do music creator
 
     public String getName() {return name;}
+
 
     public void setName(String name) {this.name = name;}
 

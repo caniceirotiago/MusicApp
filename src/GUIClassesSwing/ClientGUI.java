@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class ClientGUI extends JFrame {
     private User currentUser;
@@ -309,7 +311,7 @@ public class ClientGUI extends JFrame {
         //-----------------------------PANEL CENTER--------------------------------
 
         //<----Unfold
-        String[] columnNames = {"Title", "Album", "Clasification"};
+        String[] columnNames = {"Title", "Artist", "Album", "Clasification"};
         centralTableModel = new DefaultTableModel(columnNames,0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -322,12 +324,21 @@ public class ClientGUI extends JFrame {
         for(Music ms : currentUser.getAllMusic()){
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
+            line.add(ms.getArtistNameFromMusic());
             line.add(ms.getAssociatedAlbum());
             line.add(ms.getClassification());
             centralTableModel.addRow(line);
         }
         centralTable = new JTable(centralTableModel);
-        centralTable.getTableHeader().setReorderingAllowed(false);
+        centralTable.getTableHeader().setReorderingAllowed(true);
+
+
+        //Este metodo n\ao estã a funcioar bem.. teremos de ver alternativa
+        //TableRowSorter<TableModel> sorter = new TableRowSorter<>(centralTableModel);
+        //centralTable.setRowSorter(sorter);
+        //Teriamos de usar este seguinte em todo o lado para funcuonar
+        //int modelRowIndex = centralTable.convertRowIndexToModel(viewRowIndex);
+
 
         //Reparar que este mouse listener se comporta de maneira diferente consoante a playlist selecionada
         centralTable.addMouseListener(new MouseAdapter() {
@@ -377,6 +388,7 @@ public class ClientGUI extends JFrame {
         for(Music ms : selectedPlaylist){
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
+            line.add(ms.getArtistNameFromMusic());
             line.add(ms.getAssociatedAlbum());
             line.add(ms.getClassification());
             centralTableModel.addRow(line);

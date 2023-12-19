@@ -50,4 +50,5 @@ public class MusicCreator extends User implements Serializable {
         allMusic.add(music);
     }
     public void seeStatistics(){};
+
 }

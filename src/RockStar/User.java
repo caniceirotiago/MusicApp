@@ -27,6 +27,10 @@ public abstract class User implements Serializable {
         return email;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<MusicCollection> getAllCollections() {
         return allCollections;
     }
