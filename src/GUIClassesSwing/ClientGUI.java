@@ -37,6 +37,7 @@ public class ClientGUI extends JFrame {
     private CardLayout centralCardLayout;
     private Search search;
     private JTextField searchTextField;
+    private JComboBox comboSearchBox;
 
     public ClientGUI(User currentUser, GUIManager guiManager){
         super("Client - " + currentUser.getUsername());
@@ -373,7 +374,7 @@ public class ClientGUI extends JFrame {
 
 
 
-        //Criar painel de pesquisa
+        //Criar paineis de pesquisa
         if(search == null) search = new Search();
         searchTableModel = new DefaultTableModel(columnNames,0){
             @Override
@@ -393,25 +394,26 @@ public class ClientGUI extends JFrame {
         };
         updateSearchTable(search.getFoundMusics());
 
-
-
         searchTable = new JTable(searchTableModel);
         searchTable.getTableHeader().setReorderingAllowed(true);
         searchTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
 
 
         JButton backToMainbtn = new JButton("Back");
+        String[] filterOptions = {"Music", "Music By Artist"}; // , "Artist", "Collection" eventualmente adicionar estes dois
+        comboSearchBox = new JComboBox<>(filterOptions);
+        comboSearchBox.addActionListener(e -> onSearchComboBoxClick());
+        JPanel searchbtnPanel = new JPanel(new FlowLayout());
 
-        String[] filterOptions = {"Music", "Music By Artist", "Artist", "Collection"};
-        JComboBox comboSearchBox = new JComboBox<>(filterOptions);
-
+        searchbtnPanel.add(backToMainbtn);
+        searchbtnPanel.add(comboSearchBox);
 
         JScrollPane scrollPane4 = new JScrollPane(searchTable);
         scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         JPanel searchPanel = new JPanel(new BorderLayout());
-        searchPanel.add(backToMainbtn,"North");
+        searchPanel.add(searchbtnPanel,"North");
         searchPanel.add(scrollPane4,"Center");
 
 
@@ -681,6 +683,12 @@ public class ClientGUI extends JFrame {
         }
     }
     public void newSearch(){
+        // Tivemos de desligar o actionListner para não interferir com a seleção ca bombo box
+        ActionListener listener = comboSearchBox.getActionListeners()[0];
+        comboSearchBox.removeActionListener(listener);
+        comboSearchBox.setSelectedIndex(0);
+        comboSearchBox.addActionListener(listener);
+
         centralCardLayout.show(centerPanel, "2");
         search = guiManager.newSearch(searchTextField.getText());
         updateSearchTable(search.getFoundMusics());
@@ -698,6 +706,16 @@ public class ClientGUI extends JFrame {
                 line.add(ms.getClassification());
                 searchTableModel.addRow(line);
             }
+        }
+    }
+    public void onSearchComboBoxClick(){
+        //eventualmete adicionar a pesquisa de colleções e de artistas
+        int comboSelection = comboSearchBox.getSelectedIndex();
+        switch (comboSelection){
+            case 0: updateSearchTable(search.getFoundMusics());
+                break;
+            case 1: updateSearchTable(search.getFoundMusicsByArtist());
+                break;
         }
     }
 }
