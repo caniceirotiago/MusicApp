@@ -1,9 +1,6 @@
 package src.GUIClassesSwing;
 
-import src.RockStar.Client;
-import src.RockStar.Music;
-import src.RockStar.RockstarIncManager;
-import src.RockStar.User;
+import src.RockStar.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -22,7 +19,6 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     private LogRegFrame registrationFrame;
     private final RockstarIncManager logicManager;
     private User currentUser;
-
     public GUIManager(RockstarIncManager logicManager) {
         this.logicManager = logicManager;
     }
@@ -126,7 +122,10 @@ public class GUIManager { //O Serializable não deveria ficar aqui
         clientFrame.updateBascketJListModel();
         clientFrame.updateBalance();
         clientFrame.updateTotalBascketPrice();
-        clientFrame.revalidate();
-        clientFrame.repaint();
+        //clientFrame.revalidate();
+        //clientFrame.repaint();
+    }
+    public Search newSearch(String searchTextField){
+        return logicManager.search(searchTextField);
     }
 }
