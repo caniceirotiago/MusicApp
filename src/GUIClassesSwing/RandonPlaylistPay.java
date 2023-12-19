@@ -52,7 +52,7 @@ public class RandonPlaylistPay  extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(associated);
 
-        setPreferredSize(new Dimension(400,400));
+        setPreferredSize(new Dimension(450,400));
         setResizable(false);
         pack();
         setVisible(true);

@@ -27,7 +27,7 @@ public class RockstarIncManager  implements Serializable {
         //Criei um client só para experimentar Login.. depois é para apagar
         Client tiago = new Client("as","as","as","as",180);
         userList.add(tiago);
-        MusicCreator pedro = new MusicCreator("qw","qw","qw","qw","qw");
+        MusicCreator pedro = new MusicCreator("Pedro","qw","qw","qw","qw");
         userList.add(pedro);
 
         //Playlist experiencia
