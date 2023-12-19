@@ -13,6 +13,7 @@ import static src.RockStar.Main.updateDataFile;
 public class GUIManager { //O Serializable não deveria ficar aqui
 
     private ClientGUI clientFrame;
+    private MusicCreatorGUI musicCreatorFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
     private LogRegFrame loginFrame;
     private LogRegFrame registrationFrame;
@@ -88,10 +89,17 @@ public class GUIManager { //O Serializable não deveria ficar aqui
         updateDataFile();
         run();
     }
+    public void logoutMCreator()throws IOException, ClassNotFoundException{
+        musicCreatorFrame.dispose();
+        currentUser = null;
+        updateDataFile();
+        run();
+
+    }
     public void sucessfullLogin(User currentUser, boolean isMCreator){
         this.currentUser = currentUser;
         if(isMCreator){
-            new MusicCreatorGUI(currentUser);
+            musicCreatorFrame = new MusicCreatorGUI(currentUser, this);
             loginRegistrationGUI.setVisible(false);
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
@@ -108,7 +116,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
         System.out.println(userOption);
         return userOption;
     }
-    public void randomPLSuccssefullyCreated(){
+    public void randomPLSuccssefullyCreated(){ //erro
         JOptionPane.showMessageDialog(null,"Random playlist created");
         clientFrame.updateMusicJTableModel(currentUser.getAllMusic());
         clientFrame.updateBascketJListModel();

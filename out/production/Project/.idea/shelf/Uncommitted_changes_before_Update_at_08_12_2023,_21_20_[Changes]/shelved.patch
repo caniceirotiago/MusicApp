@@ -1,0 +1,18 @@
+Index: src/RockStar/MusicCreator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package src.RockStar;\n\nimport java.util.ArrayList;\n\npublic class MusicCreator extends User{\n    private int pin;\n\n    public MusicCreator(String name, String username, String password, String email, int pin) {\n        super(username, password, name, email);\n        this.pin = pin;\n    }\n\n    @Override\n    public void newCollection(String name) {\n        //Creating an empty album\n        allCollections.add(new Album(\"random album name\",  this));\n    }\n    public void newCollection(ArrayList<Music> listMusic) {\n\n    }\n\n    @Override\n    public ArrayList<MusicCollection> seeAllCollection() {return new ArrayList<>();}\n\n    //poderia mudar o metodo create music para retornar para este metodo um objeto tipo musica?\n    @Override\n    public void addMusicToCollection(Music music, MusicCollection musicCollection) {\n        //sera que isto assim funciona?\n        //lista de albuns\n        //pega numa musica especifica e num album especifico e coloca-a la dentro\n\n    }\n\n    public void editMusic(Music music, MusicCollection musicCollection){\n        //music.setName();\n        //music.setPrice();\n    };\n\n    public Music createMusic(String name, RockstarIncManager.GENRE genre, double price){\n        Music music = new Music(name, genre,this, price);\n        //adiciona logo a musica à all music?\n        allMusic.add(music);\n        return music;\n\n    }\n    public void seeStatistics(){};\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/RockStar/MusicCreator.java b/src/RockStar/MusicCreator.java
+--- a/src/RockStar/MusicCreator.java	
++++ b/src/RockStar/MusicCreator.java	
+@@ -38,7 +38,6 @@
+ 
+     public Music createMusic(String name, RockstarIncManager.GENRE genre, double price){
+         Music music = new Music(name, genre,this, price);
+-        //adiciona logo a musica à all music?
+         allMusic.add(music);
+         return music;
+ 

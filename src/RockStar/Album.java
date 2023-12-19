@@ -7,6 +7,7 @@ public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
     private ArrayList<MusicCreator> otherCreators;
 
+
     //construtor de album apenas com 1 criador
 
 
