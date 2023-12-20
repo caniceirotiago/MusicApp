@@ -4,9 +4,7 @@ import src.RockStar.*;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static src.RockStar.Main.updateDataFile;
 
@@ -119,7 +117,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     public void randomPLSuccssefullyCreated(){ //erro
         JOptionPane.showMessageDialog(null,"Random playlist created");
         clientFrame.updateMusicJTableModel(currentUser.getAllMusic());
-        clientFrame.updateBascketJListModel();
+        clientFrame.updateBasketJListModel();
         clientFrame.updateBalance();
         clientFrame.updateTotalBascketPrice();
         //clientFrame.revalidate();

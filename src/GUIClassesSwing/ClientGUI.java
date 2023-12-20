@@ -222,7 +222,7 @@ public class ClientGUI extends JFrame {
         There are two different ways to add elements to this list, by adding individual musics on the search tabels or
         adding one or more musics at a time from the randomly created playlist event. The popup menu on the list allows
         the user to remove an individual music, remove all the music or present the price history. The user can add
-        money at the range of 5€ to 999€. The purchase has a confirmation box and it is not allowed to become with a
+        money at the range of 5€ to 999€. The purchase has a confirmation box, and it is not allowed to become with a
         negative balance.
          */
 
@@ -236,7 +236,7 @@ public class ClientGUI extends JFrame {
 
         //ListModel creation, there is a method for updating the model in different locations of the code
         listModelEast = new DefaultListModel<>();
-        updateBascketJListModel();
+        updateBasketJListModel();
 
         //Associate the model to the new list and add the action listener
         basketList = new JList<>(listModelEast);
@@ -388,7 +388,7 @@ public class ClientGUI extends JFrame {
         All the tables are not editable and sorted with the method: "setAutoCreateRowSorter()". The index of the musics
         and collections is corrected in the respectively methods.
 
-        The popup menu on the search music table will allows adding music to a specific playlist and evaluate them.
+        The popup menu on the search music table will allow adding music to a specific playlist and evaluate them.
 
         The popup menu on the search music allows the user to acquire individual musics. This will have different
         behaviors depending on whether the music is free or not. If the music is free, it will be added to the
@@ -446,11 +446,9 @@ public class ClientGUI extends JFrame {
         searchMusicTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
-                // Retorna false para todas as células, tornando-as não editáveis
                 return false;
             }
             public Class<?> getColumnClass(int column) {
-                // de forma a garantir que no momento da ordenmação é visto como um double
                 if(column == 3){
                     return Double.class;
                 }
@@ -467,7 +465,6 @@ public class ClientGUI extends JFrame {
         searchMusicTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                //Primeiro guarda a posição do click para depois localizar o submenu
                 lastPositionMouseRightClickX = e.getX();
                 lastPositionMouseRightClickY = e.getY();
                 if(SwingUtilities.isRightMouseButton(e)){
@@ -495,7 +492,7 @@ public class ClientGUI extends JFrame {
 
         //Creation of the back button and combobox
         JButton backToMainbtn = new JButton("Back");
-        String[] filterOptions = {"Music", "Music By Artist","Collections"}; // , "Artist",  eventualmente adicionar estes dois
+        String[] filterOptions = {"Music", "Music By Artist","Collections"};
         comboSearchBox = new JComboBox<>(filterOptions);
         comboSearchBox.addActionListener(e -> onSearchComboBoxClick());
         JPanel searchbtnPanel = new JPanel(new FlowLayout());
@@ -546,7 +543,7 @@ public class ClientGUI extends JFrame {
     }
     public void updateMusicJTableModel(ArrayList<Music> selectedPlaylist){
         centralTableModel.setRowCount(0);
-        System.out.println("Número de músicas: " + selectedPlaylist.size());
+        System.out.println("Playlist size: " + selectedPlaylist.size());
         for(Music ms : selectedPlaylist){
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
@@ -563,20 +560,13 @@ public class ClientGUI extends JFrame {
         for(MusicCollection cl : currentUser.getAllCollections()){
             listModelWest.addElement(cl);
         }
-        //westPanel.revalidate();
-        //westPanel.repaint();
-        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     }
-    public void updateBascketJListModel(){
+    public void updateBasketJListModel(){
         listModelEast.removeAllElements();
         for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
             listModelEast.addElement(m);
             System.out.println("Adicionando música ao basket: " + m);
         }
-
-        eastPanel.revalidate();
-        eastPanel.repaint();
-        //Aparentemente parece que não precisa de repaint e revalidate mas optei por deixar para já
     }
     public void updateBalance(){
         balanceLbl.setText("Balance" +
@@ -736,7 +726,7 @@ public class ClientGUI extends JFrame {
                 case 0: ((Client)currentUser).validationOfAquisition(((Client)currentUser).getListOfMusicsToBuy());
                     ((Client)currentUser).getListOfMusicsToBuy().clear();
                     updateBalance();
-                    updateBascketJListModel();
+                    updateBasketJListModel();
                     updateTotalBascketPrice();
                     updateMusicJTableModel(currentUserCollection.getMusicList());
                     JOptionPane.showMessageDialog(null,"All the musics were acquired");
@@ -881,7 +871,7 @@ public class ClientGUI extends JFrame {
             else{
                 JOptionPane.showMessageDialog(null, "The song costs is " + selectedMusic.getPrice() + "€ . Check it on your shopping basket");
                 ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
-                updateBascketJListModel();
+                updateBasketJListModel();
                 updateTotalBascketPrice();
             }
         }
@@ -917,7 +907,7 @@ public class ClientGUI extends JFrame {
     public void onRemoveFromBasketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
         ((Client)currentUser).getListOfMusicsToBuy().remove(selectedMusic);
-        updateBascketJListModel();
+        updateBasketJListModel();
         updateTotalBascketPrice();
     }
     public void onCleanBasketClick(){
@@ -925,7 +915,7 @@ public class ClientGUI extends JFrame {
                 "Confirmation", JOptionPane.YES_NO_OPTION);
         if(option == 0){
             ((Client)currentUser).getListOfMusicsToBuy().clear();
-            updateBascketJListModel();
+            updateBasketJListModel();
             updateTotalBascketPrice();
         }
     }
