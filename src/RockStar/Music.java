@@ -89,7 +89,10 @@ public class Music implements Serializable {
 
     public double getPrice() {return price;}
 
-    public void setPrice(double price) {this.price = price;}
+    public void setPrice(double price) {
+        this.price = price;
+        priceHistory.add(new PriceHistory(price, LocalDateTime.now()));
+    }
 
     @Override
     public String toString() {
