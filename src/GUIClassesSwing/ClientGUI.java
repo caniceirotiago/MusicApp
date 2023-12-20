@@ -145,6 +145,7 @@ public class ClientGUI extends JFrame {
                 selectedPlaylist = playlistListWest.getSelectedValue();
                 if(selectedPlaylist != null){
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
+                    centralCardLayout.show(centerPanel,"1");
                 }
             }
         });
@@ -641,7 +642,11 @@ public class ClientGUI extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         Music selectedMusic = getSelectedMusicOnCentralTable();
                         if(selectedMusic != null){
-                            currentUser.addMusicToCollection(selectedMusic,pl);
+                            if(!pl.getMusicList().contains(selectedMusic)){
+                                currentUser.addMusicToCollection(selectedMusic,pl);
+                            }
+                            else JOptionPane.showMessageDialog(null,
+                                    "This music is already on that playlist");
                         }
                     }
                 });
@@ -671,6 +676,7 @@ public class ClientGUI extends JFrame {
         evaluationMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
     public void onNewPlaylistbtnClick(){
+        centralCardLayout.show(centerPanel,"1");
         String[] options = {"Empty Playlist","Random Playlist"};
         int userChoice = JOptionPane.showOptionDialog(null,"Create Playlist","Type of Playlist",
                 JOptionPane.DEFAULT_OPTION,JOptionPane.QUESTION_MESSAGE,null,options,options[0]);

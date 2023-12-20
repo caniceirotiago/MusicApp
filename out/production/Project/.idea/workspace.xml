@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="pedro">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUI.java" afterDir="false" />
+    <list default="true" id="1ea9c6cd-9e0b-42b8-9018-c54b39ef74c2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/ClientGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,9 +19,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
+  &quot;associatedIndex&quot;: 1
 }</component>
-  <component name="ProjectId" id="2Z8G40kcbCmJnJCPvoTp8ZCJzKw" />
+  <component name="ProjectId" id="2ZiVLkRLbzxXsaqVzub4p8Ost8s" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -39,258 +31,120 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="src.RockStar.Main" />
+      <module name="Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="src.RockStar.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="" />
-      <created>1701796098681</created>
+      <changelist id="1ea9c6cd-9e0b-42b8-9018-c54b39ef74c2" name="Changes" comment="" />
+      <created>1702904835592</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1701796098681</updated>
+      <updated>1702904835592</updated>
+      <workItem from="1702904836900" duration="12406000" />
+      <workItem from="1702980393651" duration="10113000" />
+      <workItem from="1702998723496" duration="12708000" />
+      <workItem from="1703081995658" duration="14394000" />
     </task>
-    <task id="LOCAL-00001" summary="Classes album, playlist, criador de musica">
+    <task id="LOCAL-00001" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701861474765</created>
+      <created>1702913166767</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1701861474765</updated>
+      <updated>1702913166767</updated>
     </task>
-    <task id="LOCAL-00002" summary="Adicionado RockStar e comecar a fazer statistics">
+    <task id="LOCAL-00002" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701862869849</created>
+      <created>1702914869931</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1701862869849</updated>
+      <updated>1702914869931</updated>
     </task>
-    <task id="LOCAL-00003" summary="Adicionado RockStar e comecar a fazer statistics">
+    <task id="LOCAL-00003" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701863075578</created>
+      <created>1703002902949</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1701863075578</updated>
+      <updated>1703002902949</updated>
     </task>
-    <task id="LOCAL-00004" summary="Adicionado RockStar e comecar a fazer statistics">
+    <task id="LOCAL-00004" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701863971284</created>
+      <created>1703010581854</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1701863971284</updated>
+      <updated>1703010581854</updated>
     </task>
-    <task id="LOCAL-00005" summary="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais">
+    <task id="LOCAL-00005" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701973682707</created>
+      <created>1703011320925</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1701973682707</updated>
+      <updated>1703011320925</updated>
     </task>
-    <task id="LOCAL-00006" summary="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais">
+    <task id="LOCAL-00006" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701973729383</created>
+      <created>1703086088343</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1701973729383</updated>
+      <updated>1703086088343</updated>
     </task>
-    <task id="LOCAL-00007" summary="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais">
+    <task id="LOCAL-00007" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1701973825578</created>
+      <created>1703090567675</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1701973825578</updated>
+      <updated>1703090567675</updated>
     </task>
-    <task id="LOCAL-00008" summary="acrescentei o codigo na parte do music creator e album e uns setter e getters na music para poder editar como music creator">
+    <task id="LOCAL-00008" summary="Client frame almost done">
       <option name="closed" value="true" />
-      <created>1702056446628</created>
+      <created>1703095667973</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1702056446628</updated>
+      <updated>1703095667973</updated>
     </task>
-    <task id="LOCAL-00009" summary="music creator">
-      <option name="closed" value="true" />
-      <created>1702059801595</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1702059801595</updated>
-    </task>
-    <task id="LOCAL-00010" summary="music creator">
-      <option name="closed" value="true" />
-      <created>1702059912333</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1702059912333</updated>
-    </task>
-    <task id="LOCAL-00011" summary="music creator">
-      <option name="closed" value="true" />
-      <created>1702127183022</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1702127183022</updated>
-    </task>
-    <task id="LOCAL-00012" summary="validação de dados">
-      <option name="closed" value="true" />
-      <created>1702577779927</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1702577779927</updated>
-    </task>
-    <task id="LOCAL-00013" summary="validação de dados">
-      <option name="closed" value="true" />
-      <created>1702579253369</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1702579253369</updated>
-    </task>
-    <task id="LOCAL-00014" summary="validação de dados">
-      <option name="closed" value="true" />
-      <created>1702582422432</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1702582422432</updated>
-    </task>
-    <task id="LOCAL-00015" summary="pin">
-      <option name="closed" value="true" />
-      <created>1702635175158</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1702635175158</updated>
-    </task>
-    <task id="LOCAL-00016" summary="pin">
-      <option name="closed" value="true" />
-      <created>1702642689128</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1702642689129</updated>
-    </task>
-    <task id="LOCAL-00017" summary="pin">
-      <option name="closed" value="true" />
-      <created>1702653381415</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1702653381415</updated>
-    </task>
-    <task id="LOCAL-00018" summary="pin">
-      <option name="closed" value="true" />
-      <created>1702653390045</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1702653390045</updated>
-    </task>
-    <task id="LOCAL-00019" summary="paineis criador">
-      <option name="closed" value="true" />
-      <created>1702660225116</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1702660225117</updated>
-    </task>
-    <task id="LOCAL-00020" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702665718384</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1702665718385</updated>
-    </task>
-    <task id="LOCAL-00021" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702841295520</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1702841295521</updated>
-    </task>
-    <task id="LOCAL-00022" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702900394539</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1702900394539</updated>
-    </task>
-    <task id="LOCAL-00023" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702915532325</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1702915532325</updated>
-    </task>
-    <task id="LOCAL-00024" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702916321872</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1702916321872</updated>
-    </task>
-    <task id="LOCAL-00025" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702980452572</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1702980452572</updated>
-    </task>
-    <task id="LOCAL-00026" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1702997483884</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1702997483884</updated>
-    </task>
-    <task id="LOCAL-00027" summary="pedro">
-      <option name="closed" value="true" />
-      <created>1703001049728</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1703001049728</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
-  <component name="Vcs.Log.History.Properties">
-    <option name="COLUMN_ID_ORDER">
-      <list>
-        <option value="Default.Root" />
-        <option value="Default.Author" />
-        <option value="Default.Date" />
-        <option value="Default.Subject" />
-        <option value="Space.CommitStatus" />
-      </list>
-    </option>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Classes album, playlist, criador de musica" />
-    <MESSAGE value="Adicionado RockStar e comecar a fazer statistics" />
-    <MESSAGE value="Todos os butoes tem funcionalidades, adicionei imagens à pasta do projeto. Depois discutmos o que podemos fazer mais" />
-    <MESSAGE value="acrescentei o codigo na parte do music creator e album e uns setter e getters na music para poder editar como music creator" />
-    <MESSAGE value="music creator" />
-    <MESSAGE value="validação de dados" />
-    <MESSAGE value="pin" />
-    <MESSAGE value="paineis criador" />
-    <MESSAGE value="pedro" />
-    <option name="LAST_COMMIT_MESSAGE" value="pedro" />
+    <MESSAGE value="Client frame almost done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Client frame almost done" />
   </component>
 </project>
