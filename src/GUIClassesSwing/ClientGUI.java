@@ -30,6 +30,7 @@ public class ClientGUI extends JFrame {
     private JTable searchMusicTable;
     private JTable searchCollectionTable;
     private JList<MusicCollection> playlistListWest;
+    private JList<Music> basketList;
     private JMenuItem addToPlaylistMenu;
     private JMenuItem evaluateMusicMenu;
     private int lastPositionMouseRightClickX;
@@ -100,6 +101,19 @@ public class ClientGUI extends JFrame {
         centralTableSearchedMusicPuM.add(seePriceHistoric);
         acquireMusic.addActionListener(e -> onAcquireMusicClick());
         seePriceHistoric.addActionListener(e -> onPriceHistoricClick());
+
+        //East PopMenu Shopping Basket
+        JPopupMenu basketMusicPuM = new JPopupMenu();
+        JMenuItem removeFromBasket = new JMenuItem("Remove From Basket");
+        JMenuItem seePriceHistoric2 = new JMenuItem("See Historic Prices");
+        JMenuItem cleanBasket = new JMenuItem("Clean Basket");
+        basketMusicPuM.add(removeFromBasket);
+        basketMusicPuM.add(seePriceHistoric2);
+        basketMusicPuM.add(cleanBasket);
+        removeFromBasket.addActionListener(e -> onRemoveFromBasketClick());
+        seePriceHistoric2.addActionListener(e -> onPriceHistoricBascketClick());
+        cleanBasket.addActionListener(e -> onCleanBasketClick());
+
 
         //-----------------------------PANEL WEST--------------------------------
 
@@ -205,7 +219,25 @@ public class ClientGUI extends JFrame {
         updateBascketJListModel();
 
         // Cria a JList e define o modelo
-        JList<Music> basketList = new JList<>(listModelEast);
+        basketList = new JList<>(listModelEast);
+
+        basketList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //Primeiro guarda a posição do click para depois localizar o submenu
+                lastPositionMouseRightClickX = e.getX();
+                lastPositionMouseRightClickY = e.getY();
+                if(SwingUtilities.isRightMouseButton(e)){
+                    int row = basketList.locationToIndex(e.getPoint());
+                    Rectangle rectangle = basketList.getCellBounds(row,row); //É necessário definir o retangulo do item da lista
+                    if(rectangle != null && rectangle.contains(e.getPoint()) &&
+                            row >= 0 && row < listModelEast.getSize()){
+                        basketList.setSelectedIndex(row);
+                        basketMusicPuM.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                    }
+                }
+            }
+        });
 
         // Coloca a JList num JScrollPane
         JScrollPane scrollPane2 = new JScrollPane(basketList);
@@ -564,6 +596,14 @@ public class ClientGUI extends JFrame {
         }
         return null;
     }
+    public Music getSelectedMusicOnBascket(){
+        int row = basketList.getSelectedIndex();
+        if(row != -1){
+            ArrayList<Music> music = ((Client)currentUser).getListOfMusicsToBuy();
+            return music.get(row);
+        }
+        return null;
+    }
     public MusicCollection getSelectedPlaylist(){
         int row = playlistListWest.getSelectedIndex()-1;
         if(row != -1){
@@ -702,15 +742,17 @@ public class ClientGUI extends JFrame {
         String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
 
         double money;
-        try {
-            money = Integer.parseInt(moneyToAdd);
-            if(money < 5 || money > 999)  JOptionPane.showMessageDialog(null,"Minimum is 5€\nMaximum is 999€");
-            else{
-                ((Client)currentUser).addMoney(money);
-                updateBalance();
+        if(moneyToAdd != null){
+            try {
+                money = Integer.parseInt(moneyToAdd);
+                if(money < 5 || money > 999)  JOptionPane.showMessageDialog(null,"Minimum is 5€\nMaximum is 999€");
+                else{
+                    ((Client)currentUser).addMoney(money);
+                    updateBalance();
+                }
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null,"Please insert a valid number\nHas to be an Integer");
             }
-        } catch (NumberFormatException e){
-            JOptionPane.showMessageDialog(null,"Please insert a valid number\nHas to be an Integer");
         }
     }
     public void onDeletePlaylistClick(){
@@ -843,5 +885,34 @@ public class ClientGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(listOfPrices);
         scrollPane.setPreferredSize(new Dimension(300,100));
         JOptionPane.showMessageDialog(null, scrollPane);
+    }
+    public void onPriceHistoricBascketClick(){
+        Music selectedMusic = getSelectedMusicOnBascket();
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(PriceHistory ph : selectedMusic.getPriceHistory()){
+            model.addElement(ph.getNewPrice() + "€ at " + ph.getPriceChangeDate().getDayOfMonth() + "/" +
+                    ph.getPriceChangeDate().getMonthValue() + "/" +
+                    ph.getPriceChangeDate().getYear());
+        }
+        JList<String> listOfPrices = new JList<>(model);
+        JScrollPane scrollPane = new JScrollPane(listOfPrices);
+        scrollPane.setPreferredSize(new Dimension(300,100));
+        JOptionPane.showMessageDialog(null, scrollPane);
+    }
+    public void onRemoveFromBasketClick(){
+        Music selectedMusic = getSelectedMusicOnBascket();
+        ((Client)currentUser).getListOfMusicsToBuy().remove(selectedMusic);
+        updateBascketJListModel();
+        updateTotalBascketPrice();
+    }
+    public void onCleanBasketClick(){
+        int option = JOptionPane.showConfirmDialog(null, "All the elements on the basket will be eliminated, are you shore?",
+                "Confirmation", JOptionPane.YES_NO_OPTION);
+        if(option == 0){
+            ((Client)currentUser).getListOfMusicsToBuy().clear();
+            updateBascketJListModel();
+            updateTotalBascketPrice();
+        }
     }
 }
