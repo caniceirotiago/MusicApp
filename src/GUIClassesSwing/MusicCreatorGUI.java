@@ -1,6 +1,5 @@
 package src.GUIClassesSwing;
 
-import org.w3c.dom.ls.LSOutput;
 import src.RockStar.*;
 
 import javax.swing.*;
@@ -19,9 +18,9 @@ public class MusicCreatorGUI extends JFrame {
     private GUIManager guiManager;
     private MusicCollection selectedPlayList;
     private DefaultTableModel centralTableModel;
-    private DefaultListModel <MusicCollection> westListModel;
+    private DefaultListModel <MusicCollection> listModelWest;
     private MusicCollection currentUserCollection;
-    private JList listMusicWest;
+    private JList <MusicCollection> albumListWest;
     private JPanel centerPanel;
     private JPanel westPanel;
     private JPanel eastPanel;
@@ -66,15 +65,16 @@ public class MusicCreatorGUI extends JFrame {
 
 //---------------------------------WEST PANEL------------------------------------
 
+        listModelWest = new DefaultListModel<>();
+
+
+        albumListWest = new JList<>(listModelWest);
+
+
         //label albuns
         westPanel = new JPanel(new GridBagLayout());
         JLabel albumLabel = new JLabel();
         albumLabel.setText("Album collection");
-
-
-        westListModel = new DefaultListModel<>();
-        listMusicWest = new JList(westListModel);
-
         //selecionar a lista sem o rato dar erro
         /*selectedPlayList = currentUserCollection;
         albumList.addListSelectionListener(e -> {
@@ -86,7 +86,7 @@ public class MusicCreatorGUI extends JFrame {
             }
         });*/
         //colocar a jlist num JScrollPane
-        JScrollPane scrollPane = new JScrollPane(listMusicWest);
+        JScrollPane scrollPane = new JScrollPane(albumListWest);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         //criacao do botao para criar album
@@ -235,6 +235,7 @@ public class MusicCreatorGUI extends JFrame {
         }
         centralTable =  new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(false);
+        centralTable.setAutoCreateRowSorter(true);
 
         centralTable.addMouseListener(new MouseAdapter() {
             @Override
@@ -254,11 +255,12 @@ public class MusicCreatorGUI extends JFrame {
                 }
             }
         });
-        centerPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints cpConstraints =  new GridBagConstraints();
+
         JScrollPane scrollPaneCenter = new JScrollPane(centralTable);
         scrollPaneCenter.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPaneCenter.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        centerPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints cpConstraints =  new GridBagConstraints();
 
         cpConstraints.gridx = 0;
         cpConstraints.gridy = 0;
@@ -279,8 +281,8 @@ public class MusicCreatorGUI extends JFrame {
     //criacao da lista
     public void updateMusicJtableModel(ArrayList<Music> selectedPlaylist ){
         centralTableModel.setRowCount(0);
-        System.out.println("numero de musicas " + selectedPlaylist);
-        for (Music ms : selectedPlaylist){
+        System.out.println("numero de musicas " + currentUserCollection);
+        for (Music ms : currentUser.getAllMusic()){
             Vector<Object> line = new Vector<>();
             line.add(ms.getName());
             line.add(ms.getGenre());
@@ -334,8 +336,6 @@ public class MusicCreatorGUI extends JFrame {
         addMusicDialog = new JDialog(this, "new Music dialogue", true);
         JLabel songTitle =  new JLabel("Song title");
         JTextField songTitleText =  new JTextField(20);
-        JLabel creatorNameLabel = new JLabel("Artist name");
-        JTextField artistTextField = new JTextField(20);
         JLabel songGenre = new JLabel("Genre");
         JComboBox<RockstarIncManager.GENRE> chooseGenre = new JComboBox<>(RockstarIncManager.GENRE.values());
         JLabel price = new JLabel("Music Price");
@@ -344,7 +344,7 @@ public class MusicCreatorGUI extends JFrame {
 
         JButton addMusicToLibraryBTN =  new JButton("Add");
         addMusicToLibraryBTN.addActionListener(e->{
-            selectedPlayList.addMusicToCollection(new Music(songTitleText.getText(), (RockstarIncManager.GENRE) chooseGenre.getSelectedItem(), (MusicCreator) currentUser,Double.parseDouble(priceValue.getText())));
+            currentUserCollection.addMusicToCollection(new Music(songTitleText.getText(), (RockstarIncManager.GENRE) chooseGenre.getSelectedItem(), (MusicCreator) currentUser,Double.parseDouble(priceValue.getText())));
             JOptionPane.showMessageDialog(addMusicDialog, "Your song was added to the list! :)");
             addMusicDialog.dispose();
 
@@ -363,15 +363,10 @@ public class MusicCreatorGUI extends JFrame {
         dpConstraints.gridx=0;
         dpConstraints.gridy = 0;
         dpConstraints.insets =  new Insets(5,20,5,20);
-        dpConstraints.fill = GridBagConstraints.BOTH;
         dpConstraints.anchor = GridBagConstraints.CENTER;
         dialogPanel.add(songTitle,dpConstraints);
         dpConstraints.gridy++;
         dialogPanel.add(songTitleText,dpConstraints);
-        dpConstraints.gridy++;
-        dialogPanel.add(creatorNameLabel,dpConstraints);
-        dpConstraints.gridy++;
-        dialogPanel.add(artistTextField,dpConstraints);
         dpConstraints.gridy++;
         dialogPanel.add(songGenre,dpConstraints);
         dpConstraints.gridy++;
