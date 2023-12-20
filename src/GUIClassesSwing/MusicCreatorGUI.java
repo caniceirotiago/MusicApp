@@ -394,5 +394,14 @@ public class MusicCreatorGUI extends JFrame {
 
     };
 
+    //TO_DO
+    /*
+    fazer funcionalidade botao right click para inativar musicas;
+    fazer funcionalidades para se poder editar musicas no botao direito do rato
+    fazer parte estatistica (que layout usar)
+
+     */
+
+
 
 }
