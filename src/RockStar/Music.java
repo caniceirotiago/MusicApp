@@ -95,5 +95,13 @@ public class Music implements Serializable {
     public String toString() {
         return name + " \t" + price + "€";
     }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
 

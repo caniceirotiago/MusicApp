@@ -31,6 +31,7 @@ public class MusicCreatorGUI extends JFrame {
     private JMenuItem addToAlbum;
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
+    private JDialog addMusicDialog;
     public MusicCreatorGUI(User currentUser, GUIManager guiManager){
         super("Music Creator - " + currentUser.getUsername());
         this.currentUser = currentUser;
@@ -137,6 +138,12 @@ public class MusicCreatorGUI extends JFrame {
         eastPanel.add(newMusiclbl, epConstraints);
 
         JButton addMusicButton =  new JButton("New Music");
+        addMusicButton.addActionListener(e->{
+            System.out.println("botao esta a ser carregado");//debug funcionalidade
+            openDialogNewMusic();
+        });
+
+
         epConstraints.gridy ++;
         eastPanel.add(addMusicButton, epConstraints);
 
@@ -321,9 +328,71 @@ public class MusicCreatorGUI extends JFrame {
     //falta capacidade para inativar musica
     public void setInactiveClick(){
         System.out.println("music is now inactive");
-
-
     }
     //falta conseguir adicionar uma musica as collections atraves da criacao de nova musica
+    public void openDialogNewMusic(){
+        addMusicDialog = new JDialog(this, "new Music dialogue", true);
+        JLabel songTitle =  new JLabel("Song title");
+        JTextField songTitleText =  new JTextField(20);
+        JLabel creatorNameLabel = new JLabel("Artist name");
+        JTextField artistTextField = new JTextField(20);
+        JLabel songGenre = new JLabel("Genre");
+        JComboBox<RockstarIncManager.GENRE> chooseGenre = new JComboBox<>(RockstarIncManager.GENRE.values());
+        JLabel price = new JLabel("Music Price");
+        JTextField priceValue = new JTextField();
+
+
+        JButton addMusicToLibraryBTN =  new JButton("Add");
+        addMusicToLibraryBTN.addActionListener(e->{
+            selectedPlayList.addMusicToCollection(new Music(songTitleText.getText(), (RockstarIncManager.GENRE) chooseGenre.getSelectedItem(), (MusicCreator) currentUser,Double.parseDouble(priceValue.getText())));
+            JOptionPane.showMessageDialog(addMusicDialog, "Your song was added to the list! :)");
+            addMusicDialog.dispose();
+
+        });
+        JButton exitBTN =  new JButton("Exit");
+        exitBTN.addActionListener(e->{
+            System.out.println("Exiting to the other page");
+            addMusicDialog.dispose();
+        });
+
+
+        //definição gráfica do painel de dialogo
+        JPanel dialogPanel = new JPanel();
+        dialogPanel.setLayout(new GridBagLayout());
+        GridBagConstraints dpConstraints =  new GridBagConstraints(); //constraints dialog panel
+        dpConstraints.gridx=0;
+        dpConstraints.gridy = 0;
+        dpConstraints.insets =  new Insets(5,20,5,20);
+        dpConstraints.fill = GridBagConstraints.BOTH;
+        dpConstraints.anchor = GridBagConstraints.CENTER;
+        dialogPanel.add(songTitle,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(songTitleText,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(creatorNameLabel,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(artistTextField,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(songGenre,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(chooseGenre,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(price,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(priceValue);
+        dpConstraints.gridy++;
+        dialogPanel.add(addMusicToLibraryBTN,dpConstraints);
+        dpConstraints.gridy++;
+        dialogPanel.add(exitBTN,dpConstraints);
+
+
+        addMusicDialog.getContentPane().add(dialogPanel);
+        addMusicDialog.pack();
+        addMusicDialog.setLocationRelativeTo(this);
+        addMusicDialog.setVisible(true);
+
+
+    };
+
 
 }
