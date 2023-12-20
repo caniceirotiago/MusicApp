@@ -136,6 +136,15 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
         musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
         pedro.editMusicPrice(m1,4);
+        pedro.editMusicPrice(m1,2);
+        pedro.editMusicPrice(m1,3);
+        pedro.editMusicPrice(m1,5);
+        pedro.editMusicPrice(m1,6);
+        pedro.editMusicPrice(m1,7);
+        pedro.editMusicPrice(m1,43);
+        pedro.editMusicPrice(m1,2);
+        pedro.editMusicPrice(m1,4);
+
 
         //Inicia o método gráfico
         startGUI();
@@ -239,12 +248,6 @@ public class RockstarIncManager  implements Serializable {
             validRegistration = true;
         }
         return validRegistration;
-    }
-
-    public ArrayList<Music> listByOrder(ArrayList<Music> musicList){
-        //que ordem se coloca aqui? Faz se uma escolha dentro deste metodo, para ser alfabeticamente ou por data?
-        //tambem seria interessante ordenar por rating
-        return musicList;
     }
 
     public Search search(String searchTerm) {
