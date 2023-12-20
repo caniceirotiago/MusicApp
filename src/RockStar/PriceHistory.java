@@ -7,13 +7,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class PriceHistory implements Serializable {
-    private Music music;
     private LocalDateTime priceChangeDate;
     private double newPrice;
 
-    public PriceHistory(Music music,double newPrice, LocalDateTime priceChangeDate) {
-        this.music =  music;
+    public PriceHistory(double newPrice, LocalDateTime priceChangeDate) {
         this.priceChangeDate = LocalDateTime.now();
+        this.newPrice = newPrice;
+    }
+
+    public LocalDateTime getPriceChangeDate() {
+        return priceChangeDate;
+    }
+
+    public double getNewPrice() {
+        return newPrice;
     }
 }
 

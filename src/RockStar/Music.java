@@ -15,6 +15,9 @@ public class Music implements Serializable {
     private double classification;
     private Album associatedAlbum;
 
+    public ArrayList<PriceHistory> getPriceHistory() {
+        return priceHistory;
+    }
 
     public void setAssociatedAlbum(Album associatedAlbum) {
         this.associatedAlbum = associatedAlbum;
@@ -47,6 +50,7 @@ public class Music implements Serializable {
         this.price = price;               //O preço seria atribuido durante a criação ?!
         this.isActive = true;//musica assim que criada está ativa
         this.priceHistory = new ArrayList<>();
+        this.priceHistory.add(new PriceHistory(price,LocalDateTime.now())); //Cria o primeiro historico de preço
     }
 
     public void calculateClassification(){

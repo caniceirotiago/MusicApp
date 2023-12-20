@@ -47,7 +47,9 @@ public class ClientGUI extends JFrame {
         super("Client - " + currentUser.getUsername());
         this.currentUser = currentUser;
         this.guiManager = guiManager;
+
         initComponents();
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1100,1000);
         setLocationRelativeTo(null);
@@ -89,6 +91,15 @@ public class ClientGUI extends JFrame {
         westListPopMenu.add(changeVisibility);
         deletePlaylist.addActionListener(e -> onDeletePlaylistClick());
         changeVisibility.addActionListener(e -> onVisibilityClick());
+
+        //Central PopMenu for searchedMusic
+        JPopupMenu centralTableSearchedMusicPuM = new JPopupMenu();
+        JMenuItem acquireMusic = new JMenuItem("Acquire Music");
+        JMenuItem seePriceHistoric = new JMenuItem("See Historic Prices");
+        centralTableSearchedMusicPuM.add(acquireMusic);
+        centralTableSearchedMusicPuM.add(seePriceHistoric);
+        acquireMusic.addActionListener(e -> onAcquireMusicClick());
+        seePriceHistoric.addActionListener(e -> onPriceHistoricClick());
 
         //-----------------------------PANEL WEST--------------------------------
 
@@ -401,6 +412,22 @@ public class ClientGUI extends JFrame {
         searchMusicTable.getTableHeader().setReorderingAllowed(true);
         searchMusicTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
 
+        searchMusicTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //Primeiro guarda a posição do click para depois localizar o submenu
+                lastPositionMouseRightClickX = e.getX();
+                lastPositionMouseRightClickY = e.getY();
+                if(SwingUtilities.isRightMouseButton(e)){
+                    int row = searchMusicTable.rowAtPoint(e.getPoint());
+                    if(row>=0 && row < searchMusicTable.getRowCount()){
+                        searchMusicTable.setRowSelectionInterval(row,row);
+                        centralTableSearchedMusicPuM.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
+                    }
+                }
+            }
+        });
+
 
         //Criação painel pesquisa coleções-----------------------------------------
         String[] columnNamesCollection = {"Collection", "Type", "Creator"};
@@ -517,11 +544,22 @@ public class ClientGUI extends JFrame {
         totallbl.setText("Total " + totalPrice + "€");
         return totalPrice;
     }
-    public Music getSelectedMusic(){
+    public Music getSelectedMusicOnCentralTable(){
         int row = centralTable.getSelectedRow();
         if(row != -1){
             int updatedIndex = centralTable.convertRowIndexToModel(row); //Este metodo atualiza o index do elemento
             ArrayList<Music> musics = selectedPlaylist.getMusicList();
+            return musics.get(updatedIndex);
+        }
+        return null;
+    }
+    public Music getSelectedMusicOnSearchTable(){
+        int row = searchMusicTable.getSelectedRow();
+        if(row != -1){
+            int updatedIndex = searchMusicTable.convertRowIndexToModel(row); //Este metodo atualiza o index do elemento
+            ArrayList<Music> musics = new ArrayList<>();
+            if(comboSearchBox.getSelectedIndex() == 0) musics = search.getFoundMusics();
+            else if(comboSearchBox.getSelectedIndex() == 1) musics = search.getFoundMusicsByArtist();
             return musics.get(updatedIndex);
         }
         return null;
@@ -538,7 +576,7 @@ public class ClientGUI extends JFrame {
         guiManager.logoutClient();
     }
     public void onRemoveFromPlaylistClick(){
-        Music selectedMusic = getSelectedMusic();
+        Music selectedMusic = getSelectedMusicOnCentralTable();
         if(selectedMusic!= null){
             currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
             updateMusicJTableModel(selectedPlaylist.getMusicList());
@@ -561,7 +599,7 @@ public class ClientGUI extends JFrame {
                 playlistItem.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Music selectedMusic = getSelectedMusic();
+                        Music selectedMusic = getSelectedMusicOnCentralTable();
                         if(selectedMusic != null){
                             currentUser.addMusicToCollection(selectedMusic,pl);
                         }
@@ -580,7 +618,7 @@ public class ClientGUI extends JFrame {
             evaluationItem.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Music selectedMusic = getSelectedMusic();
+                    Music selectedMusic = getSelectedMusicOnCentralTable();
                     if(selectedMusic != null){
                         selectedMusic.addEvaluation((Client)currentUser, finalI);
                         updateMusicJTableModel(selectedPlaylist.getMusicList());
@@ -776,5 +814,34 @@ public class ClientGUI extends JFrame {
                 searchCardLayout.show(searchTablesPanel,"2");
                 break;
         }
+    }
+    public void onAcquireMusicClick(){
+        Music selectedMusic = getSelectedMusicOnSearchTable();
+        if(currentUser.getAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null, "The song was already acquired");
+        else{
+            if(selectedMusic.getPrice() == 0) {
+                JOptionPane.showMessageDialog(null, "The song is free. Song acquired, check it on your main collection");
+                currentUser.newMusicToAllCollection(selectedMusic);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "The song costs is " + selectedMusic.getPrice() + "€ . Check it on your shopping basket");
+                ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+                updateBascketJListModel();
+            }
+        }
+    }
+    public void onPriceHistoricClick(){
+        Music selectedMusic = getSelectedMusicOnSearchTable();
+
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for(PriceHistory ph : selectedMusic.getPriceHistory()){
+            model.addElement(ph.getNewPrice() + "€ at " + ph.getPriceChangeDate().getDayOfMonth() + "/" +
+                    ph.getPriceChangeDate().getMonthValue() + "/" +
+                    ph.getPriceChangeDate().getYear());
+        }
+        JList<String> listOfPrices = new JList<>(model);
+        JScrollPane scrollPane = new JScrollPane(listOfPrices);
+        scrollPane.setPreferredSize(new Dimension(300,100));
+        JOptionPane.showMessageDialog(null, scrollPane);
     }
 }
