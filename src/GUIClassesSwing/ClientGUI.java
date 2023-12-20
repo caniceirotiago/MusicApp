@@ -718,8 +718,9 @@ public class ClientGUI extends JFrame {
     public void onPurchasebtnClick(){
         if(updateTotalBascketPrice() > ((Client)currentUser).getBalance()){
             JOptionPane.showMessageDialog(null,"There are not enough money");
-        }
-        else {
+        } else if (((Client)currentUser).getListOfMusicsToBuy().isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Empty list");
+        } else {
             int userOption = JOptionPane.showConfirmDialog(null,
                     "Confirm purchase", "Buy",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
             switch (userOption){
