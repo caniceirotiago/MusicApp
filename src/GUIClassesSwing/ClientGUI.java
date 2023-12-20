@@ -17,15 +17,18 @@ public class ClientGUI extends JFrame {
     private User currentUser;
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
-    private DefaultTableModel searchTableModel;
+    private DefaultTableModel searchMusicTableModel;
+    private DefaultTableModel searchCollectionTableModel;
     private DefaultListModel<MusicCollection> listModelWest;
     private DefaultListModel<Music> listModelEast;
     private JPanel centerPanel;
     private JPanel westPanel;
     private JPanel eastPanel;
+    private JPanel searchTablesPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
-    private JTable searchTable;
+    private JTable searchMusicTable;
+    private JTable searchCollectionTable;
     private JList<MusicCollection> playlistListWest;
     private JMenuItem addToPlaylistMenu;
     private JMenuItem evaluateMusicMenu;
@@ -35,6 +38,7 @@ public class ClientGUI extends JFrame {
     private JLabel balancelbl;
     private JLabel totallbl;
     private CardLayout centralCardLayout;
+    private CardLayout searchCardLayout;
     private Search search;
     private JTextField searchTextField;
     private JComboBox comboSearchBox;
@@ -317,8 +321,8 @@ public class ClientGUI extends JFrame {
         //-----------------------------PANEL CENTER--------------------------------
 
         //<----Unfold
-        String[] columnNames = {"Title", "Artist", "Album", "Classification"};
-        centralTableModel = new DefaultTableModel(columnNames,0){
+        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification"};
+        centralTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Retorna false para todas as células, tornando-as não editáveis
@@ -374,9 +378,9 @@ public class ClientGUI extends JFrame {
 
 
 
-        //Criar paineis de pesquisa
+        //Criar paineis de pesquisa ---Musica
         if(search == null) search = new Search();
-        searchTableModel = new DefaultTableModel(columnNames,0){
+        searchMusicTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Retorna false para todas as células, tornando-as não editáveis
@@ -392,15 +396,30 @@ public class ClientGUI extends JFrame {
                 }
             }
         };
-        updateSearchTable(search.getFoundMusics());
+        updateSearchMusicTable(search.getFoundMusics());
+        searchMusicTable = new JTable(searchMusicTableModel);
+        searchMusicTable.getTableHeader().setReorderingAllowed(true);
+        searchMusicTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
 
-        searchTable = new JTable(searchTableModel);
-        searchTable.getTableHeader().setReorderingAllowed(true);
-        searchTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
 
+        //Criação painel pesquisa coleções-----------------------------------------
+        String[] columnNamesCollection = {"Collection", "Type", "Creator"};
+        searchCollectionTableModel = new DefaultTableModel(columnNamesCollection,0){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Retorna false para todas as células, tornando-as não editáveis
+                return false;
+            }
+        };
+        updateSearchCollectionTable();
+        searchCollectionTable = new JTable(searchCollectionTableModel);
+        searchCollectionTable.getTableHeader().setReorderingAllowed(true);
+        searchCollectionTable.setAutoCreateRowSorter(true); //Essencial para o ordenamento
+
+        //---------------------------------------------------------------
 
         JButton backToMainbtn = new JButton("Back");
-        String[] filterOptions = {"Music", "Music By Artist"}; // , "Artist", "Collection" eventualmente adicionar estes dois
+        String[] filterOptions = {"Music", "Music By Artist","Collections"}; // , "Artist",  eventualmente adicionar estes dois
         comboSearchBox = new JComboBox<>(filterOptions);
         comboSearchBox.addActionListener(e -> onSearchComboBoxClick());
         JPanel searchbtnPanel = new JPanel(new FlowLayout());
@@ -408,13 +427,25 @@ public class ClientGUI extends JFrame {
         searchbtnPanel.add(backToMainbtn);
         searchbtnPanel.add(comboSearchBox);
 
-        JScrollPane scrollPane4 = new JScrollPane(searchTable);
+        JScrollPane scrollPane4 = new JScrollPane(searchMusicTable);
         scrollPane4.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane4.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+        JScrollPane scrollPane5 = new JScrollPane(searchCollectionTable);
+        scrollPane5.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane5.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        //Formação de cardlayout interior
+        searchCardLayout  = new CardLayout();
+        searchTablesPanel = new JPanel(searchCardLayout);
+        searchTablesPanel.add(scrollPane4,"1");
+        searchTablesPanel.add(scrollPane5,"2");
+        searchCardLayout.show(searchTablesPanel,"1");
+
+
         JPanel searchPanel = new JPanel(new BorderLayout());
         searchPanel.add(searchbtnPanel,"North");
-        searchPanel.add(scrollPane4,"Center");
+        searchPanel.add(searchTablesPanel,"Center");
 
 
         //Formação de cardLayout
@@ -690,13 +721,14 @@ public class ClientGUI extends JFrame {
         comboSearchBox.addActionListener(listener);
 
         centralCardLayout.show(centerPanel, "2");
+        searchCardLayout.show(searchTablesPanel,"1");
         search = guiManager.newSearch(searchTextField.getText());
-        updateSearchTable(search.getFoundMusics());
+        updateSearchMusicTable(search.getFoundMusics());
         centerPanel.revalidate();
         centerPanel.repaint();
     }
-    public void updateSearchTable(ArrayList<Music> list){
-        searchTableModel.setRowCount(0);
+    public void updateSearchMusicTable(ArrayList<Music> list){
+        searchMusicTableModel.setRowCount(0);
         if(list != null){
             for(Music ms : list){
                 Vector <Object> line = new Vector<>();
@@ -704,7 +736,26 @@ public class ClientGUI extends JFrame {
                 line.add(ms.getArtistNameFromMusic());
                 line.add(ms.getAssociatedAlbum());
                 line.add(ms.getClassification());
-                searchTableModel.addRow(line);
+                searchMusicTableModel.addRow(line);
+            }
+        }
+    }
+    public void updateSearchCollectionTable(){
+        searchCollectionTableModel.setRowCount(0);
+        if(search.getFoundMusicCollections() != null){
+            for(MusicCollection mc : search.getFoundMusicCollections()){
+                boolean isAlbum = mc instanceof Album;
+                Vector <Object> line = new Vector<>();
+                line.add(mc.getName());
+                if(isAlbum) {
+                    line.add("Album");
+                    line.add(((Album) mc).getMainCreator().getName());
+                }
+                else {
+                    line.add("Playlist");
+                    line.add(((Playlist) mc).getClientCreator().getName());
+                }
+                searchCollectionTableModel.addRow(line);
             }
         }
     }
@@ -712,9 +763,17 @@ public class ClientGUI extends JFrame {
         //eventualmete adicionar a pesquisa de colleções e de artistas
         int comboSelection = comboSearchBox.getSelectedIndex();
         switch (comboSelection){
-            case 0: updateSearchTable(search.getFoundMusics());
+            case 0:
+                updateSearchMusicTable(search.getFoundMusics());
+                searchCardLayout.show(searchTablesPanel,"1");
                 break;
-            case 1: updateSearchTable(search.getFoundMusicsByArtist());
+            case 1:
+                updateSearchMusicTable(search.getFoundMusicsByArtist());
+                searchCardLayout.show(searchTablesPanel,"1");
+                break;
+            case 2:
+                updateSearchCollectionTable();
+                searchCardLayout.show(searchTablesPanel,"2");
                 break;
         }
     }

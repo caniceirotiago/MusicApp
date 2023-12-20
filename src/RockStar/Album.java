@@ -21,6 +21,9 @@ public class Album extends MusicCollection implements Serializable {
         this.mainCreator = mainCreator;
     }
 
+    public MusicCreator getMainCreator() {
+        return mainCreator;
+    }
 
     public void addMusicToCollection(Music music) {
 
