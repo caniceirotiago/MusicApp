@@ -135,7 +135,7 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
         musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
         musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        
+
         //Inicia o método gráfico
         startGUI();
     }
