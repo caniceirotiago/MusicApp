@@ -232,6 +232,7 @@ public class MusicCreatorGUI extends JFrame {
             line.add(ms.getGenre());
             line.add(ms.getPrice());
             centralTableModel.addRow(line);
+            System.out.println("os dados da tabela central correm");
         }
         centralTable =  new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(false);
