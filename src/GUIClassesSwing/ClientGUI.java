@@ -882,6 +882,7 @@ public class ClientGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "The song costs is " + selectedMusic.getPrice() + "€ . Check it on your shopping basket");
                 ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
                 updateBascketJListModel();
+                updateTotalBascketPrice();
             }
         }
     }
