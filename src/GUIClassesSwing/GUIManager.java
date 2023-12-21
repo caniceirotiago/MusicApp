@@ -126,4 +126,31 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     public Search newSearch(String searchTextField){
         return logicManager.search(searchTextField);
     }
+    public ArrayList<MusicCollection> getUserAllCollection(){
+        return currentUser.getAllCollections();
+    }
+    public double getUserBalence(){
+        return ((Client)currentUser).getBalance();
+    }
+    public ArrayList<Music> getUserAllMusic(){
+        return currentUser.getAllMusic();
+    }
+    public Playlist getCorrentUserMainCollection(){
+        return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+    }
+    public ArrayList<Music> getListOfMusicsToBuy(){
+        return ((Client)currentUser).getListOfMusicsToBuy();
+    }
+    public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
+        currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
+    }
+    public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
+        currentUser.addMusicToCollection(selectedMusic,cl);
+    }
+    public void evaluateMusic(int evaluation, Music selectedMusic){
+        selectedMusic.addEvaluation((Client)currentUser, evaluation);
+    }
+    public void newCollection(String playlistName){
+        currentUser.newCollection(playlistName);
+    }
 }
