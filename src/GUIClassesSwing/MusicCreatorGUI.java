@@ -68,13 +68,17 @@ public class MusicCreatorGUI extends JFrame {
         listModelWest = new DefaultListModel<>();
 
 
+
         albumListWest = new JList<>(listModelWest);
+        updateMusicJListModel(currentUser.getAllMusic());
 
 
         //label albuns
         westPanel = new JPanel(new GridBagLayout());
         JLabel albumLabel = new JLabel();
         albumLabel.setText("Album collection");
+
+
         //selecionar a lista sem o rato dar erro
         /*selectedPlayList = currentUserCollection;
         albumList.addListSelectionListener(e -> {
@@ -85,6 +89,8 @@ public class MusicCreatorGUI extends JFrame {
                 }
             }
         });*/
+        //comecr por aqui, fazer um album com musicas totais
+
         //colocar a jlist num JScrollPane
         JScrollPane scrollPane = new JScrollPane(albumListWest);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -228,7 +234,7 @@ public class MusicCreatorGUI extends JFrame {
         for (Music ms : currentUser.getAllMusic()){
             Vector<Object> line =  new Vector<>();
             line.add(ms.getName());
-            line.add(ms.getMusicCreator());
+            line.add(ms.getMusicCreator().getName());
             line.add(ms.getGenre());
             line.add(ms.getPrice());
             centralTableModel.addRow(line);
@@ -293,7 +299,14 @@ public class MusicCreatorGUI extends JFrame {
         }
 
     }
-    public void onbtnLogOutClick() throws IOException, ClassNotFoundException {
+    public void updateMusicJListModel(ArrayList<Music> albums){
+        currentUserCollection =  new Album("Library",  currentUser.getAllMusic(), (MusicCreator) currentUser);
+        listModelWest.addElement(currentUserCollection);
+        for (MusicCollection mc : currentUser.getAllCollections()){
+            listModelWest.addElement(mc);
+        }
+
+    }    public void onbtnLogOutClick() throws IOException, ClassNotFoundException {
         guiManager.logoutMCreator();
     }
     public Music getSelectedMusic(){

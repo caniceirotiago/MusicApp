@@ -44,6 +44,7 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(m2);
         tiago.newMusicToAllCollection(m2);
         tiago.addMusicToCollection(m2,tiago.getAllCollections().get(1));
+        pedro.addCreatedMusic(m2);
 
         Music m3 = new Music("Mariazinha", GENRE.POP,pedro,0);
         musicList.add(m3);
