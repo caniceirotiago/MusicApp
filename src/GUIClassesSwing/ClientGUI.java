@@ -148,7 +148,7 @@ public class ClientGUI extends JFrame {
 
         //ListModel creation, there is a method for updating the model in different locations of the code
         listModelWest = new DefaultListModel<>();
-        updateMusicJListModel(currentUser.getAllCollections());
+        updateMusicJListModel(guiManager.getUserAllCollection());
 
         //In case of a new user to is created and turn the selected element the "Owned music" element
         if(currentUserCollection == null) currentUserCollection = new Playlist();
@@ -229,7 +229,8 @@ public class ClientGUI extends JFrame {
         //Panel creation
         eastPanel = new JPanel(new GridBagLayout());
         balanceLbl =  new JLabel();
-        balanceLbl.setText("Balance " + "\n " + ((Client)currentUser).getBalance() + "€");
+        double userBalance = guiManager.getUserBalence();
+        balanceLbl.setText("Balance " + "\n " + userBalance + "€");
         JButton addBalanceBtn = new JButton("Add Money");
         addBalanceBtn.addActionListener(e -> onAddBalancebtnClick());
         JLabel BasketLbl =  new JLabel("Basket");
@@ -411,7 +412,8 @@ public class ClientGUI extends JFrame {
             }
         };
 
-        updateMusicJTableModel(currentUser.getAllMusic());
+        ArrayList<Music> userAllMusic = guiManager.getUserAllMusic();
+        updateMusicJTableModel(userAllMusic);
         centralTable = new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(true);
         centralTable.setAutoCreateRowSorter(true);
@@ -554,27 +556,28 @@ public class ClientGUI extends JFrame {
         }
     }
     public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
-        currentUserCollection = new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+        currentUserCollection =guiManager.getCorrentUserMainCollection();
         listModelWest.removeAllElements();
         listModelWest.addElement(currentUserCollection);
-        for(MusicCollection cl : currentUser.getAllCollections()){
+        for(MusicCollection cl : guiManager.getUserAllCollection()){
             listModelWest.addElement(cl);
         }
     }
     public void updateBasketJListModel(){
         listModelEast.removeAllElements();
-        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+        ArrayList<Music> musicsToBuy = guiManager.getListOfMusicsToBuy();
+        for(Music m : musicsToBuy){
             listModelEast.addElement(m);
-            System.out.println("Adicionando música ao basket: " + m);
         }
     }
     public void updateBalance(){
+
         balanceLbl.setText("Balance" +
-                "\n" + ((Client)currentUser).getBalance() + "€");
+                "\n" + guiManager.getUserBalence() + "€");
     }
     public double updateTotalBascketPrice(){
         double totalPrice = 0;
-        for(Music m : ((Client)currentUser).getListOfMusicsToBuy()){
+        for(Music m : guiManager.getListOfMusicsToBuy()){
             totalPrice += m.getPrice();
         }
         totalLbl.setText("Total " + totalPrice + "€");
@@ -603,7 +606,7 @@ public class ClientGUI extends JFrame {
     public Music getSelectedMusicOnBascket(){
         int row = basketList.getSelectedIndex();
         if(row != -1){
-            ArrayList<Music> music = ((Client)currentUser).getListOfMusicsToBuy();
+            ArrayList<Music> music = guiManager.getListOfMusicsToBuy();
             return music.get(row);
         }
         return null;
@@ -611,7 +614,7 @@ public class ClientGUI extends JFrame {
     public MusicCollection getSelectedPlaylist(){
         int row = playlistListWest.getSelectedIndex()-1;
         if(row != -1){
-            ArrayList<MusicCollection> playlist = currentUser.getAllCollections();
+            ArrayList<MusicCollection> playlist = guiManager.getUserAllCollection();
             return playlist.get(row);
         }
         return null;
@@ -622,7 +625,7 @@ public class ClientGUI extends JFrame {
     public void onRemoveFromPlaylistClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         if(selectedMusic!= null){
-            currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
+            guiManager.removeMusicFromCollection(selectedMusic,selectedPlaylist);
             updateMusicJTableModel(selectedPlaylist.getMusicList());
             centerPanel.revalidate();
             centerPanel.repaint();
@@ -632,19 +635,19 @@ public class ClientGUI extends JFrame {
     public void addMusicToPlaylistOnClick(){ //Este metodo tambem cria um submenu para o efeito
         JPopupMenu playlistMenu =new JPopupMenu();
 
-        int nOfPlaylists = currentUser.getAllCollections().size();
+        int nOfPlaylists = guiManager.getUserAllCollection().size();
 
         if(nOfPlaylists == 0){
             JMenuItem emptyList = new JMenuItem("No Playlists to Show");
             playlistMenu.add(emptyList);
         } else{
-            for(MusicCollection pl: currentUser.getAllCollections()){
+            for(MusicCollection pl: guiManager.getUserAllCollection()){
                 JMenuItem playlistItem  = new JMenuItem(pl.getName());
                 playlistItem.addActionListener(e -> {
                     Music selectedMusic = getSelectedMusicOnCentralTable();
                     if(selectedMusic != null){
                         if(!pl.getMusicList().contains(selectedMusic)){
-                            currentUser.addMusicToCollection(selectedMusic,pl);
+                            guiManager.addMusicToCollection(selectedMusic,pl);
                         }
                         else JOptionPane.showMessageDialog(null,
                                 "This music is already on that playlist");
@@ -663,7 +666,7 @@ public class ClientGUI extends JFrame {
             evaluationItem.addActionListener(e -> {
                 Music selectedMusic = getSelectedMusicOnCentralTable();
                 if(selectedMusic != null){
-                    selectedMusic.addEvaluation((Client)currentUser, finalI);
+                    guiManager.evaluateMusic(finalI, selectedMusic);
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
                 }
             });
@@ -681,12 +684,12 @@ public class ClientGUI extends JFrame {
             String playlistName = JOptionPane.showInputDialog("Enter the name of the new playlist");
             if(playlistName != null && !playlistName.trim().isEmpty()){
                 boolean nameAlreadyExists = false;
-                for(MusicCollection mc: currentUser.getAllCollections()){
+                for(MusicCollection mc: guiManager.getUserAllCollection()){
                     if(mc.getName().equals(playlistName)) nameAlreadyExists = true;
                 }
                 if(!nameAlreadyExists){
-                    currentUser.newCollection(playlistName);
-                    updateMusicJListModel(currentUser.getAllCollections());
+                    guiManager.newCollection(playlistName);
+                    updateMusicJListModel(guiManager.getUserAllCollection());
                     westPanel.revalidate();
                     westPanel.repaint();
                 }else {

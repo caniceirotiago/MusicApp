@@ -39,17 +39,22 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(m1);
         tiago.addMusicToCollection(m1,tiago.getAllCollections().get(0));
         tiago.newMusicToAllCollection(m1);
+        pedro.addCreatedMusic(m1);
 
         Music m2 = new Music("Carolina", GENRE.POP,pedro,0);
         musicList.add(m2);
         tiago.newMusicToAllCollection(m2);
         tiago.addMusicToCollection(m2,tiago.getAllCollections().get(1));
+        pedro.addCreatedMusic(m2);
 
         Music m3 = new Music("Mariazinha", GENRE.POP,pedro,0);
         musicList.add(m3);
         tiago.newMusicToAllCollection(m3);
+        pedro.addCreatedMusic(m3);
 
-        musicList.add(new Music("Silvana", GENRE.POP,pedro,0));
+        Music m4 = new Music("Silvana", GENRE.POP, pedro,0);
+        pedro.addCreatedMusic(m4);
+
         musicList.add(new Music("Luna", GENRE.POP, pedro, 0));
         musicList.add(new Music("Estrella", GENRE.POP, pedro, 0));
         musicList.add(new Music("Marisol", GENRE.POP, pedro, 0));
@@ -120,21 +125,7 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
         musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
         musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
-        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
-        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
+
         pedro.editMusicPrice(m1,4);
         pedro.editMusicPrice(m1,2);
         pedro.editMusicPrice(m1,3);
