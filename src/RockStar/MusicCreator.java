@@ -18,7 +18,7 @@ public class MusicCreator extends User implements Serializable {
     @Override
     public void newCollection(String name) {
         //Creating an empty album
-        allCollections.add(new Album("random album name",  this));
+        allCollections.add(new Album(name,  this));
     }
     public void newCollection(ArrayList<Music> listMusic) {
 

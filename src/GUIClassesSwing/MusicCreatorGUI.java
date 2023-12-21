@@ -97,6 +97,8 @@ public class MusicCreatorGUI extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         //criacao do botao para criar album
         JButton newAlbumButton = new JButton("New Album");
+        newAlbumButton.addActionListener(e->{createNewAlbumClk();});
+
 
         //criacao do painel com GRIDBAG
 
@@ -145,7 +147,6 @@ public class MusicCreatorGUI extends JFrame {
 
         JButton addMusicButton =  new JButton("New Music");
         addMusicButton.addActionListener(e->{
-            System.out.println("botao esta a ser carregado");//debug funcionalidade
             openDialogNewMusic();
         });
 
@@ -402,6 +403,12 @@ public class MusicCreatorGUI extends JFrame {
 
 
     };
+
+    public void createNewAlbumClk (){
+        JTextField albumName = new JTextField(20);
+        JOptionPane.showMessageDialog(this, albumName);
+        listModelWest.addElement(new Album(albumName.getText(), (MusicCreator) currentUser));
+    }
 
     //TO_DO
     /*
