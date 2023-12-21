@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 import static src.RockStar.Main.updateDataFile;
 
-public class GUIManager { //O Serializable não deveria ficar aqui
-
+public class GUIManager {
     private ClientGUI clientFrame;
     private MusicCreatorGUI musicCreatorFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
@@ -102,7 +101,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
         } else {
-            clientFrame = new ClientGUI(currentUser,this);
+            clientFrame = new ClientGUI(currentUser.getUsername(),this);
             loginRegistrationGUI.setVisible(false);
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
@@ -129,7 +128,7 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     public ArrayList<MusicCollection> getUserAllCollection(){
         return currentUser.getAllCollections();
     }
-    public double getUserBalence(){
+    public double getUserBalance(){
         return ((Client)currentUser).getBalance();
     }
     public ArrayList<Music> getUserAllMusic(){
@@ -152,5 +151,21 @@ public class GUIManager { //O Serializable não deveria ficar aqui
     }
     public void newCollection(String playlistName){
         currentUser.newCollection(playlistName);
+    }
+    public void validationOfAquisition(){
+        ((Client)currentUser).validationOfAquisition(getListOfMusicsToBuy());
+        ((Client)currentUser).getListOfMusicsToBuy().clear();
+    }
+    public void addMoney(double money){
+        ((Client)currentUser).addMoney(money);
+    }
+    public void removeMusicCollection(MusicCollection selected){
+        currentUser.removeMusicCollection(selected);
+    }
+    public void newMusicToAllCollection(Music selectedMusic){
+        currentUser.newMusicToAllCollection(selectedMusic);
+    }
+    public void addMusicToMusicToBuy(Music selectedMusic){
+        ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
     }
 }
