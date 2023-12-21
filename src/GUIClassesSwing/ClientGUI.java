@@ -318,7 +318,7 @@ public class ClientGUI extends JFrame {
         ImageIcon resizedIcon = new ImageIcon(resizedImage);
         JLabel logo =  new JLabel(resizedIcon);
 
-        searchTextField = new JTextField("",30);
+        searchTextField = new JTextField("",20);
         JButton searchBtn = new JButton("\uD83D\uDD0D");
         searchBtn.addActionListener(e -> newSearch());
 
@@ -863,14 +863,17 @@ public class ClientGUI extends JFrame {
     }
     public void onAcquireMusicClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
-        if(currentUser.getAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null, "The song was already acquired");
+        if(currentUser.getAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null,
+                "The song was already acquired");
         else{
             if(selectedMusic.getPrice() == 0) {
-                JOptionPane.showMessageDialog(null, "The song is free. Song acquired, check it on your main collection");
+                JOptionPane.showMessageDialog(null,
+                        "The song is free. Song acquired, check it on your main collection");
                 currentUser.newMusicToAllCollection(selectedMusic);
             }
             else{
-                JOptionPane.showMessageDialog(null, "The song costs is " + selectedMusic.getPrice() + "€ . Check it on your shopping basket");
+                JOptionPane.showMessageDialog(null, "The song costs is " +
+                        selectedMusic.getPrice() + "€ . Check it on your shopping basket");
                 ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
                 updateBasketJListModel();
                 updateTotalBascketPrice();
