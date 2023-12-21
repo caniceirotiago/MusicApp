@@ -13,7 +13,6 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class ClientGUI extends JFrame {
-    private User currentUser;
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private DefaultTableModel searchMusicTableModel;
@@ -40,9 +39,8 @@ public class ClientGUI extends JFrame {
     private JTextField searchTextField;
     private JComboBox<String> comboSearchBox;
 
-    public ClientGUI(User currentUser, GUIManager guiManager){
-        super("Client - " + currentUser.getUsername());
-        this.currentUser = currentUser;
+    public ClientGUI(String username, GUIManager guiManager){
+        super("Client - " + username);
         this.guiManager = guiManager;
 
         initComponents();
@@ -229,7 +227,7 @@ public class ClientGUI extends JFrame {
         //Panel creation
         eastPanel = new JPanel(new GridBagLayout());
         balanceLbl =  new JLabel();
-        double userBalance = guiManager.getUserBalence();
+        double userBalance = guiManager.getUserBalance();
         balanceLbl.setText("Balance " + "\n " + userBalance + "€");
         JButton addBalanceBtn = new JButton("Add Money");
         addBalanceBtn.addActionListener(e -> onAddBalancebtnClick());
@@ -573,7 +571,7 @@ public class ClientGUI extends JFrame {
     public void updateBalance(){
 
         balanceLbl.setText("Balance" +
-                "\n" + guiManager.getUserBalence() + "€");
+                "\n" + guiManager.getUserBalance() + "€");
     }
     public double updateTotalBascketPrice(){
         double totalPrice = 0;
@@ -695,7 +693,6 @@ public class ClientGUI extends JFrame {
                 }else {
                     JOptionPane.showMessageDialog(null,"Playlist name already exists");
                 }
-
             }
         } else if(userChoice == 1){
 
@@ -710,7 +707,7 @@ public class ClientGUI extends JFrame {
                     if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
                     else{
                         guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
-                        updateMusicJListModel(currentUser.getAllCollections());
+                        updateMusicJListModel(guiManager.getUserAllCollection());
                     }
                 } catch (NumberFormatException e){
                     JOptionPane.showMessageDialog(null,"Please insert a valid number");
@@ -719,16 +716,16 @@ public class ClientGUI extends JFrame {
         }
     }
     public void onPurchasebtnClick(){
-        if(updateTotalBascketPrice() > ((Client)currentUser).getBalance()){
+        if(updateTotalBascketPrice() > guiManager.getUserBalance()){
             JOptionPane.showMessageDialog(null,"There are not enough money");
-        } else if (((Client)currentUser).getListOfMusicsToBuy().isEmpty()) {
+        } else if (guiManager.getListOfMusicsToBuy().isEmpty()) {
             JOptionPane.showMessageDialog(null,"Empty list");
         } else {
             int userOption = JOptionPane.showConfirmDialog(null,
                     "Confirm purchase", "Buy",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
             switch (userOption){
-                case 0: ((Client)currentUser).validationOfAquisition(((Client)currentUser).getListOfMusicsToBuy());
-                    ((Client)currentUser).getListOfMusicsToBuy().clear();
+                case 0:
+                    guiManager.validationOfAquisition();
                     updateBalance();
                     updateBasketJListModel();
                     updateTotalBascketPrice();
@@ -745,16 +742,14 @@ public class ClientGUI extends JFrame {
         }
     }
     public void onAddBalancebtnClick(){
-
         String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
-
         double money;
         if(moneyToAdd != null){
             try {
                 money = Integer.parseInt(moneyToAdd);
                 if(money < 5 || money > 999)  JOptionPane.showMessageDialog(null,"Minimum is 5€\nMaximum is 999€");
                 else{
-                    ((Client)currentUser).addMoney(money);
+                    guiManager.addMoney(money);
                     updateBalance();
                 }
             } catch (NumberFormatException e){
@@ -767,8 +762,8 @@ public class ClientGUI extends JFrame {
         if(selected != null){
             int confirmation = JOptionPane.showConfirmDialog(null, "Comfirm the elimination of " + selected.getName());
             if(confirmation == 0){
-                currentUser.removeMusicCollection(selected);
-                updateMusicJListModel(currentUser.getAllCollections());
+                guiManager.removeMusicCollection(selected);
+                updateMusicJListModel(guiManager.getUserAllCollection());
                 westPanel.revalidate();
                 westPanel.repaint();
                 System.out.println("Playlist deleted");
@@ -794,14 +789,14 @@ public class ClientGUI extends JFrame {
             else {
                 ((Playlist) selected).setPublicState(false);
             }
-            updateMusicJListModel(currentUser.getAllCollections());
+            updateMusicJListModel(guiManager.getUserAllCollection());
             westPanel.revalidate();
             westPanel.repaint();
             System.out.println("Playlist changed");
         }
     }
     public void newSearch(){
-        // Tivemos de desligar o actionListner para não interferir com a seleção ca bombo box
+        //We had to turn of the action listner to not interfer with the combo box
         ActionListener listener = comboSearchBox.getActionListeners()[0];
         comboSearchBox.removeActionListener(listener);
         comboSearchBox.setSelectedIndex(0);
@@ -866,18 +861,18 @@ public class ClientGUI extends JFrame {
     }
     public void onAcquireMusicClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
-        if(currentUser.getAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null,
+        if(guiManager.getUserAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null,
                 "The song was already acquired");
         else{
             if(selectedMusic.getPrice() == 0) {
                 JOptionPane.showMessageDialog(null,
                         "The song is free. Song acquired, check it on your main collection");
-                currentUser.newMusicToAllCollection(selectedMusic);
+                guiManager.newMusicToAllCollection(selectedMusic);
             }
             else{
                 JOptionPane.showMessageDialog(null, "The song costs is " +
                         selectedMusic.getPrice() + "€ . Check it on your shopping basket");
-                ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+                guiManager.addMusicToMusicToBuy(selectedMusic);
                 updateBasketJListModel();
                 updateTotalBascketPrice();
             }
@@ -913,7 +908,7 @@ public class ClientGUI extends JFrame {
     }
     public void onRemoveFromBasketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
-        ((Client)currentUser).getListOfMusicsToBuy().remove(selectedMusic);
+        guiManager.getListOfMusicsToBuy().remove(selectedMusic);
         updateBasketJListModel();
         updateTotalBascketPrice();
     }
@@ -921,7 +916,7 @@ public class ClientGUI extends JFrame {
         int option = JOptionPane.showConfirmDialog(null, "All the elements on the basket will be eliminated, are you shore?",
                 "Confirmation", JOptionPane.YES_NO_OPTION);
         if(option == 0){
-            ((Client)currentUser).getListOfMusicsToBuy().clear();
+            guiManager.getListOfMusicsToBuy().clear();
             updateBasketJListModel();
             updateTotalBascketPrice();
         }
