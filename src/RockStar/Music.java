@@ -52,6 +52,7 @@ public class Music implements Serializable {
         this.isActive = true;//musica assim que criada está ativa
         this.priceHistory = new ArrayList<>();
         this.priceHistory.add(new PriceHistory(price,LocalDateTime.now())); //Cria o primeiro historico de preço
+
     }
 
     public void calculateClassification(){
