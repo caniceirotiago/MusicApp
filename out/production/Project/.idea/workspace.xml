@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0890b7a-7715-4f95-b812-c042cbe5e6ed" name="Changes" comment="Cliente a 95‰">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUIX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RockStar/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Album.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +48,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="src.GUIClassesSwing" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="src.RockStar.Main" />
@@ -105,6 +109,7 @@
       <workItem from="1703020663083" duration="5340000" />
       <workItem from="1703062263340" duration="2982000" />
       <workItem from="1703117622641" duration="281000" />
+      <workItem from="1703155657642" duration="12084000" />
     </task>
     <task id="LOCAL-00001" summary="No construtor dos client e music creator a ordem de criação estava trocada.. o nome tem de ser sempre em primeiro">
       <option name="closed" value="true" />
@@ -282,7 +287,23 @@
       <option name="project" value="LOCAL" />
       <updated>1703026028470</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Cliente a 95‰">
+      <option name="closed" value="true" />
+      <created>1703159912223</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1703159912223</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Cliente a 95‰">
+      <option name="closed" value="true" />
+      <created>1703167128537</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1703167128537</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

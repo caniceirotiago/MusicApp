@@ -27,7 +27,7 @@ public class RandonPlaylistPay  extends JDialog {
         }
         musicListPanel.add(new JLabel("Total price: " + totalPrice));
 
-        addToBasketbtn = new JButton("Add to Bascket");
+        addToBasketbtn = new JButton("Add to Basket");
         buyMusicbtn = new JButton("Buy Music");
         onlyFreebtn = new JButton("Only Free Music");
 
