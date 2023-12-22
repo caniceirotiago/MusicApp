@@ -30,16 +30,16 @@ public class MusicCreator extends User implements Serializable {
     //poderia mudar o metodo create music para retornar para este metodo um objeto tipo musica?
     @Override
     public void addMusicToCollection(Music music, MusicCollection album) {
-        music.setAssociatedAlbum((Album) album);
+        album.addMusicToCollection(music);
     }
     public void newMusicToAllCollection(Music music){
 
     }
     public void removeMusicFromCollection(Music music, MusicCollection collection){
-
+        collection.getMusicList().remove(music);
     };
     public void removeMusicCollection(MusicCollection collection){
-
+        allCollections.remove(collection);
     };
     public void editMusicTitle(Music music, String newName){
         music.setName(newName);

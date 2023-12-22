@@ -23,6 +23,7 @@ public class Music implements Serializable {
         this.associatedAlbum = associatedAlbum;
     }
 
+
     public double getClassification() {
         return classification;
     }

@@ -148,7 +148,6 @@ public class RockstarIncManager  implements Serializable {
         pedro.editMusicPrice(m1,2);
         pedro.editMusicPrice(m1,4);
 
-
         //Inicia o método gráfico
         startGUI();
     }
@@ -443,5 +442,8 @@ public class RockstarIncManager  implements Serializable {
         Music music = new Music(name, genre,(MusicCreator) currentUser, price);
         musicList.add(music);
         ((MusicCreator) currentUser).addCreatedMusic(music);
+    }
+    public void statistics(){
+
     }
 }

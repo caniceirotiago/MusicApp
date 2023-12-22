@@ -172,7 +172,6 @@ public class LoginRegistrationGUI extends JFrame {
                     registrationFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     registrationFrame.setVisible(true);
                 } else registrationFrame.setVisible(true);
-
                 break;
         }
     }

@@ -20,18 +20,28 @@ public class Album extends MusicCollection implements Serializable {
         super(name, musicList);
         this.mainCreator = mainCreator;
     }
+    public Album(){
+    }
+    public Album(String name, MusicCreator musicCreator, ArrayList<Music> musicList) {
+        //Creation of random playlist or temporary Gui Playlist
+        super(name, musicList);
+        this.mainCreator = musicCreator;
+    }
 
     public MusicCreator getMainCreator() {
         return mainCreator;
     }
 
     public void addMusicToCollection(Music music) {
+        musicList.add(music);
+    }
+    public void removeMusicFromCollection() {
 
     }
 
-
-    public void removeMusicFromCollection() {
-
+    @Override
+    public String toString() {
+        return  super.name;
     }
 }
 

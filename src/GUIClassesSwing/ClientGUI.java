@@ -146,7 +146,7 @@ public class ClientGUI extends JFrame {
 
         //ListModel creation, there is a method for updating the model in different locations of the code
         listModelWest = new DefaultListModel<>();
-        updateMusicJListModel(guiManager.getUserAllCollection());
+        updateMusicJListModel();
 
         //In case of a new user to is created and turn the selected element the "Owned music" element
         if(currentUserCollection == null) currentUserCollection = new Playlist();
@@ -548,13 +548,16 @@ public class ClientGUI extends JFrame {
             Vector <Object> line = new Vector<>();
             line.add(ms.getName());
             line.add(ms.getArtistNameFromMusic());
-            line.add(ms.getAssociatedAlbum());
+            String albumName;
+            if(ms.getAssociatedAlbum() == null) albumName = "";
+            else albumName = ms.getAssociatedAlbum().getName();
+            line.add(albumName);
             line.add(ms.getClassification());
             centralTableModel.addRow(line);
         }
     }
-    public void updateMusicJListModel(ArrayList<MusicCollection> playlists){
-        currentUserCollection =guiManager.getCorrentUserMainCollection();
+    public void updateMusicJListModel(){
+        currentUserCollection =guiManager.getCorrentUserMainCollectionClient();
         listModelWest.removeAllElements();
         listModelWest.addElement(currentUserCollection);
         for(MusicCollection cl : guiManager.getUserAllCollection()){
@@ -687,7 +690,11 @@ public class ClientGUI extends JFrame {
                 }
                 if(!nameAlreadyExists){
                     guiManager.newCollection(playlistName);
-                    updateMusicJListModel(guiManager.getUserAllCollection());
+                    MusicCollection newMusicCollection =
+                            guiManager.getUserAllCollection().get(guiManager.getUserAllCollection().size()-1);
+                    selectedPlaylist = newMusicCollection;
+                    updateMusicJListModel();
+                    updateMusicJTableModel(newMusicCollection.getMusicList());
                     westPanel.revalidate();
                     westPanel.repaint();
                 }else {
@@ -707,7 +714,7 @@ public class ClientGUI extends JFrame {
                     if(nMusics <= 0)  JOptionPane.showMessageDialog(null,"Please insert a valid number");
                     else{
                         guiManager.randomPlaylistCreationAttempt(selectedGenre,nMusics);
-                        updateMusicJListModel(guiManager.getUserAllCollection());
+                        updateMusicJListModel();
                     }
                 } catch (NumberFormatException e){
                     JOptionPane.showMessageDialog(null,"Please insert a valid number");
@@ -763,7 +770,7 @@ public class ClientGUI extends JFrame {
             int confirmation = JOptionPane.showConfirmDialog(null, "Comfirm the elimination of " + selected.getName());
             if(confirmation == 0){
                 guiManager.removeMusicCollection(selected);
-                updateMusicJListModel(guiManager.getUserAllCollection());
+                updateMusicJListModel();
                 westPanel.revalidate();
                 westPanel.repaint();
                 System.out.println("Playlist deleted");
@@ -789,7 +796,7 @@ public class ClientGUI extends JFrame {
             else {
                 ((Playlist) selected).setPublicState(false);
             }
-            updateMusicJListModel(guiManager.getUserAllCollection());
+            updateMusicJListModel();
             westPanel.revalidate();
             westPanel.repaint();
             System.out.println("Playlist changed");
@@ -816,7 +823,10 @@ public class ClientGUI extends JFrame {
                 Vector <Object> line = new Vector<>();
                 line.add(ms.getName());
                 line.add(ms.getArtistNameFromMusic());
-                line.add(ms.getAssociatedAlbum());
+                String albumName;
+                if(ms.getAssociatedAlbum() == null) albumName = "";
+                else albumName = ms.getAssociatedAlbum().getName();
+                line.add(albumName);
                 line.add(ms.getClassification());
                 searchMusicTableModel.addRow(line);
             }
@@ -913,7 +923,7 @@ public class ClientGUI extends JFrame {
         updateTotalBascketPrice();
     }
     public void onCleanBasketClick(){
-        int option = JOptionPane.showConfirmDialog(null, "All the elements on the basket will be eliminated, are you shore?",
+        int option = JOptionPane.showConfirmDialog(null, "All the elements on the basket will be eliminated, are you sure?",
                 "Confirmation", JOptionPane.YES_NO_OPTION);
         if(option == 0){
             guiManager.getListOfMusicsToBuy().clear();
