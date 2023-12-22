@@ -230,8 +230,6 @@ public class MusicCreatorGUI extends JFrame {
                 return false;
             }
         };
-
-
         for (Music ms : currentUser.getAllMusic()){
             Vector<Object> line =  new Vector<>();
             line.add(ms.getName());
