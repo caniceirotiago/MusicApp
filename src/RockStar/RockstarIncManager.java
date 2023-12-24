@@ -150,6 +150,9 @@ public class RockstarIncManager  implements Serializable {
 
         //Inicia o método gráfico
         startGUI();
+        System.out.println("O numero de utilizadores sao " + statisticsUsers());
+        System.out.println("O preco total das musicas é " + statisticsPrices());
+        System.out.println("O numero de musicas no sistema é " + totalSongs());
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
@@ -443,7 +446,27 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(music);
         ((MusicCreator) currentUser).addCreatedMusic(music);
     }
-    public void statistics(){
-
+    public int statisticsUsers (){
+        int users = 0;
+        for (User us : userList){
+            users++;
+        }
+        return users;
     }
+    public double statisticsPrices(){
+        double price = 0.0;
+        for (Music mc : musicList){
+            price += mc.getPrice();
+        }
+        return price;
+    }
+    public int totalSongs(){
+        int musicTotal = 0;
+        for (Music mc : musicList){
+            musicTotal++;
+        }
+        return musicTotal;
+    }
+
+
 }
