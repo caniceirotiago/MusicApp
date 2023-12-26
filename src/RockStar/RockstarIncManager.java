@@ -1,5 +1,6 @@
 package src.RockStar;
 
+import kotlin.jvm.internal.SpreadBuilder;
 import src.GUIClassesSwing.GUIManager;
 
 import java.io.Serializable;
@@ -443,10 +444,73 @@ public class RockstarIncManager  implements Serializable {
             return listOfIndexes;
         }
     }
-    public void newCreationOfMusic(String name,GENRE genre, double price){
-        Music music = new Music(name, genre,(MusicCreator) currentUser, price);
-        musicList.add(music);
-        ((MusicCreator) currentUser).addCreatedMusic(music);
+    public void newCreationOfMusic(String name, String priceString, GENRE genre){
+        boolean validatedName = musicNameValidation(name);
+        double price = musicPriceValidation(priceString);
+
+        if(validatedName && price != -1){
+            Music music = new Music(name, genre,(MusicCreator) currentUser, price);
+            musicList.add(music);
+            ((MusicCreator) currentUser).addCreatedMusic(music);
+            guiManager.newMusicCreated();
+        }
+    }
+    public void musicEditionAttempt(Music selectedMusic, String name, String priceString, GENRE genre, int state){
+        boolean musicEdited = false;
+        if(!name.isEmpty() && musicNameValidation(name)){
+            selectedMusic.setName(name);
+            musicEdited = true;
+        }
+        if(!priceString.isEmpty()){
+            double price = musicPriceValidation(priceString);
+            if(price != -1) {
+                selectedMusic.setPrice(price);
+                musicEdited = true;
+            }
+        }
+        if(genre != selectedMusic.getGenre()){
+            selectedMusic.setGenre(genre);
+            musicEdited = true;
+        }
+        boolean selectedState;
+        if(state == 0) selectedState = true;
+        else selectedState = false;
+
+        if(selectedState != selectedMusic.isActive()){
+            selectedMusic.setActive(selectedState);
+            musicEdited = true;
+        }
+        if(musicEdited) guiManager.musicSuccessfullyEdited();
+    }
+    public boolean musicNameValidation(String name){
+        boolean validatedName = true;
+        boolean nameAlreadyExists = false;
+        for(Music m : currentUser.getAllMusic()){
+            if(m.getName().equals(name)) {
+                nameAlreadyExists = true;
+                validatedName = false;
+            }
+        }
+        if(name.isEmpty() || name.length() > 20) {
+            guiManager.musicAttemptError(1);
+            validatedName = false;
+        }
+        else if (nameAlreadyExists) {
+            guiManager.musicAttemptError(3);
+            validatedName = false;
+        }
+        return validatedName;
+    }
+    public double musicPriceValidation (String priceString){
+        priceString = priceString.replace(',','.');
+        double price = -1;
+        try{
+            price = Double.parseDouble(priceString);
+        }catch (NumberFormatException e){
+            guiManager.musicAttemptError(0);
+        }
+        if (price > 50 || price < 0) guiManager.musicAttemptError(2);
+        return price;
     }
     public int statisticsUsers (){ //total de utilizadores
         int users = 0;

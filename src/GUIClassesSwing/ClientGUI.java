@@ -648,7 +648,11 @@ public class ClientGUI extends JFrame {
                     Music selectedMusic = getSelectedMusicOnCentralTable();
                     if(selectedMusic != null){
                         if(!pl.getMusicList().contains(selectedMusic)){
-                            guiManager.addMusicToCollection(selectedMusic,pl);
+                            if(!selectedMusic.isActive()){
+                                JOptionPane.showMessageDialog(null,
+                                        "This music is inactive.");
+                            }
+                            else guiManager.addMusicToCollection(selectedMusic,pl);
                         }
                         else JOptionPane.showMessageDialog(null,
                                 "This music is already on that playlist");

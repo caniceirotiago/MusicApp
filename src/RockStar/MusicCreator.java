@@ -31,6 +31,7 @@ public class MusicCreator extends User implements Serializable {
     @Override
     public void addMusicToCollection(Music music, MusicCollection album) {
         album.addMusicToCollection(music);
+        music.setAssociatedAlbum((Album)album);
     }
     public void newMusicToAllCollection(Music music){
 

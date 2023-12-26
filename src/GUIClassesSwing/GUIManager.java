@@ -138,7 +138,7 @@ public class GUIManager {
         return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
     }
     public Album getCorrentUserMainCollectionMusicCreator(){
-        return new Album("Owned Music",(MusicCreator) currentUser,currentUser.getAllMusic());
+        return new Album("Created Music",(MusicCreator) currentUser,currentUser.getAllMusic());
     }
     public ArrayList<Music> getListOfMusicsToBuy(){
         return ((Client)currentUser).getListOfMusicsToBuy();
@@ -148,7 +148,6 @@ public class GUIManager {
     }
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
         currentUser.addMusicToCollection(selectedMusic,cl);
-        if(currentUser instanceof MusicCreator) selectedMusic.setAssociatedAlbum((Album)cl);
     }
     public void evaluateMusic(int evaluation, Music selectedMusic){
         selectedMusic.addEvaluation((Client)currentUser, evaluation);
@@ -171,5 +170,39 @@ public class GUIManager {
     }
     public void addMusicToMusicToBuy(Music selectedMusic){
         ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+    }
+    public void newMusicAttempt(String musicNameTextField, String priceTextField, RockstarIncManager.GENRE selectedGender){
+        logicManager.newCreationOfMusic(musicNameTextField, priceTextField, selectedGender);
+    }
+    public void musicAttemptError(int errorN){
+        switch (errorN){
+            case 0:
+                JOptionPane.showMessageDialog(null,"Price format error");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null,"Music name should have 1 - 20 characters");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null,"Music price should be between 0€ and 50€");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null,"You already have created a music with this name");
+        }
+    }
+    public void newMusicCreated(){
+        JOptionPane.showMessageDialog(null,"New Music Created");
+        musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
+    }
+    public void editMusicDialogCall(Music selectedMusic){
+        EditMusic editMusic = new EditMusic(this, musicCreatorFrame, selectedMusic);
+        String name = editMusic.getNewName();
+        String price = editMusic.getNewPrice();
+        RockstarIncManager.GENRE genre = editMusic.getSelectedGender();
+        int state = editMusic.getMusicState();
+        logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
+    }
+    public void musicSuccessfullyEdited(){
+        JOptionPane.showMessageDialog(null,"Music Successfully Edited");
+        musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
     }
 }
