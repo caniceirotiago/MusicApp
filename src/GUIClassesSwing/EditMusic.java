@@ -30,14 +30,25 @@ public class EditMusic extends JDialog {
         JLabel newTitle = new JLabel("New Title");
         newName = new JTextField(20);
 
+        //Makes the selected item on the ComboBox the original music genre
         RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
+        int indexCount = 0;
+        int selectedIndex = 0;
+        for(RockstarIncManager.GENRE g : genres){
+            if(g == music.getGenre()) selectedIndex = indexCount;
+            indexCount++;
+        }
         selectedGender = new JComboBox<>(genres);
+        selectedGender.setSelectedIndex(selectedIndex);
 
         JLabel newPrice = new JLabel("New Price");
         newPriceTF = new JTextField(20);
 
+        //Makes the selected item on the ComboBox the original state
         String[] state = {"Active", "Inactive"};
         musicStateCombo = new JComboBox<>(state);
+        if(music.isActive()) musicStateCombo.setSelectedIndex(0);
+        else musicStateCombo.setSelectedIndex(1);
 
         JButton confirmationBtn = new JButton("Confirm");
         confirmationBtn.addActionListener(e -> onConfirmationClick());

@@ -138,7 +138,7 @@ public class GUIManager {
         return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
     }
     public Album getCorrentUserMainCollectionMusicCreator(){
-        return new Album("Owned Music",(MusicCreator) currentUser,currentUser.getAllMusic());
+        return new Album("Created Music",(MusicCreator) currentUser,currentUser.getAllMusic());
     }
     public ArrayList<Music> getListOfMusicsToBuy(){
         return ((Client)currentUser).getListOfMusicsToBuy();
@@ -148,7 +148,6 @@ public class GUIManager {
     }
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
         currentUser.addMusicToCollection(selectedMusic,cl);
-        if(currentUser instanceof MusicCreator) selectedMusic.setAssociatedAlbum((Album)cl);
     }
     public void evaluateMusic(int evaluation, Music selectedMusic){
         selectedMusic.addEvaluation((Client)currentUser, evaluation);

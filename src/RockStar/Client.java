@@ -42,7 +42,7 @@ public class Client extends User implements Serializable {
         return new ArrayList<>();
     };
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
-        musicCollection.addMusicToCollection(music);
+        if(music.isActive()) musicCollection.addMusicToCollection(music);
     };
     public void newMusicToAllCollection(Music music){
         allMusic.add(music);
