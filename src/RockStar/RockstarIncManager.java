@@ -559,5 +559,8 @@ public class RockstarIncManager  implements Serializable {
         }
         return totalValue;
     }
+    public double getTotalValueSales(){
+        return ((MusicCreator)currentUser).getTotalValueSales();
+    }
 }
 
