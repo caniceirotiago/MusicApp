@@ -33,6 +33,9 @@ public class MusicCreatorGUIX extends JFrame {
     private CardLayout centralCardLayout;
     private Search search;
     private JTextField searchTextField;
+    private TextField musicNameTextField;
+    private TextField priceTextField;
+    private JComboBox<RockstarIncManager.GENRE> selectedGender;
 
     public MusicCreatorGUIX(String username, GUIManager guiManager){
         super("Music Creator - " + username);
@@ -184,13 +187,13 @@ public class MusicCreatorGUIX extends JFrame {
         //Panel creation
         eastPanel = new JPanel(new GridBagLayout());
         newMusicLbl =  new JLabel("Name");
-        TextField musicNameTextField = new TextField(20);
+        musicNameTextField = new TextField(20);
 
         RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
-        JComboBox<RockstarIncManager.GENRE> selectedGender = new JComboBox<>(genres);
+        selectedGender = new JComboBox<>(genres);
 
         JLabel priceLbl =  new JLabel("price");
-        TextField priceTextField = new TextField(20);
+        priceTextField = new TextField(20);
 
         JButton createMusicBtn = new JButton("New Music");
         createMusicBtn.addActionListener(e -> onCreateMusicBtnClick());
@@ -528,7 +531,8 @@ public class MusicCreatorGUIX extends JFrame {
         albumsMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
     public void editMusicOnClick(){
-
+        Music selectedMusic = getSelectedMusicOnCentralTable();
+        guiManager.editMusicDialogCall(selectedMusic);
     }
     public void onNewAlbumbtnClick(){
         centralCardLayout.show(centerPanel,"1");
@@ -553,7 +557,7 @@ public class MusicCreatorGUIX extends JFrame {
         }
     }
     public void onCreateMusicBtnClick(){
-
+        guiManager.newMusicAttempt(musicNameTextField.getText(), priceTextField.getText(), selectedGender.getItemAt(selectedGender.getSelectedIndex()));
     }
     public void onDeleteAlbumClick(){
         MusicCollection selected = getSelectedAlbum();
