@@ -153,6 +153,8 @@ public class RockstarIncManager  implements Serializable {
         System.out.println("O numero de utilizadores sao " + statisticsUsers());
         System.out.println("O preco total das musicas é " + statisticsPrices());
         System.out.println("O numero de musicas no sistema é " + totalSongs());
+        System.out.println("O numero de musicas do genero POP é" + totalSongGenre(GENRE.POP));
+        System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
@@ -446,27 +448,49 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(music);
         ((MusicCreator) currentUser).addCreatedMusic(music);
     }
-    public int statisticsUsers (){
+    public int statisticsUsers (){ //total de utilizadores
         int users = 0;
         for (User us : userList){
             users++;
         }
         return users;
     }
-    public double statisticsPrices(){
+
+    public double statisticsPrices(){ //valor total musicas no sistema
         double price = 0.0;
         for (Music mc : musicList){
             price += mc.getPrice();
         }
         return price;
     }
-    public int totalSongs(){
+    public int totalSongs(){ //total de musicas no sistema
         int musicTotal = 0;
         for (Music mc : musicList){
             musicTotal++;
         }
         return musicTotal;
     }
+    public int totalSongGenre(RockstarIncManager.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
+        int cont = 0;
+        for (Music mc : musicList){
+            if (mc.getGenre().equals(genre)){
+                cont++;
+            }
+        }
+        return cont;
+    }
+
+    /*
+    public int totalAlbumsByGenre(){ //total albuns por genero
+    }
+     */
+
+    /* public double totalVendas(){
+        MusicAquisition musicAdquired =  new MusicAquisition()
+        for (Music mc : MusicAquisition){
+
+        }
+    }*/
 
 
 }
