@@ -85,7 +85,7 @@ public class MusicCreatorGUIX extends JFrame {
         JPopupMenu centralTableSearchedMusicPuM = new JPopupMenu();
         JMenuItem editMusicMenu3 = new JMenuItem("Edit Music");
         centralTableSearchedMusicPuM.add(editMusicMenu3);
-        editMusicMenu3.addActionListener(e -> editMusicOnClick());
+        editMusicMenu3.addActionListener(e -> editMusicSearchTableOnClick());
 
 
 
@@ -418,6 +418,36 @@ public class MusicCreatorGUIX extends JFrame {
         centralCardLayout.show(centerPanel, "1");
         backToMainbtn.addActionListener(e -> centralCardLayout.show(centerPanel, "1"));
 
+        //-----------------------------------------------SOUTH PANEL---------------------------------------------------
+
+
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new BoxLayout(southPanel,BoxLayout.X_AXIS));
+        southPanel.setPreferredSize(new Dimension(0, 175));
+
+        ArrayList<Integer> overallStatistics = guiManager.getStatistics();
+
+        JLabel totalUsers = new JLabel("Total users " + overallStatistics.get(0));
+        JLabel totalSongs = new JLabel("Total musics " + overallStatistics.get(1));
+        JLabel totalPriceValue = new JLabel("Total Music Value " + overallStatistics.get(2));
+        JLabel totalSales = new JLabel("Total Sales " + overallStatistics.get(3));
+        southPanel.add(totalUsers);
+        southPanel.add(totalSongs);
+        southPanel.add(totalPriceValue);
+        southPanel.add(totalSales);
+
+        int totalAlbums = overallStatistics.get(4);
+        int counter = 5;
+        for(RockstarIncManager.GENRE ge : RockstarIncManager.GENRE.values()){
+            southPanel.add(new JLabel(ge +""+ overallStatistics.get(counter)));
+            counter++;
+        }
+
+
+
+
+
+
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
 
@@ -426,6 +456,7 @@ public class MusicCreatorGUIX extends JFrame {
         mainContainer.add(centerPanel,"Center");
         mainContainer.add(eastPanel,"East");
         mainContainer.add(westPanel,"West");
+        mainContainer.add(southPanel,"South");
 
         add(mainContainer);
 
@@ -536,6 +567,12 @@ public class MusicCreatorGUIX extends JFrame {
     public void editMusicOnClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         guiManager.editMusicDialogCall(selectedMusic);
+        updateMusicJTableModel(selectedAlbum.getMusicList());
+    }
+    public void editMusicSearchTableOnClick(){
+        Music selectedMusic = getSelectedMusicOnSearchTable();
+        guiManager.editMusicDialogCall(selectedMusic);
+        updateSearchMusicTable(search.getFoundMusics());
     }
     public void onNewAlbumbtnClick(){
         centralCardLayout.show(centerPanel,"1");
@@ -595,6 +632,9 @@ public class MusicCreatorGUIX extends JFrame {
                 else albumName = ms.getAssociatedAlbum().getName();
                 line.add(albumName);
                 line.add(ms.getClassification());
+                line.add(ms.getPrice());
+                line.add(ms.getGenre());
+                line.add(ms.isActive());
                 searchMusicTableModel.addRow(line);
             }
         }

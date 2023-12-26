@@ -159,7 +159,6 @@ public class RockstarIncManager  implements Serializable {
         System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
         System.out.println("O numero de vendas é" + totalSalesValue());
         System.out.println("O numero de albuns do genero POP é " + totalAlbumsByGenre(GENRE.POP));
-        System.out.println("O valor total das vendas deste criador é " + getSalesFromCreator());
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
@@ -537,6 +536,7 @@ public class RockstarIncManager  implements Serializable {
         return cont;
     }
 
+
     public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
     //acho que temos de incluir o genero no construtor do album
         int cont = 0;
@@ -552,6 +552,7 @@ public class RockstarIncManager  implements Serializable {
        return cont;
     }
 
+
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  userList){
@@ -562,9 +563,6 @@ public class RockstarIncManager  implements Serializable {
             }
         }
         return totalValue;
-    }
-    public double getSalesFromCreator(){
-        return ((MusicCreator)currentUser).getTotalValueSales();
     }
 }
 
