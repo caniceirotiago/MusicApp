@@ -298,14 +298,14 @@ public class MusicCreatorGUIX extends JFrame {
 
          */
 
-        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification"};
+        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification","Price","Genre","Active"};
         centralTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
             public Class<?> getColumnClass(int column) {
-                if(column == 3){
+                if(column == 3 || column == 4){
                     return Double.class;
                 }
                 else {
@@ -320,7 +320,7 @@ public class MusicCreatorGUIX extends JFrame {
         centralTable.getTableHeader().setReorderingAllowed(true);
         centralTable.setAutoCreateRowSorter(true);
 
-        //This action listner will trigger different popup menus depending on the selected element in panel west
+        //This action listener will trigger different popup menus depending on the selected element in panel west
         centralTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -442,6 +442,9 @@ public class MusicCreatorGUIX extends JFrame {
             else albumName = ms.getAssociatedAlbum().getName();
             line.add(albumName);
             line.add(ms.getClassification());
+            line.add(ms.getPrice());
+            line.add(ms.getGenre());
+            line.add(ms.isActive());
             centralTableModel.addRow(line);
         }
     }
