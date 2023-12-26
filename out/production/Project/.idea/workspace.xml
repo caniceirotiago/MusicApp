@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="779f383f-5017-4c2b-8c21-c6af62f913a8" name="Changes" comment="pedro">
-      <change beforePath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RockStar/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Album.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -398,7 +398,31 @@
       <option name="project" value="LOCAL" />
       <updated>1703599905079</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="pedro">
+      <option name="closed" value="true" />
+      <created>1703616748036</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1703616748036</updated>
+    </task>
+    <task id="LOCAL-00043" summary="pedro">
+      <option name="closed" value="true" />
+      <created>1703618009433</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1703618009433</updated>
+    </task>
+    <task id="LOCAL-00044" summary="pedro">
+      <option name="closed" value="true" />
+      <created>1703620069553</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1703620069554</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

@@ -71,6 +71,7 @@ public class Album extends MusicCollection implements Serializable {
         if (genreList.size() == 1){
             mainGenre = genreList.get(0);
         } else mainGenre = null;
+        System.out.println(genreList.get(0));
     }
 }
 
