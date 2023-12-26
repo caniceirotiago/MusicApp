@@ -1,11 +1,9 @@
 package src.RockStar;
 
-import kotlin.jvm.internal.SpreadBuilder;
 import src.GUIClassesSwing.GUIManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RockstarIncManager  implements Serializable {
     public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
@@ -152,8 +150,8 @@ public class RockstarIncManager  implements Serializable {
 
         //Inicia o método gráfico
         startGUI();
-        System.out.println("O numero de utilizadores sao " + statisticsUsers());
-        System.out.println("O preco total das musicas é " + statisticsPrices());
+        System.out.println("O numero de utilizadores sao " + totalUsers());
+        System.out.println("O preco total das musicas é " + musicTotalPriceValue());
         System.out.println("O numero de musicas no sistema é " + totalSongs());
         System.out.println("O numero de musicas do genero POP é" + totalSongGenre(GENRE.POP));
         System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
@@ -212,51 +210,62 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
         }
-        //adicionar aqui booleana ou valor que confirme passagens entre barreiras
         if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
-            userList.add(new Client(name, username,password,email,0));
+            if(!isCreator)userList.add(new Client(name, username,password,email,0));
             userList.add(new MusicCreator(name, username, password, email, pin));
             System.out.println("New client created");
             guiManager.successfulRegistration();
         }
     }
     public boolean termValidationOnUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
-        //Registo, validacao dados
-        //booleana final para se usar na criacao do user
-        boolean validRegistration = false;
-
-        //validação pin
+        boolean validRegistration = true;
+        //Pin
         if(isCreator){
-            boolean pinValido = false;
-            if (pin.isBlank() || pin.length() >8){
+            boolean validEmail = false;
+            for (int i = 0; i < pin.length(); i++){
+                if(pin.charAt(i) < '0' || pin.charAt(i) > '9') {
+                    validEmail =false;
+                    validRegistration = false;
+                }
+            }
+            if(!validEmail) guiManager.unsuccessfulRegistration(5);
+            if (pin.length() < 4 || pin.length() > 8){
                 guiManager.unsuccessfulRegistration(5);
-            } else {
-                pinValido = true;
+                validRegistration = false;
             }
         }
-        //username
-        //username tem no minimo 3 letras e maximo 15
-        boolean validUserName = false;
-        if (username.length()<3 || username.length()>10){
+        //Name
+        boolean validName = true;
+        for (int i = 0; i < name.length(); i++){
+            if((name.charAt(i) < 'a' || name.charAt(i) > 'z') && (name.charAt(i) < 'A' || name.charAt(i) < 'Z')) {
+
+                validName =false;
+                validRegistration = false;
+            }
+        }
+        if(!validName)guiManager.unsuccessfulRegistration(6);
+        if (name.length() < 3 || name.length() > 20){
+            guiManager.unsuccessfulRegistration(6);
+            validRegistration = false;
+        }
+        //Usename
+        if (username.length() < 3 || username.length() > 10){
             guiManager.unsuccessfulRegistration(4);
-        } else validUserName = true;
-
-
-        //email
-        boolean validEmail = false;
+            validRegistration = false;
+        }
+        //Password
+        if (password.length() < 3 || password.length() > 20){
+            guiManager.unsuccessfulRegistration(7);
+            validRegistration = false;
+        }
+        //Email
         int indexAt = email.indexOf("@");
-        int indexDotCom = email.indexOf(".com");
+        int indexDotCom = email.indexOf(".");
         if (email.isBlank() ){
             guiManager.unsuccessfulRegistration(3);
         }
-        else if (indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom){
-            validEmail = true;
-        } else {
-            System.out.println("email not valid");
+        else if (!(indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom)){
             guiManager.unsuccessfulRegistration(3);
-        }
-        if (validEmail && validUserName){
-            validRegistration = true;
         }
         return validRegistration;
     }
@@ -516,9 +525,9 @@ public class RockstarIncManager  implements Serializable {
         if (price > 50 || price < 0) guiManager.musicAttemptError(2);
         return price;
     }
-    public int statisticsUsers (){return userList.size();}
+    public int totalUsers(){return userList.size();}
 
-    public double statisticsPrices(){ //valor total musicas no sistema
+    public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
         for (Music mc : musicList){
             price += mc.getPrice();
@@ -535,8 +544,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return cont;
     }
-
-
     public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
     //acho que temos de incluir o genero no construtor do album
         int cont = 0;
@@ -551,8 +558,6 @@ public class RockstarIncManager  implements Serializable {
         }
        return cont;
     }
-
-
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  userList){

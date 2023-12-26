@@ -418,6 +418,36 @@ public class MusicCreatorGUIX extends JFrame {
         centralCardLayout.show(centerPanel, "1");
         backToMainbtn.addActionListener(e -> centralCardLayout.show(centerPanel, "1"));
 
+        //-----------------------------------------------SOUTH PANEL---------------------------------------------------
+
+
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new BoxLayout(southPanel,BoxLayout.X_AXIS));
+        southPanel.setPreferredSize(new Dimension(0, 175));
+
+        ArrayList<Integer> overallStatistics = guiManager.getStatistics();
+
+        JLabel totalUsers = new JLabel("Total users " + overallStatistics.get(0));
+        JLabel totalSongs = new JLabel("Total musics " + overallStatistics.get(1));
+        JLabel totalPriceValue = new JLabel("Total Music Value " + overallStatistics.get(2));
+        JLabel totalSales = new JLabel("Total Sales " + overallStatistics.get(3));
+        southPanel.add(totalUsers);
+        southPanel.add(totalSongs);
+        southPanel.add(totalPriceValue);
+        southPanel.add(totalSales);
+
+        int totalAlbums = overallStatistics.get(4);
+        int counter = 5;
+        for(RockstarIncManager.GENRE ge : RockstarIncManager.GENRE.values()){
+            southPanel.add(new JLabel(ge +""+ overallStatistics.get(counter)));
+            counter++;
+        }
+
+
+
+
+
+
         //--------------------------------------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------------------------------------
 
@@ -426,6 +456,7 @@ public class MusicCreatorGUIX extends JFrame {
         mainContainer.add(centerPanel,"Center");
         mainContainer.add(eastPanel,"East");
         mainContainer.add(westPanel,"West");
+        mainContainer.add(southPanel,"South");
 
         add(mainContainer);
 
