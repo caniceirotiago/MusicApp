@@ -2,10 +2,12 @@ package src.RockStar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
     private ArrayList<MusicCreator> otherCreators;
+    private RockstarIncManager.GENRE mainGenre;
 
 
     //construtor de album apenas com 1 criador
@@ -42,6 +44,13 @@ public class Album extends MusicCollection implements Serializable {
     @Override
     public String toString() {
         return  super.name;
+    }
+
+    public void calculateMainGenre(){
+        HashMap <RockstarIncManager.GENRE, Integer> genreFrequency = new HashMap<>();
+        for (Music mc : musicList){
+            genreFrequency.put(mc.getGenre(), genreFrequency.get(mc.getGenre())+1);
+        }
     }
 }
 
