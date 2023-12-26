@@ -1,11 +1,9 @@
 package src.RockStar;
 
-import kotlin.jvm.internal.SpreadBuilder;
 import src.GUIClassesSwing.GUIManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RockstarIncManager  implements Serializable {
     public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
@@ -152,8 +150,7 @@ public class RockstarIncManager  implements Serializable {
 
         //Inicia o método gráfico
         startGUI();
-        System.out.println("O numero de utilizadores sao " + statisticsUsers());
-        System.out.println("O preco total das musicas é " + statisticsPrices());
+        System.out.println("O numero de utilizadores sao " + totalUsers());
         System.out.println("O numero de musicas no sistema é " + totalSongs());
         System.out.println("O numero de musicas do genero POP é" + totalSongGenre(GENRE.POP));
         System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
@@ -516,9 +513,9 @@ public class RockstarIncManager  implements Serializable {
         if (price > 50 || price < 0) guiManager.musicAttemptError(2);
         return price;
     }
-    public int statisticsUsers (){return userList.size();}
+    public int totalUsers(){return userList.size();}
 
-    public double statisticsPrices(){ //valor total musicas no sistema
+    public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
         for (Music mc : musicList){
             price += mc.getPrice();
@@ -551,8 +548,6 @@ public class RockstarIncManager  implements Serializable {
         }
        return cont;
     }
-
-
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  userList){
