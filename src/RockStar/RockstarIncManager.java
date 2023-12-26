@@ -482,6 +482,7 @@ public class RockstarIncManager  implements Serializable {
 
     /*
     public int totalAlbumsByGenre(){ //total albuns por genero
+
     }
      */
 
