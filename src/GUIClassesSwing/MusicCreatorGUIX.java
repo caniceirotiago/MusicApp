@@ -595,6 +595,9 @@ public class MusicCreatorGUIX extends JFrame {
                 else albumName = ms.getAssociatedAlbum().getName();
                 line.add(albumName);
                 line.add(ms.getClassification());
+                line.add(ms.getPrice());
+                line.add(ms.getGenre());
+                line.add(ms.isActive());
                 searchMusicTableModel.addRow(line);
             }
         }

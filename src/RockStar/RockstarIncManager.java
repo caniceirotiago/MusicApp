@@ -473,7 +473,7 @@ public class RockstarIncManager  implements Serializable {
         }
         if(genre != selectedMusic.getGenre()){
             selectedMusic.setGenre(genre);
-            selectedMusic.getAssociatedAlbum().calculateMainGenre();
+            if(selectedMusic.getAssociatedAlbum() != null) selectedMusic.getAssociatedAlbum().calculateMainGenre();
             musicEdited = true;
         }
         boolean selectedState;
