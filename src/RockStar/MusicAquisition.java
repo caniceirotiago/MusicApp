@@ -15,6 +15,7 @@ public class MusicAquisition implements Serializable {
         this.dateTime = LocalDateTime.now();
         for (Music mc : aquiredMusics){
             this.totalPrice += mc.getPrice();
+            mc.getMusicCreator().addRevenueFromMusicSale(mc.getPrice());
         }
     }
 

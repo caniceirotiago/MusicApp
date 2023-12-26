@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class MusicCreator extends User implements Serializable {
     private String pin;
+    private double totalValueSales;
 
     public String getPin() {
         return pin;
@@ -56,5 +57,13 @@ public class MusicCreator extends User implements Serializable {
     public void seeStatistics(){};
     public void setMusicToInactive(Music music){
         music.setActive(false);
+    }
+
+    public void addRevenueFromMusicSale (double valueToAdd){
+        totalValueSales += valueToAdd;
+    }
+
+    public double getTotalValueSales() {
+        return totalValueSales;
     }
 }
