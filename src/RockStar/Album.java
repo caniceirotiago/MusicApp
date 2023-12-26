@@ -52,9 +52,10 @@ public class Album extends MusicCollection implements Serializable {
     public void calculateMainGenre(){
         //este metodo calcula o genero que aparece com mais frequencia aquando a criacao de um album
         //dependendo do genero que esta nas musicas que forem incluidas no album
+
         HashMap <RockstarIncManager.GENRE, Integer> genreFrequency = new HashMap<>();
         for (Music mc : musicList){
-            genreFrequency.put(mc.getGenre(), genreFrequency.get(mc.getGenre())+1);
+            genreFrequency.put(mc.getGenre(), genreFrequency.getOrDefault(mc.getGenre(),0)+1);
         }
         int maxFreq = 0;
         for (Map.Entry<RockstarIncManager.GENRE,Integer> entry : genreFrequency.entrySet()){
@@ -72,6 +73,10 @@ public class Album extends MusicCollection implements Serializable {
             mainGenre = genreList.get(0);
         } else mainGenre = null;
         System.out.println(genreList.get(0));
+    }
+
+    public RockstarIncManager.GENRE getMainGenre() {
+        return mainGenre;
     }
 }
 

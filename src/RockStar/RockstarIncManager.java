@@ -5,6 +5,7 @@ import src.GUIClassesSwing.GUIManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RockstarIncManager  implements Serializable {
     public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
@@ -157,6 +158,7 @@ public class RockstarIncManager  implements Serializable {
         System.out.println("O numero de musicas do genero POP é" + totalSongGenre(GENRE.POP));
         System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
         System.out.println("O numero de vendas é" + totalSalesValue());
+        System.out.println("O numero de albuns do genero POP é " + totalAlbumsByGenre(GENRE.POP));
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
@@ -534,12 +536,22 @@ public class RockstarIncManager  implements Serializable {
         return cont;
     }
 
-    /*
-    public int totalAlbumsByGenre(){ //total albuns por genero
-    //acho que temos de incluir o genero no construtor do album
 
+    public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
+    //acho que temos de incluir o genero no construtor do album
+        int cont = 0;
+        for (User us : userList){
+            if (us instanceof MusicCreator){
+                for (MusicCollection ab : ((MusicCreator) us).allCollections){
+                    if (((Album)ab).getMainGenre().equals(albumGenre)){
+                        cont++;
+                    }
+                }
+            }
+        }
+       return cont;
     }
-     */
+
 
     public double totalSalesValue() {
         double totalValue = 0.0;
