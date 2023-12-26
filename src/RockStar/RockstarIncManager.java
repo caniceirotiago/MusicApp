@@ -156,6 +156,7 @@ public class RockstarIncManager  implements Serializable {
         System.out.println("O numero de musicas no sistema é " + totalSongs());
         System.out.println("O numero de musicas do genero POP é" + totalSongGenre(GENRE.POP));
         System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
+        System.out.println("O numero de vendas é" + totalSalesValue());
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
@@ -512,13 +513,7 @@ public class RockstarIncManager  implements Serializable {
         if (price > 50 || price < 0) guiManager.musicAttemptError(2);
         return price;
     }
-    public int statisticsUsers (){ //total de utilizadores
-        int users = 0;
-        for (User us : userList){
-            users++;
-        }
-        return users;
-    }
+    public int statisticsUsers (){return userList.size();}
 
     public double statisticsPrices(){ //valor total musicas no sistema
         double price = 0.0;
@@ -527,13 +522,7 @@ public class RockstarIncManager  implements Serializable {
         }
         return price;
     }
-    public int totalSongs(){ //total de musicas no sistema
-        int musicTotal = 0;
-        for (Music mc : musicList){
-            musicTotal++;
-        }
-        return musicTotal;
-    }
+    public int totalSongs(){return musicList.size();}
     public int totalSongGenre(RockstarIncManager.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
         int cont = 0;
         for (Music mc : musicList){
@@ -546,16 +535,21 @@ public class RockstarIncManager  implements Serializable {
 
     /*
     public int totalAlbumsByGenre(){ //total albuns por genero
+    //acho que temos de incluir o genero no construtor do album
 
     }
      */
 
-    /* public double totalVendas(){
-        MusicAquisition musicAdquired =  new MusicAquisition()
-        for (Music mc : MusicAquisition){
-
+    public double totalSalesValue() {
+        double totalValue = 0.0;
+        for (User us :  userList){
+            if (us instanceof Client){
+                for (MusicAquisition ma : ((Client) us).getListOfAcquisitions()){
+                    totalValue += ma.getTotalPrice();
+                }
+            }
         }
-    }*/
-
-
+        return totalValue;
+    }
 }
+

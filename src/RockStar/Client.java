@@ -72,4 +72,8 @@ public class Client extends User implements Serializable {
         }
         return false; //Se a compra não é efetuada por falta de saldo
     }
+
+    public ArrayList<MusicAquisition> getListOfAcquisitions() {
+        return listOfAcquisitions;
+    }
 }
