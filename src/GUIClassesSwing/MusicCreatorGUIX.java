@@ -85,7 +85,7 @@ public class MusicCreatorGUIX extends JFrame {
         JPopupMenu centralTableSearchedMusicPuM = new JPopupMenu();
         JMenuItem editMusicMenu3 = new JMenuItem("Edit Music");
         centralTableSearchedMusicPuM.add(editMusicMenu3);
-        editMusicMenu3.addActionListener(e -> editMusicOnClick());
+        editMusicMenu3.addActionListener(e -> editMusicSearchTableOnClick());
 
 
 
@@ -536,6 +536,12 @@ public class MusicCreatorGUIX extends JFrame {
     public void editMusicOnClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         guiManager.editMusicDialogCall(selectedMusic);
+        updateMusicJTableModel(selectedAlbum.getMusicList());
+    }
+    public void editMusicSearchTableOnClick(){
+        Music selectedMusic = getSelectedMusicOnSearchTable();
+        guiManager.editMusicDialogCall(selectedMusic);
+        updateSearchMusicTable(search.getFoundMusics());
     }
     public void onNewAlbumbtnClick(){
         centralCardLayout.show(centerPanel,"1");

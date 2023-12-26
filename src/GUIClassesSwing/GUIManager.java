@@ -203,6 +203,5 @@ public class GUIManager {
     }
     public void musicSuccessfullyEdited(){
         JOptionPane.showMessageDialog(null,"Music Successfully Edited");
-        musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
     }
 }
