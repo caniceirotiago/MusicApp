@@ -536,7 +536,6 @@ public class RockstarIncManager  implements Serializable {
         return cont;
     }
 
-
     public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
     //acho que temos de incluir o genero no construtor do album
         int cont = 0;
@@ -551,7 +550,6 @@ public class RockstarIncManager  implements Serializable {
         }
        return cont;
     }
-
 
     public double totalSalesValue() {
         double totalValue = 0.0;
