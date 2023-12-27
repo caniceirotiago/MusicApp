@@ -353,7 +353,7 @@ public class MusicCreatorGUIX extends JFrame {
                 return false;
             }
             public Class<?> getColumnClass(int column) {
-                if(column == 3){
+                if(column == 3 || column == 4){
                     return Double.class;
                 }
                 else {
@@ -474,8 +474,11 @@ public class MusicCreatorGUIX extends JFrame {
             line.add(albumName);
             line.add(ms.getClassification());
             line.add(ms.getPrice());
-            line.add(ms.getGenre());
-            line.add(ms.isActive());
+            line.add(ms.getGenre().toString());
+            String status;
+            if(ms.isActive()) status = "Active";
+            else status = "Inactive";
+            line.add(status);
             centralTableModel.addRow(line);
         }
     }
@@ -633,8 +636,11 @@ public class MusicCreatorGUIX extends JFrame {
                 line.add(albumName);
                 line.add(ms.getClassification());
                 line.add(ms.getPrice());
-                line.add(ms.getGenre());
-                line.add(ms.isActive());
+                line.add(ms.getGenre().toString());
+                String status;
+                if(ms.isActive()) status = "Active";
+                else status = "Inactive";
+                line.add(status);
                 searchMusicTableModel.addRow(line);
             }
         }
