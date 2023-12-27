@@ -49,9 +49,13 @@ public class GUIManager {
                 //switches de validacao
             case 3: JOptionPane.showMessageDialog(null,"That email is not valid");
                 break;
-            case 4: JOptionPane.showMessageDialog(null, "The username does not have the size requirements (MIN:3 MAX 10)");
+            case 4: JOptionPane.showMessageDialog(null, "The username have size requirements (MIN:3 MAX 20) special characters allowed");
                 break;
-            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8)");
+            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8) only digits");
+                break;
+            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 20) only letters");
+                break;
+            case 7: JOptionPane.showMessageDialog(null, "Invalid Password (MIN:3 MAX 20)");
                 break;
         }
 
@@ -138,7 +142,7 @@ public class GUIManager {
         return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
     }
     public Album getCorrentUserMainCollectionMusicCreator(){
-        return new Album("Owned Music",(MusicCreator) currentUser,currentUser.getAllMusic());
+        return new Album("Created Music",(MusicCreator) currentUser,currentUser.getAllMusic());
     }
     public ArrayList<Music> getListOfMusicsToBuy(){
         return ((Client)currentUser).getListOfMusicsToBuy();
@@ -148,7 +152,6 @@ public class GUIManager {
     }
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
         currentUser.addMusicToCollection(selectedMusic,cl);
-        if(currentUser instanceof MusicCreator) selectedMusic.setAssociatedAlbum((Album)cl);
     }
     public void evaluateMusic(int evaluation, Music selectedMusic){
         selectedMusic.addEvaluation((Client)currentUser, evaluation);
@@ -171,5 +174,60 @@ public class GUIManager {
     }
     public void addMusicToMusicToBuy(Music selectedMusic){
         ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+    }
+    public void newMusicAttempt(String musicNameTextField, String priceTextField, RockstarIncManager.GENRE selectedGender){
+        logicManager.newCreationOfMusic(musicNameTextField, priceTextField, selectedGender);
+    }
+    public void musicAttemptError(int errorN){
+        switch (errorN){
+            case 0:
+                JOptionPane.showMessageDialog(null,"Price format error");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null,"Music name should have 1 - 20 characters");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null,"Music price should be between 0€ and 50€");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null,"You already have created a music with this name");
+        }
+    }
+    public void newMusicCreated(){
+        JOptionPane.showMessageDialog(null,"New Music Created");
+        musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
+    }
+    public void editMusicDialogCall(Music selectedMusic){
+        EditMusic editMusic = new EditMusic(this, musicCreatorFrame, selectedMusic);
+        String name = editMusic.getNewName();
+        String price = editMusic.getNewPrice();
+        RockstarIncManager.GENRE genre = editMusic.getSelectedGender();
+        int state = editMusic.getMusicState();
+        logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
+    }
+    public void musicSuccessfullyEdited(){
+        JOptionPane.showMessageDialog(null,"Music Successfully Edited");
+    }
+    public ArrayList<Integer> getStatistics(){
+        ArrayList<Integer> overallStatistics =  new ArrayList<>();
+
+        overallStatistics.add(logicManager.totalUsers());
+        overallStatistics.add(logicManager.totalSongs());
+        overallStatistics.add((int)Math.round(logicManager.musicTotalPriceValue()));
+        overallStatistics.add((int)Math.round(logicManager.totalSalesValue()));
+
+        ArrayList<Integer> albumCountByGenre = new ArrayList<>();
+        for(RockstarIncManager.GENRE ge : RockstarIncManager.GENRE.values()){
+            albumCountByGenre.add(logicManager.totalAlbumsByGenre(ge));
+        }
+        albumCountByGenre.add(logicManager.totalAlbumsByGenre(null));
+
+        int totalAlbuns = 0;
+        for(Integer i: albumCountByGenre){
+            totalAlbuns += i;
+        }
+        overallStatistics.add(totalAlbuns);
+        overallStatistics.addAll(albumCountByGenre);
+        return overallStatistics;
     }
 }

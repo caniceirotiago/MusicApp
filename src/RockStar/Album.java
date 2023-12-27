@@ -1,11 +1,15 @@
 package src.RockStar;
 
 import java.io.Serializable;
+import java.security.KeyStore;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
     private ArrayList<MusicCreator> otherCreators;
+    private RockstarIncManager.GENRE mainGenre;
 
 
     //construtor de album apenas com 1 criador
@@ -34,6 +38,7 @@ public class Album extends MusicCollection implements Serializable {
 
     public void addMusicToCollection(Music music) {
         musicList.add(music);
+        calculateMainGenre();
     }
     public void removeMusicFromCollection() {
 
@@ -43,5 +48,35 @@ public class Album extends MusicCollection implements Serializable {
     public String toString() {
         return  super.name;
     }
+
+    public void calculateMainGenre(){
+        //este metodo calcula o genero que aparece com mais frequencia aquando a criacao de um album
+        //dependendo do genero que esta nas musicas que forem incluidas no album
+
+        HashMap <RockstarIncManager.GENRE, Integer> genreFrequency = new HashMap<>();
+        for (Music mc : musicList){
+            genreFrequency.put(mc.getGenre(), genreFrequency.getOrDefault(mc.getGenre(),0)+1);
+        }
+        int maxFreq = 0;
+        for (Map.Entry<RockstarIncManager.GENRE,Integer> entry : genreFrequency.entrySet()){
+            if (entry.getValue() > maxFreq){
+                maxFreq = entry.getValue();
+            }
+        }
+        ArrayList <RockstarIncManager.GENRE> genreList = new ArrayList<>();
+        for (Map.Entry<RockstarIncManager.GENRE,Integer> entry : genreFrequency.entrySet()){
+            if (entry.getValue() == maxFreq){
+                genreList.add(entry.getKey());
+            }
+        }
+        if (genreList.size() == 1){
+            mainGenre = genreList.get(0);
+        } else mainGenre = null;
+    }
+
+    public RockstarIncManager.GENRE getMainGenre() {
+        return mainGenre;
+    }
 }
+
 

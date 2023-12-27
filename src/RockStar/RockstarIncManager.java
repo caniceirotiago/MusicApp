@@ -148,7 +148,6 @@ public class RockstarIncManager  implements Serializable {
         pedro.editMusicPrice(m1,2);
         pedro.editMusicPrice(m1,4);
 
-        //Inicia o método gráfico
         startGUI();
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
@@ -438,12 +437,124 @@ public class RockstarIncManager  implements Serializable {
             return listOfIndexes;
         }
     }
-    public void newCreationOfMusic(String name,GENRE genre, double price){
-        Music music = new Music(name, genre,(MusicCreator) currentUser, price);
-        musicList.add(music);
-        ((MusicCreator) currentUser).addCreatedMusic(music);
-    }
-    public void statistics(){
+    public void newCreationOfMusic(String name, String priceString, GENRE genre){
+        boolean validatedName = musicNameValidation(name);
+        double price = musicPriceValidation(priceString);
 
+        if(validatedName && price != -1){
+            Music music = new Music(name, genre,(MusicCreator) currentUser, price);
+            musicList.add(music);
+            ((MusicCreator) currentUser).addCreatedMusic(music);
+            guiManager.newMusicCreated();
+        }
+    }
+    public void musicEditionAttempt(Music selectedMusic, String name, String priceString, GENRE genre, int state){
+        boolean musicEdited = false;
+        if(!name.isEmpty() && musicNameValidation(name)){
+            selectedMusic.setName(name);
+            musicEdited = true;
+        }
+        if(!priceString.isEmpty()){
+            double price = musicPriceValidation(priceString);
+            if(price != -1) {
+                selectedMusic.setPrice(price);
+                musicEdited = true;
+            }
+        }
+        if(genre != selectedMusic.getGenre()){
+            selectedMusic.setGenre(genre);
+            selectedMusic.getAssociatedAlbum().calculateMainGenre();
+            musicEdited = true;
+        }
+        boolean selectedState;
+        if(state == 0) selectedState = true;
+        else selectedState = false;
+
+        if(selectedState != selectedMusic.isActive()){
+            selectedMusic.setActive(selectedState);
+            musicEdited = true;
+        }
+        if(musicEdited) guiManager.musicSuccessfullyEdited();
+    }
+    public boolean musicNameValidation(String name){
+        boolean validatedName = true;
+        boolean nameAlreadyExists = false;
+        for(Music m : currentUser.getAllMusic()){
+            if(m.getName().equals(name)) {
+                nameAlreadyExists = true;
+                validatedName = false;
+            }
+        }
+        if(name.isEmpty() || name.length() > 20) {
+            guiManager.musicAttemptError(1);
+            validatedName = false;
+        }
+        else if (nameAlreadyExists) {
+            guiManager.musicAttemptError(3);
+            validatedName = false;
+        }
+        return validatedName;
+    }
+    public double musicPriceValidation (String priceString){
+        priceString = priceString.replace(',','.');
+        double price = -1;
+        try{
+            price = Double.parseDouble(priceString);
+        }catch (NumberFormatException e){
+            guiManager.musicAttemptError(0);
+        }
+        if (price > 50 || price < 0) guiManager.musicAttemptError(2);
+        return price;
+    }
+    public int totalUsers(){return userList.size();}
+
+    public double musicTotalPriceValue(){ //valor total musicas no sistema
+        double price = 0.0;
+        for (Music mc : musicList){
+            price += mc.getPrice();
+        }
+        return price;
+    }
+    public int totalSongs(){return musicList.size();}
+
+
+
+    public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
+    //acho que temos de incluir o genero no construtor do album
+        int cont = 0;
+        for (User us : userList){
+            if (us instanceof MusicCreator){
+                for (MusicCollection ab : ((MusicCreator) us).allCollections){
+                    if (((Album)ab).getMainGenre().equals(albumGenre)){
+                        cont++;
+                    }
+                }
+            }
+        }
+       return cont;
+    }
+    public double totalSalesValue() {
+        double totalValue = 0.0;
+        for (User us :  userList){
+            if (us instanceof Client){
+                for (MusicAquisition ma : ((Client) us).getListOfAcquisitions()){
+                    totalValue += ma.getTotalPrice();
+                }
+            }
+        }
+        return totalValue;
+    }
+    public double getTotalValueSales(){
+        return ((MusicCreator)currentUser).getTotalValueSales();
+    }
+    public int totalSongGenre(RockstarIncManager.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
+        int cont = 0;
+        for (Music mc : musicList){
+            if (mc.getGenre().equals(genre)){
+                cont++;
+            }
+        }
+        return cont;
     }
 }
+

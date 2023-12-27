@@ -42,7 +42,7 @@ public class Client extends User implements Serializable {
         return new ArrayList<>();
     };
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
-        musicCollection.addMusicToCollection(music);
+        if(music.isActive()) musicCollection.addMusicToCollection(music);
     };
     public void newMusicToAllCollection(Music music){
         allMusic.add(music);
@@ -71,5 +71,9 @@ public class Client extends User implements Serializable {
             return true;
         }
         return false; //Se a compra não é efetuada por falta de saldo
+    }
+
+    public ArrayList<MusicAquisition> getListOfAcquisitions() {
+        return listOfAcquisitions;
     }
 }

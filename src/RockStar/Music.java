@@ -108,5 +108,9 @@ public class Music implements Serializable {
     public void setActive(boolean active) {
         isActive = active;
     }
+
+    public void setGenre(RockstarIncManager.GENRE genre) {
+        this.genre = genre;
+    }
 }
 
