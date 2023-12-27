@@ -148,14 +148,7 @@ public class RockstarIncManager  implements Serializable {
         pedro.editMusicPrice(m1,2);
         pedro.editMusicPrice(m1,4);
 
-        //Inicia o método gráfico
         startGUI();
-        System.out.println("O numero de utilizadores sao " + totalUsers());
-        System.out.println("O numero de musicas no sistema é " + totalSongs());
-        System.out.println("O numero de musicas do genero POP é" + totalSongGenre(GENRE.POP));
-        System.out.println("O numero de musicas do genero JAZZ é" + totalSongGenre(GENRE.JAZZ));
-        System.out.println("O numero de vendas é" + totalSalesValue());
-        System.out.println("O numero de albuns do genero POP é " + totalAlbumsByGenre(GENRE.POP));
     }
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
 
@@ -523,15 +516,7 @@ public class RockstarIncManager  implements Serializable {
         return price;
     }
     public int totalSongs(){return musicList.size();}
-    public int totalSongGenre(RockstarIncManager.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
-        int cont = 0;
-        for (Music mc : musicList){
-            if (mc.getGenre().equals(genre)){
-                cont++;
-            }
-        }
-        return cont;
-    }
+
 
 
     public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
@@ -561,6 +546,15 @@ public class RockstarIncManager  implements Serializable {
     }
     public double getTotalValueSales(){
         return ((MusicCreator)currentUser).getTotalValueSales();
+    }
+    public int totalSongGenre(RockstarIncManager.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
+        int cont = 0;
+        for (Music mc : musicList){
+            if (mc.getGenre().equals(genre)){
+                cont++;
+            }
+        }
+        return cont;
     }
 }
 
