@@ -168,14 +168,14 @@ public class RockstarIncManager  implements Serializable {
         boolean validRegistration = true;
         //Pin
         if(isCreator){
-            boolean validEmail = false;
+            boolean validPin = false;
             for (int i = 0; i < pin.length(); i++){
-                if(pin.charAt(i) < '0' || pin.charAt(i) > '9') {
-                    validEmail =false;
-                    validRegistration = false;
+                if(pin.charAt(i) >= '0' && pin.charAt(i) <= '9') {
+                    validPin =true;
                 }
+                else validRegistration = false;
             }
-            if(!validEmail) guiManager.unsuccessfulRegistration(5);
+            if(!validPin) guiManager.unsuccessfulRegistration(5);
             if (pin.length() < 4 || pin.length() > 8){
                 guiManager.unsuccessfulRegistration(5);
                 validRegistration = false;
@@ -210,9 +210,11 @@ public class RockstarIncManager  implements Serializable {
         int indexDotCom = email.indexOf(".");
         if (email.isBlank() ){
             guiManager.unsuccessfulRegistration(3);
+            validRegistration = false;
         }
         else if (!(indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom)){
             guiManager.unsuccessfulRegistration(3);
+            validRegistration = false;
         }
         return validRegistration;
     }
