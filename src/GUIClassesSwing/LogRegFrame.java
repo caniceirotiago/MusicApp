@@ -3,11 +3,23 @@ package src.GUIClassesSwing;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *
+ */
 public class LogRegFrame extends JFrame {
     GridBagConstraints constraints;
+
+    /**
+     *
+     * @return
+     */
     public GridBagConstraints getConstraints() {
         return constraints;
     }
+
+    /**
+     *
+     */
     public LogRegFrame()  {
         setSize(250,350);
         setBackground(Color.GRAY);

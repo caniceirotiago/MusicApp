@@ -6,13 +6,28 @@ import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+/**
+ *
+ */
 public class PriceHistory implements Serializable {
     private LocalDateTime priceChangeDate;
     private double newPrice;
+
+    /**
+     *
+     * @param newPrice
+     * @param priceChangeDate
+     */
     public PriceHistory(double newPrice, LocalDateTime priceChangeDate) {
         this.priceChangeDate = LocalDateTime.now();
         this.newPrice = newPrice;
     }
+
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getPriceChangeDate() {
         return priceChangeDate;
     }

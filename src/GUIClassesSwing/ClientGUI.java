@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ *
+ */
 public class ClientGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
@@ -39,6 +42,11 @@ public class ClientGUI extends JFrame {
     private JTextField searchTextField;
     private JComboBox<String> comboSearchBox;
 
+    /**
+     *
+     * @param username
+     * @param guiManager
+     */
     public ClientGUI(String username, GUIManager guiManager){
         super("Client - " + username);
         this.guiManager = guiManager;
@@ -53,6 +61,10 @@ public class ClientGUI extends JFrame {
         setIconImage(imageIcon.getImage());
         setMinimumSize(new Dimension(1200, 700));
     }
+
+    /**
+     *
+     */
     public void initComponents(){
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
@@ -60,6 +72,9 @@ public class ClientGUI extends JFrame {
         //---------------------ADDING POPUPMENUS AND SUBMENUS---------------------
 
         //Central PopUpMenu when a music on allMusic is selected
+        /**
+         *
+         */
         JPopupMenu centralTablePopMenu = new JPopupMenu();
         JMenuItem addToPlaylistMenu = new JMenuItem("Add to Playlist");
         JMenuItem evaluateMusicMenu = new JMenuItem("Evaluate Music");
@@ -110,50 +125,69 @@ public class ClientGUI extends JFrame {
 
         //------------------------------------------------WEST PANEL----------------------------------------------------
 
-        /*
-        On the west panel there is a visual representation of all the playlists the user has created. The first
-        element on the list isn't really a playlist but the collection of all the music the user owns. This way
-        the name of the element is "Owned Music" (with all the music) and the interaction with it is different from the
-        other elements on this list. When the program runs it is the first collection that is selected and, respectively,
-        presented on the central table. This list has two action listeners associated. The first simply makes the
-        selected element produce the change of the central table, presenting the musics of that playlist or the owned
-        music. The second action listener is only activated when the there is a right click on the playlists, and not
-        on the "Owned Music" element. This way, we can change the visibility of a playlist to public or private and
-        eliminate a playlist.
-
-        In this panel we also have a label that just presents the list and a button responsible for adding new playlists
-        There are two different ways of creating a new playlist. The first option simply creates an empty playlists and
-        the user is asked for the name of the new playlist. It doesn't allow the user to create a playlist with an
-        already used name. The second way is to generate randomly a playlist by giving a genre and the number of musics.
-        This way, we have to ensure that the user already owns the selected musics. If there is any music or musics
-        that the user does not own it will show a list of musics, the prices and three possibilities:
-
-        -Add to the basket: It will create a playlist with the free or the already owned musics and the others
-        will be added to the shopping basket (the generated playlist will not have all the music element that the user
-        asked for).
-        -Buy the musics: this button will only be enabled if the user has enough money and if pressed will create a new
-        playlist and make the purchase. (will generate a playlist with all the elements the user asked for)
-        -Only Free music: this button will generate another list with only free music. If there aren't enough free
-        musics on that genre, the user will be informed.
-        All the elements are added with a GridBag Layout
-
+        /**
+         *<p>
+         *On the west panel there is a visual representation of all the playlists the user has created. The first
+         *element on the list isn't really a playlist but the collection of all the music the user owns. This way
+         *the name of the element is "Owned Music" (with all the music) and the interaction with it is different from the
+         *other elements on this list. When the program runs it is the first collection that is selected and, respectively,
+         *presented on the central table. This list has two action listeners associated. The first simply makes the
+         *selected element produce the change of the central table, presenting the musics of that playlist or the owned
+         *music. The second action listener is only activated when the there is a right click on the playlists, and not
+         *on the "Owned Music" element. This way, we can change the visibility of a playlist to public or private and
+         *eliminate a playlist.
+         *</p>
+         *
+         *<p>In this panel we also have a label that just presents the list and a button responsible for adding new playlists
+         *There are two different ways of creating a new playlist. The first option simply creates an empty playlists and
+         *the user is asked for the name of the new playlist. It doesn't allow the user to create a playlist with an
+         *already used name. The second way is to generate randomly a playlist by giving a genre and the number of musics.
+         *This way, we have to ensure that the user already owns the selected musics. If there is any music or musics
+         *that the user does not own it will show a list of musics, the prices and three possibilities:
+         *</p>
+         *<p>
+         *-Add to the basket: It will create a playlist with the free or the already owned musics and the others
+         *will be added to the shopping basket (the generated playlist will not have all the music element that the user
+         *asked for).
+         *-Buy the musics: this button will only be enabled if the user has enough money and if pressed will create a new
+         *playlist and make the purchase. (will generate a playlist with all the elements the user asked for)
+         *-Only Free music: this button will generate another list with only free music. If there aren't enough free
+         *musics on that genre, the user will be informed.
+         *All the elements are added with a GridBag Layout
+         *</p>
          */
 
         //Panel creation
+
+        /**
+         *
+         */
         westPanel = new JPanel(new GridBagLayout());
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Playlist");
 
         //ListModel creation, there is a method for updating the model in different locations of the code
+        /**
+         *
+         */
         listModelWest = new DefaultListModel<>();
         updateMusicJListModel();
 
         //In case of a new user to is created and turn the selected element the "Owned music" element
+        /**
+         *
+         */
         if(currentUserCollection == null) currentUserCollection = new Playlist();
         selectedPlaylist = currentUserCollection;
 
         //Associate the model to the new list and add the action listeners
+        /**
+         *
+         */
         playlistListWest = new JList<>(listModelWest);
+        /**
+         *
+         */
         playlistListWest.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){ //Adjust the for a scrolling event
                 selectedPlaylist = playlistListWest.getSelectedValue();
@@ -726,6 +760,10 @@ public class ClientGUI extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void onPurchasebtnClick(){
         if(updateTotalBascketPrice() > guiManager.getUserBalance()){
             JOptionPane.showMessageDialog(null,"There are not enough money");
@@ -752,6 +790,10 @@ public class ClientGUI extends JFrame {
 
         }
     }
+
+    /**
+     *
+     */
     public void onAddBalancebtnClick(){
         String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
         double money;
@@ -768,6 +810,10 @@ public class ClientGUI extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void onDeletePlaylistClick(){
         MusicCollection selected = getSelectedPlaylist();
         if(selected != null){
@@ -781,6 +827,10 @@ public class ClientGUI extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void onVisibilityClick(){
         MusicCollection selected = getSelectedPlaylist();
         if(selected != null){
@@ -806,6 +856,10 @@ public class ClientGUI extends JFrame {
             System.out.println("Playlist changed");
         }
     }
+
+    /**
+     *
+     */
     public void newSearch(){
         //We had to turn of the action listner to not interfer with the combo box
         ActionListener listener = comboSearchBox.getActionListeners()[0];
@@ -820,6 +874,11 @@ public class ClientGUI extends JFrame {
         centerPanel.revalidate();
         centerPanel.repaint();
     }
+
+    /**
+     *
+     * @param list
+     */
     public void updateSearchMusicTable(ArrayList<Music> list){
         searchMusicTableModel.setRowCount(0);
         if(list != null){
@@ -836,6 +895,10 @@ public class ClientGUI extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void updateSearchCollectionTable(){
         searchCollectionTableModel.setRowCount(0);
         if(search.getFoundMusicCollections() != null){
@@ -855,6 +918,10 @@ public class ClientGUI extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void onSearchComboBoxClick(){
         //eventualmete adicionar a pesquisa de colleções e de artistas
         int comboSelection = comboSearchBox.getSelectedIndex();
@@ -873,6 +940,10 @@ public class ClientGUI extends JFrame {
                 break;
         }
     }
+
+    /**
+     *
+     */
     public void onAcquireMusicClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
         if(guiManager.getUserAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null,
@@ -892,6 +963,10 @@ public class ClientGUI extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void onPriceHistoricClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
 
@@ -906,6 +981,10 @@ public class ClientGUI extends JFrame {
         scrollPane.setPreferredSize(new Dimension(300,100));
         JOptionPane.showMessageDialog(null, scrollPane);
     }
+
+    /**
+     *
+     */
     public void onPriceHistoricBascketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
 
@@ -920,6 +999,10 @@ public class ClientGUI extends JFrame {
         scrollPane.setPreferredSize(new Dimension(300,100));
         JOptionPane.showMessageDialog(null, scrollPane);
     }
+
+    /**
+     *
+     */
     public void onRemoveFromBasketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
         guiManager.getListOfMusicsToBuy().remove(selectedMusic);

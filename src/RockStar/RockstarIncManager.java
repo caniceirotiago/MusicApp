@@ -5,6 +5,9 @@ import src.GUIClassesSwing.GUIManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class RockstarIncManager  implements Serializable {
 
     private ArrayList<User> clientList;
@@ -14,11 +17,18 @@ public class RockstarIncManager  implements Serializable {
     private transient boolean isCurUserMusicCreator;
     private transient GUIManager guiManager;
 
+    /**
+     *
+     */
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
         this.clientList = new ArrayList<>();
         this.musicCreatorList = new ArrayList<>();
     }
+
+    /**
+     *
+     */
     public void run(){
         //Criei um client só para experimentar Login.. depois é para apagar
         Client tiago = new Client("as","as","as","as",180);
@@ -74,6 +84,10 @@ public class RockstarIncManager  implements Serializable {
 
         startGUI();
     }
+
+    /**
+     *
+     */
     public void startGUI() {
         guiManager = new GUIManager(RockstarIncManager.this);
         guiManager.run();
@@ -81,6 +95,14 @@ public class RockstarIncManager  implements Serializable {
     /*
     This method allows to check a login atempt data. The method brings information from the gui like the username,
     password, the pin and if the attempt is made from a music creator or a client by a boolean.
+     */
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @param isMCreator
+     * @param pin
      */
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
         boolean sucessfulLogin = false;
@@ -118,6 +140,15 @@ public class RockstarIncManager  implements Serializable {
     termValidationOnUserAttempt()
      */
 
+    /**
+     *
+     * @param name
+     * @param username
+     * @param password
+     * @param email
+     * @param isMCreator
+     * @param pin
+     */
     public void newUserAttempt(String name, String username, String password, String email, boolean isMCreator, String pin){
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
@@ -162,6 +193,17 @@ public class RockstarIncManager  implements Serializable {
     /*
     This method completes the newUserAttempt() method by checking if the introduced terms by a new user attempt
     are correct. It will send elucidative messages to the user by the Gui Manager
+     */
+
+    /**
+     *
+     * @param name
+     * @param username
+     * @param password
+     * @param email
+     * @param isCreator
+     * @param pin
+     * @return
      */
     public boolean termValidationOnUserAttempt(String name, String username, String password, String email,
                                              boolean isCreator, String pin){
@@ -222,6 +264,12 @@ public class RockstarIncManager  implements Serializable {
     This method will create a new temporary search object that contains multiple lists. The method allows to create
     different types of searches. The Music creator is only able to search his own music.
      */
+
+    /**
+     *
+     * @param searchTerm
+     * @return
+     */
     public Search search(String searchTerm) {
         ArrayList<Music> foundMusics= new ArrayList<>();
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
@@ -274,6 +322,12 @@ public class RockstarIncManager  implements Serializable {
     own and is paid will be also selected and will be presented to de user 3 options. Add to the shopping basket,
     buy the musics (only enable if the user has enough money). And the option of only use free or already owned music.
      */
+
+    /**
+     *
+     * @param genre
+     * @param nOfMusics
+     */
     public void newRandomPlaylist(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
         for(Music m : musicList){
@@ -288,6 +342,12 @@ public class RockstarIncManager  implements Serializable {
             randomPlaylistCreation(nOfMusics,allMusicOfTheChosenGenre);
         }
     }
+
+    /**
+     *
+     * @param nOfMusics
+     * @param allMusicOfTheChosenGenre
+     */
     public void randomPlaylistCreation(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> musicSelection = randomMusicSelection(nOfMusics,allMusicOfTheChosenGenre);
         ArrayList<Music> randomMusicSelection = musicSelection.get(0);
@@ -303,6 +363,13 @@ public class RockstarIncManager  implements Serializable {
         }
         if(successfullyCreated) guiManager.randomPLSuccssefullyCreated();
     }
+
+    /**
+     *
+     * @param nOfMusics
+     * @param allMusicOfTheChosenGenre
+     * @return
+     */
     public ArrayList<ArrayList<Music>> randomMusicSelection(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> lists = new ArrayList<>();
         ArrayList<Music> randomMusicSelection = new ArrayList<>();
@@ -324,6 +391,15 @@ public class RockstarIncManager  implements Serializable {
         lists.add(notFreeMusicSelection);
         return lists;
     }
+
+    /**
+     *
+     * @param randomMusicSelection
+     * @param notFreeMusicSelection
+     * @param nOfMusics
+     * @param allMusicOfTheChosenGenre
+     * @return
+     */
     public boolean processorOnPaidRandom(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
                                          int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         double totalPrice = musicPriceCalculator(notFreeMusicSelection);
@@ -353,6 +429,12 @@ public class RockstarIncManager  implements Serializable {
         }
         return successfullyCreated;
     }
+
+    /**
+     *
+     * @param musicList
+     * @return
+     */
     public double musicPriceCalculator(ArrayList<Music> musicList){
         double totalPrice = 0;
         for (Music m : musicList){
@@ -360,6 +442,12 @@ public class RockstarIncManager  implements Serializable {
         }
         return totalPrice;
     }
+
+    /**
+     *
+     * @param musicOfTheChosenGenre
+     * @param nOfMusics
+     */
     public void newRandomPlaylistOnlyFree(ArrayList<Music> musicOfTheChosenGenre, int nOfMusics){
         ArrayList<Music> onlyFreeMusicByGenre = new ArrayList<>();
         ArrayList<Music> freeMusicSelection = new ArrayList<>();
@@ -385,6 +473,13 @@ public class RockstarIncManager  implements Serializable {
             guiManager.notEnoughMusicForRandom(maxSyzeFreeMusic,true);
         }
     }
+
+    /**
+     *
+     * @param SizeOfNewVector
+     * @param sizeOfSample
+     * @return
+     */
     public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
         //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
         //Ver metodo nweRandomPLaylist
@@ -401,6 +496,13 @@ public class RockstarIncManager  implements Serializable {
         }
         return listOfIndexes;
     }
+
+    /**
+     *
+     * @param name
+     * @param priceString
+     * @param genre
+     */
     public void newMusic(String name, String priceString, Genre.GENRE genre){
         boolean validatedName = musicNameValidation(name);
         double price = musicPriceValidation(priceString);
@@ -411,6 +513,15 @@ public class RockstarIncManager  implements Serializable {
             guiManager.newMusicCreated();
         }
     }
+
+    /**
+     *
+     * @param selectedMusic
+     * @param name
+     * @param priceString
+     * @param genre
+     * @param state
+     */
     public void musicEditionAttempt(Music selectedMusic, String name, String priceString, Genre.GENRE genre, int state){
         boolean musicEdited = false;
         if(!name.isEmpty() && musicNameValidation(name)){
@@ -439,6 +550,12 @@ public class RockstarIncManager  implements Serializable {
         }
         if(musicEdited) guiManager.musicSuccessfullyEdited();
     }
+
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean musicNameValidation(String name){
         boolean validatedName = true;
         boolean nameAlreadyExists = false;
@@ -458,6 +575,12 @@ public class RockstarIncManager  implements Serializable {
         }
         return validatedName;
     }
+
+    /**
+     *
+     * @param priceString
+     * @return
+     */
     public double musicPriceValidation (String priceString){
         priceString = priceString.replace(',','.');
         double price = -1;
@@ -469,7 +592,17 @@ public class RockstarIncManager  implements Serializable {
         if (price > 50 || price < 0) guiManager.musicAttemptError(2);
         return price;
     }
+
+    /**
+     *
+     * @return
+     */
     public int totalUsers(){return clientList.size() + musicCreatorList.size();}
+
+    /**
+     *
+     * @return
+     */
     public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
         for (Music mc : musicList){
@@ -477,7 +610,18 @@ public class RockstarIncManager  implements Serializable {
         }
         return price;
     }
+
+    /**
+     *
+     * @return
+     */
     public int totalSongs(){return musicList.size();}
+
+    /**
+     *
+     * @param albumGenre
+     * @return
+     */
     public int totalAlbumsByGenre(Genre.GENRE albumGenre){ //total albuns por genero
     //acho que temos de incluir o genero no construtor do album
         int cont = 0;
@@ -490,6 +634,11 @@ public class RockstarIncManager  implements Serializable {
         }
        return cont;
     }
+
+    /**
+     *
+     * @return
+     */
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  clientList){
@@ -502,6 +651,12 @@ public class RockstarIncManager  implements Serializable {
     public double getTotalValueSales(){
         return ((MusicCreator)currentUser).getTotalValueSales();
     }
+
+    /**
+     *
+     * @param genre
+     * @return
+     */
     public int totalSongGenre(Genre.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
         int cont = 0;
         for (Music mc : musicList){

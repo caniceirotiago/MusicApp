@@ -3,6 +3,9 @@ package src.RockStar;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public abstract class User implements Serializable {
     protected String username;
     protected String password;
@@ -35,6 +38,13 @@ public abstract class User implements Serializable {
         return allCollections;
     }
 
+    /**
+     * 
+     * @param name
+     * @param username
+     * @param password
+     * @param email
+     */
     public User(String name, String username, String password, String email) {
         this.username = username;
         this.password = password;

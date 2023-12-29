@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ *
+ */
 public class MusicCreatorGUIX extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
@@ -37,6 +40,11 @@ public class MusicCreatorGUIX extends JFrame {
     private TextField priceTextField;
     private JComboBox<Genre.GENRE> selectedGender;
 
+    /**
+     *
+     * @param username
+     * @param guiManager
+     */
     public MusicCreatorGUIX(String username, GUIManager guiManager){
         super("Music Creator - " + username);
         this.guiManager = guiManager;
@@ -51,6 +59,10 @@ public class MusicCreatorGUIX extends JFrame {
         setIconImage(imageIcon.getImage());
         setMinimumSize(new Dimension(1200, 700));
     }
+
+    /**
+     *
+     */
     public void initComponents(){
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
@@ -461,6 +473,11 @@ public class MusicCreatorGUIX extends JFrame {
         add(mainContainer);
 
     }
+
+    /**
+     *
+     * @param selectedAlbum
+     */
     public void updateMusicJTableModel(ArrayList<Music> selectedAlbum){
         centralTableModel.setRowCount(0);
         System.out.println("Album size: " + selectedAlbum.size());
@@ -482,6 +499,10 @@ public class MusicCreatorGUIX extends JFrame {
             centralTableModel.addRow(line);
         }
     }
+
+    /**
+     *
+     */
     public void updateMusicJListModel(){
         currentUserCollection =guiManager.getCorrentUserMainCollectionMusicCreator();
         listModelWest.removeAllElements();
@@ -490,6 +511,11 @@ public class MusicCreatorGUIX extends JFrame {
             listModelWest.addElement(cl);
         }
     }
+
+    /**
+     *
+     * @return
+     */
     public Music getSelectedMusicOnCentralTable(){
         int row = centralTable.getSelectedRow();
         if(row != -1){
@@ -499,6 +525,11 @@ public class MusicCreatorGUIX extends JFrame {
         }
         return null;
     }
+
+    /**
+     *
+     * @return
+     */
     public Music getSelectedMusicOnSearchTable(){
         int row = searchMusicTable.getSelectedRow();
         if(row != -1){
@@ -510,6 +541,10 @@ public class MusicCreatorGUIX extends JFrame {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public MusicCollection getSelectedAlbum(){
         int row = albumListWest.getSelectedIndex()-1;
         if(row != -1){
@@ -518,9 +553,19 @@ public class MusicCreatorGUIX extends JFrame {
         }
         return null;
     }
+
+    /**
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
         guiManager.logoutMCreator();
     }
+
+    /**
+     *
+     */
     public void onRemoveFromAlbumClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         if(selectedMusic!= null){
@@ -532,6 +577,10 @@ public class MusicCreatorGUIX extends JFrame {
             System.out.println("Music eliminated from Album");
         }
     }
+
+    /**
+     *
+     */
     public void addMusicToAlbumOnClick(){
         JPopupMenu albumsMenu =new JPopupMenu();
 
@@ -567,16 +616,28 @@ public class MusicCreatorGUIX extends JFrame {
         }
         albumsMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
+
+    /**
+     *
+     */
     public void editMusicOnClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         guiManager.editMusicDialogCall(selectedMusic);
         updateMusicJTableModel(selectedAlbum.getMusicList());
     }
+
+    /**
+     *
+     */
     public void editMusicSearchTableOnClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
         guiManager.editMusicDialogCall(selectedMusic);
         updateSearchMusicTable(search.getFoundMusics());
     }
+
+    /**
+     *
+     */
     public void onNewAlbumbtnClick(){
         centralCardLayout.show(centerPanel,"1");
         String albumName = JOptionPane.showInputDialog("Enter the name of the new album");
@@ -599,9 +660,17 @@ public class MusicCreatorGUIX extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void onCreateMusicBtnClick(){
         guiManager.newMusicAttempt(musicNameTextField.getText(), priceTextField.getText(), selectedGender.getItemAt(selectedGender.getSelectedIndex()));
     }
+
+    /**
+     *
+     */
     public void onDeleteAlbumClick(){
         MusicCollection selected = getSelectedAlbum();
         if(selected != null){
@@ -616,6 +685,10 @@ public class MusicCreatorGUIX extends JFrame {
             }
         }
     }
+
+    /**
+     *
+     */
     public void newSearch(){
         centralCardLayout.show(centerPanel, "2");
         search = guiManager.newSearch(searchTextField.getText());
@@ -623,6 +696,11 @@ public class MusicCreatorGUIX extends JFrame {
         centerPanel.revalidate();
         centerPanel.repaint();
     }
+
+    /**
+     *
+     * @param list
+     */
     public void updateSearchMusicTable(ArrayList<Music> list){
         searchMusicTableModel.setRowCount(0);
         if(list != null){

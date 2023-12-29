@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class RandonPlaylistPay  extends JDialog {
     private JButton addToBasketbtn;
     private JButton buyMusicbtn;
@@ -13,6 +16,14 @@ public class RandonPlaylistPay  extends JDialog {
     private GUIManager guiManager;
     private int returnValue;
 
+    /**
+     *
+     * @param guiManager
+     * @param associated
+     * @param songNames
+     * @param totalPrice
+     * @param canBuy
+     */
     public RandonPlaylistPay(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
         super (associated,"Paid Music", true);
         this.guiManager = guiManager;
@@ -57,18 +68,35 @@ public class RandonPlaylistPay  extends JDialog {
         pack();
         setVisible(true);
     }
+
+    /**
+     *
+     */
     private void onAddToBasckeClickbtn(){
         returnValue = 1;
         dispose();
     }
+
+    /**
+     *
+     */
     private void onBuyMusicbtnClick(){
         returnValue = 2;
         dispose();
     }
+
+    /**
+     *
+     */
     private void onOnlyFreebtnClick(){
         returnValue = 3;
         dispose();
     }
+
+    /**
+     *
+     * @return
+     */
     public int getReturnValue() {
         return returnValue;
     }

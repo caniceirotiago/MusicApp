@@ -8,6 +8,9 @@ import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 
+/**
+ *
+ */
 public class EditMusic extends JDialog {
 
     private GUIManager guiManager;
@@ -17,6 +20,12 @@ public class EditMusic extends JDialog {
     private JTextField newPriceTF;
     private JComboBox<String> musicStateCombo;
 
+    /**
+     *
+     * @param guiManager
+     * @param associated
+     * @param music
+     */
     public EditMusic(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
         this.guiManager = guiManager;

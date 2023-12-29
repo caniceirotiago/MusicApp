@@ -4,11 +4,23 @@ import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ *
+ */
 public class Main {
     // Para a lógica de gravação funcionar houve necessidade que seja estático, confirmar com prof
+    /**
+     *
+     */
     public static RockstarIncManager gc;
     //Reescreve o ficheiro de objetos com a nova informação (gravar) / fecha o leitor e o escritor
     //A ideia seria usar este método em vários momentos do programa inclusive, gravaçãoo automática e onClick
+
+    /**
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void updateDataFile() throws IOException, ClassNotFoundException{
         FileOutputStream fos = new FileOutputStream("mainSaveFile");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -30,6 +42,13 @@ public class Main {
         }
     }
 
+     */
+
+    /**
+     *
+     * @param args
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //para depois reativar

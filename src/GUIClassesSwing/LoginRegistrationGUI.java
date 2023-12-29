@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ *
+ */
 public class LoginRegistrationGUI extends JFrame {
     GUIManager guiManager;
     private JLabel background;
@@ -38,6 +41,10 @@ public class LoginRegistrationGUI extends JFrame {
     private JPanel loginPanel;
     private JPanel registationPanel;
 
+    /**
+     *
+     * @param guiManager
+     */
     public LoginRegistrationGUI(GUIManager guiManager) {
         super("Login and Registration"); // Define o título da janela
 
@@ -57,6 +64,10 @@ public class LoginRegistrationGUI extends JFrame {
         setIconImage(imageIcon.getImage());
 
     }
+
+    /**
+     *
+     */
     private void initComponents() {
         //Background image input
 
@@ -91,6 +102,11 @@ public class LoginRegistrationGUI extends JFrame {
 
         add(mainContainer);
     }
+
+    /**
+     *
+     * @param option
+     */
     public void creationOfLoginAndRegistrationFrame(int option){
         //adicionar nota explicativa
         switch (option){
@@ -175,6 +191,10 @@ public class LoginRegistrationGUI extends JFrame {
                 break;
         }
     }
+
+    /**
+     *
+     */
     public void onLoginConfirmationBtnClick(){
         String userField = usernameFieldOnLogin.getText();
         char[] passField = userPasswordFieldOnLogin.getPassword();
@@ -186,6 +206,10 @@ public class LoginRegistrationGUI extends JFrame {
             guiManager.loginAttempt(userField,passToString,false,pin);
         }
     }
+
+    /**
+     *
+     */
     public void onbtnConfirmRegistrationClick(){
         String name = firstNameOnRegistration.getText();
         String usernameField = usernameOnRegistration.getText();
@@ -208,6 +232,10 @@ public class LoginRegistrationGUI extends JFrame {
         }
 
     };
+
+    /**
+     *
+     */
     public void onRadioLoginMusicCreatorBtnClick(){
         if(musicCreatorLoginbtn.isSelected()){
             loginPinLbl.setVisible(true);
@@ -221,6 +249,10 @@ public class LoginRegistrationGUI extends JFrame {
             loginPanel.repaint();
         }
     }
+
+    /**
+     *
+     */
     public void onRadioRegistMusicCreatorBtnClick(){
         if(musicCreatorRegistbtn.isSelected()){
             registPinLbl.setVisible(true);
