@@ -6,449 +6,410 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class RockstarIncManager  implements Serializable {
-    public static enum GENRE{ROCK,POP,CLASSIC,JAZZ,BLUES,HIP_HOP,ELETRONIC,FOLK,REGGAE,RELIGIOUS,TRADITIONAL} //Perceber qual o melhor sitio para colocar isto ; ver que está estatico neste momento
-    private ArrayList<User> userList;
+
+    private ArrayList<User> clientList;
+    private ArrayList<User> musicCreatorList;
     private ArrayList<Music> musicList;
     private transient User currentUser;
+    private transient boolean isCurUserMusicCreator;
     private transient GUIManager guiManager;
 
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
-        this.userList = new ArrayList<>();
+        this.clientList = new ArrayList<>();
+        this.musicCreatorList = new ArrayList<>();
     }
-    //Novo método para iniciar a componente gráfica (É preciso estudar melhor este método)
-    public void startGUI() {
-        guiManager = new GUIManager(RockstarIncManager.this);
-        guiManager.run();
-    }
-    //Métodos
     public void run(){
-
         //Criei um client só para experimentar Login.. depois é para apagar
         Client tiago = new Client("as","as","as","as",180);
-        userList.add(tiago);
+        clientList.add(tiago);
         MusicCreator pedro = new MusicCreator("Pedro","qw","qw","qw","qw");
-        userList.add(pedro);
+        musicCreatorList.add(pedro);
 
         //Playlist experiencia
         tiago.newCollection("Rock Luso");
         tiago.newCollection("Mamonas Assassinas");
 
         //Musica Experiencia
-        Music m1 = new Music("Olá Joana", GENRE.POP,pedro,0);
+        Music m1 = new Music("Olá Joana", Genre.GENRE.POP,pedro,0);
         musicList.add(m1);
         tiago.addMusicToCollection(m1,tiago.getAllCollections().get(0));
-        tiago.newMusicToAllCollection(m1);
+        tiago.newMusicToAllMusicCollection(m1);
         pedro.addCreatedMusic(m1);
 
-        Music m2 = new Music("Carolina", GENRE.POP,pedro,0);
+        Music m2 = new Music("Carolina", Genre.GENRE.POP,pedro,0);
         musicList.add(m2);
-        tiago.newMusicToAllCollection(m2);
+        tiago.newMusicToAllMusicCollection(m2);
         tiago.addMusicToCollection(m2,tiago.getAllCollections().get(1));
         pedro.addCreatedMusic(m2);
 
-        Music m3 = new Music("Mariazinha", GENRE.POP,pedro,0);
+        Music m3 = new Music("Mariazinha", Genre.GENRE.POP,pedro,0);
         musicList.add(m3);
-        tiago.newMusicToAllCollection(m3);
+        tiago.newMusicToAllMusicCollection(m3);
         pedro.addCreatedMusic(m3);
 
-        musicList.add(new Music("Silvana", GENRE.POP,pedro,0));
-        musicList.add(new Music("Luna", GENRE.POP, pedro, 0));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 0));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 0));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 0));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 0));
-        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
-        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
-        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
-        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
-        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
-        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
-        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
-        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
-        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        musicList.add(new Music("Estrella", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Marisol", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Aurora", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Cielo", GENRE.POP, pedro, 1));
-        musicList.add(new Music("Lucero", GENRE.POP, pedro, 12));
-        musicList.add(new Music("Paloma", GENRE.POP, pedro, 30));
-        musicList.add(new Music("Solana", GENRE.POP, pedro, 7));
-        musicList.add(new Music("Rosa", GENRE.POP, pedro, 25));
-        musicList.add(new Music("Violeta", GENRE.POP, pedro, 18));
-        musicList.add(new Music("Dahlia", GENRE.POP, pedro, 22));
-        musicList.add(new Music("Lirio", GENRE.POP, pedro, 11));
-        musicList.add(new Music("Azalea", GENRE.POP, pedro, 14));
-        musicList.add(new Music("Camelia", GENRE.POP, pedro, 9));
-        musicList.add(new Music("Magnolia", GENRE.POP, pedro, 17));
-        pedro.editMusicPrice(m1,4);
-        pedro.editMusicPrice(m1,2);
-        pedro.editMusicPrice(m1,3);
-        pedro.editMusicPrice(m1,5);
-        pedro.editMusicPrice(m1,6);
-        pedro.editMusicPrice(m1,7);
-        pedro.editMusicPrice(m1,43);
-        pedro.editMusicPrice(m1,2);
-        pedro.editMusicPrice(m1,4);
+
+
+        musicList.add(new Music("City Lights", Genre.GENRE.POP, pedro, 0));
+        musicList.add(new Music("Summer Breeze", Genre.GENRE.POP, pedro, 0));
+        musicList.add(new Music("Moonlit Night", Genre.GENRE.POP, pedro, 3));
+        musicList.add(new Music("Dancing Shadows", Genre.GENRE.POP, pedro, 5));
+        musicList.add(new Music("Echoes of Love", Genre.GENRE.POP, pedro, 3));
+        musicList.add(new Music("Sunset Dreams", Genre.GENRE.POP, pedro, 4));
+        musicList.add(new Music("Whispers of the Heart", Genre.GENRE.POP, pedro, 1));
+        musicList.add(new Music("Rhythms of the Rain", Genre.GENRE.POP, pedro, 2));
+        musicList.add(new Music("Melodic Sunrise", Genre.GENRE.POP, pedro, 5));
+        musicList.add(new Music("Starry Skies", Genre.GENRE.POP, pedro, 2));
+        musicList.add(new Music("Neon Heartbeat", Genre.GENRE.POP, pedro, 3));
+        musicList.add(new Music("Ocean Whispers", Genre.GENRE.POP, pedro, 1));
+        musicList.add(new Music("Silent Echo", Genre.GENRE.POP, pedro, 4));
+        musicList.add(new Music("Golden Memories", Genre.GENRE.POP, pedro, 2));
+        musicList.add(new Music("Lunar Melodies", Genre.GENRE.POP, pedro, 5));
+        musicList.add(new Music("Crystal Visions", Genre.GENRE.POP, pedro, 3));
+        musicList.add(new Music("Sunrise Serenade", Genre.GENRE.POP, pedro, 4));
+        musicList.add(new Music("Twilight Harmony", Genre.GENRE.POP, pedro, 2));
+        musicList.add(new Music("Starlit Journey", Genre.GENRE.POP, pedro, 1));
+        musicList.add(new Music("Dreams of Tomorrow", Genre.GENRE.POP, pedro, 5));
+
 
         startGUI();
     }
+    public void startGUI() {
+        guiManager = new GUIManager(RockstarIncManager.this);
+        guiManager.run();
+    }
+    /*
+    This method allows to check a login atempt data. The method brings information from the gui like the username,
+    password, the pin and if the attempt is made from a music creator or a client by a boolean.
+     */
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
-
         boolean sucessfulLogin = false;
-        // O loop passa por todos os users compara se o user é cliente e o pedido de login é de cliente
-        //compara se o user é musiccreator e o pedido do login também o é e os restantes e se os restantes parâmetros são verdadeiros
-        for(User us : userList){
-            if(us instanceof Client && !isMCreator && us.getUsername().equals(username) && us.getPassword().equals(password)){
-            sucessfulLogin = true;
-            currentUser = us;
+        if(isMCreator){
+            for(User us : musicCreatorList){
+                if(us.getUsername().equals(username) && us.getPassword().equals(password) &&
+                        ((MusicCreator)us).getPin().equals(pin)){
+                    isCurUserMusicCreator = true;
+                    sucessfulLogin = true;
+                    currentUser = us;
+                }
             }
-            else if(us instanceof MusicCreator && isMCreator && us.getUsername().equals(username) && us.getPassword().equals(password)){
-                if(((MusicCreator)us).getPin().equals(pin)){
+        }
+        else{
+            for(User us : clientList){
+                if(us.getUsername().equals(username) && us.getPassword().equals(password)){
+                    isCurUserMusicCreator = false;
                     sucessfulLogin = true;
                     currentUser = us;
                 }
             }
         }
         if(sucessfulLogin)  {
-           guiManager.sucessfullLogin(currentUser, isMCreator);
+            guiManager.sucessfullLogin(currentUser, isMCreator);
             System.out.println("Successful Login");
         }
         else {
-            System.out.println("Wrong Login");
             guiManager.unsuccessfulLogin();
+            System.out.println("Wrong Login");
         }
-
     }
-    //condicao que admite a entrada de alguem na aplicação se houver registo na user arraylist;
-    //acho que este método devia chamar se newRegistration
-    public void newUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
-        boolean validRegistration = termValidationOnUserAttempt(name,username, password, email,  isCreator, pin);
+    /*
+    This method is called by the gui whenever there are a registration attempt. Firstly it will try to find already
+    existing a username or an emails. Then it will validate the terms with the help of othe method.
+    termValidationOnUserAttempt()
+     */
+
+    public void newUserAttempt(String name, String username, String password, String email, boolean isMCreator, String pin){
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
-
-        //This loop allows for an already created MusiCreator regist could make a new account as a Client and vice versa.
-        //It sends a code message for GUI to apply an error box "1" for invalid email and "2" for invalid username
-        for(User us : userList){
-            if(us.getEmail().equals(email)){
-                if((isCreator && us instanceof MusicCreator) || (!isCreator && us instanceof Client)){
-                    System.out.println("email already exists");
+        //This loop allows for an already created MusiCreator make a registration as a Client and vice versa.
+        //It sends a code message for GUI to apply an error box: "1" for invalid email and "2" for invalid username
+        if(!isMCreator){
+            for(User us : clientList){
+                if(us.getEmail().equals(email)){
                     emailAlreadyExists = true;
+                    System.out.println("email already exists");
                     guiManager.unsuccessfulRegistration(1);
                 }
-            }
-            if(us.getUsername().equals(username)){
-                if((isCreator && us instanceof MusicCreator) || (!isCreator && us instanceof Client)){
-                    System.out.println("username already exists");
+                if(us.getUsername().equals(username)){
                     usernameAlreadyExists = true;
+                    System.out.println("username already exists");
                     guiManager.unsuccessfulRegistration(2);
                 }
             }
         }
-        //adicionar aqui booleana ou valor que confirme passagens entre barreiras
+        if(isMCreator){
+            for(User us : musicCreatorList){
+                if(us.getEmail().equals(email)){
+                    emailAlreadyExists = true;
+                    System.out.println("email already exists");
+                    guiManager.unsuccessfulRegistration(1);
+                }
+                if(us.getUsername().equals(username)){
+                    usernameAlreadyExists = true;
+                    System.out.println("username already exists");
+                    guiManager.unsuccessfulRegistration(2);
+                }
+            }
+        }
+        boolean validRegistration = termValidationOnUserAttempt(name,username, password, email,  isMCreator, pin);
         if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
-            userList.add(new Client(name, username,password,email,0));
-            userList.add(new MusicCreator(name, username, password, email, pin));
-            System.out.println("New client created");
+            if(isMCreator) musicCreatorList.add(new MusicCreator(name, username, password, email, pin));
+            else clientList.add(new Client(name, username,password,email,0));
+            System.out.println("New user created");
             guiManager.successfulRegistration();
         }
     }
-    public boolean termValidationOnUserAttempt(String name, String username, String password, String email, boolean isCreator, String pin){
-        //Registo, validacao dados
-        //booleana final para se usar na criacao do user
-        boolean validRegistration = false;
-
-        //validação pin
+    /*
+    This method completes the newUserAttempt() method by checking if the introduced terms by a new user attempt
+    are correct. It will send elucidative messages to the user by the Gui Manager
+     */
+    public boolean termValidationOnUserAttempt(String name, String username, String password, String email,
+                                             boolean isCreator, String pin){
+        boolean validRegistration = true;
+        //Pin
         if(isCreator){
-            boolean pinValido = false;
-            if (pin.isBlank() || pin.length() >8){
+            boolean validEmail = false;
+            for (int i = 0; i < pin.length(); i++){
+                if(pin.charAt(i) < '0' || pin.charAt(i) > '9') {
+                    validEmail =false;
+                    validRegistration = false;
+                }
+            }
+            if(!validEmail) guiManager.unsuccessfulRegistration(5);
+            if (pin.length() < 4 || pin.length() > 8){
                 guiManager.unsuccessfulRegistration(5);
-            } else {
-                pinValido = true;
+                validRegistration = false;
             }
         }
-        //username
-        //username tem no minimo 3 letras e maximo 15
-        boolean validUserName = false;
-        if (username.length()<3 || username.length()>10){
+        //Name
+        boolean validName = true;
+        for (int i = 0; i < name.length(); i++){
+            if((name.charAt(i) < 'a' || name.charAt(i) > 'z') && (name.charAt(i) < 'A' || name.charAt(i) < 'Z')) {
+
+                validName =false;
+                validRegistration = false;
+            }
+        }
+        if(!validName)guiManager.unsuccessfulRegistration(6);
+        if (name.length() < 3 || name.length() > 20){
+            guiManager.unsuccessfulRegistration(6);
+            validRegistration = false;
+        }
+        //Usename
+        if (username.length() < 3 || username.length() > 10){
             guiManager.unsuccessfulRegistration(4);
-        } else validUserName = true;
-
-
-        //email
-        boolean validEmail = false;
+            validRegistration = false;
+        }
+        //Password
+        if (password.length() < 3 || password.length() > 20){
+            guiManager.unsuccessfulRegistration(7);
+            validRegistration = false;
+        }
+        //Email
         int indexAt = email.indexOf("@");
-        int indexDotCom = email.indexOf(".com");
+        int indexDotCom = email.indexOf(".");
         if (email.isBlank() ){
             guiManager.unsuccessfulRegistration(3);
         }
-        else if (indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom){
-            validEmail = true;
-        } else {
-            System.out.println("email not valid");
+        else if (!(indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom)){
             guiManager.unsuccessfulRegistration(3);
-        }
-        if (validEmail && validUserName){
-            validRegistration = true;
         }
         return validRegistration;
     }
-
+    /*
+    This method will create a new temporary search object that contains multiple lists. The method allows to create
+    different types of searches. The Music creator is only able to search his own music.
+     */
     public Search search(String searchTerm) {
-        //no enunciado pede apenas para pesquisar musica.. aqui já estou a complicar um bocado e a pesquisar por musica album e artista
-        //Este método cria objetos da classe Search, a classe search tem dois construtores:
-        //      1 - Lista de Musicas, lista de colecções de musica e lista de artistas (tipo de pesquisa apenas do utilizador normal )
-        //      2 - Lista de Musicas, lista de colecções do próprio criador (tipo de pesquisa apenas do criador de musica)
-        //Na primeira condição do presente método é tratada a pesquisa de utilizador normal onde são escolhidas as músicas,
-        //os albuns e as playlists publicas que corrreespondem ao termo da pesquisa.
-        //Na segunda é tratada a pesquisa se o utilizador for um criador de música, apenas retornará as músicas e albuns do próprio.
-        //
         ArrayList<Music> foundMusics= new ArrayList<>();
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
-        ArrayList<MusicCreator> foundMusicCreators = new ArrayList<>();
-
-        if(currentUser instanceof Client){
-            //Pesquisa de Musica
+        if(!isCurUserMusicCreator){
+            //Music search
             for(Music m : musicList){
-                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
-                if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusicsByArtist.add(m);
+                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    foundMusics.add(m);
+                }
+                if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())){
+                    foundMusicsByArtist.add(m);
+                }
             }
-
-            //Pesquisa de colleções de musica e artistas; apenas playlists publicas e todos os albuns.
-            for(User us :  userList){
-                if(us instanceof MusicCreator && us.name.toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCreators.add((MusicCreator) us);
+            //Collection search: only public playlists or albums.
+            //In this case we know that all the collections will be albums.
+            for(User us :  musicCreatorList){
                 for(MusicCollection mc : us.getAllCollections()){
-                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && (mc instanceof Album || (mc instanceof Playlist && ((Playlist)mc).getPublicState()))){
+                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);
+                }
+            }
+            //In this case we know that all the collections will be playlists. We have to select the public ones.
+            for(User us :  clientList){
+                for(MusicCollection mc : us.getAllCollections()){
+                    if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublicState()){
                         foundMusicCollections.add(mc);
                     }
                 }
             }
-            return new Search(foundMusics,foundMusicsByArtist,foundMusicCollections,foundMusicCreators);
-        } else {//se o current user for music creator apenas poderá pesquisar as proprias criações
-            for(Music m : musicList){
-                if(m.getMusicCreator().equals(currentUser) && m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
+            return new Search(foundMusics,foundMusicsByArtist,foundMusicCollections);
+        } else {//If the current user is a music creator only returns his own music
+            for(Music m : currentUser.getAllMusic()){
+                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
             }
-            //Pesquisa de albuns e artistas
-            for(User us :  userList){
-                if(us.equals(currentUser)){
-                    for(MusicCollection mc : us.getAllCollections()){
-                        if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusicCollections.add(mc);
-                    }
-                };
-            }
-            return new Search(foundMusics,foundMusicCollections);
+            return new Search(foundMusics);
         }
     }
-    public void evaluateMusic(Music music, int evaluation){
-        //Chama método para adicionar avaliação na classe Music
-        music.addEvaluation((Client)currentUser, evaluation);
-    }
-    public void newRandomPlaylist(GENRE genre, int nOfMusics){
-        //este método cria uma playlist de forma aleatória por género musical para o utilizador normal
-        //Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
-        // de uma Arraylist de Musicas.
-        //O presente método pede um número de musicas e um género e devolve um arraylist
-        //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
-        boolean successfullyCreated = false;
-        ArrayList<Music> musicOfTheChosenGenre = new ArrayList<>();
-        ArrayList<Music> randomChosenMusic = new ArrayList<>();
+    //este método cria uma playlist de forma aleatória por género musical para o utilizador normal
+    //Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
+    // de uma Arraylist de Musicas.
+    //O presente método pede um número de musicas e um género e devolve um arraylist
+    //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
+    // Este metodo retorna um inteiro que corresponde à seleção do utilizador
+    //                //1 - adicionar ao carrinho
+    //                //2 - comprar as musicas
+    //                //3 - apenas selecionar musicas gratuitas
 
+    /*
+    At this secction is created a selection of musics from the main music lists. All the music that the client does not
+    own and is paid will be also selected and will be presented to de user 3 options. Add to the shopping basket,
+    buy the musics (only enable if the user has enough money). And the option of only use free or already owned music.
+     */
+    public void newRandomPlaylist(Genre.GENRE genre, int nOfMusics){
+        ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
         for(Music m : musicList){
-            if(m.getGenre().equals(genre)) musicOfTheChosenGenre.add(m);
+            if(m.getGenre().equals(genre)) allMusicOfTheChosenGenre.add(m);
         }
-
-        int maxSize = musicOfTheChosenGenre.size();
-        if(musicOfTheChosenGenre.size() < nOfMusics) {
+        int maxSize = allMusicOfTheChosenGenre.size();
+        if(maxSize < nOfMusics) {
             System.out.println("There are not enough musics");
             guiManager.notEnoughMusicForRandom(maxSize,false);
         }
         else{
-            int[] listOfIndexes = randomIndexVector(nOfMusics, musicOfTheChosenGenre.size(),false);
-            ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
-
-            double totalPrice = 0;
-
-            for (int listOfIndex : listOfIndexes) {
-                Music music = musicOfTheChosenGenre.get(listOfIndex);
-                if (currentUser.getAllMusic().contains(music)) {
-                    randomChosenMusic.add(music);
-                } else if (!currentUser.getAllMusic().contains(music) && music.getPrice() == 0) {
-                    currentUser.newMusicToAllCollection(music);
-                    randomChosenMusic.add(music);
-                } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
-                    notFreeMusicSelection.add(music);
-
-                    totalPrice += music.getPrice();
-                }
-            }
-
-            double balance= ((Client)currentUser).getBalance();
-            boolean canBuy  = totalPrice < balance;
-
-            if(!notFreeMusicSelection.isEmpty()){
-                //Este metodo retorna um inteiro que corresponde à seleção do utilizador
-                //1 - adicionar ao carrinho
-                //2 - comprar as musicas
-                //3 - apenas selecionar musicas gratuitas
-                int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicSelection, totalPrice,canBuy);
-                switch (userOption){
-                    case 1:
-                        for (Music m : notFreeMusicSelection){
-                            ((Client)currentUser).addMusicToMusicToBuy(m); //Se optar por adicionar ao carrinho apenas as musicas gratuitas serão adicionadas
-                        }
-                        currentUser.newCollection(randomChosenMusic);
-                        successfullyCreated = true;
-                        break;
-                    case 2:
-                        if(canBuy){
-                            ((Client)currentUser).validationOfAquisition(notFreeMusicSelection);
-                            randomChosenMusic.addAll(notFreeMusicSelection); //Se optar por fazer a compra ele adiciona as musicas pagas àS gratuitas
-                        }
-                        else System.out.println("Not enough money");
-                        currentUser.newCollection(randomChosenMusic);
-                        successfullyCreated = true;
-                        break;
-                    case 3:
-                        newRandomPlaylistOnlyFree(musicOfTheChosenGenre,nOfMusics,randomChosenMusic);
-                        break;
-                }
-            }
-            else {
-                currentUser.newCollection(randomChosenMusic);
-                successfullyCreated = true;
-            }
-
+            randomPlaylistCreation(nOfMusics,allMusicOfTheChosenGenre);
+        }
+    }
+    public void randomPlaylistCreation(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
+        ArrayList<ArrayList<Music>> musicSelection = randomMusicSelection(nOfMusics,allMusicOfTheChosenGenre);
+        ArrayList<Music> randomMusicSelection = musicSelection.get(0);
+        ArrayList<Music> notFreeMusicSelection = musicSelection.get(1);
+        boolean successfullyCreated;
+        if(!notFreeMusicSelection.isEmpty()){
+            successfullyCreated = processorOnPaidRandom(randomMusicSelection, notFreeMusicSelection, nOfMusics,
+                    allMusicOfTheChosenGenre);
+        }
+        else {
+            currentUser.newCollection(randomMusicSelection);
+            successfullyCreated = true;
         }
         if(successfullyCreated) guiManager.randomPLSuccssefullyCreated();
     }
-    public void newRandomPlaylistOnlyFree(ArrayList<Music> musicOfTheChosenGenre, int nOfMusics, ArrayList<Music> randomChosenMusic){
+    public ArrayList<ArrayList<Music>> randomMusicSelection(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
+        ArrayList<ArrayList<Music>> lists = new ArrayList<>();
+        ArrayList<Music> randomMusicSelection = new ArrayList<>();
+        ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
+        int[] listOfIndexes = randomIndexVector(nOfMusics, allMusicOfTheChosenGenre.size());
 
+        for (int listOfIndex : listOfIndexes) {
+            Music music = allMusicOfTheChosenGenre.get(listOfIndex);
+            if (currentUser.getAllMusic().contains(music)) {
+                randomMusicSelection.add(music);
+            } else if (!currentUser.getAllMusic().contains(music) && music.getPrice() == 0) {
+                currentUser.newMusicToAllMusicCollection(music);
+                randomMusicSelection.add(music);
+            } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
+                notFreeMusicSelection.add(music);
+            }
+        }
+        lists.add(randomMusicSelection);
+        lists.add(notFreeMusicSelection);
+        return lists;
+    }
+    public boolean processorOnPaidRandom(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
+                                         int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
+        double totalPrice = musicPriceCalculator(notFreeMusicSelection);
+        double balance = ((Client)currentUser).getBalance();
+        boolean canBuy  = totalPrice < balance;
+        int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicSelection, totalPrice,canBuy);
+        boolean successfullyCreated = false;
+        switch (userOption){
+            case 1:
+                for (Music m : notFreeMusicSelection){
+                    ((Client)currentUser).addMusicToMusicToBuy(m); //Se optar por adicionar ao carrinho apenas as musicas gratuitas serão adicionadas
+                }
+                successfullyCreated = true;
+                break;
+            case 2:
+                if(canBuy){
+                    ((Client)currentUser).validationOfAquisition(notFreeMusicSelection);
+                    randomMusicSelection.addAll(notFreeMusicSelection);
+                }
+                else System.out.println("Not enough money");
+                currentUser.newCollection(randomMusicSelection);
+                successfullyCreated = true;
+                break;
+            case 3:
+                newRandomPlaylistOnlyFree(allMusicOfTheChosenGenre,nOfMusics);
+                break;
+        }
+        return successfullyCreated;
+    }
+    public double musicPriceCalculator(ArrayList<Music> musicList){
+        double totalPrice = 0;
+        for (Music m : musicList){
+            totalPrice += m.getPrice();
+        }
+        return totalPrice;
+    }
+    public void newRandomPlaylistOnlyFree(ArrayList<Music> musicOfTheChosenGenre, int nOfMusics){
         ArrayList<Music> onlyFreeMusicByGenre = new ArrayList<>();
+        ArrayList<Music> freeMusicSelection = new ArrayList<>();
         for(Music m : musicOfTheChosenGenre){
-            if(m.getPrice() == 0) onlyFreeMusicByGenre.add(m);
+            if(currentUser.getAllMusic().contains(m)) onlyFreeMusicByGenre.add(m);
+            else if (m.getPrice() == 0) onlyFreeMusicByGenre.add(m);
         }
         int maxSyzeFreeMusic = onlyFreeMusicByGenre.size();
         if(maxSyzeFreeMusic >= nOfMusics){
-            int[] listOfIndexesFreeMusic = randomIndexVector(nOfMusics, onlyFreeMusicByGenre.size(),true);
-            randomChosenMusic.clear();
+            int[] listOfIndexesFreeMusic = randomIndexVector(nOfMusics, onlyFreeMusicByGenre.size());
             for (int listOfIndexesfree : listOfIndexesFreeMusic) {
                 Music music = onlyFreeMusicByGenre.get(listOfIndexesfree);
                 if (currentUser.getAllMusic().contains(music)) {
-                    randomChosenMusic.add(music);
+                    freeMusicSelection.add(music);
                 } else  {
-                    currentUser.newMusicToAllCollection(music);
-                    randomChosenMusic.add(music);
+                    currentUser.newMusicToAllMusicCollection(music);
+                    freeMusicSelection.add(music);
                 }
             }
-            currentUser.newCollection(randomChosenMusic);
+            currentUser.newCollection(freeMusicSelection);
             guiManager.randomPLSuccssefullyCreated();
         } else{
             guiManager.notEnoughMusicForRandom(maxSyzeFreeMusic,true);
         }
     }
-    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample, boolean onlyFree){
+    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
         //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
         //Ver metodo nweRandomPLaylist
-        if(!onlyFree){
-            int[] listOfIndexes = new int[SizeOfNewVector];
-            ArrayList<Integer> addedIndexes = new ArrayList<>();
+        int[] listOfIndexes = new int[SizeOfNewVector];
+        ArrayList<Integer> addedIndexes = new ArrayList<>();
+        for (int i = 0; i < SizeOfNewVector; i++) {
+            int randomIndex;
+            do {
+                randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
+            } while (addedIndexes.contains(randomIndex));
 
-            for (int i = 0; i < SizeOfNewVector; i++) {
-                int randomIndex;
-                do {
-                    randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
-                } while (addedIndexes.contains(randomIndex));
-
-                listOfIndexes[i] = randomIndex;
-                addedIndexes.add(randomIndex);
-            }
-            return listOfIndexes;
-        }else{
-            int[] listOfIndexes = new int[SizeOfNewVector];
-            ArrayList<Integer> addedIndexes = new ArrayList<>();
-
-            for (int i = 0; i < SizeOfNewVector; i++) {
-                int randomIndex;
-                do {
-                    randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
-                } while (addedIndexes.contains(randomIndex));
-
-                listOfIndexes[i] = randomIndex;
-                addedIndexes.add(randomIndex);
-            }
-            return listOfIndexes;
+            listOfIndexes[i] = randomIndex;
+            addedIndexes.add(randomIndex);
         }
+        return listOfIndexes;
     }
-    public void newCreationOfMusic(String name, String priceString, GENRE genre){
+    public void newMusic(String name, String priceString, Genre.GENRE genre){
         boolean validatedName = musicNameValidation(name);
         double price = musicPriceValidation(priceString);
-
         if(validatedName && price != -1){
             Music music = new Music(name, genre,(MusicCreator) currentUser, price);
             musicList.add(music);
-            ((MusicCreator) currentUser).addCreatedMusic(music);
+            currentUser.newMusicToAllMusicCollection(music);
             guiManager.newMusicCreated();
         }
     }
-    public void musicEditionAttempt(Music selectedMusic, String name, String priceString, GENRE genre, int state){
+    public void musicEditionAttempt(Music selectedMusic, String name, String priceString, Genre.GENRE genre, int state){
         boolean musicEdited = false;
         if(!name.isEmpty() && musicNameValidation(name)){
             selectedMusic.setName(name);
@@ -506,8 +467,7 @@ public class RockstarIncManager  implements Serializable {
         if (price > 50 || price < 0) guiManager.musicAttemptError(2);
         return price;
     }
-    public int totalUsers(){return userList.size();}
-
+    public int totalUsers(){return clientList.size() + musicCreatorList.size();}
     public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
         for (Music mc : musicList){
@@ -516,18 +476,13 @@ public class RockstarIncManager  implements Serializable {
         return price;
     }
     public int totalSongs(){return musicList.size();}
-
-
-
-    public int totalAlbumsByGenre(RockstarIncManager.GENRE albumGenre){ //total albuns por genero
+    public int totalAlbumsByGenre(Genre.GENRE albumGenre){ //total albuns por genero
     //acho que temos de incluir o genero no construtor do album
         int cont = 0;
-        for (User us : userList){
-            if (us instanceof MusicCreator){
-                for (MusicCollection ab : ((MusicCreator) us).allCollections){
-                    if (((Album)ab).getMainGenre().equals(albumGenre)){
-                        cont++;
-                    }
+        for (User us : musicCreatorList){
+            for (MusicCollection ab :  us.allCollections){
+                if (((Album)ab).getMainGenre().equals(albumGenre)){
+                    cont++;
                 }
             }
         }
@@ -535,11 +490,9 @@ public class RockstarIncManager  implements Serializable {
     }
     public double totalSalesValue() {
         double totalValue = 0.0;
-        for (User us :  userList){
-            if (us instanceof Client){
-                for (MusicAquisition ma : ((Client) us).getListOfAcquisitions()){
-                    totalValue += ma.getTotalPrice();
-                }
+        for (User us :  clientList){
+            for (MusicAquisition ma : ((Client) us).getListOfAcquisitions()){
+                totalValue += ma.getTotalPrice();
             }
         }
         return totalValue;
@@ -547,7 +500,7 @@ public class RockstarIncManager  implements Serializable {
     public double getTotalValueSales(){
         return ((MusicCreator)currentUser).getTotalValueSales();
     }
-    public int totalSongGenre(RockstarIncManager.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
+    public int totalSongGenre(Genre.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
         int cont = 0;
         for (Music mc : musicList){
             if (mc.getGenre().equals(genre)){
@@ -557,4 +510,3 @@ public class RockstarIncManager  implements Serializable {
         return cont;
     }
 }
-

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Client extends User implements Serializable {
-    private double balance = 0;
+    private double balance;
     ArrayList<MusicAquisition> listOfAcquisitions;
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
     ArrayList<Music> listOfMusicsToBuy;
@@ -16,9 +16,6 @@ public class Client extends User implements Serializable {
         this.listOfBalanceDeposits = new ArrayList<>();
         this.listOfMusicsToBuy = new ArrayList<>();
     }
-    public void addMusicToMusicToBuy(Music music){
-        if(!listOfMusicsToBuy.contains(music)) listOfMusicsToBuy.add(music);
-    }
 
     public double getBalance() {
         return balance;
@@ -27,28 +24,30 @@ public class Client extends User implements Serializable {
     public ArrayList<Music> getListOfMusicsToBuy() {
         return listOfMusicsToBuy;
     }
-
+    public ArrayList<MusicAquisition> getListOfAcquisitions() {
+        return listOfAcquisitions;
+    }
     public void newCollection(String name){
         //Creation of Empty playlist
         Playlist newPlaylist = new Playlist(name, this);
         allCollections.add(newPlaylist);
-    };
+    }
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
         String genre = listOfMusic.get(0).getGenre().name();
         allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
-    };
-    public ArrayList<MusicCollection> seeAllCollection(){
-        return new ArrayList<>();
-    };
+    }
+    public void addMusicToMusicToBuy(Music music){
+        if(!listOfMusicsToBuy.contains(music)) listOfMusicsToBuy.add(music);
+    }
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
-        if(music.isActive()) musicCollection.addMusicToCollection(music);
+        if(allCollections.contains(musicCollection) && music.isActive()) musicCollection.addMusicToCollection(music);
     };
-    public void newMusicToAllCollection(Music music){
+    public void newMusicToAllMusicCollection(Music music){
         allMusic.add(music);
     }
     public void removeMusicFromCollection(Music music, MusicCollection collection){
-        collection.getMusicList().remove(music);
+        collection.removeMusicFromCollection(music);
     };
     public void removeMusicCollection(MusicCollection collection){
         allCollections.remove(collection);
@@ -57,8 +56,6 @@ public class Client extends User implements Serializable {
         balance += moneyToAdd;
         listOfBalanceDeposits.add(new BalanceDeposit(moneyToAdd));
     }
-
-    public void calculatePriceOfMusicToBuy(){}
     public boolean validationOfAquisition(ArrayList<Music> musics){
         double totalPrice = 0;
         for(Music m : musics){
@@ -71,9 +68,5 @@ public class Client extends User implements Serializable {
             return true;
         }
         return false; //Se a compra não é efetuada por falta de saldo
-    }
-
-    public ArrayList<MusicAquisition> getListOfAcquisitions() {
-        return listOfAcquisitions;
     }
 }

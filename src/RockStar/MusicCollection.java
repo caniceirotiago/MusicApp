@@ -8,19 +8,7 @@ public abstract class MusicCollection implements Serializable {
     protected String name;
     protected ArrayList<Music> musicList;
     protected LocalDateTime creationDate;
-
-    public MusicCollection() {
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public ArrayList<Music> getMusicList() {
-        return musicList;
-    }
-
+    public MusicCollection() {}
     public MusicCollection(String name) {
         this.name = name;
         this.musicList = new ArrayList<>();
@@ -32,8 +20,14 @@ public abstract class MusicCollection implements Serializable {
         this.creationDate = LocalDateTime.now();
     }
     public abstract void addMusicToCollection(Music music);
-    public abstract void removeMusicFromCollection();
+    public abstract void removeMusicFromCollection(Music music);
+    public String getName() {
+        return name;
+    }
 
+    public ArrayList<Music> getMusicList() {
+        return musicList;
+    }
     @Override
     public String toString() {
         return name;

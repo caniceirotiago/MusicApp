@@ -7,7 +7,11 @@ public class MusicEvaluation implements Serializable {
     private Client client;
     private LocalDateTime evaluationDateTime;
     private int evaluation;
-
+    public MusicEvaluation(Client client, int evaluation) {
+        this.client = client;
+        this.evaluationDateTime = LocalDateTime.now();
+        this.evaluation = evaluation;
+    }
     public int getEvaluation() {
         return evaluation;
     }
@@ -22,11 +26,5 @@ public class MusicEvaluation implements Serializable {
 
     public void setEvaluationDateTime(LocalDateTime evaluationDateTime) {
         this.evaluationDateTime = evaluationDateTime;
-    }
-
-    public MusicEvaluation(Client client, int evaluation) {
-        this.client = client;
-        this.evaluationDateTime = LocalDateTime.now();
-        this.evaluation = evaluation;
     }
 }

@@ -35,7 +35,7 @@ public class MusicCreatorGUIX extends JFrame {
     private JTextField searchTextField;
     private TextField musicNameTextField;
     private TextField priceTextField;
-    private JComboBox<RockstarIncManager.GENRE> selectedGender;
+    private JComboBox<Genre.GENRE> selectedGender;
 
     public MusicCreatorGUIX(String username, GUIManager guiManager){
         super("Music Creator - " + username);
@@ -189,7 +189,7 @@ public class MusicCreatorGUIX extends JFrame {
         newMusicLbl =  new JLabel("Name");
         musicNameTextField = new TextField(20);
 
-        RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
+        Genre.GENRE[] genres = Genre.GENRE.values();
         selectedGender = new JComboBox<>(genres);
 
         JLabel priceLbl =  new JLabel("price");
@@ -438,7 +438,7 @@ public class MusicCreatorGUIX extends JFrame {
 
         int totalAlbums = overallStatistics.get(4);
         int counter = 5;
-        for(RockstarIncManager.GENRE ge : RockstarIncManager.GENRE.values()){
+        for(Genre.GENRE ge : Genre.GENRE.values()){
             southPanel.add(new JLabel(ge +""+ overallStatistics.get(counter)));
             counter++;
         }

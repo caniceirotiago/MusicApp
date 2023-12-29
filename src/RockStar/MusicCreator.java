@@ -6,63 +6,43 @@ import java.util.ArrayList;
 public class MusicCreator extends User implements Serializable {
     private String pin;
     private double totalValueSales;
-
-    public String getPin() {
-        return pin;
-    }
-
     public MusicCreator(String name, String username, String password, String email, String pin) {
         super(name, username, password, email);
         this.pin = pin;
     }
-
+    public String getPin() {
+        return pin;
+    }
     @Override
     public void newCollection(String name) {
         //Creating an empty album
         allCollections.add(new Album(name,  this));
     }
-    public void newCollection(ArrayList<Music> listMusic) {
-
-    }
-
-    @Override
-    public ArrayList<MusicCollection> seeAllCollection() {return new ArrayList<>();}
-
-    //poderia mudar o metodo create music para retornar para este metodo um objeto tipo musica?
+    public void newCollection(ArrayList<Music> listMusic) {}
     @Override
     public void addMusicToCollection(Music music, MusicCollection album) {
-        album.addMusicToCollection(music);
-        music.setAssociatedAlbum((Album)album);
+        if(allCollections.contains(album)){
+            album.addMusicToCollection(music);
+            music.setAssociatedAlbum((Album)album);
+        }
     }
-    public void newMusicToAllCollection(Music music){
-
-    }
-    public void removeMusicFromCollection(Music music, MusicCollection collection){
-        collection.getMusicList().remove(music);
-    };
-    public void removeMusicCollection(MusicCollection collection){
-        allCollections.remove(collection);
-    };
-    public void editMusicTitle(Music music, String newName){
-        music.setName(newName);
-    };
-    public void editMusicPrice (Music music, double newPrice){
-
-        music.setPrice(newPrice);
-    }
-
-    public void addCreatedMusic(Music music){
+    public void newMusicToAllMusicCollection(Music music){
         allMusic.add(music);
     }
-    public void seeStatistics(){};
-    public void setMusicToInactive(Music music){
-        music.setActive(false);
+    public void addCreatedMusic(Music music){
+        allMusic.add(music); // apagare este metodo fase final
     }
-
+    public void removeMusicFromCollection(Music music, MusicCollection collection){
+        if(allCollections.contains(collection)){
+            collection.removeMusicFromCollection(music);
+        }
+    }
+    public void removeMusicCollection(MusicCollection collection){
+        allCollections.remove(collection);
+    }
     public void addRevenueFromMusicSale (double valueToAdd){
         totalValueSales += valueToAdd;
     }
-
     public double getTotalValueSales() {
         return totalValueSales;
     }

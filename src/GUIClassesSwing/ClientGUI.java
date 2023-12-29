@@ -707,8 +707,8 @@ public class ClientGUI extends JFrame {
             }
         } else if(userChoice == 1){
 
-            RockstarIncManager.GENRE[] genres = RockstarIncManager.GENRE.values();
-            RockstarIncManager.GENRE selectedGenre = (RockstarIncManager.GENRE) JOptionPane.showInputDialog(null,
+            Genre.GENRE[] genres = Genre.GENRE.values();
+            Genre.GENRE selectedGenre = (Genre.GENRE) JOptionPane.showInputDialog(null,
                     "Chose the genre: ","Genre", JOptionPane.QUESTION_MESSAGE,null, genres,genres[0]);
             if(selectedGenre != null){
                 String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");
@@ -845,7 +845,7 @@ public class ClientGUI extends JFrame {
                 line.add(mc.getName());
                 if(isAlbum) {
                     line.add("Album");
-                    line.add(((Album) mc).getMainCreator().getName());
+                    line.add(((Album) mc).getCreator().getName());
                 }
                 else {
                     line.add("Playlist");

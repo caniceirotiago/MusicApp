@@ -9,16 +9,13 @@ import java.util.HashMap;
 public class PriceHistory implements Serializable {
     private LocalDateTime priceChangeDate;
     private double newPrice;
-
     public PriceHistory(double newPrice, LocalDateTime priceChangeDate) {
         this.priceChangeDate = LocalDateTime.now();
         this.newPrice = newPrice;
     }
-
     public LocalDateTime getPriceChangeDate() {
         return priceChangeDate;
     }
-
     public double getNewPrice() {
         return newPrice;
     }

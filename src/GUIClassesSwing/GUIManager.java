@@ -60,7 +60,7 @@ public class GUIManager {
         }
 
     }
-    public void randomPlaylistCreationAttempt(RockstarIncManager.GENRE selectedGenre,int nMusics){
+    public void randomPlaylistCreationAttempt(Genre.GENRE selectedGenre,int nMusics){
         logicManager.newRandomPlaylist(selectedGenre,nMusics);
     }
     public void notEnoughMusicForRandom(int maxSize,boolean freeMusics){
@@ -170,13 +170,13 @@ public class GUIManager {
         currentUser.removeMusicCollection(selected);
     }
     public void newMusicToAllCollection(Music selectedMusic){
-        currentUser.newMusicToAllCollection(selectedMusic);
+        currentUser.newMusicToAllMusicCollection(selectedMusic);
     }
     public void addMusicToMusicToBuy(Music selectedMusic){
         ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
     }
-    public void newMusicAttempt(String musicNameTextField, String priceTextField, RockstarIncManager.GENRE selectedGender){
-        logicManager.newCreationOfMusic(musicNameTextField, priceTextField, selectedGender);
+    public void newMusicAttempt(String musicNameTextField, String priceTextField, Genre.GENRE selectedGender){
+        logicManager.newMusic(musicNameTextField, priceTextField, selectedGender);
     }
     public void musicAttemptError(int errorN){
         switch (errorN){
@@ -201,7 +201,7 @@ public class GUIManager {
         EditMusic editMusic = new EditMusic(this, musicCreatorFrame, selectedMusic);
         String name = editMusic.getNewName();
         String price = editMusic.getNewPrice();
-        RockstarIncManager.GENRE genre = editMusic.getSelectedGender();
+        Genre.GENRE genre = editMusic.getSelectedGender();
         int state = editMusic.getMusicState();
         logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
     }
@@ -217,7 +217,7 @@ public class GUIManager {
         overallStatistics.add((int)Math.round(logicManager.totalSalesValue()));
 
         ArrayList<Integer> albumCountByGenre = new ArrayList<>();
-        for(RockstarIncManager.GENRE ge : RockstarIncManager.GENRE.values()){
+        for(Genre.GENRE ge : Genre.GENRE.values()){
             albumCountByGenre.add(logicManager.totalAlbumsByGenre(ge));
         }
         albumCountByGenre.add(logicManager.totalAlbumsByGenre(null));

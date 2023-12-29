@@ -6,23 +6,7 @@ import java.util.ArrayList;
 public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
     private Client clientCreator;
-
-    public Playlist() {
-        super();
-    }
-
-    public Client getClientCreator() {
-        return clientCreator;
-    }
-
-    public Boolean getPublicState() {
-        return isPublic;
-    }
-
-    public void setPublicState(Boolean aPublic) {
-        isPublic = aPublic;
-    }
-
+    public Playlist() {}
     public Playlist(String name, Client clientCreator) {
         //Creation of empty playlist
         super(name);
@@ -35,13 +19,21 @@ public class Playlist extends MusicCollection implements Serializable {
         this.isPublic = true;
         this.clientCreator = clientCreator;
     }
+    public Client getClientCreator() {
+        return clientCreator;
+    }
 
+    public Boolean getPublicState() {
+        return isPublic;
+    }
 
+    public void setPublicState(Boolean aPublic) {
+        isPublic = aPublic;
+    }
     public void addMusicToCollection(Music music) {
         musicList.add(music);
     }
-
-
-    public void removeMusicFromCollection() {
+    public void removeMusicFromCollection(Music music) {
+        musicList.remove(music);
     }
 }
