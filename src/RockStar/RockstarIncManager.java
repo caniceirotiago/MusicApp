@@ -12,8 +12,8 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
     private ArrayList<User> musicCreatorList;
     private ArrayList<Music> musicList;
-    private transient User currentUser;
-    private transient boolean isCurUserMusicCreator;
+    private User currentUser;
+    private boolean isCurUserMusicCreator;
     private transient GUIManager guiManager;
 
     /**
@@ -621,13 +621,14 @@ public class RockstarIncManager  implements Serializable {
      * @param albumGenre
      * @return
      */
-    public int totalAlbumsByGenre(Genre.GENRE albumGenre){ //total albuns por genero
-    //acho que temos de incluir o genero no construtor do album
+    public int totalAlbumsByGenre(Genre.GENRE albumGenre){
         int cont = 0;
         for (User us : musicCreatorList){
             for (MusicCollection ab :  us.allCollections){
-                if (((Album)ab).getMainGenre().equals(albumGenre)){
-                    cont++;
+                if(((Album)ab).getMainGenre() != null){
+                    if (((Album)ab).getMainGenre().equals(albumGenre)){
+                        cont++;
+                    }
                 }
             }
         }
@@ -647,22 +648,10 @@ public class RockstarIncManager  implements Serializable {
         }
         return totalValue;
     }
-    public double getTotalValueSales(){
+    public double salesCurrentUser(){
         return ((MusicCreator)currentUser).getTotalValueSales();
     }
-
-    /**
-     *
-     * @param genre
-     * @return
-     */
-    public int totalSongGenre(Genre.GENRE genre){ //este pode ser adicional já que nao é exigido no problema
-        int cont = 0;
-        for (Music mc : musicList){
-            if (mc.getGenre().equals(genre)){
-                cont++;
-            }
-        }
-        return cont;
+    public int currentUserTotalMusicCreated(){
+        return currentUser.getAllMusic().size();
     }
 }
