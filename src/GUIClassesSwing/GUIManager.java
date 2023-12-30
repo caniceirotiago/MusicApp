@@ -8,8 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import static src.RockStar.SaveFileManager.updateDataFile;
-
-
 /**
  *
  */
@@ -157,7 +155,6 @@ public class GUIManager  {
     public void logoutClient() throws IOException, ClassNotFoundException {
         clientFrame.dispose();
         currentUser = null;
-        updateDataFile();
         run();
     }
 
@@ -169,7 +166,6 @@ public class GUIManager  {
     public void logoutMCreator()throws IOException, ClassNotFoundException{
         musicCreatorFrame.dispose();
         currentUser = null;
-        updateDataFile();
         run();
 
     }

@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SaveFileManager {
-    private static String FILE_NAME = "mainSaveFile";
+    private static final String FILE_NAME = "mainSaveFile";
     private static RockstarIncManager gc;
     public static void run() throws IOException, ClassNotFoundException {
 
@@ -30,9 +30,10 @@ public class SaveFileManager {
         }catch (FileNotFoundException e){
             gc= new RockstarIncManager();
             updateDataFile();
-            System.out.println("created file");
+            System.out.println("Created file");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("Load error");
         }
     }
 
