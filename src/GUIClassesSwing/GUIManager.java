@@ -420,6 +420,8 @@ public class GUIManager {
         overallStatistics.add(logicManager.totalSongs());
         overallStatistics.add((int)Math.round(logicManager.musicTotalPriceValue()));
         overallStatistics.add((int)Math.round(logicManager.totalSalesValue()));
+        overallStatistics.add((int)logicManager.salesCurrentUser());
+        overallStatistics.add(logicManager.currentUserTotalMusicCreated());
 
         ArrayList<Integer> albumCountByGenre = new ArrayList<>();
         for(Genre.GENRE ge : Genre.GENRE.values()){
