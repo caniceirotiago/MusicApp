@@ -9,7 +9,6 @@ import java.util.ArrayList;
  *
  */
 public class RockstarIncManager  implements Serializable {
-
     private ArrayList<User> clientList;
     private ArrayList<User> musicCreatorList;
     private ArrayList<Music> musicList;

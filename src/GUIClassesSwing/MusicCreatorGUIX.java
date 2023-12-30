@@ -434,29 +434,30 @@ public class MusicCreatorGUIX extends JFrame {
 
 
         JPanel southPanel = new JPanel();
-        southPanel.setLayout(new BoxLayout(southPanel,BoxLayout.X_AXIS));
         southPanel.setPreferredSize(new Dimension(0, 175));
 
         ArrayList<Integer> overallStatistics = guiManager.getStatistics();
 
-        JLabel totalUsers = new JLabel("Total users " + overallStatistics.get(0));
-        JLabel totalSongs = new JLabel("Total musics " + overallStatistics.get(1));
-        JLabel totalPriceValue = new JLabel("Total Music Value " + overallStatistics.get(2));
-        JLabel totalSales = new JLabel("Total Sales " + overallStatistics.get(3));
-        southPanel.add(totalUsers);
-        southPanel.add(totalSongs);
-        southPanel.add(totalPriceValue);
-        southPanel.add(totalSales);
+        JLabel totalUsers = new JLabel("<html>Total Users<br><p style='text-align:center;'>" + overallStatistics.get(0) + "</p></html>");
+        JLabel totalSongs = new JLabel("<html>Total Musics<br><p style='text-align:center;'>" + overallStatistics.get(1) + "</p></html>");
+        JLabel totalPriceValue = new JLabel("<html>Total Music Value<br><p style='text-align:center;'>" + overallStatistics.get(2) + "€</p></html>");
+        JLabel totalSales = new JLabel( "<html>Total Sales<br><p style='text-align:center;'>" + overallStatistics.get(3) + "€</p></html>");
+        JPanel firstStatsPanel = new JPanel(new FlowLayout());
 
+        firstStatsPanel.add(totalUsers);
+        firstStatsPanel.add(totalSongs);
+        firstStatsPanel.add(totalPriceValue);
+        firstStatsPanel.add(totalSales);
+
+        JPanel secondStatsPanel = new JPanel(new FlowLayout());
         int totalAlbums = overallStatistics.get(4);
         int counter = 5;
         for(Genre.GENRE ge : Genre.GENRE.values()){
-            southPanel.add(new JLabel(ge +""+ overallStatistics.get(counter)));
+            secondStatsPanel.add(new JLabel("<html>"+ ge +"<br><p style='text-align:center;'>" + overallStatistics.get(counter) + "</p></html>"));
             counter++;
         }
 
-
-
+        southPanel.add(secondStatsPanel);
 
 
 

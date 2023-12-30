@@ -88,7 +88,6 @@ public class GUIManager {
                 break;
             case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
                 break;
-                //switches de validacao
             case 3: JOptionPane.showMessageDialog(null,"That email is not valid");
                 break;
             case 4: JOptionPane.showMessageDialog(null, "The username have size requirements (MIN:3 MAX 20) special characters allowed");
