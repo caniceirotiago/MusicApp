@@ -4,14 +4,16 @@ import src.RockStar.*;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import static src.RockStar.Main.updateDataFile;
+import static src.RockStar.SaveFileManager.updateDataFile;
+
 
 /**
  *
  */
-public class GUIManager {
+public class GUIManager  {
     private ClientGUI clientFrame;
     private MusicCreatorGUIX musicCreatorFrame;
     private LoginRegistrationGUI loginRegistrationGUI;

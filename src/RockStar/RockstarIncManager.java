@@ -12,8 +12,8 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
     private ArrayList<User> musicCreatorList;
     private ArrayList<Music> musicList;
-    private transient User currentUser;
-    private transient boolean isCurUserMusicCreator;
+    private User currentUser;
+    private boolean isCurUserMusicCreator;
     private transient GUIManager guiManager;
 
     /**
@@ -651,8 +651,6 @@ public class RockstarIncManager  implements Serializable {
     public double salesCurrentUser(){
         return ((MusicCreator)currentUser).getTotalValueSales();
     }
-
-
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
     }
