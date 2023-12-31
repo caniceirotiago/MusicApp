@@ -29,6 +29,7 @@ public class RockstarIncManager  implements Serializable {
      *
      */
     public void run(){
+        /*
         //Criei um client só para experimentar Login.. depois é para apagar
         Client tiago = new Client("as","as","as","as",180);
         clientList.add(tiago);
@@ -79,6 +80,8 @@ public class RockstarIncManager  implements Serializable {
         musicList.add(new Music("Twilight Harmony", Genre.GENRE.POP, pedro, 2));
         musicList.add(new Music("Starlit Journey", Genre.GENRE.POP, pedro, 1));
         musicList.add(new Music("Dreams of Tomorrow", Genre.GENRE.POP, pedro, 5));
+
+         */
 
 
         startGUI();

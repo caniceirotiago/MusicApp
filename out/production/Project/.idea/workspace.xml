@@ -4,22 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ea9c6cd-9e0b-42b8-9018-c54b39ef74c2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="Quaseacabado">
+      <change beforePath="$PROJECT_DIR$/src/RockStar/SaveFileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/SaveFileManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,28 +18,21 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 1
+  &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2ZiVLkRLbzxXsaqVzub4p8Ost8s" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2aDwzSNbadkA9JBU32ooMzyBRek" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/canic/Desktop/09, 09.41​.aac&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -56,290 +40,41 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="src.GUIClassesSwing" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.RockStar.Main" />
-      <module name="Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="src.RockStar.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1ea9c6cd-9e0b-42b8-9018-c54b39ef74c2" name="Changes" comment="" />
-      <created>1702904835592</created>
+      <changelist id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="" />
+      <created>1703866722835</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1702904835592</updated>
-      <workItem from="1702904836900" duration="12406000" />
-      <workItem from="1702980393651" duration="10113000" />
-      <workItem from="1702998723496" duration="12708000" />
-      <workItem from="1703081995658" duration="33057000" />
-      <workItem from="1703152456752" duration="594000" />
-      <workItem from="1703587201883" duration="15871000" />
-      <workItem from="1703615057392" duration="1750000" />
-      <workItem from="1703620301143" duration="13277000" />
-      <workItem from="1703635901060" duration="78000" />
-      <workItem from="1703635988218" duration="299000" />
-      <workItem from="1703795358185" duration="19703000" />
-      <workItem from="1703846032959" duration="709000" />
-      <workItem from="1703851137089" duration="901000" />
-      <workItem from="1703933605321" duration="61000" />
+      <updated>1703866722835</updated>
+      <workItem from="1703866724810" duration="1531000" />
+      <workItem from="1703872755479" duration="6118000" />
     </task>
-    <task id="LOCAL-00001" summary="Client frame almost done">
+    <task id="LOCAL-00001" summary="Quaseacabado">
       <option name="closed" value="true" />
-      <created>1702913166767</created>
+      <created>1703933736797</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1702913166767</updated>
+      <updated>1703933736797</updated>
     </task>
-    <task id="LOCAL-00002" summary="Client frame almost done">
+    <task id="LOCAL-00002" summary="Quaseacabado">
       <option name="closed" value="true" />
-      <created>1702914869931</created>
+      <created>1703969822730</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1702914869931</updated>
+      <updated>1703969822730</updated>
     </task>
-    <task id="LOCAL-00003" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703002902949</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1703002902949</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703010581854</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1703010581854</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703011320925</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1703011320925</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703086088343</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1703086088343</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703090567675</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1703090567675</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703095667973</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1703095667973</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703097527259</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1703097527259</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703102099279</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1703102099279</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703115418573</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1703115418573</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703115708126</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1703115708126</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703115905438</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1703115905438</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703116050242</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1703116050242</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703117121518</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1703117121518</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703601208476</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1703601208476</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703603366200</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1703603366200</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703603428203</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1703603428203</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703603940458</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1703603940458</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703623961022</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1703623961022</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703625578855</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1703625578855</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703632404429</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1703632404429</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703634157812</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1703634157812</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703634303458</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1703634303458</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703636209070</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1703636209070</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703814813473</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1703814813473</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Client frame almost done">
-      <option name="closed" value="true" />
-      <created>1703846625189</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1703846625189</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Client frame almost done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Client frame almost done" />
+    <MESSAGE value="Quaseacabado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Quaseacabado" />
   </component>
 </project>
