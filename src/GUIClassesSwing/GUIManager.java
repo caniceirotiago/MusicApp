@@ -4,14 +4,14 @@ import src.RockStar.*;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import static src.RockStar.Main.updateDataFile;
-
+import static src.RockStar.SaveFileManager.updateDataFile;
 /**
  *
  */
-public class GUIManager {
+public class GUIManager  {
     private ClientGUI clientFrame;
     private MusicCreatorGUIX musicCreatorFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
@@ -88,7 +88,6 @@ public class GUIManager {
                 break;
             case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
                 break;
-                //switches de validacao
             case 3: JOptionPane.showMessageDialog(null,"That email is not valid");
                 break;
             case 4: JOptionPane.showMessageDialog(null, "The username have size requirements (MIN:3 MAX 20) special characters allowed");
@@ -156,7 +155,6 @@ public class GUIManager {
     public void logoutClient() throws IOException, ClassNotFoundException {
         clientFrame.dispose();
         currentUser = null;
-        updateDataFile();
         run();
     }
 
@@ -168,7 +166,6 @@ public class GUIManager {
     public void logoutMCreator()throws IOException, ClassNotFoundException{
         musicCreatorFrame.dispose();
         currentUser = null;
-        updateDataFile();
         run();
 
     }
@@ -421,6 +418,8 @@ public class GUIManager {
         overallStatistics.add(logicManager.totalSongs());
         overallStatistics.add((int)Math.round(logicManager.musicTotalPriceValue()));
         overallStatistics.add((int)Math.round(logicManager.totalSalesValue()));
+        overallStatistics.add((int)logicManager.salesCurrentUser());
+        overallStatistics.add(logicManager.currentUserTotalMusicCreated());
 
         ArrayList<Integer> albumCountByGenre = new ArrayList<>();
         for(Genre.GENRE ge : Genre.GENRE.values()){

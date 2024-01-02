@@ -28,12 +28,14 @@ public class MusicCreatorGUIX extends JFrame {
     private MusicCollection selectedAlbum;
     private JTable centralTable;
     private JTable searchMusicTable;
+    private JPanel southGrapgStatsPanel;
     private JList<MusicCollection> albumListWest;
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
     private MusicCollection currentUserCollection;
     private JLabel newMusicLbl;
     private CardLayout centralCardLayout;
+    private CardLayout statsCardLayout;
     private Search search;
     private JTextField searchTextField;
     private TextField musicNameTextField;
@@ -57,7 +59,7 @@ public class MusicCreatorGUIX extends JFrame {
         setVisible(true);
         ImageIcon imageIcon = new ImageIcon(ImagePaths.APP_ICON);
         setIconImage(imageIcon.getImage());
-        setMinimumSize(new Dimension(1200, 700));
+        setMinimumSize(new Dimension(1300, 800));
     }
 
     /**
@@ -433,30 +435,68 @@ public class MusicCreatorGUIX extends JFrame {
         //-----------------------------------------------SOUTH PANEL---------------------------------------------------
 
 
-        JPanel southPanel = new JPanel();
-        southPanel.setLayout(new BoxLayout(southPanel,BoxLayout.X_AXIS));
-        southPanel.setPreferredSize(new Dimension(0, 175));
-
         ArrayList<Integer> overallStatistics = guiManager.getStatistics();
 
-        JLabel totalUsers = new JLabel("Total users " + overallStatistics.get(0));
-        JLabel totalSongs = new JLabel("Total musics " + overallStatistics.get(1));
-        JLabel totalPriceValue = new JLabel("Total Music Value " + overallStatistics.get(2));
-        JLabel totalSales = new JLabel("Total Sales " + overallStatistics.get(3));
-        southPanel.add(totalUsers);
-        southPanel.add(totalSongs);
-        southPanel.add(totalPriceValue);
-        southPanel.add(totalSales);
+        JLabel totalUsers = new JLabel("<html>Total Users<br><p style='text-align:center;'>" +
+                overallStatistics.get(0) + "</p></html>");
+        JLabel totalSongs = new JLabel("<html>Total Musics<br><p style='text-align:center;'>" +
+                overallStatistics.get(1) + "</p></html>");
+        JLabel totalPriceValue = new JLabel("<html>Total Music Value<br><p style='text-align:center;'>" +
+                overallStatistics.get(2) + "€</p></html>");
+        JLabel totalSales = new JLabel( "<html>Total Sales<br><p style='text-align:center;'>" +
+                overallStatistics.get(3) + "€</p></html>");
+        JLabel individualSales = new JLabel( "<html>Individual Sales<br><p style='text-align:center;'>" +
+                overallStatistics.get(4) + "€</p></html>");
+        JLabel individualMusicCreated = new JLabel( "<html>Music Created<br><p style='text-align:center;'>" +
+                overallStatistics.get(5) + "</p></html>");
+        JPanel firstStatsPanel = new JPanel(new FlowLayout());
 
-        int totalAlbums = overallStatistics.get(4);
-        int counter = 5;
+        firstStatsPanel.add(new JLabel("Global Statistics"));
+        firstStatsPanel.add(totalUsers);
+        firstStatsPanel.add(totalSongs);
+        firstStatsPanel.add(totalPriceValue);
+        firstStatsPanel.add(totalSales);
+        firstStatsPanel.add(new JLabel("Individual Statistics"));
+        firstStatsPanel.add(individualSales);
+        firstStatsPanel.add(individualMusicCreated);
+
+        JPanel graphicStatsPanel = new JPanel();
+        int totalAlbums = overallStatistics.get(6);
+        int counter = 7;
+
         for(Genre.GENRE ge : Genre.GENRE.values()){
-            southPanel.add(new JLabel(ge +""+ overallStatistics.get(counter)));
+            int genreValue = overallStatistics.get(counter);
+            JLabel labelGenre = new JLabel("<html>"+ ge +"<br><p style='text-align:center;'>" +
+                    genreValue + "</p></html>");
+            retangleBarCart bar = new retangleBarCart(genreValue,totalAlbums);
+            JPanel genrePanel = new JPanel(new BorderLayout());
+            genrePanel.add(labelGenre, BorderLayout.NORTH);
+            genrePanel.add(bar, BorderLayout.CENTER);
+            graphicStatsPanel.add(genrePanel);
             counter++;
         }
+        JPanel secondStatsPanel = new JPanel(new BorderLayout());
+        secondStatsPanel.add(graphicStatsPanel, BorderLayout.CENTER);
+        secondStatsPanel.add(new JLabel("Global Statistics - Albums by Genre"), BorderLayout.SOUTH);
 
+        statsCardLayout = new CardLayout();
+        southGrapgStatsPanel = new JPanel(statsCardLayout);
+        southGrapgStatsPanel.add(firstStatsPanel,"1");
+        southGrapgStatsPanel.add(secondStatsPanel,"2");
+        statsCardLayout.show(southGrapgStatsPanel,"1");
 
+        JButton swithcStatsBtn1 = new JButton("Global and individual statistics");
+        JButton swithcStatsBtn2 = new JButton("Albums by genre statistics");
+        swithcStatsBtn1.addActionListener(e -> onSwithcStatsBtnClick1());
+        swithcStatsBtn2.addActionListener(e -> onSwithcStatsBtnClick2());
+        JPanel btnPanel = new JPanel();
+        btnPanel.add(swithcStatsBtn1);
+        btnPanel.add(swithcStatsBtn2);
 
+        JPanel southPanel = new JPanel();
+        southPanel.setPreferredSize(new Dimension(0, 175));
+        southPanel.add(southGrapgStatsPanel,BorderLayout.CENTER);
+        southPanel.add(btnPanel,BorderLayout.SOUTH);
 
 
 
@@ -722,5 +762,11 @@ public class MusicCreatorGUIX extends JFrame {
                 searchMusicTableModel.addRow(line);
             }
         }
+    }
+    public void onSwithcStatsBtnClick1(){
+        statsCardLayout.show(southGrapgStatsPanel,"1");
+    }
+    public void onSwithcStatsBtnClick2(){
+        statsCardLayout.show(southGrapgStatsPanel,"2");
     }
 }
