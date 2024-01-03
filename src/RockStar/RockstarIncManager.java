@@ -591,7 +591,10 @@ public class RockstarIncManager  implements Serializable {
         }catch (NumberFormatException e){
             guiManager.musicAttemptError(0);
         }
-        if (price > 50 || price < 0) guiManager.musicAttemptError(2);
+        if (price > 50 || price < 0) {
+            guiManager.musicAttemptError(2);
+            price = -1;
+        }
         return price;
     }
 
@@ -610,7 +613,7 @@ public class RockstarIncManager  implements Serializable {
         return currentUser.getAllCollections();
     }
     public double getCurrentUserBalance(){
-        return ((Client)currentUser).getBalance();
+        return (double) Math.round(((Client) currentUser).getBalance() * 100) /100;
     }
     public Playlist getClientAllMusicAsCollection(){
         return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
@@ -710,26 +713,26 @@ public class RockstarIncManager  implements Serializable {
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
     }
-    public ArrayList<Integer> getStatistics(){
-        ArrayList<Integer> overallStatistics =  new ArrayList<>();
-        overallStatistics.add(totalUsers());
-        overallStatistics.add(totalSongs());
-        overallStatistics.add((int)Math.round(musicTotalPriceValue()));
-        overallStatistics.add((int)Math.round(totalSalesValue()));
-        overallStatistics.add((int)salesCurrentUser());
-        overallStatistics.add(currentUserTotalMusicCreated());
+    public ArrayList<Double> getStatistics(){
+        ArrayList<Double> overallStatistics =  new ArrayList<>();
+        overallStatistics.add((double)totalUsers());
+        overallStatistics.add((double)totalSongs());
+        overallStatistics.add(musicTotalPriceValue());
+        overallStatistics.add(totalSalesValue());
+        overallStatistics.add(salesCurrentUser());
+        overallStatistics.add((double)currentUserTotalMusicCreated());
 
-        ArrayList<Integer> albumCountByGenre = new ArrayList<>();
+        ArrayList<Double> albumCountByGenre = new ArrayList<>();
         for(Genre.GENRE ge : Genre.GENRE.values()){
-            albumCountByGenre.add(totalAlbumsByGenre(ge));
+            albumCountByGenre.add((double) totalAlbumsByGenre(ge));
         }
-        albumCountByGenre.add(totalAlbumsByGenre(null));
+        albumCountByGenre.add((double)totalAlbumsByGenre(null));
 
         int totalAlbuns = 0;
-        for(Integer i: albumCountByGenre){
+        for(Double i: albumCountByGenre){
             totalAlbuns += i;
         }
-        overallStatistics.add(totalAlbuns);
+        overallStatistics.add((double)totalAlbuns);
         overallStatistics.addAll(albumCountByGenre);
         return overallStatistics;
     }

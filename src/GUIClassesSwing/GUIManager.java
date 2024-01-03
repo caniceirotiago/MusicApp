@@ -377,6 +377,7 @@ public class GUIManager  {
     public void newMusicCreated(){
         JOptionPane.showMessageDialog(null,"New Music Created");
         musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
+        musicCreatorFrame.updateFirstStatsPanel(getStatistics());
     }
 
     /**
@@ -403,7 +404,7 @@ public class GUIManager  {
      *
      * @return
      */
-    public ArrayList<Integer> getStatistics(){
+    public ArrayList<Double> getStatistics(){
         return logicManager.getStatistics();
     }
 }
