@@ -4,10 +4,8 @@ import src.RockStar.*;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import static src.RockStar.SaveFileManager.updateDataFile;
 /**
  *
  */
@@ -18,7 +16,6 @@ public class GUIManager  {
     private LogRegFrame loginFrame;
     private LogRegFrame registrationFrame;
     private final RockstarIncManager logicManager;
-    private User currentUser;
 
     /**
      *
@@ -108,7 +105,7 @@ public class GUIManager  {
      * @param nMusics
      */
     public void randomPlaylistCreationAttempt(Genre.GENRE selectedGenre,int nMusics){
-        logicManager.newRandomPlaylist(selectedGenre,nMusics);
+        logicManager.newRandomPlaylistAttempt(selectedGenre,nMusics);
     }
 
     /**
@@ -154,7 +151,7 @@ public class GUIManager  {
      */
     public void logoutClient() throws IOException, ClassNotFoundException {
         clientFrame.dispose();
-        currentUser = null;
+        logicManager.logout();
         run();
     }
 
@@ -165,25 +162,23 @@ public class GUIManager  {
      */
     public void logoutMCreator()throws IOException, ClassNotFoundException{
         musicCreatorFrame.dispose();
-        currentUser = null;
+        logicManager.logout();
         run();
-
     }
 
     /**
      *
-     * @param currentUser
+     * @param username
      * @param isMCreator
      */
-    public void sucessfullLogin(User currentUser, boolean isMCreator){
-        this.currentUser = currentUser;
+    public void sucessfullLogin(String username, boolean isMCreator){
         if(isMCreator){
-            musicCreatorFrame = new MusicCreatorGUIX(currentUser.getUsername(), this);
+            musicCreatorFrame = new MusicCreatorGUIX(username, this);
             loginRegistrationGUI.setVisible(false);
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
         } else {
-            clientFrame = new ClientGUI(currentUser.getUsername(),this);
+            clientFrame = new ClientGUI(username,this);
             loginRegistrationGUI.setVisible(false);
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
@@ -197,7 +192,7 @@ public class GUIManager  {
      * @param canBuy
      * @return
      */
-    public int randomPlaylistPaidSongsChoose(ArrayList<Music> notFreeMusicSelection, double totalPrice,boolean canBuy) {
+    public int randomPlaylistToPaySongsChoose(ArrayList<Music> notFreeMusicSelection, double totalPrice, boolean canBuy) {
         RandonPlaylistPay rpp = new RandonPlaylistPay(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
         int userOption = rpp.getReturnValue();
         System.out.println(userOption);
@@ -209,12 +204,10 @@ public class GUIManager  {
      */
     public void randomPLSuccssefullyCreated(){ //erro
         JOptionPane.showMessageDialog(null,"Random playlist created");
-        clientFrame.updateMusicJTableModel(currentUser.getAllMusic());
+        clientFrame.updateMusicJTableModel(logicManager.getCurrentUserALlMusic());
         clientFrame.updateBasketJListModel();
         clientFrame.updateBalance();
         clientFrame.updateTotalBascketPrice();
-        //clientFrame.revalidate();
-        //clientFrame.repaint();
     }
 
     /**
@@ -231,7 +224,7 @@ public class GUIManager  {
      * @return
      */
     public ArrayList<MusicCollection> getUserAllCollection(){
-        return currentUser.getAllCollections();
+        return logicManager.getCurretUserAllCollections();
     }
 
     /**
@@ -239,7 +232,7 @@ public class GUIManager  {
      * @return
      */
     public double getUserBalance(){
-        return ((Client)currentUser).getBalance();
+        return logicManager.getCurrentUserBalance();
     }
 
     /**
@@ -247,7 +240,7 @@ public class GUIManager  {
      * @return
      */
     public ArrayList<Music> getUserAllMusic(){
-        return currentUser.getAllMusic();
+        return logicManager.getCurrentUserALlMusic();
     }
 
     /**
@@ -255,7 +248,7 @@ public class GUIManager  {
      * @return
      */
     public Playlist getCorrentUserMainCollectionClient(){
-        return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+        return logicManager.getClientAllMusicAsCollection();
     }
 
     /**
@@ -263,7 +256,7 @@ public class GUIManager  {
      * @return
      */
     public Album getCorrentUserMainCollectionMusicCreator(){
-        return new Album("Created Music",(MusicCreator) currentUser,currentUser.getAllMusic());
+        return logicManager.getMusicCreatorAllMusicAsCollection();
     }
 
     /**
@@ -271,7 +264,7 @@ public class GUIManager  {
      * @return
      */
     public ArrayList<Music> getListOfMusicsToBuy(){
-        return ((Client)currentUser).getListOfMusicsToBuy();
+        return logicManager.getUserBasketList();
     }
 
     /**
@@ -280,7 +273,7 @@ public class GUIManager  {
      * @param selectedPlaylist
      */
     public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
-        currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
+        logicManager.removeMusicFromCollection(selectedMusic,selectedPlaylist);
     }
 
     /**
@@ -289,7 +282,7 @@ public class GUIManager  {
      * @param cl
      */
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
-        currentUser.addMusicToCollection(selectedMusic,cl);
+        logicManager.addMusicToCollection(selectedMusic,cl);
     }
 
     /**
@@ -298,7 +291,7 @@ public class GUIManager  {
      * @param selectedMusic
      */
     public void evaluateMusic(int evaluation, Music selectedMusic){
-        selectedMusic.addEvaluation((Client)currentUser, evaluation);
+        logicManager.evaluateMusic(evaluation, selectedMusic);
     }
 
     /**
@@ -306,15 +299,14 @@ public class GUIManager  {
      * @param playlistName
      */
     public void newCollection(String playlistName){
-        currentUser.newCollection(playlistName);
+       logicManager.newCollection(playlistName);
     }
 
     /**
      *
      */
     public void validationOfAquisition(){
-        ((Client)currentUser).validationOfAquisition(getListOfMusicsToBuy());
-        ((Client)currentUser).getListOfMusicsToBuy().clear();
+        logicManager.validationOfAquisition();
     }
 
     /**
@@ -322,7 +314,7 @@ public class GUIManager  {
      * @param money
      */
     public void addMoney(double money){
-        ((Client)currentUser).addMoney(money);
+        logicManager.addMoney(money);
     }
 
     /**
@@ -330,7 +322,7 @@ public class GUIManager  {
      * @param selected
      */
     public void removeMusicCollection(MusicCollection selected){
-        currentUser.removeMusicCollection(selected);
+        logicManager.removeMusicCollection(selected);
     }
 
     /**
@@ -338,7 +330,7 @@ public class GUIManager  {
      * @param selectedMusic
      */
     public void newMusicToAllCollection(Music selectedMusic){
-        currentUser.newMusicToAllMusicCollection(selectedMusic);
+        logicManager.newMusicToAllCollection(selectedMusic);
     }
 
     /**
@@ -346,7 +338,7 @@ public class GUIManager  {
      * @param selectedMusic
      */
     public void addMusicToMusicToBuy(Music selectedMusic){
-        ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+        logicManager.addMusicToMusicToBuy(selectedMusic);
     }
 
     /**
@@ -412,27 +404,6 @@ public class GUIManager  {
      * @return
      */
     public ArrayList<Integer> getStatistics(){
-        ArrayList<Integer> overallStatistics =  new ArrayList<>();
-
-        overallStatistics.add(logicManager.totalUsers());
-        overallStatistics.add(logicManager.totalSongs());
-        overallStatistics.add((int)Math.round(logicManager.musicTotalPriceValue()));
-        overallStatistics.add((int)Math.round(logicManager.totalSalesValue()));
-        overallStatistics.add((int)logicManager.salesCurrentUser());
-        overallStatistics.add(logicManager.currentUserTotalMusicCreated());
-
-        ArrayList<Integer> albumCountByGenre = new ArrayList<>();
-        for(Genre.GENRE ge : Genre.GENRE.values()){
-            albumCountByGenre.add(logicManager.totalAlbumsByGenre(ge));
-        }
-        albumCountByGenre.add(logicManager.totalAlbumsByGenre(null));
-
-        int totalAlbuns = 0;
-        for(Integer i: albumCountByGenre){
-            totalAlbuns += i;
-        }
-        overallStatistics.add(totalAlbuns);
-        overallStatistics.addAll(albumCountByGenre);
-        return overallStatistics;
+        return logicManager.getStatistics();
     }
 }

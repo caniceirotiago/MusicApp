@@ -31,7 +31,7 @@ public class SaveFileManager {
             System.out.println("loaded file");
         }catch (FileNotFoundException e){
             gc= new RockstarIncManager();
-            updateDataFile();
+             updateDataFile();
             System.out.println("Created file");
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
