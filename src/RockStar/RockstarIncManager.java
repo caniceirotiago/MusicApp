@@ -622,6 +622,7 @@ public class RockstarIncManager  implements Serializable {
         return ((Client)currentUser).getListOfMusicsToBuy();
     }
     public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
+        selectedMusic.setAssociatedAlbum(null);
         currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
     }
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
@@ -732,5 +733,4 @@ public class RockstarIncManager  implements Serializable {
         overallStatistics.addAll(albumCountByGenre);
         return overallStatistics;
     }
-
 }

@@ -78,6 +78,9 @@ public class MusicCreator extends User implements Serializable {
      * @param collection
      */
     public void removeMusicCollection(MusicCollection collection){
+        for(Music m : collection.getMusicList()){
+            m.setAssociatedAlbum(null);
+        }
         allCollections.remove(collection);
     }
 

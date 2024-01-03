@@ -583,7 +583,7 @@ public class ClientGUI extends JFrame {
             line.add(ms.getName());
             line.add(ms.getArtistNameFromMusic());
             String albumName;
-            if(ms.getAssociatedAlbum() == null) albumName = "";
+            if(ms.getAssociatedAlbum() == null) albumName = "Single";
             else albumName = ms.getAssociatedAlbum().getName();
             line.add(albumName);
             line.add(ms.getClassification());
@@ -887,7 +887,7 @@ public class ClientGUI extends JFrame {
                 line.add(ms.getName());
                 line.add(ms.getArtistNameFromMusic());
                 String albumName;
-                if(ms.getAssociatedAlbum() == null) albumName = "";
+                if(ms.getAssociatedAlbum() == null) albumName = "Single";
                 else albumName = ms.getAssociatedAlbum().getName();
                 line.add(albumName);
                 line.add(ms.getClassification());

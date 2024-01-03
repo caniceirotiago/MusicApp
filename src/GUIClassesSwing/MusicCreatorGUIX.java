@@ -526,7 +526,7 @@ public class MusicCreatorGUIX extends JFrame {
             line.add(ms.getName());
             line.add(ms.getArtistNameFromMusic());
             String albumName;
-            if(ms.getAssociatedAlbum() == null) albumName = "";
+            if(ms.getAssociatedAlbum() == null) albumName = "Single";
             else albumName = ms.getAssociatedAlbum().getName();
             line.add(albumName);
             line.add(ms.getClassification());
@@ -610,7 +610,6 @@ public class MusicCreatorGUIX extends JFrame {
         Music selectedMusic = getSelectedMusicOnCentralTable();
         if(selectedMusic!= null){
             guiManager.removeMusicFromCollection(selectedMusic, selectedAlbum);
-            selectedMusic.setAssociatedAlbum(null);
             updateMusicJTableModel(selectedAlbum.getMusicList());
             centerPanel.revalidate();
             centerPanel.repaint();
@@ -719,6 +718,7 @@ public class MusicCreatorGUIX extends JFrame {
             if(confirmation == 0){
                 guiManager.removeMusicCollection(selected);
                 updateMusicJListModel();
+                updateMusicJTableModel(currentUserCollection.getMusicList());
                 westPanel.revalidate();
                 westPanel.repaint();
                 System.out.println("Album deleted");
@@ -749,7 +749,7 @@ public class MusicCreatorGUIX extends JFrame {
                 line.add(ms.getName());
                 line.add(ms.getArtistNameFromMusic());
                 String albumName;
-                if(ms.getAssociatedAlbum() == null) albumName = "";
+                if(ms.getAssociatedAlbum() == null) albumName = "Single";
                 else albumName = ms.getAssociatedAlbum().getName();
                 line.add(albumName);
                 line.add(ms.getClassification());
