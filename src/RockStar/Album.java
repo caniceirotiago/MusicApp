@@ -1,6 +1,6 @@
 /**
  * Descrição geral da classe e suas finalidades
- * <p>
+ * isto guarda-se no main
  * @autor Tiago Caniceiro && Pedro Monteiro
  * versão 1.0
  */
@@ -11,33 +11,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>
- *      Nome da classe
- * </p>
- * <p>
- *     Implementa serializable para poder ser guargado num ficheiro de objetos
- * </p>
- *
+ *Implementa serializable para poder ser guardado num ficheiro de objetos
  */
 public class Album extends MusicCollection implements Serializable {
-
-    /**
-     * O criador de musica
-     * */
     private MusicCreator mainCreator;
-
-    /**
-     * O genero que se associa ao album
-     * */
     private Genre.GENRE mainGenre;
-
-    /**
-     * Construtor vazio da classe
-     * */
     public Album(){}
 
     /**
-     *
+     *Construtor classe
      * @param name
      * @param mainCreator
      */
@@ -48,7 +30,7 @@ public class Album extends MusicCollection implements Serializable {
     }
 
     /**
-     *
+     *Construtor classe
      * @param name
      * @param musicCreator
      * @param musicList
@@ -65,29 +47,23 @@ public class Album extends MusicCollection implements Serializable {
         return mainGenre;
     }
 
-    /**
-     *
-     * @param music
-     */
     public void addMusicToCollection(Music music) {
         musicList.add(music);
         calculateMainGenre();
     }
-
-    /**
-     *
-     * @param music
-     */
     public void removeMusicFromCollection(Music music) {
         musicList.remove(music);
         calculateMainGenre();
     }
 
     /**
-     *
+     *Método para calcular o genero principal no album
      */
     public void calculateMainGenre(){
+        //primeiro passo é associar o género das musicas encontradas no album a um valor int atraves de um hashmap
         HashMap <Genre.GENRE, Integer> genreFrequency = new HashMap<>();
+        //para cada musica encontrada na lista da musica
+        //
         for (Music mc : musicList){
             genreFrequency.put(mc.getGenre(), genreFrequency.getOrDefault(mc.getGenre(),0)+1);
         }

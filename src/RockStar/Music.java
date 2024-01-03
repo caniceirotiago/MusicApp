@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe que permite a criação de objetos do tipo musica
  */
 public class Music implements Serializable {
     private String name;
@@ -19,7 +19,7 @@ public class Music implements Serializable {
     private Album associatedAlbum;
 
     /**
-     *
+     *Construtor para o objeto musica
      * @param name
      * @param genre
      * @param musicCreator
@@ -35,35 +35,20 @@ public class Music implements Serializable {
         this.priceHistory = new ArrayList<>();
         this.priceHistory.add(new PriceHistory(price,LocalDateTime.now()));
     }
-
-    /**
-     *
-     * @return
-     */
     public ArrayList<PriceHistory> getPriceHistory() {
         return priceHistory;
     }
 
     /**
-     *
+     *método para associar um album de um criador de musica a um objeto do tipo musica
      * @param associatedAlbum
      */
     public void setAssociatedAlbum(Album associatedAlbum) {
         this.associatedAlbum = associatedAlbum;
     }
-
-    /**
-     *
-     * @return
-     */
     public double getClassification() {
         return classification;
     }
-
-    /**
-     *
-     * @return
-     */
     public Album getAssociatedAlbum() {
         return associatedAlbum;
     }
@@ -85,7 +70,7 @@ public class Music implements Serializable {
     }
 
     /**
-     *
+     *metodo para verificar se a musica está activa para os clientes, por parte do criador
      * @return
      */
     public boolean isActive() {
@@ -93,17 +78,12 @@ public class Music implements Serializable {
     }
 
     /**
-     *
+     *metodo para o criador definir se a musica está activa para compra por parte dos clientes
      * @param active
      */
     public void setActive(boolean active) {
         isActive = active;
     }
-
-    /**
-     *
-     * @param genre
-     */
     public void setGenre(Genre.GENRE genre) {
         this.genre = genre;
     }
@@ -123,6 +103,9 @@ public class Music implements Serializable {
     //Calcula a classificação depois de uma nova adição à lista
 
     /**
+     *metodo para avaliar uma musica
+     *Se o cliente já existir atribui um valor diferente à classificação já existente evitando duplicados
+     *Se o cliente não tiver atribuido uma classificação faz uma nova
      *
      * @param client
      * @param evaluation
@@ -141,8 +124,6 @@ public class Music implements Serializable {
         }
         calculateClassification();
     }
-    //Se o cliente já existir atribui um valor diferente à classificação já existente evitando duplicados
-    //Se o cliente não tiver atribuido uma classificação faz uma nova
     public String toString() {
         return name + " \t" + price + "€";
     }

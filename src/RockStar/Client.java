@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ *classe que gere o utilizador cliente
  */
 public class Client extends User implements Serializable {
     private double balance;
@@ -13,7 +13,7 @@ public class Client extends User implements Serializable {
     ArrayList<Music> listOfMusicsToBuy;
 
     /**
-     *
+     *Construtor do cliente
      * @param name
      * @param username
      * @param password
@@ -40,7 +40,7 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *
+     *Fazer nova coleção
      * @param name
      */
     public void newCollection(String name){
@@ -50,7 +50,7 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *
+     *Nova coleção aleatoria de musica?
      * @param listOfMusic
      */
     public void newCollection(ArrayList<Music> listOfMusic){
@@ -68,7 +68,7 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *
+     *Método para adicionar musica a uma playlist criada
      * @param music
      * @param musicCollection
      */
@@ -77,7 +77,7 @@ public class Client extends User implements Serializable {
     };
 
     /**
-     *
+     *adicionar musica à lista geral (library que contem a musica geral do cliente)
      * @param music
      */
     public void newMusicToAllMusicCollection(Music music){
@@ -85,7 +85,7 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *
+     *Remover musica de uma playlist
      * @param music
      * @param collection
      */
@@ -94,7 +94,7 @@ public class Client extends User implements Serializable {
     };
 
     /**
-     *
+     *remover coleção/playlist da coleção do utilizador
      * @param collection
      */
     public void removeMusicCollection(MusicCollection collection){
@@ -102,7 +102,7 @@ public class Client extends User implements Serializable {
     };
 
     /**
-     *
+     *adicionar dinheiro à carteira do cliente
      * @param moneyToAdd
      */
     public void addMoney(double moneyToAdd){
@@ -111,9 +111,10 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     * 
-     * @param musics
-     * @return
+     *método que permite ao cliente comprar musicas consoante o saldo que tenha no carrinho
+     *Se não tiver saldo não permite a compra de musicas
+     *@param musics
+     *@return
      */
     public boolean validationOfAquisition(ArrayList<Music> musics){
         double totalPrice = 0;
