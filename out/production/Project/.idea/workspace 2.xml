@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Project:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="Gravação a funcionar">
+      <change beforePath="$PROJECT_DIR$/Images/backGroundImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/Images/backGroundImage.png" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2aDwzSNbadkA9JBU32ooMzyBRek" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="" />
+      <created>1703866722835</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1703866722835</updated>
+      <workItem from="1703866724810" duration="1531000" />
+      <workItem from="1703872755479" duration="10050000" />
+      <workItem from="1703988191625" duration="1408000" />
+      <workItem from="1704019153200" duration="20240000" />
+      <workItem from="1704192247438" duration="82000" />
+      <workItem from="1704197757158" duration="3951000" />
+      <workItem from="1704221416718" duration="1692000" />
+      <workItem from="1704293405650" duration="5654000" />
+      <workItem from="1704303734650" duration="972000" />
+    </task>
+    <task id="LOCAL-00001" summary="Quaseacabado">
+      <option name="closed" value="true" />
+      <created>1703933736797</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703933736797</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Quaseacabado">
+      <option name="closed" value="true" />
+      <created>1703969822730</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703969822730</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1703985790202</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703985790202</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1703986928249</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1703986928249</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704300385457</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1704300385457</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704303743069</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1704303743069</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Quaseacabado" />
+    <MESSAGE value="Gravação a funcionar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Gravação a funcionar" />
+  </component>
+</project>
