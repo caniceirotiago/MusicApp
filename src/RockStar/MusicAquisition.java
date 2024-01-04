@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- *
+ *classe para aquisição de musica por parte do cliente
  */
 public class MusicAquisition implements Serializable {
     private ArrayList<Music> aquiredMusics;
@@ -13,7 +13,8 @@ public class MusicAquisition implements Serializable {
     private double totalPrice;
 
     /**
-     *
+     *Construtor da classe musica adquirida
+     * se a musica tiver um preco, esse valor é associado à receita do criador da musica respetiva
      * @param aquiredMusics
      */
     public MusicAquisition(ArrayList<Music> aquiredMusics) {
@@ -24,11 +25,6 @@ public class MusicAquisition implements Serializable {
             mc.getMusicCreator().addRevenueFromMusicSale(mc.getPrice());
         }
     }
-
-    /**
-     *
-     * @return
-     */
     public double getTotalPrice() {
         return totalPrice;
     }

@@ -63,22 +63,26 @@ public class Album extends MusicCollection implements Serializable {
         //primeiro passo é associar o género das musicas encontradas no album a um valor int atraves de um hashmap
         HashMap <Genre.GENRE, Integer> genreFrequency = new HashMap<>();
         //para cada musica encontrada na lista da musica
-        //
+        //adiciona 1 valor à entrada correspondente cada vez que encontra uma musica desse genero
         for (Music mc : musicList){
             genreFrequency.put(mc.getGenre(), genreFrequency.getOrDefault(mc.getGenre(),0)+1);
         }
+        //max frequency é utilizado para definir qual o genero que é encontrado com mais frequencia (contador)
         int maxFreq = 0;
+        //a "ciclar" pelo hashmap de modo a encontrar o genero com a frequencia maxima
         for (Map.Entry<Genre.GENRE,Integer> entry : genreFrequency.entrySet()){
             if (entry.getValue() > maxFreq){
                 maxFreq = entry.getValue();
             }
         }
+        //adiciona à lista os generos principais no caso de haver mais do que um
         ArrayList <Genre.GENRE> genreList = new ArrayList<>();
         for (Map.Entry<Genre.GENRE,Integer> entry : genreFrequency.entrySet()){
             if (entry.getValue() == maxFreq){
                 genreList.add(entry.getKey());
             }
         }
+        //define o genero principal nesse album
         if (genreList.size() == 1){
             mainGenre = genreList.get(0);
         } else mainGenre = null;

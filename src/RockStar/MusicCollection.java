@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- *
+ *Classe abstrata das coleções de musica
+ * serve de base para as playlists do cliente e o album do criador de musica
  */
 public abstract class MusicCollection implements Serializable {
     protected String name;
@@ -14,7 +15,8 @@ public abstract class MusicCollection implements Serializable {
     public MusicCollection() {}
 
     /**
-     *
+     *construtor da classe
+     * construtor geral para a coleção de musicas totais, library geral
      * @param name
      */
     public MusicCollection(String name) {
@@ -24,7 +26,8 @@ public abstract class MusicCollection implements Serializable {
     }
 
     /**
-     *
+     *Construtor da classe com o parametro ArrayList com a lista de musica
+     * Construtor utilizado para a criação de albuns e playlists dos utilizadores respectivos
      * @param name
      * @param musicList
      */
@@ -34,16 +37,7 @@ public abstract class MusicCollection implements Serializable {
         this.creationDate = LocalDateTime.now();
     }
 
-    /**
-     *
-     * @param music
-     */
     public abstract void addMusicToCollection(Music music);
-
-    /**
-     *
-     * @param music
-     */
     public abstract void removeMusicFromCollection(Music music);
     public String getName() {
         return name;

@@ -4,11 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ *Classe de utilizadores criadores de musica
+ * extende a classe abstrata utilizador
  */
 public class MusicCreator extends User implements Serializable {
     private String pin;
     private double totalValueSales;
+
+    /**
+     * Construtor da classe do criador de musica
+     * utiliza parametros da classe user da qual herd
+     * @param name
+     * @param username
+     * @param password
+     * @param email
+     * @param pin
+     */
     public MusicCreator(String name, String username, String password, String email, String pin) {
         super(name, username, password, email);
         this.pin = pin;
@@ -34,7 +45,7 @@ public class MusicCreator extends User implements Serializable {
     public void newCollection(ArrayList<Music> listMusic) {}
 
     /**
-     *
+     *adicionar musica ao album do criador
      * @param music
      * @param album
      */
@@ -47,21 +58,12 @@ public class MusicCreator extends User implements Serializable {
     }
 
     /**
-     *
+     *adicionar musica à biiblioteca geral
      * @param music
      */
     public void newMusicToAllMusicCollection(Music music){
         allMusic.add(music);
     }
-
-    /**
-     *
-     * @param music
-     */
-    public void addCreatedMusic(Music music){
-        allMusic.add(music); // apagare este metodo fase final
-    }
-
     /**
      *
      * @param music

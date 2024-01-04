@@ -51,6 +51,7 @@ public class Client extends User implements Serializable {
 
     /**
      *Nova coleção aleatoria de musica?
+     * método que auxilia o construtor de musica aleatoria para criar nova playlist random
      * @param listOfMusic
      */
     public void newCollection(ArrayList<Music> listOfMusic){
