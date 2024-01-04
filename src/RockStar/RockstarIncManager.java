@@ -15,104 +15,80 @@ import java.util.ArrayList;
 public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
     private ArrayList<User> musicCreatorList;
-    private ArrayList<Music> musicList;
     private User currentUser;
     private boolean isCurUserMusicCreator;
-    /**
-     * classe transiente porque o GUI não é guardado no ficheiro de dados
-     */
     private transient GUIManager guiManager;
-
-    /**
-     * Construtor da classe
-     */
     public RockstarIncManager(){
-        this.musicList = new ArrayList<>();
         this.clientList = new ArrayList<>();
         this.musicCreatorList = new ArrayList<>();
     }
 
     /**
-     *
+     * Método que inicia a GUI
      */
     public void run(){
         startGUI();
     }
-
-    /**
-     * Método que inicia a interface do utilizador
-     */
     public void startGUI() {
         guiManager = new GUIManager(RockstarIncManager.this);
         guiManager.run();
     }
-    /*
-    This method allows to check a login atempt data. The method brings information from the gui like the username,
-    password, the pin and if the attempt is made from a music creator or a client by a boolean.
-     */
-
     /**
-     *
-     * @param username
-     * @param password
-     * @param isMCreator
-     * @param pin
+     * método para o utilizador já registado tentar entrar na aplicação
+     * @param username o nome do utilizador
+     * @param password a password do utilizador
+     * @param isMCreator condição para verificar se o utilizador é criador
+     * @param pin pin que é fornecido ao criador de musica para aceder ao programa
      */
-    public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
+    public void loginAttempt(String username, String password, Boolean isMCreator, String pin) {
         boolean sucessfulLogin = false;
-        if(isMCreator){
-            for(User us : musicCreatorList){
-                if(us.getUsername().equals(username) && us.getPassword().equals(password) &&
-                        ((MusicCreator)us).getPin().equals(pin)){
+        if (isMCreator) {
+            for (User us : musicCreatorList) {
+                if (us.getUsername().equals(username) && us.getPassword().equals(password) &&
+                        ((MusicCreator) us).getPin().equals(pin)) {
                     isCurUserMusicCreator = true;
                     sucessfulLogin = true;
                     currentUser = us;
                 }
             }
-        }
-        else{
-            for(User us : clientList){
-                if(us.getUsername().equals(username) && us.getPassword().equals(password)){
+        } else {
+            //no caso do utilizador ser um cliente
+            for (User us : clientList) {
+                if (us.getUsername().equals(username) && us.getPassword().equals(password)) {
                     isCurUserMusicCreator = false;
                     sucessfulLogin = true;
                     currentUser = us;
                 }
             }
         }
-        if(sucessfulLogin)  {
+        //se login for bem sucedido, entra na aplicação com o utilizador respetivo
+        if (sucessfulLogin) {
             guiManager.sucessfullLogin(currentUser.getUsername(), isMCreator);
             System.out.println("Successful Login");
-        }
-        else {
+        } else {
             guiManager.unsuccessfulLogin();
             System.out.println("Wrong Login");
         }
     }
-    /*
-    This method is called by the gui whenever there are a registration attempt. Firstly it will try to find already
-    existing a username or an emails. Then it will validate the terms with the help of othe method.
-    termValidationOnUserAttempt()
-     */
 
     /**
-     *
-     * @param name
-     * @param username
-     * @param password
-     * @param email
-     * @param isMCreator
-     * @param pin
+     * Metodo para governar a entrada de um novo utilizador na aplicação
+     * @param name nome do utilizador que se quer registar
+     * @param username username do utilizador que se quer registar
+     * @param password password do utilizador para efetuar o registo
+     * @param email email do utilizador
+     * @param isMCreator condição para verificar se o utilizador que se quer registar é cliente ou criador de musica
+     * @param pin pin de 4 digitos fornecido ao novo criador de musica que se regista
      */
     public void newUserAttempt(String name, String username, String password, String email, boolean isMCreator, String pin){
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
-        //This loop allows for an already created MusiCreator make a registration as a Client and vice versa.
-        //It sends a code message for GUI to apply an error box: "1" for invalid email and "2" for invalid username
         if(!isMCreator){
             for(User us : clientList){
                 if(us.getEmail().equals(email)){
                     emailAlreadyExists = true;
                     System.out.println("email already exists");
+                    //código que emite um aviso respetivo ao erro, gerido pelo método unsucessfulRegistration
                     guiManager.unsuccessfulRegistration(1);
                 }
                 if(us.getUsername().equals(username)){
@@ -136,6 +112,8 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
         }
+        //caso todas as condições passem no filtro de registo
+        //efectua se o novo registo do utilizador
         boolean validRegistration = termValidationOnNewRegistration(name,username, password, email,  isMCreator, pin);
         if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
             if(isMCreator) musicCreatorList.add(new MusicCreator(name, username, password, email, pin));
@@ -144,20 +122,16 @@ public class RockstarIncManager  implements Serializable {
             guiManager.successfulRegistration();
         }
     }
-    /*
-    This method completes the newUserAttempt() method by checking if the introduced terms by a new user attempt
-    are correct. It will send elucidative messages to the user by the Gui Manager
-     */
 
     /**
-     *
-     * @param name
-     * @param username
-     * @param password
-     * @param email
-     * @param isCreator
-     * @param pin
-     * @return
+     * método sequencial para verificar se as credencias respeitam as regras impostas pelos programadores
+     * @param name nome do utilizador que tem de respeitar certas caracteristicas
+     * @param username username do utilizador que tem de respeitar certas caracteristicas
+     * @param password password do utilizador que tem de respeitar certas caracteristicas
+     * @param email email do utilizador que tem de respeitar certas caracteristicas
+     * @param isCreator parametro que define se o utilizador é criador ou nao
+     * @param pin parametro fornecido ao criador de musica
+     * @return retorna um registo válido que fica guardado na lista de utilizadores registados
      */
     public boolean termValidationOnNewRegistration(String name, String username, String password, String email,
                                                    boolean isCreator, String pin){
@@ -228,38 +202,27 @@ public class RockstarIncManager  implements Serializable {
         }
         return validRegistration;
     }
-    /*
-    This method will create a new temporary search object that contains multiple lists. The method allows to create
-    different types of searches. The Music creator is only able to search his own music.
-     */
 
     /**
+     * Procura por músicas e coleções de música com base no termo de pesquisa
+     * Se o utilizador atual não for um criador de música, a pesquisa inclui todas as músicas disponíveis
+     * associadas ou não a albuns.
+     * Se o utilizador atual for um criador de música, a pesquisa inclui apenas as músicas criadas pelo proprio.
      *
-     * @param searchTerm
-     * @return
+     * @param searchTerm O termo a ser pesquisado nos nomes das músicas, nomes dos artistas e nomes das coleções.
+     * @return Um objeto Search que contem os resultados da pesquisa, incluindo músicas e albuns encontrados.
      */
     public Search search(String searchTerm) {
         ArrayList<Music> foundMusics= new ArrayList<>();
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
         if(!isCurUserMusicCreator){
-            //Music search
-            for(Music m : musicList){
-                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    foundMusics.add(m);
-                }
-                if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())){
-                    foundMusicsByArtist.add(m);
-                }
-            }
-            //Collection search: only public playlists or albums.
-            //In this case we know that all the collections will be albums.
             for(User us :  musicCreatorList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);
                 }
             }
-            //In this case we know that all the collections will be playlists. We have to select the public ones.
+            //neste caso procura playlists publicas
             for(User us :  clientList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublicState()){
@@ -268,38 +231,30 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
             return new Search(foundMusics,foundMusicsByArtist,foundMusicCollections);
-        } else {//If the current user is a music creator only returns his own music
+        } else {
+            //se for um criador de musica, retorna apenas a musica desse proprio criador
             for(Music m : currentUser.getAllMusic()){
                 if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
             }
             return new Search(foundMusics);
         }
     }
-    //este método cria uma playlist de forma aleatória por género musical para o utilizador normal
-    //Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
-    // de uma Arraylist de Musicas.
-    //O presente método pede um número de musicas e um género e devolve um arraylist
-    //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
-    // Este metodo retorna um inteiro que corresponde à seleção do utilizador
-    //                //1 - adicionar ao carrinho
-    //                //2 - comprar as musicas
-    //                //3 - apenas selecionar musicas gratuitas
-
-    /*
-    At this secction is created a selection of musics from the main music lists. All the music that the client does not
-    own and is paid will be also selected and will be presented to de user 3 options. Add to the shopping basket,
-    buy the musics (only enable if the user has enough money). And the option of only use free or already owned music.
-     */
 
     /**
-     *
-     * @param genre
-     * @param nOfMusics
+     * Tenta criar uma nova lista aleatória de musicas com base no género escolhido e no número de músicas escolhidas.
+     * Se não houver musicas suficientes desse genero para o numero que o utilizador escolheu devolve uma mensagem de
+     * aviso.
+     * No caso de ser possivel a criação de uma playlist aleatoria por existirem musicas suficientes, chama on método
+     * randomPlaylistCreator();
+     * @param genre O género musical escolhido para a nova lista aleatória.
+     * @param nOfMusics O número de músicas para a nova lista aleatória.
      */
     public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
-        for(Music m : musicList){
-            if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
+        for(User mc : musicCreatorList){
+            for(Music m : mc.getAllMusic()){
+                if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
+            }
         }
         int maxSize = allMusicOfTheChosenGenre.size();
         if(maxSize < nOfMusics) {
@@ -312,12 +267,20 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
+     * Cria uma nova lista de músicas aleatória com base no número de músicas escolhido
+     * e em uma seleção aleatória de músicas do género escolhido.
+     * Cria playlist aleatoria no caso das musicas selecionadas serem gratuitas/ já serem do utilizador.
+     * Utiliza para tal o metodo randomMusicSelection() que retorna duas listas: lista de musicas gratuitas/ adquiridas
+     * e a lista de musicas que tem de ser adquirida.
      *
-     * @param nOfMusics
-     * @param allMusicOfTheChosenGenre
+     * No caso de pelo menos uma musica ter de ser adquirida, chama o método processorOnRandomToPayMusic();
+     *
+     * @param nOfMusics O número de músicas desejado para a nova lista de reprodução aleatória.
+     * @param allMusicOfTheChosenGenre Lista de todas as músicas do género escolhido.
      */
     public void randomPlaylistCreation(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> musicSelection = randomMusicSelection(nOfMusics,allMusicOfTheChosenGenre);
+        //
         ArrayList<Music> randomMusicSelection = musicSelection.get(0);
         ArrayList<Music> notFreeMusicSelection = musicSelection.get(1);
         boolean successfullyCreated;
@@ -333,10 +296,14 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
+     * Método que realiza a seleção de musicas de forma aleatória, utilizando o método randomIndexVector(), que cria
+     * uma lista de indices aleatorio que irá corresponder aos indices da lista de musicas do género selecionadas, que
+     * foram criadas anteriormente.
      *
-     * @param nOfMusics
-     * @param allMusicOfTheChosenGenre
-     * @return
+     * Todas as musicas que são pagas e não adquiridas pelo utilizador irão para uma segunda lista.
+     * @param nOfMusics número de musicas que se quer escolher
+     * @param allMusicOfTheChosenGenre tipo de género do qual queremos as musicas.
+     * @return as listas de musicas gratuitas e as não-gratuitas.
      */
     public ArrayList<ArrayList<Music>> randomMusicSelection(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> lists = new ArrayList<>();
@@ -361,7 +328,17 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
+     * Método responsavel pela gestão da criação de novas listas aleatorias, cujas musicas selecionadas sao pagas e
+     * que não estão adquiridas pelo utilizador.
      *
+     * Este método chama um método acessório que calcula o preco de uma lista de musicas selecionadas, para depois
+     * apresentar a opção de compra ao utilizador.
+     * Este método é tambem o responsavel pela comunicação com a interface gráfica e envia informações ao utilizador
+     * como a lista de musicas a serem adquiridas para a construção da playlist, o preco dessa lista e uma boolean
+     * que confirma a possibilidade do utilizador comprar a lista. Esta resposta ativa um switch statement, que
+     * redireciona a lista de musicas para o carrinho de compras, permite e executa a compra das musicas automaticamente
+     * ou redireciona para um novo método de criação de playlists aleatórias com musicas adquiridas ou grátis
+     * newRandomPlaylistOnlyFree().
      * @param randomMusicSelection
      * @param notFreeMusicSelection
      * @param nOfMusics
@@ -476,7 +453,6 @@ public class RockstarIncManager  implements Serializable {
         double price = musicPriceValidation(priceString);
         if(validatedName && price != -1){
             Music music = new Music(name, genre,(MusicCreator) currentUser, price);
-            musicList.add(music);
             currentUser.newMusicToAllMusicCollection(music);
             guiManager.newMusicCreated();
         }
@@ -629,8 +605,10 @@ public class RockstarIncManager  implements Serializable {
      */
     public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
-        for (Music mc : musicList){
-            price += mc.getPrice();
+        for(User mc : musicCreatorList){
+            for (Music m : mc.getAllMusic()){
+                price += m.getPrice();
+            }
         }
         return price;
     }
@@ -639,7 +617,15 @@ public class RockstarIncManager  implements Serializable {
      *
      * @return
      */
-    public int totalSongs(){return musicList.size();}
+    public int totalSongs(){
+        int countMusic = 0;
+        for(User mc : musicCreatorList){
+            for (Music m : mc.getAllMusic()){
+                countMusic++;
+            }
+        }
+        return countMusic;
+    }
 
     /**
      *
