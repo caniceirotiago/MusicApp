@@ -463,9 +463,9 @@ public class MusicCreatorGUIX extends JFrame {
         firstStatsPanel.add(individualMusicCreated);
 
 
-
+        ArrayList<Integer> albumStatistics = guiManager.getAlbumTypeStatistics();
         graphicStatsPanel = new JPanel();
-        updateSecondStatsPanel(overallStatistics);
+        updateSecondStatsPanel(albumStatistics);
 
 
         secondStatsPanel = new JPanel(new BorderLayout());
@@ -604,7 +604,7 @@ public class MusicCreatorGUIX extends JFrame {
         if(selectedMusic!= null){
             guiManager.removeMusicFromCollection(selectedMusic, selectedAlbum);
             updateMusicJTableModel(selectedAlbum.getMusicList());
-            updateSecondStatsPanel(guiManager.getStatistics());
+            updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
             centerPanel.revalidate();
             centerPanel.repaint();
             System.out.println("Music eliminated from Album");
@@ -641,7 +641,7 @@ public class MusicCreatorGUIX extends JFrame {
                         else {
                             guiManager.addMusicToCollection(selectedMusic,al);
                             updateMusicJTableModel(selectedAlbum.getMusicList());
-                            updateSecondStatsPanel(guiManager.getStatistics());
+                            updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
                         }
                     }
                 });
@@ -658,7 +658,7 @@ public class MusicCreatorGUIX extends JFrame {
         Music selectedMusic = getSelectedMusicOnCentralTable();
         guiManager.editMusicDialogCall(selectedMusic);
         updateMusicJTableModel(selectedAlbum.getMusicList());
-        updateSecondStatsPanel(guiManager.getStatistics());
+        updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
     }
 
     /**
@@ -688,7 +688,7 @@ public class MusicCreatorGUIX extends JFrame {
                 selectedAlbum = newMusicCollection;
                 updateMusicJListModel();
                 updateMusicJTableModel(newMusicCollection.getMusicList());
-                updateSecondStatsPanel(guiManager.getStatistics());
+                updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
                 westPanel.revalidate();
                 westPanel.repaint();
             }else {
@@ -717,7 +717,7 @@ public class MusicCreatorGUIX extends JFrame {
                 guiManager.removeMusicCollection(selected);
                 updateMusicJListModel();
                 updateMusicJTableModel(currentUserCollection.getMusicList());
-                updateSecondStatsPanel(guiManager.getStatistics());
+                updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
                 westPanel.revalidate();
                 westPanel.repaint();
                 System.out.println("Album deleted");
@@ -782,15 +782,15 @@ public class MusicCreatorGUIX extends JFrame {
         individualMusicCreated.setText( "<html>Music Created<br><p style='text-align:center;'>" +
                 (int)(double) overallStatistics.get(5) + "</p></html>");
     }
-    public void updateSecondStatsPanel(ArrayList<Double> overallStatistics){
-        int totalAlbums = (int)(double)overallStatistics.get(6);
-        int counter = 7;
+    public void updateSecondStatsPanel(ArrayList<Integer> albumStatistics){
+        int totalAlbums = (int)(double)albumStatistics.get(0);
+        int counter = 1;
         graphicStatsPanel.removeAll();
         for(Genre.GENRE ge : Genre.GENRE.values()){
-            int genreValue = (int)(double) overallStatistics.get(counter);
+            int genreValue = (int)(double) albumStatistics.get(counter);
             JLabel labelGenre = new JLabel("<html>"+ ge +"<br><p style='text-align:center;'>" +
                     genreValue + "</p></html>");
-            retangleBarCart bar = new retangleBarCart(genreValue,totalAlbums);
+            RetangleBarCart bar = new RetangleBarCart(genreValue,totalAlbums);
             JPanel genrePanel = new JPanel(new BorderLayout());
             genrePanel.add(labelGenre, BorderLayout.NORTH);
             genrePanel.add(bar, BorderLayout.CENTER);

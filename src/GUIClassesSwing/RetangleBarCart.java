@@ -3,10 +3,10 @@ package src.GUIClassesSwing;
 import javax.swing.*;
 import java.awt.*;
 
-public class retangleBarCart extends JComponent {
+public class RetangleBarCart extends JComponent {
     private int value;
     private int maxValue;
-    public retangleBarCart(int value, int maxValue){
+    public RetangleBarCart(int value, int maxValue){
         this.value = value;
         this.maxValue = maxValue;
         this.setPreferredSize(new Dimension(40,10));
@@ -15,7 +15,7 @@ public class retangleBarCart extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if(maxValue > 0){
-            int width = (int)((double)value / maxValue * this.getWidth());
+            int width = (int)((double)value / maxValue *40);
             g.setColor(Color.CYAN);
             g.fillRect(0,0,width,this.getHeight());
         }

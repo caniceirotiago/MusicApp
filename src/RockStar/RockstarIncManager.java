@@ -15,12 +15,10 @@ import java.util.ArrayList;
 public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
     private ArrayList<User> musicCreatorList;
-    private ArrayList<Music> musicList;
     private User currentUser;
     private boolean isCurUserMusicCreator;
     private transient GUIManager guiManager;
     public RockstarIncManager(){
-        this.musicList = new ArrayList<>();
         this.clientList = new ArrayList<>();
         this.musicCreatorList = new ArrayList<>();
     }
@@ -205,16 +203,6 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
         if(!isCurUserMusicCreator){
-            //se o utilizador nao for um criador de musica, faz uma pesquisa geral das musicas no sistema
-            for(Music m : musicList){
-                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    foundMusics.add(m);
-                }
-                if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())){
-                    foundMusicsByArtist.add(m);
-                }
-            }
-            //pesquisa apenas albuns publicos
             for(User us :  musicCreatorList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);
@@ -249,8 +237,10 @@ public class RockstarIncManager  implements Serializable {
      */
     public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
-        for(Music m : musicList){
-            if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
+        for(User mc : musicCreatorList){
+            for(Music m : mc.getAllMusic()){
+                if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
+            }
         }
         int maxSize = allMusicOfTheChosenGenre.size();
         if(maxSize < nOfMusics) {
@@ -449,7 +439,6 @@ public class RockstarIncManager  implements Serializable {
         double price = musicPriceValidation(priceString);
         if(validatedName && price != -1){
             Music music = new Music(name, genre,(MusicCreator) currentUser, price);
-            musicList.add(music);
             currentUser.newMusicToAllMusicCollection(music);
             guiManager.newMusicCreated();
         }
@@ -602,8 +591,10 @@ public class RockstarIncManager  implements Serializable {
      */
     public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
-        for (Music mc : musicList){
-            price += mc.getPrice();
+        for(User mc : musicCreatorList){
+            for (Music m : mc.getAllMusic()){
+                price += m.getPrice();
+            }
         }
         return price;
     }
@@ -612,7 +603,15 @@ public class RockstarIncManager  implements Serializable {
      *
      * @return
      */
-    public int totalSongs(){return musicList.size();}
+    public int totalSongs(){
+        int countMusic = 0;
+        for(User mc : musicCreatorList){
+            for (Music m : mc.getAllMusic()){
+                countMusic++;
+            }
+        }
+        return countMusic;
+    }
 
     /**
      *
@@ -660,19 +659,23 @@ public class RockstarIncManager  implements Serializable {
         overallStatistics.add(totalSalesValue());
         overallStatistics.add(salesCurrentUser());
         overallStatistics.add((double)currentUserTotalMusicCreated());
-
-        ArrayList<Double> albumCountByGenre = new ArrayList<>();
+        return overallStatistics;
+    }
+    public ArrayList<Integer> getAlbumTypeStatistics(){
+        ArrayList<Integer> albumStatistics =  new ArrayList<>();
+        ArrayList<Integer> albumCountByGenre = new ArrayList<>();
         for(Genre.GENRE ge : Genre.GENRE.values()){
-            albumCountByGenre.add((double) totalAlbumsByGenre(ge));
+            albumCountByGenre.add(totalAlbumsByGenre(ge));
         }
-        albumCountByGenre.add((double)totalAlbumsByGenre(null));
+        albumCountByGenre.add(totalAlbumsByGenre(null));
 
         int totalAlbuns = 0;
-        for(Double i: albumCountByGenre){
+
+        for(Integer i: albumCountByGenre){
             totalAlbuns += i;
         }
-        overallStatistics.add((double)totalAlbuns);
-        overallStatistics.addAll(albumCountByGenre);
-        return overallStatistics;
+        albumStatistics.add(totalAlbuns);
+        albumStatistics.addAll(albumCountByGenre);
+        return albumStatistics;
     }
 }
