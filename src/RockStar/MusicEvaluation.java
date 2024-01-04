@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- *
+ * Classe que define contrutores e métodos para a avaliação de musica
  */
 public class MusicEvaluation implements Serializable {
     private Client client;
@@ -12,7 +12,7 @@ public class MusicEvaluation implements Serializable {
     private int evaluation;
 
     /**
-     *
+     * Construtor da classe
      * @param client
      * @param evaluation
      */
@@ -34,7 +34,7 @@ public class MusicEvaluation implements Serializable {
     }
 
     /**
-     *
+     * método que associa uma data à avaliação de uma música
      * @param evaluationDateTime
      */
     public void setEvaluationDateTime(LocalDateTime evaluationDateTime) {

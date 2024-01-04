@@ -45,7 +45,7 @@ public class MusicCreator extends User implements Serializable {
     public void newCollection(ArrayList<Music> listMusic) {}
 
     /**
-     *adicionar musica ao album do criador
+     * adicionar musica ao album do criador
      * @param music
      * @param album
      */
@@ -58,25 +58,19 @@ public class MusicCreator extends User implements Serializable {
     }
 
     /**
-     *adicionar musica à biiblioteca geral
+     * adicionar musica à biiblioteca geral
      * @param music
      */
     public void newMusicToAllMusicCollection(Music music){
         allMusic.add(music);
     }
-    /**
-     *
-     * @param music
-     * @param collection
-     */
     public void removeMusicFromCollection(Music music, MusicCollection collection){
         if(allCollections.contains(collection)){
             collection.removeMusicFromCollection(music);
         }
     }
-
     /**
-     *
+     * método para remover um album da coleção do criador de musica
      * @param collection
      */
     public void removeMusicCollection(MusicCollection collection){
@@ -84,7 +78,7 @@ public class MusicCreator extends User implements Serializable {
     }
 
     /**
-     *
+     * método para adicionar receita de venda de musica à conta de um criador de musica
      * @param valueToAdd
      */
     public void addRevenueFromMusicSale (double valueToAdd){
@@ -92,7 +86,7 @@ public class MusicCreator extends User implements Serializable {
     }
 
     /**
-     *
+     * método que retorna a receita total do criador de musica
      * @return
      */
     public double getTotalValueSales() {

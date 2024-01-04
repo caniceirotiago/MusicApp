@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe com construtor e métodos para a criação de playlist por parte do Cliente
  */
 public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
@@ -12,7 +12,7 @@ public class Playlist extends MusicCollection implements Serializable {
     public Playlist() {}
 
     /**
-     *
+     * Construtor da classe
      * @param name
      * @param clientCreator
      */
@@ -24,7 +24,7 @@ public class Playlist extends MusicCollection implements Serializable {
     }
 
     /**
-     *
+     * Construtor da classe para playlist aleatória
      * @param name
      * @param clientCreator
      * @param musicList

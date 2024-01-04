@@ -27,7 +27,7 @@ public abstract class MusicCollection implements Serializable {
 
     /**
      *Construtor da classe com o parametro ArrayList com a lista de musica
-     * Construtor utilizado para a criação de albuns e playlists dos utilizadores respectivos
+     * Construtor utilizado para a criação de albuns e playlists dos respetivos utilizadores
      * @param name
      * @param musicList
      */
@@ -37,6 +37,10 @@ public abstract class MusicCollection implements Serializable {
         this.creationDate = LocalDateTime.now();
     }
 
+    /**
+     * método abstrato para adicionar musica à coleção
+     * @param music
+     */
     public abstract void addMusicToCollection(Music music);
     public abstract void removeMusicFromCollection(Music music);
     public String getName() {

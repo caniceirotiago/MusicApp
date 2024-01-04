@@ -1,5 +1,3 @@
-//criei esta classe porque estava a tentar fazer uma classe Historico de precos, cujos clientes podem ver
-
 package src.RockStar;
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -8,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
+ * Classe com construtor e métodos para histórico de preços de músicas
  */
 public class PriceHistory implements Serializable {
     private LocalDateTime priceChangeDate;
     private double newPrice;
 
     /**
-     *
+     * Construtor da classe
      * @param newPrice
      * @param priceChangeDate
      */
@@ -25,7 +23,7 @@ public class PriceHistory implements Serializable {
     }
 
     /**
-     *
+     * Método que atualiza a data aquando uma alteração de preços
      * @return
      */
     public LocalDateTime getPriceChangeDate() {

@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
+ * Classe principal do programa
+ * Contem informação sobre clientes, criadores de musica, musicas que existem no sistema
+ * Classe que faz a ponte entre o back-end e o front-end
  *
  */
 public class RockstarIncManager  implements Serializable {
@@ -17,7 +20,7 @@ public class RockstarIncManager  implements Serializable {
     private transient GUIManager guiManager;
 
     /**
-     *
+     * Construtor da classe
      */
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
@@ -29,60 +32,6 @@ public class RockstarIncManager  implements Serializable {
      *
      */
     public void run(){
-        /*
-        //Criei um client só para experimentar Login.. depois é para apagar
-        Client tiago = new Client("as","as","as","as",180);
-        clientList.add(tiago);
-        MusicCreator pedro = new MusicCreator("Pedro","qw","qw","qw","qw");
-        musicCreatorList.add(pedro);
-
-        //Playlist experiencia
-        tiago.newCollection("Rock Luso");
-        tiago.newCollection("Mamonas Assassinas");
-
-        //Musica Experiencia
-        Music m1 = new Music("Olá Joana", Genre.GENRE.POP,pedro,0);
-        musicList.add(m1);
-        tiago.addMusicToCollection(m1,tiago.getAllCollections().get(0));
-        tiago.newMusicToAllMusicCollection(m1);
-        pedro.addCreatedMusic(m1);
-
-        Music m2 = new Music("Carolina", Genre.GENRE.POP,pedro,0);
-        musicList.add(m2);
-        tiago.newMusicToAllMusicCollection(m2);
-        tiago.addMusicToCollection(m2,tiago.getAllCollections().get(1));
-        pedro.addCreatedMusic(m2);
-
-        Music m3 = new Music("Mariazinha", Genre.GENRE.POP,pedro,0);
-        musicList.add(m3);
-        tiago.newMusicToAllMusicCollection(m3);
-        pedro.addCreatedMusic(m3);
-
-
-
-        musicList.add(new Music("City Lights", Genre.GENRE.POP, pedro, 0));
-        musicList.add(new Music("Summer Breeze", Genre.GENRE.POP, pedro, 0));
-        musicList.add(new Music("Moonlit Night", Genre.GENRE.POP, pedro, 3));
-        musicList.add(new Music("Dancing Shadows", Genre.GENRE.POP, pedro, 5));
-        musicList.add(new Music("Echoes of Love", Genre.GENRE.POP, pedro, 3));
-        musicList.add(new Music("Sunset Dreams", Genre.GENRE.POP, pedro, 4));
-        musicList.add(new Music("Whispers of the Heart", Genre.GENRE.POP, pedro, 1));
-        musicList.add(new Music("Rhythms of the Rain", Genre.GENRE.POP, pedro, 2));
-        musicList.add(new Music("Melodic Sunrise", Genre.GENRE.POP, pedro, 5));
-        musicList.add(new Music("Starry Skies", Genre.GENRE.POP, pedro, 2));
-        musicList.add(new Music("Neon Heartbeat", Genre.GENRE.POP, pedro, 3));
-        musicList.add(new Music("Ocean Whispers", Genre.GENRE.POP, pedro, 1));
-        musicList.add(new Music("Silent Echo", Genre.GENRE.POP, pedro, 4));
-        musicList.add(new Music("Golden Memories", Genre.GENRE.POP, pedro, 2));
-        musicList.add(new Music("Lunar Melodies", Genre.GENRE.POP, pedro, 5));
-        musicList.add(new Music("Crystal Visions", Genre.GENRE.POP, pedro, 3));
-        musicList.add(new Music("Sunrise Serenade", Genre.GENRE.POP, pedro, 4));
-        musicList.add(new Music("Twilight Harmony", Genre.GENRE.POP, pedro, 2));
-        musicList.add(new Music("Starlit Journey", Genre.GENRE.POP, pedro, 1));
-        musicList.add(new Music("Dreams of Tomorrow", Genre.GENRE.POP, pedro, 5));
-
-         */
-
 
         startGUI();
     }
