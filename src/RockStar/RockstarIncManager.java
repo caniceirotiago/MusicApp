@@ -670,19 +670,23 @@ public class RockstarIncManager  implements Serializable {
         overallStatistics.add(totalSalesValue());
         overallStatistics.add(salesCurrentUser());
         overallStatistics.add((double)currentUserTotalMusicCreated());
-
-        ArrayList<Double> albumCountByGenre = new ArrayList<>();
+        return overallStatistics;
+    }
+    public ArrayList<Integer> getAlbumTypeStatistics(){
+        ArrayList<Integer> albumStatistics =  new ArrayList<>();
+        ArrayList<Integer> albumCountByGenre = new ArrayList<>();
         for(Genre.GENRE ge : Genre.GENRE.values()){
-            albumCountByGenre.add((double) totalAlbumsByGenre(ge));
+            albumCountByGenre.add(totalAlbumsByGenre(ge));
         }
-        albumCountByGenre.add((double)totalAlbumsByGenre(null));
+        albumCountByGenre.add(totalAlbumsByGenre(null));
 
         int totalAlbuns = 0;
-        for(Double i: albumCountByGenre){
+
+        for(Integer i: albumCountByGenre){
             totalAlbuns += i;
         }
-        overallStatistics.add((double)totalAlbuns);
-        overallStatistics.addAll(albumCountByGenre);
-        return overallStatistics;
+        albumStatistics.add(totalAlbuns);
+        albumStatistics.addAll(albumCountByGenre);
+        return albumStatistics;
     }
 }

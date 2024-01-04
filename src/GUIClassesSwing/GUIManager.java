@@ -391,6 +391,7 @@ public class GUIManager  {
         Genre.GENRE genre = editMusic.getSelectedGender();
         int state = editMusic.getMusicState();
         logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
+        musicCreatorFrame.updateSecondStatsPanel(getAlbumTypeStatistics());
     }
 
     /**
@@ -406,5 +407,8 @@ public class GUIManager  {
      */
     public ArrayList<Double> getStatistics(){
         return logicManager.getStatistics();
+    }
+    public ArrayList<Integer> getAlbumTypeStatistics(){
+        return logicManager.getAlbumTypeStatistics();
     }
 }

@@ -948,7 +948,10 @@ public class ClientGUI extends JFrame {
         Music selectedMusic = getSelectedMusicOnSearchTable();
         if(guiManager.getUserAllMusic().contains(selectedMusic)) JOptionPane.showMessageDialog(null,
                 "The song was already acquired");
-        else{
+        else if(!selectedMusic.isActive()){
+            JOptionPane.showMessageDialog(null,
+                    "This music is inactive.");
+        } else{
             if(selectedMusic.getPrice() == 0) {
                 JOptionPane.showMessageDialog(null,
                         "The song is free. Song acquired, check it on your main collection");
