@@ -340,7 +340,16 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
+     * Método responsavel pela gestão da criação de novas listas aleatorias, cujas musicas selecionadas sao pagas e
+     * que não estão adquiridas pelo utilizador.
      *
+     * Este método chama um método acessório que calcula o preco de uma lista de musicas selecionadas, para depois
+     * apresentar a opção de compra ao utilizador.
+     * Este método é tambem o responsavel pela comunicação com a interface gráfica e envia informações ao utilizador
+     * como a lista de musicas a serem adquiridas para a construção da playlist, o preco dessa lista e uma boolean
+     * que confirma a possibilidade do utilizador comprar a lista. Esta resposta ativa um switch statement, que
+     * redireciona a lista de musicas para o carrinho de compras, permite e executa a compra das musicas automaticamente
+     * ou redireciona
      * @param randomMusicSelection
      * @param notFreeMusicSelection
      * @param nOfMusics
