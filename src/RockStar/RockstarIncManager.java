@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Classe principal do programa
  * Contem informação sobre clientes, criadores de musica, musicas que existem no sistema
  * Classe que faz a ponte entre o back-end e o front-end
+ * Classe que é inicializada no inicio do programa
  *
  */
 public class RockstarIncManager  implements Serializable {
@@ -17,6 +18,9 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<Music> musicList;
     private User currentUser;
     private boolean isCurUserMusicCreator;
+    /**
+     * classe transiente porque o GUI não é guardado no ficheiro de dados
+     */
     private transient GUIManager guiManager;
 
     /**
@@ -32,12 +36,11 @@ public class RockstarIncManager  implements Serializable {
      *
      */
     public void run(){
-
         startGUI();
     }
 
     /**
-     *
+     * Método que inicia a interface do utilizador
      */
     public void startGUI() {
         guiManager = new GUIManager(RockstarIncManager.this);
