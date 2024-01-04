@@ -140,20 +140,16 @@ public class RockstarIncManager  implements Serializable {
             guiManager.successfulRegistration();
         }
     }
-    /*
-    This method completes the newUserAttempt() method by checking if the introduced terms by a new user attempt
-    are correct. It will send elucidative messages to the user by the Gui Manager
-     */
 
     /**
-     *
-     * @param name
-     * @param username
-     * @param password
-     * @param email
-     * @param isCreator
-     * @param pin
-     * @return
+     * método sequencial para verificar se as credencias respeitam as regras impostas pelos programadores
+     * @param name nome do utilizador que tem de respeitar certas caracteristicas
+     * @param username username do utilizador que tem de respeitar certas caracteristicas
+     * @param password password do utilizador que tem de respeitar certas caracteristicas
+     * @param email email do utilizador que tem de respeitar certas caracteristicas
+     * @param isCreator parametro que define se o utilizador é criador ou nao
+     * @param pin parametro fornecido ao criador de musica
+     * @return retorna um registo válido que fica guardado na lista de utilizadores registados
      */
     public boolean termValidationOnNewRegistration(String name, String username, String password, String email,
                                                    boolean isCreator, String pin){
@@ -210,22 +206,22 @@ public class RockstarIncManager  implements Serializable {
         }
         return validRegistration;
     }
-    /*
-    This method will create a new temporary search object that contains multiple lists. The method allows to create
-    different types of searches. The Music creator is only able to search his own music.
-     */
 
     /**
+     * Procura por músicas e coleções de música com base no termo de pesquisa
+     * Se o utilizador atual não for um criador de música, a pesquisa inclui todas as músicas disponíveis
+     * associadas ou não a albuns.
+     * Se o utilizador atual for um criador de música, a pesquisa inclui apenas as músicas criadas pelo proprio.
      *
-     * @param searchTerm
-     * @return
+     * @param searchTerm O termo a ser pesquisado nos nomes das músicas, nomes dos artistas e nomes das coleções.
+     * @return Um objeto Search que contem os resultados da pesquisa, incluindo músicas e albuns encontrados.
      */
     public Search search(String searchTerm) {
         ArrayList<Music> foundMusics= new ArrayList<>();
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
         if(!isCurUserMusicCreator){
-            //Music search
+            //se o utilizador nao for um criador de musica, faz uma pesquisa geral das musicas no sistema
             for(Music m : musicList){
                 if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
                     foundMusics.add(m);
@@ -234,14 +230,13 @@ public class RockstarIncManager  implements Serializable {
                     foundMusicsByArtist.add(m);
                 }
             }
-            //Collection search: only public playlists or albums.
-            //In this case we know that all the collections will be albums.
+            //pesquisa apenas albuns publicos
             for(User us :  musicCreatorList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);
                 }
             }
-            //In this case we know that all the collections will be playlists. We have to select the public ones.
+            //neste caso procura playlists publicas
             for(User us :  clientList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublicState()){
@@ -250,33 +245,27 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
             return new Search(foundMusics,foundMusicsByArtist,foundMusicCollections);
-        } else {//If the current user is a music creator only returns his own music
+        } else {
+            //se for um criador de musica, retorna apenas a musica desse proprio criador
             for(Music m : currentUser.getAllMusic()){
                 if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
             }
             return new Search(foundMusics);
         }
     }
-    //este método cria uma playlist de forma aleatória por género musical para o utilizador normal
-    //Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
-    // de uma Arraylist de Musicas.
-    //O presente método pede um número de musicas e um género e devolve um arraylist
-    //Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
-    // Este metodo retorna um inteiro que corresponde à seleção do utilizador
-    //                //1 - adicionar ao carrinho
-    //                //2 - comprar as musicas
-    //                //3 - apenas selecionar musicas gratuitas
-
-    /*
-    At this secction is created a selection of musics from the main music lists. All the music that the client does not
-    own and is paid will be also selected and will be presented to de user 3 options. Add to the shopping basket,
-    buy the musics (only enable if the user has enough money). And the option of only use free or already owned music.
-     */
 
     /**
-     *
-     * @param genre
-     * @param nOfMusics
+     * este método cria uma playlist de forma aleatória por género musical para o utilizador normal.
+     * Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
+     * de uma Arraylist de Musicas.
+     * O presente método pede um número de musicas e um género e devolve um arraylist
+     * Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
+     * Este metodo retorna um inteiro que corresponde à seleção do utilizador
+     * 1 - adicionar ao carrinho
+     * 2 - comprar as musicas
+     * 3 - apenas selecionar musicas gratuitas
+     * @param genre género de musica com que fazer a playlist aleatória
+     * @param nOfMusics número de musicas que se quer colocar na playlist aleatória
      */
     public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
@@ -294,7 +283,15 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
+     * este método cria uma playlist de forma aleatória por género musical para o utilizador normal.
+     * Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
+     * de uma Arraylist de Musicas.
+     * O presente método pede um número de musicas e um género e devolve um arraylist
+     * Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
+     * Este metodo retorna um inteiro que corresponde à seleção do utilizador
+     * 1 - adicionar ao carrinho
+     * 2 - comprar as musicas
+     * 3 - apenas selecionar musicas gratuitas
      * @param nOfMusics
      * @param allMusicOfTheChosenGenre
      */
