@@ -58,41 +58,36 @@ public class RockstarIncManager  implements Serializable {
      * @param isMCreator condição para verificar se o utilizador é criador
      * @param pin pin que é fornecido ao criador de musica para aceder ao programa
      */
-    public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
+    public void loginAttempt(String username, String password, Boolean isMCreator, String pin) {
         boolean sucessfulLogin = false;
-        if(isMCreator){
-            for(User us : musicCreatorList){
-                if(us.getUsername().equals(username) && us.getPassword().equals(password) &&
-                        ((MusicCreator)us).getPin().equals(pin)){
+        if (isMCreator) {
+            for (User us : musicCreatorList) {
+                if (us.getUsername().equals(username) && us.getPassword().equals(password) &&
+                        ((MusicCreator) us).getPin().equals(pin)) {
                     isCurUserMusicCreator = true;
                     sucessfulLogin = true;
                     currentUser = us;
                 }
             }
-        }
-        else{
-            for(User us : clientList){
-                if(us.getUsername().equals(username) && us.getPassword().equals(password)){
+        } else {
+            //no caso do utilizador ser um cliente
+            for (User us : clientList) {
+                if (us.getUsername().equals(username) && us.getPassword().equals(password)) {
                     isCurUserMusicCreator = false;
                     sucessfulLogin = true;
                     currentUser = us;
                 }
             }
         }
-        if(sucessfulLogin)  {
+        //se login for bem sucedido, entra na aplicação com o utilizador respetivo
+        if (sucessfulLogin) {
             guiManager.sucessfullLogin(currentUser.getUsername(), isMCreator);
             System.out.println("Successful Login");
-        }
-        else {
+        } else {
             guiManager.unsuccessfulLogin();
             System.out.println("Wrong Login");
         }
     }
-    /*
-    This method is called by the gui whenever there are a registration attempt. Firstly it will try to find already
-    existing a username or an emails. Then it will validate the terms with the help of othe method.
-    termValidationOnUserAttempt()
-     */
 
     /**
      *
