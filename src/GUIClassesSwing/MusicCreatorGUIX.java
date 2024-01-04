@@ -604,6 +604,7 @@ public class MusicCreatorGUIX extends JFrame {
         if(selectedMusic!= null){
             guiManager.removeMusicFromCollection(selectedMusic, selectedAlbum);
             updateMusicJTableModel(selectedAlbum.getMusicList());
+            updateSecondStatsPanel(guiManager.getStatistics());
             centerPanel.revalidate();
             centerPanel.repaint();
             System.out.println("Music eliminated from Album");
@@ -640,6 +641,7 @@ public class MusicCreatorGUIX extends JFrame {
                         else {
                             guiManager.addMusicToCollection(selectedMusic,al);
                             updateMusicJTableModel(selectedAlbum.getMusicList());
+                            updateSecondStatsPanel(guiManager.getStatistics());
                         }
                     }
                 });
@@ -656,6 +658,7 @@ public class MusicCreatorGUIX extends JFrame {
         Music selectedMusic = getSelectedMusicOnCentralTable();
         guiManager.editMusicDialogCall(selectedMusic);
         updateMusicJTableModel(selectedAlbum.getMusicList());
+        updateSecondStatsPanel(guiManager.getStatistics());
     }
 
     /**
@@ -685,6 +688,7 @@ public class MusicCreatorGUIX extends JFrame {
                 selectedAlbum = newMusicCollection;
                 updateMusicJListModel();
                 updateMusicJTableModel(newMusicCollection.getMusicList());
+                updateSecondStatsPanel(guiManager.getStatistics());
                 westPanel.revalidate();
                 westPanel.repaint();
             }else {
@@ -713,6 +717,7 @@ public class MusicCreatorGUIX extends JFrame {
                 guiManager.removeMusicCollection(selected);
                 updateMusicJListModel();
                 updateMusicJTableModel(currentUserCollection.getMusicList());
+                updateSecondStatsPanel(guiManager.getStatistics());
                 westPanel.revalidate();
                 westPanel.repaint();
                 System.out.println("Album deleted");
@@ -790,6 +795,8 @@ public class MusicCreatorGUIX extends JFrame {
             genrePanel.add(labelGenre, BorderLayout.NORTH);
             genrePanel.add(bar, BorderLayout.CENTER);
             graphicStatsPanel.add(genrePanel);
+            southPanel.revalidate();
+            southPanel.repaint();
             counter++;
         }
     }
