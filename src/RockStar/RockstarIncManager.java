@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
     private ArrayList<User> musicCreatorList;
-    private ArrayList<Music> musicList;
     private User currentUser;
     private boolean isCurUserMusicCreator;
     /**
@@ -27,7 +26,6 @@ public class RockstarIncManager  implements Serializable {
      * Construtor da classe
      */
     public RockstarIncManager(){
-        this.musicList = new ArrayList<>();
         this.clientList = new ArrayList<>();
         this.musicCreatorList = new ArrayList<>();
     }
@@ -230,14 +228,17 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
         if(!isCurUserMusicCreator){
             //Music search
-            for(Music m : musicList){
-                if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    foundMusics.add(m);
-                }
-                if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())){
-                    foundMusicsByArtist.add(m);
+            for(User mc : musicCreatorList){
+                for(Music m : mc.getAllMusic()){
+                    if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                        foundMusics.add(m);
+                    }
+                    if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())){
+                        foundMusicsByArtist.add(m);
+                    }
                 }
             }
+
             //Collection search: only public playlists or albums.
             //In this case we know that all the collections will be albums.
             for(User us :  musicCreatorList){
@@ -284,8 +285,10 @@ public class RockstarIncManager  implements Serializable {
      */
     public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
-        for(Music m : musicList){
-            if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
+        for(User mc : musicCreatorList){
+            for(Music m : mc.getAllMusic()){
+                if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
+            }
         }
         int maxSize = allMusicOfTheChosenGenre.size();
         if(maxSize < nOfMusics) {
@@ -462,7 +465,6 @@ public class RockstarIncManager  implements Serializable {
         double price = musicPriceValidation(priceString);
         if(validatedName && price != -1){
             Music music = new Music(name, genre,(MusicCreator) currentUser, price);
-            musicList.add(music);
             currentUser.newMusicToAllMusicCollection(music);
             guiManager.newMusicCreated();
         }
@@ -615,8 +617,10 @@ public class RockstarIncManager  implements Serializable {
      */
     public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
-        for (Music mc : musicList){
-            price += mc.getPrice();
+        for(User mc : musicCreatorList){
+            for (Music m : mc.getAllMusic()){
+                price += m.getPrice();
+            }
         }
         return price;
     }
@@ -625,7 +629,15 @@ public class RockstarIncManager  implements Serializable {
      *
      * @return
      */
-    public int totalSongs(){return musicList.size();}
+    public int totalSongs(){
+        int countMusic = 0;
+        for(User mc : musicCreatorList){
+            for (Music m : mc.getAllMusic()){
+                countMusic++;
+            }
+        }
+        return countMusic;
+    }
 
     /**
      *
