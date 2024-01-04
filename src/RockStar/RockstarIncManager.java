@@ -77,7 +77,7 @@ public class RockstarIncManager  implements Serializable {
             }
         }
         if(sucessfulLogin)  {
-            guiManager.sucessfullLogin(currentUser, isMCreator);
+            guiManager.sucessfullLogin(currentUser.getUsername(), isMCreator);
             System.out.println("Successful Login");
         }
         else {
@@ -133,7 +133,7 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
         }
-        boolean validRegistration = termValidationOnUserAttempt(name,username, password, email,  isMCreator, pin);
+        boolean validRegistration = termValidationOnNewRegistration(name,username, password, email,  isMCreator, pin);
         if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
             if(isMCreator) musicCreatorList.add(new MusicCreator(name, username, password, email, pin));
             else clientList.add(new Client(name, username,password,email,0));
@@ -156,8 +156,8 @@ public class RockstarIncManager  implements Serializable {
      * @param pin
      * @return
      */
-    public boolean termValidationOnUserAttempt(String name, String username, String password, String email,
-                                             boolean isCreator, String pin){
+    public boolean termValidationOnNewRegistration(String name, String username, String password, String email,
+                                                   boolean isCreator, String pin){
         boolean validRegistration = true;
         //Pin
         if(isCreator){
@@ -279,10 +279,10 @@ public class RockstarIncManager  implements Serializable {
      * @param genre
      * @param nOfMusics
      */
-    public void newRandomPlaylist(Genre.GENRE genre, int nOfMusics){
+    public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
         for(Music m : musicList){
-            if(m.getGenre().equals(genre)) allMusicOfTheChosenGenre.add(m);
+            if(m.getGenre().equals(genre) && m.isActive()) allMusicOfTheChosenGenre.add(m);
         }
         int maxSize = allMusicOfTheChosenGenre.size();
         if(maxSize < nOfMusics) {
@@ -305,7 +305,7 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<Music> notFreeMusicSelection = musicSelection.get(1);
         boolean successfullyCreated;
         if(!notFreeMusicSelection.isEmpty()){
-            successfullyCreated = processorOnPaidRandom(randomMusicSelection, notFreeMusicSelection, nOfMusics,
+            successfullyCreated = processorOnRandomToPayMusic(randomMusicSelection, notFreeMusicSelection, nOfMusics,
                     allMusicOfTheChosenGenre);
         }
         else {
@@ -351,12 +351,12 @@ public class RockstarIncManager  implements Serializable {
      * @param allMusicOfTheChosenGenre
      * @return
      */
-    public boolean processorOnPaidRandom(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
-                                         int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
-        double totalPrice = musicPriceCalculator(notFreeMusicSelection);
+    public boolean processorOnRandomToPayMusic(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
+                                               int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
+        double totalPrice = musicListPriceCalculator(notFreeMusicSelection);
         double balance = ((Client)currentUser).getBalance();
         boolean canBuy  = totalPrice < balance;
-        int userOption = guiManager.randomPlaylistPaidSongsChoose(notFreeMusicSelection, totalPrice,canBuy);
+        int userOption = guiManager.randomPlaylistToPaySongsChoose(notFreeMusicSelection, totalPrice,canBuy);
         boolean successfullyCreated = false;
         switch (userOption){
             case 1:
@@ -386,7 +386,7 @@ public class RockstarIncManager  implements Serializable {
      * @param musicList
      * @return
      */
-    public double musicPriceCalculator(ArrayList<Music> musicList){
+    public double musicListPriceCalculator(ArrayList<Music> musicList){
         double totalPrice = 0;
         for (Music m : musicList){
             totalPrice += m.getPrice();
@@ -540,7 +540,10 @@ public class RockstarIncManager  implements Serializable {
         }catch (NumberFormatException e){
             guiManager.musicAttemptError(0);
         }
-        if (price > 50 || price < 0) guiManager.musicAttemptError(2);
+        if (price > 50 || price < 0) {
+            guiManager.musicAttemptError(2);
+            price = -1;
+        }
         return price;
     }
 
@@ -548,6 +551,59 @@ public class RockstarIncManager  implements Serializable {
      *
      * @return
      */
+
+    public void logout(){
+        currentUser = null;
+    }
+    public ArrayList<Music> getCurrentUserALlMusic(){
+        return currentUser.getAllMusic();
+    }
+    public ArrayList<MusicCollection> getCurretUserAllCollections(){
+        return currentUser.getAllCollections();
+    }
+    public double getCurrentUserBalance(){
+        return (double) Math.round(((Client) currentUser).getBalance() * 100) /100;
+    }
+    public Playlist getClientAllMusicAsCollection(){
+        return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
+    }
+    public Album getMusicCreatorAllMusicAsCollection(){
+        return new Album("Created Music",(MusicCreator) currentUser,currentUser.getAllMusic());
+    }
+    public ArrayList<Music> getUserBasketList(){
+        return ((Client)currentUser).getListOfMusicsToBuy();
+    }
+    public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
+        selectedMusic.setAssociatedAlbum(null);
+        currentUser.removeMusicFromCollection(selectedMusic,selectedPlaylist);
+    }
+    public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
+        currentUser.addMusicToCollection(selectedMusic,cl);
+    }
+    public void newCollection(String collection){
+        currentUser.newCollection(collection);
+    }
+
+    public void removeMusicCollection(MusicCollection selected){
+        currentUser.removeMusicCollection(selected);
+    }
+    public void newMusicToAllCollection(Music selectedMusic){
+        currentUser.newMusicToAllMusicCollection(selectedMusic);
+    }
+    public void evaluateMusic(int evaluation, Music selectedMusic){
+        selectedMusic.addEvaluation((Client)currentUser, evaluation);
+    }
+    public void validationOfAquisition(){
+        ((Client)currentUser).validationOfAquisition(getUserBasketList());
+        ((Client)currentUser).getListOfMusicsToBuy().clear();
+    }
+    public void addMoney(double money){
+        ((Client)currentUser).addMoney(money);
+    }
+
+    public void addMusicToMusicToBuy(Music selectedMusic){
+        ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+    }
     public int totalUsers(){return clientList.size() + musicCreatorList.size();}
 
     /**
@@ -584,7 +640,7 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
         }
-       return cont;
+        return cont;
     }
 
     /**
@@ -605,5 +661,28 @@ public class RockstarIncManager  implements Serializable {
     }
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
+    }
+    public ArrayList<Double> getStatistics(){
+        ArrayList<Double> overallStatistics =  new ArrayList<>();
+        overallStatistics.add((double)totalUsers());
+        overallStatistics.add((double)totalSongs());
+        overallStatistics.add(musicTotalPriceValue());
+        overallStatistics.add(totalSalesValue());
+        overallStatistics.add(salesCurrentUser());
+        overallStatistics.add((double)currentUserTotalMusicCreated());
+
+        ArrayList<Double> albumCountByGenre = new ArrayList<>();
+        for(Genre.GENRE ge : Genre.GENRE.values()){
+            albumCountByGenre.add((double) totalAlbumsByGenre(ge));
+        }
+        albumCountByGenre.add((double)totalAlbumsByGenre(null));
+
+        int totalAlbuns = 0;
+        for(Double i: albumCountByGenre){
+            totalAlbuns += i;
+        }
+        overallStatistics.add((double)totalAlbuns);
+        overallStatistics.addAll(albumCountByGenre);
+        return overallStatistics;
     }
 }
