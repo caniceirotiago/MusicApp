@@ -255,17 +255,11 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     * este método cria uma playlist de forma aleatória por género musical para o utilizador normal.
-     * Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
-     * de uma Arraylist de Musicas.
-     * O presente método pede um número de musicas e um género e devolve um arraylist
-     * Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
-     * Este metodo retorna um inteiro que corresponde à seleção do utilizador
-     * 1 - adicionar ao carrinho
-     * 2 - comprar as musicas
-     * 3 - apenas selecionar musicas gratuitas
-     * @param genre género de musica com que fazer a playlist aleatória
-     * @param nOfMusics número de musicas que se quer colocar na playlist aleatória
+     * Tenta criar uma nova lista aleatória de musicas com base no género escolhido e no número de músicas escolhidas.
+     * Se não houver musicas suficientes desse genero para o numero que o utilizador escolheu devolve uma mensagem de
+     * aviso.
+     * @param genre O género musical escolhido para a nova lista aleatória.
+     * @param nOfMusics O número de músicas para a nova lista aleatória.
      */
     public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
@@ -292,8 +286,16 @@ public class RockstarIncManager  implements Serializable {
      * 1 - adicionar ao carrinho
      * 2 - comprar as musicas
      * 3 - apenas selecionar musicas gratuitas
-     * @param nOfMusics
+     * @param nOfMusics numero de musicas a selecionar para a playlist
      * @param allMusicOfTheChosenGenre
+     */
+
+    /**
+     * Cria uma nova lista de músicas aleatória com base no número de músicas escolhido
+     * e em uma seleção aleatória de músicas do género escolhido.
+     *
+     * @param nOfMusics O número de músicas desejado para a nova lista de reprodução aleatória.
+     * @param allMusicOfTheChosenGenre Lista de todas as músicas do género escolhido.
      */
     public void randomPlaylistCreation(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> musicSelection = randomMusicSelection(nOfMusics,allMusicOfTheChosenGenre);
