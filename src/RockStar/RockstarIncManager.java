@@ -33,7 +33,7 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
+     * Método que o programa
      */
     public void run(){
         startGUI();
@@ -52,11 +52,11 @@ public class RockstarIncManager  implements Serializable {
      */
 
     /**
-     *
-     * @param username
-     * @param password
-     * @param isMCreator
-     * @param pin
+     * método para o utilizador já registado tentar entrar na aplicação
+     * @param username o nome do utilizador
+     * @param password a password do utilizador
+     * @param isMCreator condição para verificar se o utilizador é criador
+     * @param pin pin que é fornecido ao criador de musica para aceder ao programa
      */
     public void loginAttempt(String username, String password, Boolean isMCreator, String pin){
         boolean sucessfulLogin = false;
