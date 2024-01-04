@@ -28,24 +28,10 @@ public class Main {
         oos.close();
         System.out.println("File Updated");
     }
-    // Criar um novo arquivo caso nao haja
-    /*private static void createArchive() {
-        try {
-            FileOutputStream fos = new FileOutputStream("mainSaveFile");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            gc = new RockstarIncManager();
-            oos.writeObject(gc);
-            oos.close();
-            System.out.println("Save File created successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-     */
 
     /**
-     *
+     * Classe main onde corre o programa
      * @param args
      * @throws IOException
      * @throws ClassNotFoundException
