@@ -180,7 +180,7 @@ public class RockstarIncManager  implements Serializable {
         //Name
         boolean validName = true;
         for (int i = 0; i < name.length(); i++){
-            if((name.charAt(i) < 'a' || name.charAt(i) > 'z') && (name.charAt(i) < 'A' || name.charAt(i) < 'Z')) {
+            if(!((name.charAt(i) >= 'a' && name.charAt(i) <= 'z') || (name.charAt(i) >= 'A' && name.charAt(i) <= 'Z'))) {
 
                 validName =false;
                 validRegistration = false;
@@ -202,13 +202,27 @@ public class RockstarIncManager  implements Serializable {
             validRegistration = false;
         }
         //Email
-        int indexAt = email.indexOf("@");
-        int indexDotCom = email.indexOf(".");
-        if (email.isBlank() ){
+        if(email == null || email.isEmpty()){
             guiManager.unsuccessfulRegistration(3);
             validRegistration = false;
         }
-        else if (!(indexAt != -1 && indexDotCom !=-1 && indexAt<indexDotCom && indexAt+1<indexDotCom)){
+        int atCount = email.length() - email.replace("@","").length();
+        if(atCount != 1){
+            guiManager.unsuccessfulRegistration(3);
+            validRegistration = false;
+        }
+        String[] emailDivision = email.split("@");
+        String beforeAt = emailDivision[0];
+        String afterAt = emailDivision[1];
+        if(beforeAt.isEmpty() || afterAt.isEmpty()){
+            guiManager.unsuccessfulRegistration(3);
+            validRegistration = false;
+        }
+        if(!afterAt.contains(".")){
+            guiManager.unsuccessfulRegistration(3);
+            validRegistration = false;
+        }
+        if(beforeAt.startsWith(".") || beforeAt.endsWith(".")){
             guiManager.unsuccessfulRegistration(3);
             validRegistration = false;
         }
