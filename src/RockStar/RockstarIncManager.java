@@ -90,24 +90,23 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @param name
-     * @param username
-     * @param password
-     * @param email
-     * @param isMCreator
-     * @param pin
+     * Metodo para governar a entrada de um novo utilizador na aplicação
+     * @param name nome do utilizador que se quer registar
+     * @param username username do utilizador que se quer registar
+     * @param password password do utilizador para efetuar o registo
+     * @param email email do utilizador
+     * @param isMCreator condição para verificar se o utilizador que se quer registar é cliente ou criador de musica
+     * @param pin pin de 4 digitos fornecido ao novo criador de musica que se regista
      */
     public void newUserAttempt(String name, String username, String password, String email, boolean isMCreator, String pin){
         boolean emailAlreadyExists = false;
         boolean usernameAlreadyExists = false;
-        //This loop allows for an already created MusiCreator make a registration as a Client and vice versa.
-        //It sends a code message for GUI to apply an error box: "1" for invalid email and "2" for invalid username
         if(!isMCreator){
             for(User us : clientList){
                 if(us.getEmail().equals(email)){
                     emailAlreadyExists = true;
                     System.out.println("email already exists");
+                    //código que emite um aviso respetivo ao erro, gerido pelo método unsucessfulRegistration
                     guiManager.unsuccessfulRegistration(1);
                 }
                 if(us.getUsername().equals(username)){
@@ -131,6 +130,8 @@ public class RockstarIncManager  implements Serializable {
                 }
             }
         }
+        //caso todas as condições passem no filtro de registo
+        //efectua se o novo registo do utilizador
         boolean validRegistration = termValidationOnNewRegistration(name,username, password, email,  isMCreator, pin);
         if(!emailAlreadyExists && !usernameAlreadyExists && validRegistration){
             if(isMCreator) musicCreatorList.add(new MusicCreator(name, username, password, email, pin));
