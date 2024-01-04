@@ -18,14 +18,7 @@ public class RockstarIncManager  implements Serializable {
     private ArrayList<Music> musicList;
     private User currentUser;
     private boolean isCurUserMusicCreator;
-    /**
-     * classe transiente porque o GUI não é guardado no ficheiro de dados
-     */
     private transient GUIManager guiManager;
-
-    /**
-     * Construtor da classe
-     */
     public RockstarIncManager(){
         this.musicList = new ArrayList<>();
         this.clientList = new ArrayList<>();
@@ -33,24 +26,15 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     * Método que o programa
+     * Método que inicia a GUI
      */
     public void run(){
         startGUI();
     }
-
-    /**
-     * Método que inicia a interface do utilizador
-     */
     public void startGUI() {
         guiManager = new GUIManager(RockstarIncManager.this);
         guiManager.run();
     }
-    /*
-    This method allows to check a login atempt data. The method brings information from the gui like the username,
-    password, the pin and if the attempt is made from a music creator or a client by a boolean.
-     */
-
     /**
      * método para o utilizador já registado tentar entrar na aplicação
      * @param username o nome do utilizador
@@ -349,7 +333,8 @@ public class RockstarIncManager  implements Serializable {
      * como a lista de musicas a serem adquiridas para a construção da playlist, o preco dessa lista e uma boolean
      * que confirma a possibilidade do utilizador comprar a lista. Esta resposta ativa um switch statement, que
      * redireciona a lista de musicas para o carrinho de compras, permite e executa a compra das musicas automaticamente
-     * ou redireciona
+     * ou redireciona para um novo método de criação de playlists aleatórias com musicas adquiridas ou grátis
+     * newRandomPlaylistOnlyFree().
      * @param randomMusicSelection
      * @param notFreeMusicSelection
      * @param nOfMusics
