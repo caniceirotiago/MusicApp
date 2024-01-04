@@ -258,6 +258,8 @@ public class RockstarIncManager  implements Serializable {
      * Tenta criar uma nova lista aleatória de musicas com base no género escolhido e no número de músicas escolhidas.
      * Se não houver musicas suficientes desse genero para o numero que o utilizador escolheu devolve uma mensagem de
      * aviso.
+     * No caso de ser possivel a criação de uma playlist aleatoria por existirem musicas suficientes, chama on método
+     * randomPlaylistCreator();
      * @param genre O género musical escolhido para a nova lista aleatória.
      * @param nOfMusics O número de músicas para a nova lista aleatória.
      */
@@ -277,28 +279,20 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     * este método cria uma playlist de forma aleatória por género musical para o utilizador normal.
-     * Faz uso de um método acessorio chamado random IndexVector que retorna um vector de inteiros correspondente ao index
-     * de uma Arraylist de Musicas.
-     * O presente método pede um número de musicas e um género e devolve um arraylist
-     * Primeiro de tudo seleciona todas as músicas de determinado género e depois faz a seleção
-     * Este metodo retorna um inteiro que corresponde à seleção do utilizador
-     * 1 - adicionar ao carrinho
-     * 2 - comprar as musicas
-     * 3 - apenas selecionar musicas gratuitas
-     * @param nOfMusics numero de musicas a selecionar para a playlist
-     * @param allMusicOfTheChosenGenre
-     */
-
-    /**
      * Cria uma nova lista de músicas aleatória com base no número de músicas escolhido
      * e em uma seleção aleatória de músicas do género escolhido.
+     * Cria playlist aleatoria no caso das musicas selecionadas serem gratuitas/ já serem do utilizador.
+     * Utiliza para tal o metodo randomMusicSelection() que retorna duas listas: lista de musicas gratuitas/ adquiridas
+     * e a lista de musicas que tem de ser adquirida.
+     *
+     * No caso de pelo menos uma musica ter de ser adquirida, chama o método processorOnRandomToPayMusic();
      *
      * @param nOfMusics O número de músicas desejado para a nova lista de reprodução aleatória.
      * @param allMusicOfTheChosenGenre Lista de todas as músicas do género escolhido.
      */
     public void randomPlaylistCreation(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> musicSelection = randomMusicSelection(nOfMusics,allMusicOfTheChosenGenre);
+        //
         ArrayList<Music> randomMusicSelection = musicSelection.get(0);
         ArrayList<Music> notFreeMusicSelection = musicSelection.get(1);
         boolean successfullyCreated;
@@ -314,10 +308,14 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
+     * Método que realiza a seleção de musicas de forma aleatória, utilizando o método randomIndexVector(), que cria
+     * uma lista de indices aleatorio que irá corresponder aos indices da lista de musicas do género selecionadas, que
+     * foram criadas anteriormente.
      *
-     * @param nOfMusics
-     * @param allMusicOfTheChosenGenre
-     * @return
+     * Todas as musicas que são pagas e não adquiridas pelo utilizador irão para uma segunda lista.
+     * @param nOfMusics número de musicas que se quer escolher
+     * @param allMusicOfTheChosenGenre tipo de género do qual queremos as musicas.
+     * @return as listas de musicas gratuitas e as não-gratuitas.
      */
     public ArrayList<ArrayList<Music>> randomMusicSelection(int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
         ArrayList<ArrayList<Music>> lists = new ArrayList<>();
