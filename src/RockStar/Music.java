@@ -97,7 +97,6 @@ public class Music implements Serializable {
      * Se o cliente mesmo cliente decidir re-avaliar a musica, altera a classificação já dada e adiciona uma data de
      * alteração à avaliação.
      * Se o cliente for novo/ainda não tiver feito nenhuma avaliação, adiciona essa avaliação à musica.
-     *
      * @param client O cliente que está a avaliar a musica.
      * @param evaluation A avaliação dada pelo utilizador.
      */
