@@ -1,8 +1,6 @@
 /**
- * Descrição geral da classe e suas finalidades
- * isto guarda-se no main
- * @autor Tiago Caniceiro && Pedro Monteiro
- * versão 1.0
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
  */
 package src.RockStar;
 import java.io.Serializable;
