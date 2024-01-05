@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe abstrata de utilizador
+ * Métodos abstratos que são implementados nas classes Client e Music Creator
  */
 public abstract class User implements Serializable {
     protected String username;
