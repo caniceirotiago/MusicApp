@@ -217,6 +217,16 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
         if(!isCurUserMusicCreator){
+            for(User us : musicCreatorList){
+                for(Music m : us.getAllMusic()){
+                    if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                        foundMusics.add(m);
+                    }
+                    if(m.getMusicCreator().getName().toLowerCase().contains(searchTerm.toLowerCase())){
+                        foundMusicsByArtist.add(m);
+                    }
+                }
+            }
             for(User us :  musicCreatorList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);

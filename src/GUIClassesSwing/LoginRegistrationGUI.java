@@ -62,7 +62,6 @@ public class LoginRegistrationGUI extends JFrame {
         setResizable(false);
         ImageIcon imageIcon = new ImageIcon(ImagePaths.APP_ICON);
         setIconImage(imageIcon.getImage());
-
     }
 
     /**
