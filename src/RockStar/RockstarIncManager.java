@@ -22,10 +22,6 @@ public class RockstarIncManager  implements Serializable {
         this.clientList = new ArrayList<>();
         this.musicCreatorList = new ArrayList<>();
     }
-
-    /**
-     * Método que inicia a GUI
-     */
     public void run(){
         startGUI();
     }
@@ -402,9 +398,9 @@ public class RockstarIncManager  implements Serializable {
 
     /**
      * Método que inicia a criação de uma playlist aleatória em que apenas musicas gratuitas foram selecioknadas
-     * @param SizeOfNewVector
+     * @param SizeOfNewVector define o tamanho do novo vector.
      * @param sizeOfSample
-     * @return
+     * @return retorna uma lista de indexes.
      */
     public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
         //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
