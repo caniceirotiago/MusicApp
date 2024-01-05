@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Classe que permite a criação de objetos do tipo musica
+ * Classe que gere e constroi os objetos do tipo musica
  */
 public class Music implements Serializable {
     private String name;
@@ -19,7 +19,7 @@ public class Music implements Serializable {
     private Album associatedAlbum;
 
     /**
-     *Construtor para o objeto musica
+     * Construtor para o objeto do tipo musica
      * @param name
      * @param genre
      * @param musicCreator
@@ -38,11 +38,6 @@ public class Music implements Serializable {
     public ArrayList<PriceHistory> getPriceHistory() {
         return priceHistory;
     }
-
-    /**
-     *método para associar um album de um criador de musica a um objeto do tipo musica
-     * @param associatedAlbum
-     */
     public void setAssociatedAlbum(Album associatedAlbum) {
         this.associatedAlbum = associatedAlbum;
     }
