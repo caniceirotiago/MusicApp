@@ -27,11 +27,11 @@ public class SaveFileManager {
     public static void loadFile() throws IOException, ClassNotFoundException {
         try{
             FileInputStream fis = new FileInputStream(FILE_NAME);
-            System.out.println("Arquivo aberto");
+            System.out.println("Open archive");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            System.out.println("Ficheiro lido");
+            System.out.println("File read");
             gc = (RockstarIncManager) ois.readObject();
-            System.out.println("Ficheiro carreagdo");
+            System.out.println("File loaded");
             ois.close();
             System.out.println("loaded file");
         }catch (FileNotFoundException e){
