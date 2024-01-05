@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe responsável pela gestão e ligação da Classe Rockstar (e consequentemente toda a lógica da aplicação) à interface
+ * gráfica com a qual o utilizador interage
  */
 public class GUIManager  {
     private ClientGUI clientFrame;
@@ -18,8 +19,8 @@ public class GUIManager  {
     private final RockstarIncManager logicManager;
 
     /**
-     *
-     * @param logicManager
+     * Construtor do gestor gráfico que liga à classe RockstarManager
+     * @param logicManager o construtor da classe RockstarManager
      */
     public GUIManager(RockstarIncManager logicManager) {
         this.logicManager = logicManager;
