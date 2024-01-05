@@ -38,8 +38,8 @@ public class MusicCreator extends User implements Serializable {
     }
 
     /**
-     *
-     * @param listMusic
+     * Método para criação de album com musicas associadas.
+     * @param listMusic lista de musicas que são inseridas no album.
      */
     public void newCollection(ArrayList<Music> listMusic) {}
     @Override
