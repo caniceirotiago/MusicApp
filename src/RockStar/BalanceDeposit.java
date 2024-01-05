@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- *classe que gere os depósitos na conta do cliente
+ * classe que gere os depósitos na conta do cliente
  */
 public class BalanceDeposit implements Serializable {
     private double balanceToAdd;
     private LocalDateTime dateTime;
 
     /**
-     *adicionar dinheiro
-     * @param balanceToAdd
+     * método para adicionar dinheiro à carteira do cliente
+     * @param balanceToAdd valor a adicionar.
      */
     public BalanceDeposit(double balanceToAdd) {
         this.balanceToAdd = balanceToAdd;
