@@ -31,7 +31,7 @@ public class SaveFileManager {
             ObjectInputStream ois = new ObjectInputStream(fis);
             System.out.println("Ficheiro lido");
             gc = (RockstarIncManager) ois.readObject();
-            System.out.println("FIcheiro carreagdo");
+            System.out.println("Ficheiro carreagdo");
             ois.close();
             System.out.println("loaded file");
         }catch (FileNotFoundException e){
