@@ -320,7 +320,7 @@ public class MusicCreatorGUI extends JFrame {
 
          */
 
-        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification","Price","Genre","Active"};
+        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification","Price €","Genre","Active"};
         centralTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -339,7 +339,7 @@ public class MusicCreatorGUI extends JFrame {
         ArrayList<Music> userAllMusic = guiManager.getUserAllMusic();
         updateMusicJTableModel(userAllMusic);
         centralTable = new JTable(centralTableModel);
-        centralTable.getTableHeader().setReorderingAllowed(true);
+        centralTable.getTableHeader().setReorderingAllowed(false);
         centralTable.setAutoCreateRowSorter(true);
 
         //This action listener will trigger different popup menus depending on the selected element in panel west
@@ -385,7 +385,7 @@ public class MusicCreatorGUI extends JFrame {
         };
         updateSearchMusicTable(search.getFoundMusics());
         searchMusicTable = new JTable(searchMusicTableModel);
-        searchMusicTable.getTableHeader().setReorderingAllowed(true);
+        searchMusicTable.getTableHeader().setReorderingAllowed(false);
         searchMusicTable.setAutoCreateRowSorter(true);
 
         searchMusicTable.addMouseListener(new MouseAdapter() {
@@ -412,7 +412,7 @@ public class MusicCreatorGUI extends JFrame {
             }
         };
         JTable searchCollectionTable = new JTable(searchCollectionTableModel);
-        searchCollectionTable.getTableHeader().setReorderingAllowed(true);
+        searchCollectionTable.getTableHeader().setReorderingAllowed(false);
         searchCollectionTable.setAutoCreateRowSorter(true);
 
         //Creation of the back button and combobox
@@ -704,6 +704,8 @@ public class MusicCreatorGUI extends JFrame {
     public void onCreateMusicBtnClick(){
         guiManager.newMusicAttempt(musicNameTextField.getText(), priceTextField.getText(),
                 selectedGender.getItemAt(selectedGender.getSelectedIndex()));
+        selectedAlbum = currentUserCollection;
+        updateMusicJTableModel(selectedAlbum.getMusicList());
     }
 
     /**

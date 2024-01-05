@@ -459,7 +459,7 @@ public class ClientGUI extends JFrame {
         ArrayList<Music> userAllMusic = guiManager.getUserAllMusic();
         updateMusicJTableModel(userAllMusic);
         centralTable = new JTable(centralTableModel);
-        centralTable.getTableHeader().setReorderingAllowed(true);
+        centralTable.getTableHeader().setReorderingAllowed(false);
         centralTable.setAutoCreateRowSorter(true);
 
         //Este action listener acciona popups diferentes consoante o elemento selecionado no painel oeste
@@ -483,6 +483,7 @@ public class ClientGUI extends JFrame {
             }
         });
 
+
         JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -505,7 +506,7 @@ public class ClientGUI extends JFrame {
         };
         updateSearchMusicTable(search.getFoundMusics());
         searchMusicTable = new JTable(searchMusicTableModel);
-        searchMusicTable.getTableHeader().setReorderingAllowed(true);
+        searchMusicTable.getTableHeader().setReorderingAllowed(false);
         searchMusicTable.setAutoCreateRowSorter(true);
 
         searchMusicTable.addMouseListener(new MouseAdapter() {
@@ -534,7 +535,7 @@ public class ClientGUI extends JFrame {
         };
         updateSearchCollectionTable();
         JTable searchCollectionTable = new JTable(searchCollectionTableModel);
-        searchCollectionTable.getTableHeader().setReorderingAllowed(true);
+        searchCollectionTable.getTableHeader().setReorderingAllowed(false);
         searchCollectionTable.setAutoCreateRowSorter(true);
 
         //Criação do botão de retroceder e combobox
@@ -824,6 +825,8 @@ public class ClientGUI extends JFrame {
             }
 
         }
+        selectedPlaylist = currentUserCollection;
+        updateMusicJTableModel(selectedPlaylist.getMusicList());
     }
     public void onAddBalancebtnClick(){
         String moneyToAdd = JOptionPane.showInputDialog("How much do you want to add?");
