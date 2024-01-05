@@ -43,10 +43,17 @@ public class SaveFileManager {
             System.out.println("Load error");
         }
     }
+
+    /**
+     * Método de gravação automatica de x em x segundos
+     * true cria uma thread "Daemon "que encerra quando o programa desliga
+     * O delay corresponde ao tempo inicial de atraso em milissegundos efectua a primeira gravação automática
+     * O interval corresponde ao intervalo entre as execuções em milissegundos (exemplo: 2 minutos)
+     */
     private static void autoSave(){
-        Timer timer = new Timer(true); // true cria uma thread "Daemon "que encerra quando o programa desliga
-        int delay = 1000 * 60 * 2; // Tempo inicial de atraso em milissegundos primeira gravação automática
-        int interval = 1000 * 60 * 2; // Intervalo entre as execuções em milissegundos (exemplo: 2 minutos)
+        Timer timer = new Timer(true);
+        int delay = 1000 * 60 * 2; //
+        int interval = 1000 * 60 * 2; //
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
