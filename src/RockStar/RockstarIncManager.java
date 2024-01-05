@@ -441,12 +441,13 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @param selectedMusic
-     * @param name
-     * @param priceString
-     * @param genre
-     * @param state
+     * Método que lida com a tentativa de edição de musica. Verifica se os parametros da musica estão corretos,
+     * gere a lógica da edição de musica e comunica com a interface gráfica aquando sucesso na edição.
+     * @param selectedMusic Musica selecionada para editar.
+     * @param name Parametro para validação do nome da musica.
+     * @param priceString preço associado à musica selecionada.
+     * @param genre género da musica.
+     * @param state determina o estado da musica, se está activa ou não.
      */
     public void musicEditionAttempt(Music selectedMusic, String name, String priceString, Genre.GENRE genre, int state){
         boolean musicEdited = false;
