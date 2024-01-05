@@ -43,8 +43,8 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *Fazer nova coleção
-     * @param name
+     * Método para criação de uma nova playlist vazia
+     * @param name nome da playlist
      */
     public void newCollection(String name){
         //Creation of Empty playlist
@@ -53,9 +53,9 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *Nova coleção aleatoria de musica?
-     * método que auxilia o construtor de musica aleatoria para criar nova playlist random
-     * @param listOfMusic
+     * Método auxiliar do construtor de musica aleatoria.
+     * @param listOfMusic Uma lista de musica escolhida pelos métodos random na Classe RockstarManager, no método
+     * RandomPlaylistCreation.
      */
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
@@ -89,7 +89,7 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *Remover musica de uma playlist
+     * Remover musica de uma playlist
      * @param music
      * @param collection
      */
@@ -98,7 +98,7 @@ public class Client extends User implements Serializable {
     };
 
     /**
-     *remover coleção/playlist da coleção do utilizador
+     * remover coleção/playlist da coleção do utilizador
      * @param collection
      */
     public void removeMusicCollection(MusicCollection collection){
@@ -106,7 +106,7 @@ public class Client extends User implements Serializable {
     };
 
     /**
-     *adicionar dinheiro à carteira do cliente
+     * adicionar dinheiro à carteira do cliente
      * @param moneyToAdd
      */
     public void addMoney(double moneyToAdd){
