@@ -479,9 +479,9 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @param name
-     * @return
+     * Método para validação do nome da musica consoante as regras desejadas.
+     * @param name Nome da musica que vai ser verificada consonte os parametros impostos.
+     * @return retorna o nome da musica validado.
      */
     public boolean musicNameValidation(String name){
         boolean validatedName = true;
@@ -504,9 +504,9 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @param priceString
-     * @return
+     * Método para validação do preço colocado numa musica.
+     * @param priceString Parâmetro de preço que se quer colocar numa musica.
+     * @return retorna o preço da musica.
      */
     public double musicPriceValidation (String priceString){
         priceString = priceString.replace(',','.');
@@ -522,12 +522,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return price;
     }
-
-    /**
-     *
-     * @return
-     */
-
     public void logout(){
         currentUser = null;
     }
@@ -581,11 +575,6 @@ public class RockstarIncManager  implements Serializable {
         ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
     }
     public int totalUsers(){return clientList.size() + musicCreatorList.size();}
-
-    /**
-     *
-     * @return
-     */
     public double musicTotalPriceValue(){ //valor total musicas no sistema
         double price = 0.0;
         for(User mc : musicCreatorList){
@@ -595,11 +584,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return price;
     }
-
-    /**
-     *
-     * @return
-     */
     public int totalSongs(){
         int countMusic = 0;
         for(User mc : musicCreatorList){
@@ -609,12 +593,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return countMusic;
     }
-
-    /**
-     *
-     * @param albumGenre
-     * @return
-     */
     public int totalAlbumsByGenre(Genre.GENRE albumGenre){
         int cont = 0;
         for (User us : musicCreatorList){
@@ -628,11 +606,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return cont;
     }
-
-    /**
-     *
-     * @return
-     */
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  clientList){
@@ -648,6 +621,11 @@ public class RockstarIncManager  implements Serializable {
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
     }
+
+    /**
+     *
+     * @return
+     */
     public ArrayList<Double> getStatistics(){
         ArrayList<Double> overallStatistics =  new ArrayList<>();
         overallStatistics.add((double)totalUsers());

@@ -15,9 +15,8 @@ public abstract class MusicCollection implements Serializable {
     public MusicCollection() {}
 
     /**
-     *construtor da classe
-     * construtor geral para a coleção de musicas totais, library geral
-     * @param name
+     * construtor de uma coleção de musicas vazia.
+     * @param name Define o nome da coleção.
      */
     public MusicCollection(String name) {
         this.name = name;
@@ -26,10 +25,10 @@ public abstract class MusicCollection implements Serializable {
     }
 
     /**
-     *Construtor da classe com o parametro ArrayList com a lista de musica
-     * Construtor utilizado para a criação de albuns e playlists dos respetivos utilizadores
-     * @param name
-     * @param musicList
+     * Construtor de uma coleção de musica com nome e uma lista de musicas associadas.
+     * Utilizado na criação de playlists ou albums
+     * @param name Nome da playlist.
+     * @param musicList Lista de musicas a inserir na coleção
      */
     public MusicCollection(String name, ArrayList<Music> musicList) {
         this.name = name;
