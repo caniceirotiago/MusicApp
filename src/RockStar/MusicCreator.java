@@ -4,21 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *Classe de utilizadores criadores de musica
- * extende a classe abstrata utilizador
+ * Classe MusicCreator que herda parametros e funcionalidades da classe abstrata User.
+ * Tem como parametros o pin associado no registo e a receita total da venda das suas musicas.
  */
 public class MusicCreator extends User implements Serializable {
     private String pin;
     private double totalValueSales;
 
     /**
-     * Construtor da classe do criador de musica
-     * utiliza parametros da classe user da qual herd
-     * @param name
-     * @param username
-     * @param password
-     * @param email
-     * @param pin
+     * Construtor da classe do criador de musica.
+     * @param name Nome do criador
+     * @param username Username do criador
+     * @param password Password do criador
+     * @param email email do criador
+     * @param pin pin associado a este criador, fornecido aquando registo
      */
     public MusicCreator(String name, String username, String password, String email, String pin) {
         super(name, username, password, email);
@@ -29,8 +28,8 @@ public class MusicCreator extends User implements Serializable {
     }
 
     /**
-     *
-     * @param name
+     * Método para a criação de um album de musicas vazio.
+     * @param name nome associado ao album.
      */
     @Override
     public void newCollection(String name) {
@@ -43,12 +42,6 @@ public class MusicCreator extends User implements Serializable {
      * @param listMusic
      */
     public void newCollection(ArrayList<Music> listMusic) {}
-
-    /**
-     * adicionar musica ao album do criador
-     * @param music
-     * @param album
-     */
     @Override
     public void addMusicToCollection(Music music, MusicCollection album) {
         if(allCollections.contains(album)){
@@ -56,11 +49,6 @@ public class MusicCreator extends User implements Serializable {
             music.setAssociatedAlbum((Album)album);
         }
     }
-
-    /**
-     * adicionar musica à biiblioteca geral
-     * @param music
-     */
     public void newMusicToAllMusicCollection(Music music){
         allMusic.add(music);
     }
@@ -69,29 +57,15 @@ public class MusicCreator extends User implements Serializable {
             collection.removeMusicFromCollection(music);
         }
     }
-    /**
-     * método para remover um album da coleção do criador de musica
-     * @param collection
-     */
     public void removeMusicCollection(MusicCollection collection){
         for(Music m : collection.getMusicList()){
             m.setAssociatedAlbum(null);
         }
         allCollections.remove(collection);
     }
-
-    /**
-     * método para adicionar receita de venda de musica à conta de um criador de musica
-     * @param valueToAdd
-     */
     public void addRevenueFromMusicSale (double valueToAdd){
         totalValueSales += valueToAdd;
     }
-
-    /**
-     * método que retorna a receita total do criador de musica
-     * @return
-     */
     public double getTotalValueSales() {
         return totalValueSales;
     }
