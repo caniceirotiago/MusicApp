@@ -4,6 +4,11 @@ import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Classe que gere gravação dos dados da aplicação.
+ * Gere o carregamento de ficheiros guardados, grava automaticamente os ficheiros consoante um timer e tambem no caso de
+ * fecho da aplicação.
+ */
 public class SaveFileManager {
     private static final String FILE_NAME = "mainSaveFile";
     private static RockstarIncManager gc;
