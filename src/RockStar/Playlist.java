@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe com construtor e métodos para a criação de playlist por parte do Cliente
+ * Classe que gere a construção de uma coleção de musica/playlist associada ao utilizador Cliente
  */
 public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
@@ -12,9 +12,9 @@ public class Playlist extends MusicCollection implements Serializable {
     public Playlist() {}
 
     /**
-     * Construtor da classe
-     * @param name
-     * @param clientCreator
+     * Construtor da playlist do Cliente
+     * @param name nome da playlist
+     * @param clientCreator nome do utilizador da classe Cliente
      */
     public Playlist(String name, Client clientCreator) {
         //Creation of empty playlist
@@ -24,10 +24,10 @@ public class Playlist extends MusicCollection implements Serializable {
     }
 
     /**
-     * Construtor da classe para playlist aleatória
-     * @param name
-     * @param clientCreator
-     * @param musicList
+     * Construtor de uma playlist aleatória.
+     * @param name nome da playlist.
+     * @param clientCreator nome do utilizador da classe Cliente.
+     * @param musicList lista de musicas a serem inseridas na playlist aleatória criada.
      */
     public Playlist(String name, Client clientCreator, ArrayList<Music> musicList) {
         //Creation of random playlist or temporary Gui Playlist
