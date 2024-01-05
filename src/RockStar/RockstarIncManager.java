@@ -424,10 +424,11 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @param name
-     * @param priceString
-     * @param genre
+     * Método que gere a validação dos termos para o nome e preço de uma musica para a implementar no sistema.
+     * Adiciona a musica à lista geral de musicas no sistema e as respectivas listas de utilizadores.
+     * @param name nome da musica.
+     * @param priceString preço da musica.
+     * @param genre género da musica.
      */
     public void newMusic(String name, String priceString, Genre.GENRE genre){
         boolean validatedName = musicNameValidation(name);
