@@ -1,3 +1,7 @@
+/**
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
+ */
 package src.RockStar;
 
 import java.io.Serializable;
@@ -5,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- *Classe abstrata das coleções de musica
+ * Classe abstrata das coleções de musica
  * serve de base para as playlists do cliente e o album do criador de musica
  */
 public abstract class MusicCollection implements Serializable {
@@ -15,9 +19,8 @@ public abstract class MusicCollection implements Serializable {
     public MusicCollection() {}
 
     /**
-     *construtor da classe
-     * construtor geral para a coleção de musicas totais, library geral
-     * @param name
+     * construtor de uma coleção de musicas vazia.
+     * @param name Define o nome da coleção.
      */
     public MusicCollection(String name) {
         this.name = name;
@@ -26,21 +29,16 @@ public abstract class MusicCollection implements Serializable {
     }
 
     /**
-     *Construtor da classe com o parametro ArrayList com a lista de musica
-     * Construtor utilizado para a criação de albuns e playlists dos respetivos utilizadores
-     * @param name
-     * @param musicList
+     * Construtor de uma coleção de musica com nome e uma lista de musicas associadas.
+     * Utilizado na criação de playlists ou albums
+     * @param name Nome da playlist.
+     * @param musicList Lista de musicas a inserir na coleção
      */
     public MusicCollection(String name, ArrayList<Music> musicList) {
         this.name = name;
         this.musicList = musicList;
         this.creationDate = LocalDateTime.now();
     }
-
-    /**
-     * método abstrato para adicionar musica à coleção
-     * @param music
-     */
     public abstract void addMusicToCollection(Music music);
     public abstract void removeMusicFromCollection(Music music);
     public String getName() {

@@ -1,10 +1,15 @@
+/**
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
+ */
 package src.RockStar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe abstrata de utilizador
+ * Métodos abstratos que são implementados nas classes Client e Music Creator
  */
 public abstract class User implements Serializable {
     protected String username;
@@ -39,11 +44,11 @@ public abstract class User implements Serializable {
     }
 
     /**
-     * 
-     * @param name
-     * @param username
-     * @param password
-     * @param email
+     * Criação de novo utilizador
+     * @param name Nome de utilizador
+     * @param username Username do utilizador
+     * @param password Password do utilizador
+     * @param email Email do utilizador
      */
     public User(String name, String username, String password, String email) {
         this.username = username;
