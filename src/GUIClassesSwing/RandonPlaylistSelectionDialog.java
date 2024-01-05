@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  *
  */
-public class RandonPlaylistPay  extends JDialog {
+public class RandonPlaylistSelectionDialog extends JDialog {
     private JButton addToBasketbtn;
     private JButton buyMusicbtn;
     private JButton onlyFreebtn;
@@ -24,7 +24,7 @@ public class RandonPlaylistPay  extends JDialog {
      * @param totalPrice
      * @param canBuy
      */
-    public RandonPlaylistPay(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
+    public RandonPlaylistSelectionDialog(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
         super (associated,"Paid Music", true);
         this.guiManager = guiManager;
 

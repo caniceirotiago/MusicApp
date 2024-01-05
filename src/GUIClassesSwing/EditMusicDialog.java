@@ -2,16 +2,14 @@ package src.GUIClassesSwing;
 
 import src.RockStar.Genre;
 import src.RockStar.Music;
-import src.RockStar.RockstarIncManager;
 
 import javax.swing.*;
-import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 
 /**
  *
  */
-public class EditMusic extends JDialog {
+public class EditMusicDialog extends JDialog {
 
     private GUIManager guiManager;
 
@@ -26,7 +24,7 @@ public class EditMusic extends JDialog {
      * @param associated
      * @param music
      */
-    public EditMusic(GUIManager guiManager, Frame associated, Music music){
+    public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
         this.guiManager = guiManager;
 

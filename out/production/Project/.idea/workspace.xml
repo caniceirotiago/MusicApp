@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="Gravação a funcionar">
-      <change beforePath="$PROJECT_DIR$/mainSaveFile" beforeDir="false" afterPath="$PROJECT_DIR$/mainSaveFile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/mainSaveFile" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/mainSaveFile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUIX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUIX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +18,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Retirar-listamusicas-Rockstar-Tiago" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -67,7 +70,8 @@
       <workItem from="1704197757158" duration="3951000" />
       <workItem from="1704221416718" duration="1692000" />
       <workItem from="1704293405650" duration="5654000" />
-      <workItem from="1704303734650" duration="9037000" />
+      <workItem from="1704303734650" duration="19754000" />
+      <workItem from="1704409291504" duration="1672000" />
     </task>
     <task id="LOCAL-00001" summary="Quaseacabado">
       <option name="closed" value="true" />
@@ -141,11 +145,70 @@
       <option name="project" value="LOCAL" />
       <updated>1704381801712</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704382549205</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1704382549205</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704389535737</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1704389535737</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704389613175</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1704389613175</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704389667349</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1704389667349</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704390426123</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1704390426123</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Gravação a funcionar">
+      <option name="closed" value="true" />
+      <created>1704409027871</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1704409027871</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Quaseacabado" />

@@ -14,7 +14,7 @@ import java.util.Vector;
 /**
  *
  */
-public class MusicCreatorGUIX extends JFrame {
+public class MusicCreatorGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private DefaultTableModel searchMusicTableModel;
@@ -55,7 +55,7 @@ public class MusicCreatorGUIX extends JFrame {
      * @param username
      * @param guiManager
      */
-    public MusicCreatorGUIX(String username, GUIManager guiManager){
+    public MusicCreatorGUI(String username, GUIManager guiManager){
         super("Music Creator - " + username);
         this.guiManager = guiManager;
 
@@ -791,7 +791,7 @@ public class MusicCreatorGUIX extends JFrame {
             int genreValue = (int)(double) albumStatistics.get(counter);
             JLabel labelGenre = new JLabel("<html>"+ ge +"<br><p style='text-align:center;'>" +
                     genreValue + "</p></html>");
-            RetangleBarCart bar = new RetangleBarCart(genreValue,totalAlbums);
+            RetangleBarChartComp bar = new RetangleBarChartComp(genreValue,totalAlbums);
             JPanel genrePanel = new JPanel(new BorderLayout());
             genrePanel.add(labelGenre, BorderLayout.NORTH);
             genrePanel.add(bar, BorderLayout.CENTER);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class GUIManager  {
     private ClientGUI clientFrame;
-    private MusicCreatorGUIX musicCreatorFrame;
+    private MusicCreatorGUI musicCreatorFrame;
     private LoginRegistrationGUI loginRegistrationGUI;
     private LogRegFrame loginFrame;
     private LogRegFrame registrationFrame;
@@ -173,7 +173,7 @@ public class GUIManager  {
      */
     public void sucessfullLogin(String username, boolean isMCreator){
         if(isMCreator){
-            musicCreatorFrame = new MusicCreatorGUIX(username, this);
+            musicCreatorFrame = new MusicCreatorGUI(username, this);
             loginRegistrationGUI.setVisible(false);
             loginFrame.dispose();
             if(registrationFrame != null) registrationFrame.dispose();
@@ -193,7 +193,7 @@ public class GUIManager  {
      * @return
      */
     public int randomPlaylistToPaySongsChoose(ArrayList<Music> notFreeMusicSelection, double totalPrice, boolean canBuy) {
-        RandonPlaylistPay rpp = new RandonPlaylistPay(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
+        RandonPlaylistSelectionDialog rpp = new RandonPlaylistSelectionDialog(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
         int userOption = rpp.getReturnValue();
         System.out.println(userOption);
         return userOption;
@@ -385,11 +385,11 @@ public class GUIManager  {
      * @param selectedMusic
      */
     public void editMusicDialogCall(Music selectedMusic){
-        EditMusic editMusic = new EditMusic(this, musicCreatorFrame, selectedMusic);
-        String name = editMusic.getNewName();
-        String price = editMusic.getNewPrice();
-        Genre.GENRE genre = editMusic.getSelectedGender();
-        int state = editMusic.getMusicState();
+        EditMusicDialog editMusicDialog = new EditMusicDialog(this, musicCreatorFrame, selectedMusic);
+        String name = editMusicDialog.getNewName();
+        String price = editMusicDialog.getNewPrice();
+        Genre.GENRE genre = editMusicDialog.getSelectedGender();
+        int state = editMusicDialog.getMusicState();
         logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
         musicCreatorFrame.updateSecondStatsPanel(getAlbumTypeStatistics());
     }
