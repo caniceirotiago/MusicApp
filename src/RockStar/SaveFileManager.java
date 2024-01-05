@@ -73,10 +73,10 @@ public class SaveFileManager {
         Runtime.getRuntime().addShutdownHook(new Thread(() ->{
             try{
                 updateDataFile();
-                System.out.println("Save on suthdown");
+                System.out.println("Save on shutdown");
             } catch (IOException | ClassNotFoundException e){
                 e.printStackTrace();
-                System.out.println("Save on suthdown error");
+                System.out.println("Save on shutdown error");
             }
         }));
     }
