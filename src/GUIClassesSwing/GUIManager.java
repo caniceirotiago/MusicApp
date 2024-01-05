@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe responsável pela gestão e ligação da Classe Rockstar (e consequentemente toda a lógica da aplicação) à interface
+ * gráfica com a qual o utilizador interage
  */
 public class GUIManager  {
     private ClientGUI clientFrame;
@@ -18,66 +19,53 @@ public class GUIManager  {
     private final RockstarIncManager logicManager;
 
     /**
-     *
-     * @param logicManager
+     * Construtor do gestor gráfico que liga à classe RockstarManager
+     * @param logicManager o construtor da classe RockstarManager
      */
     public GUIManager(RockstarIncManager logicManager) {
         this.logicManager = logicManager;
     }
 
-    /**
-     *
-     */
     public void run(){
         loginRegistrationGUI = new LoginRegistrationGUI(GUIManager.this);
     }
 
-
-
-    //---------Comunication with logicManager and creation of dialog messages-------
-
     /**
-     *
-     * @param userField
-     * @param passToString
-     * @param isMCreator
-     * @param pin
+     * Método que mostra ao utilizador a tentativa de login e que comunica com a classe RockstarManager.
+     * No caso do login ser bem sucedido, inicia a frame do utilizador que está a fazer o login (Cliente ou Criador de
+     * Musica)
+     * @param userField campo para o utilizador colocar o username.
+     * @param passToString campo para colocar a password.
+     * @param isMCreator botão para identificar se o utilizador é um criador de musica.
+     * @param pin campo de pin para validar o login de um criador de musica.
      */
     public void loginAttempt(String userField, String passToString, boolean isMCreator, String pin){
         logicManager.loginAttempt(userField,passToString,isMCreator,pin);
     }
-    //Inicia a frame correta no caso de o login ser bem sucedido
-
-    /**
-     *
-     */
     public void unsuccessfulLogin(){
         JOptionPane.showMessageDialog(null,"Unsuccessful Login");
     };
 
     /**
-     *
-     * @param name
-     * @param usernameField
-     * @param password
-     * @param email
-     * @param isMCreator
-     * @param pin
+     * Método que permite ao utilizador registar-se na plataforma
+     * Comunica com os métodos na Classe RockstarManager
+     * @param name campo para o utilizador colocar o nome
+     * @param usernameField campo para o utilizador colocar o seu username
+     * @param password campo para o utilizador colocar a password
+     * @param email campo para o utilizador colocar o seu email
+     * @param isMCreator botão para identificar o utilizador como criador de musica
+     * @param pin campo para o utilizador registar o pin
      */
     public void newUserAttempt(String name,String usernameField,String password,String email,boolean isMCreator, String pin){
         logicManager.newUserAttempt(name, usernameField,password,email, isMCreator, pin);
     }
-
-    /**
-     *
-     */
     public void successfulRegistration(){
         JOptionPane.showMessageDialog(null,"New User Created");
     }
 
     /**
-     *
-     * @param cod
+     * método para mostrar ao utilizador uma mensagem de erro consoante o erro que o programa detectar
+     * @param cod código de erro respetivo
      */
     public void unsuccessfulRegistration(int cod){
         switch (cod){
@@ -100,19 +88,14 @@ public class GUIManager  {
     }
 
     /**
-     *
-     * @param selectedGenre
-     * @param nMusics
+     * Método para mostrar ao utilizador na tentativa de criação de uma playlist aleatória
+     * @param selectedGenre género selecionado para a playlist aleatória
+     * @param nMusics número de musicas escolhidas para a playlist aleatória
      */
     public void randomPlaylistCreationAttempt(Genre.GENRE selectedGenre,int nMusics){
         logicManager.newRandomPlaylistAttempt(selectedGenre,nMusics);
     }
 
-    /**
-     *
-     * @param maxSize
-     * @param freeMusics
-     */
     public void notEnoughMusicForRandom(int maxSize,boolean freeMusics){
         String freeMusicsString = "";
         if(freeMusics) freeMusicsString = "free";
@@ -134,43 +117,23 @@ public class GUIManager  {
         return lf;
     }
 
-    /**
-     *
-     * @return
-     */
     public LogRegFrame creationRegistrationFrame(){
         LogRegFrame rf = new LogRegFrame();
         this.registrationFrame = rf;
         return rf;
     }
 
-    /**
-     *
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
     public void logoutClient() throws IOException, ClassNotFoundException {
         clientFrame.dispose();
         logicManager.logout();
         run();
     }
 
-    /**
-     *
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
     public void logoutMCreator()throws IOException, ClassNotFoundException{
         musicCreatorFrame.dispose();
         logicManager.logout();
         run();
     }
-
-    /**
-     *
-     * @param username
-     * @param isMCreator
-     */
     public void sucessfullLogin(String username, boolean isMCreator){
         if(isMCreator){
             musicCreatorFrame = new MusicCreatorGUI(username, this);
@@ -185,13 +148,6 @@ public class GUIManager  {
         }
     }
 
-    /**
-     *
-     * @param notFreeMusicSelection
-     * @param totalPrice
-     * @param canBuy
-     * @return
-     */
     public int randomPlaylistToPaySongsChoose(ArrayList<Music> notFreeMusicSelection, double totalPrice, boolean canBuy) {
         RandonPlaylistSelectionDialog rpp = new RandonPlaylistSelectionDialog(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
         int userOption = rpp.getReturnValue();
@@ -199,10 +155,7 @@ public class GUIManager  {
         return userOption;
     }
 
-    /**
-     *
-     */
-    public void randomPLSuccssefullyCreated(){ //erro
+    public void randomPLSuccssefullyCreated(){
         JOptionPane.showMessageDialog(null,"Random playlist created");
         clientFrame.updateMusicJTableModel(logicManager.getCurrentUserALlMusic());
         clientFrame.updateBasketJListModel();
@@ -210,150 +163,77 @@ public class GUIManager  {
         clientFrame.updateTotalBascketPrice();
     }
 
-    /**
-     *
-     * @param searchTextField
-     * @return
-     */
     public Search newSearch(String searchTextField){
         return logicManager.search(searchTextField);
     }
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<MusicCollection> getUserAllCollection(){
         return logicManager.getCurretUserAllCollections();
     }
 
-    /**
-     *
-     * @return
-     */
     public double getUserBalance(){
         return logicManager.getCurrentUserBalance();
     }
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Music> getUserAllMusic(){
         return logicManager.getCurrentUserALlMusic();
     }
 
-    /**
-     *
-     * @return
-     */
     public Playlist getCorrentUserMainCollectionClient(){
         return logicManager.getClientAllMusicAsCollection();
     }
 
-    /**
-     *
-     * @return
-     */
     public Album getCorrentUserMainCollectionMusicCreator(){
         return logicManager.getMusicCreatorAllMusicAsCollection();
     }
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Music> getListOfMusicsToBuy(){
         return logicManager.getUserBasketList();
     }
 
-    /**
-     *
-     * @param selectedMusic
-     * @param selectedPlaylist
-     */
     public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
         logicManager.removeMusicFromCollection(selectedMusic,selectedPlaylist);
     }
 
-    /**
-     *
-     * @param selectedMusic
-     * @param cl
-     */
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
         logicManager.addMusicToCollection(selectedMusic,cl);
     }
 
-    /**
-     *
-     * @param evaluation
-     * @param selectedMusic
-     */
     public void evaluateMusic(int evaluation, Music selectedMusic){
         logicManager.evaluateMusic(evaluation, selectedMusic);
     }
 
-    /**
-     *
-     * @param playlistName
-     */
     public void newCollection(String playlistName){
        logicManager.newCollection(playlistName);
     }
 
-    /**
-     *
-     */
     public void validationOfAquisition(){
         logicManager.validationOfAquisition();
     }
 
-    /**
-     *
-     * @param money
-     */
     public void addMoney(double money){
         logicManager.addMoney(money);
     }
 
-    /**
-     *
-     * @param selected
-     */
     public void removeMusicCollection(MusicCollection selected){
         logicManager.removeMusicCollection(selected);
     }
 
-    /**
-     *
-     * @param selectedMusic
-     */
     public void newMusicToAllCollection(Music selectedMusic){
         logicManager.newMusicToAllCollection(selectedMusic);
     }
 
-    /**
-     *
-     * @param selectedMusic
-     */
     public void addMusicToMusicToBuy(Music selectedMusic){
         logicManager.addMusicToMusicToBuy(selectedMusic);
     }
 
-    /**
-     *
-     * @param musicNameTextField
-     * @param priceTextField
-     * @param selectedGender
-     */
     public void newMusicAttempt(String musicNameTextField, String priceTextField, Genre.GENRE selectedGender){
         logicManager.newMusic(musicNameTextField, priceTextField, selectedGender);
     }
 
     /**
-     *
-     * @param errorN
+     * Método que mostra uma janela de diálogo consoante o erro cometifo na criação de musica
+     * @param errorN tipo de erro
      */
     public void musicAttemptError(int errorN){
         switch (errorN){
@@ -370,10 +250,6 @@ public class GUIManager  {
                 JOptionPane.showMessageDialog(null,"You already have created a music with this name");
         }
     }
-
-    /**
-     *
-     */
     public void newMusicCreated(){
         JOptionPane.showMessageDialog(null,"New Music Created");
         musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
@@ -381,8 +257,8 @@ public class GUIManager  {
     }
 
     /**
-     *
-     * @param selectedMusic
+     * Método que permite chamar a janela de diálogo para a edição de musica e que atualiza as estatisticas a tempo real
+     * @param selectedMusic Musica selecionada para editar
      */
     public void editMusicDialogCall(Music selectedMusic){
         EditMusicDialog editMusicDialog = new EditMusicDialog(this, musicCreatorFrame, selectedMusic);
@@ -394,17 +270,10 @@ public class GUIManager  {
         musicCreatorFrame.updateSecondStatsPanel(getAlbumTypeStatistics());
     }
 
-    /**
-     *
-     */
     public void musicSuccessfullyEdited(){
         JOptionPane.showMessageDialog(null,"Music Successfully Edited");
     }
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Double> getStatistics(){
         return logicManager.getStatistics();
     }

@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * Classe que gere a edição de musica
+ * Quando se escolhe editar uma musica (pelo utilizador criador de musica), abre uma janela de diálogo em que se escolhem
+ * as propriedades das musicas a alterar
  */
 public class EditMusicDialog extends JDialog {
 
@@ -19,10 +21,10 @@ public class EditMusicDialog extends JDialog {
     private JComboBox<String> musicStateCombo;
 
     /**
-     *
-     * @param guiManager
-     * @param associated
-     * @param music
+     * Construtor com as funcionalidades que permitem a alteração de nome,genero, preco e estado da musica.
+     * @param guiManager Faz a ligação ao gestor da graphical user interface
+     * @param associated A frame associada à jDialog desta classe
+     * @param music A musica que se quer editar
      */
     public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
@@ -38,7 +40,7 @@ public class EditMusicDialog extends JDialog {
         JLabel newTitle = new JLabel("New Title");
         newName = new JTextField(20);
 
-        //Makes the selected item on the ComboBox the original music genre
+
         Genre.GENRE[] genres = Genre.GENRE.values();
         int indexCount = 0;
         int selectedIndex = 0;
@@ -52,7 +54,6 @@ public class EditMusicDialog extends JDialog {
         JLabel newPrice = new JLabel("New Price");
         newPriceTF = new JTextField(20);
 
-        //Makes the selected item on the ComboBox the original state
         String[] state = {"Active", "Inactive"};
         musicStateCombo = new JComboBox<>(state);
         if(music.isActive()) musicStateCombo.setSelectedIndex(0);
@@ -61,11 +62,14 @@ public class EditMusicDialog extends JDialog {
         JButton confirmationBtn = new JButton("Confirm");
         confirmationBtn.addActionListener(e -> onConfirmationClick());
 
+        /**
+         * Configurações da janela de diálogo quando se escolhe editar musicas.
+         */
         GridBagConstraints ce = new GridBagConstraints();
         JPanel centerPanel = new JPanel(new GridBagLayout());
 
-        ce.gridx= GridBagConstraints.REMAINDER; //Ocupa o restante espaço na linha
-        ce.gridy = GridBagConstraints.RELATIVE; // O compunente é colucado na linha seguinte do ultimo compunente
+        ce.gridx= GridBagConstraints.REMAINDER;
+        ce.gridy = GridBagConstraints.RELATIVE;
         ce.gridwidth = GridBagConstraints.REMAINDER;
 
         centerPanel.add(songData,ce);
