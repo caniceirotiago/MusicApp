@@ -1,8 +1,6 @@
 /**
- * Descrição geral da classe e suas finalidades
- * isto guarda-se no main
- * @autor Tiago Caniceiro && Pedro Monteiro
- * versão 1.0
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
  */
 package src.RockStar;
 import java.io.Serializable;
@@ -11,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *Implementa serializable para poder ser guardado num ficheiro de objetos
+ * Classe para criação de coleções de musica do tipo "Album" associadas ao utilizador Music Creator
  */
 public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
@@ -19,9 +17,9 @@ public class Album extends MusicCollection implements Serializable {
     public Album(){}
 
     /**
-     *Construtor classe
-     * @param name
-     * @param mainCreator
+     * Construtor de um album vazio
+     * @param name nome do album
+     * @param mainCreator nome do criador de musica associado
      */
     public Album(String name, MusicCreator mainCreator) {
         //Creation of empty album
@@ -30,10 +28,10 @@ public class Album extends MusicCollection implements Serializable {
     }
 
     /**
-     *Construtor classe
-     * @param name
-     * @param musicCreator
-     * @param musicList
+     * Construtor de um album com uma lista de musicas já integradas
+     * @param name Nome do album
+     * @param musicCreator nome do criador de musica
+     * @param musicList lista de musicas a juntar ao album
      */
     public Album(String name, MusicCreator musicCreator, ArrayList<Music> musicList) {
         //Creation of album with musics
@@ -57,7 +55,10 @@ public class Album extends MusicCollection implements Serializable {
     }
 
     /**
-     *Método para calcular o genero principal no album
+     * Método para calcular o genero principal no album
+     * Utiliza um hashmap para associar um género especifico encontrado nas musicas do album e aumentar um valor
+     * correspondente a esse genero encontrado.
+     * O género cujo valor for mais alto é considerado o género do album.
      */
     public void calculateMainGenre(){
         //primeiro passo é associar o género das musicas encontradas no album a um valor int atraves de um hashmap

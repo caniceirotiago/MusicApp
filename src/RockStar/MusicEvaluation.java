@@ -1,10 +1,14 @@
+/**
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
+ */
 package src.RockStar;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Classe que define contrutores e métodos para a avaliação de musica
+ * Classe de avaliação de musica
  */
 public class MusicEvaluation implements Serializable {
     private Client client;
@@ -12,9 +16,9 @@ public class MusicEvaluation implements Serializable {
     private int evaluation;
 
     /**
-     * Construtor da classe
-     * @param client
-     * @param evaluation
+     * Construtor da classe que tem como parametro um cliente e a avaliação que deseja dar
+     * @param client O utilizador Client na aplicação
+     * @param evaluation A avaliação que deseja dar à musica
      */
     public MusicEvaluation(Client client, int evaluation) {
         this.client = client;
@@ -34,8 +38,8 @@ public class MusicEvaluation implements Serializable {
     }
 
     /**
-     * método que associa uma data à avaliação de uma música
-     * @param evaluationDateTime
+     * Método que associa uma data à avaliação de uma música
+     * @param evaluationDateTime data de avaliação de musica.
      */
     public void setEvaluationDateTime(LocalDateTime evaluationDateTime) {
         this.evaluationDateTime = evaluationDateTime;

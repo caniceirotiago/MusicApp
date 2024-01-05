@@ -1,3 +1,7 @@
+/**
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
+ */
 package src.RockStar;
 
 import java.io.Serializable;
@@ -5,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Classe que permite a criação de objetos do tipo musica
+ * Classe que gere e constroi os objetos do tipo musica
  */
 public class Music implements Serializable {
     private String name;
@@ -19,11 +23,11 @@ public class Music implements Serializable {
     private Album associatedAlbum;
 
     /**
-     *Construtor para o objeto musica
-     * @param name
-     * @param genre
-     * @param musicCreator
-     * @param price
+     * Construtor para o objeto do tipo musica.
+     * @param name Nome da musica.
+     * @param genre género da musica.
+     * @param musicCreator O criador associado à musica.
+     * @param price o preço correspondente da musica.
      */
     public Music(String name, Genre.GENRE genre, MusicCreator musicCreator, double price) {
         this.name = name;
@@ -38,11 +42,6 @@ public class Music implements Serializable {
     public ArrayList<PriceHistory> getPriceHistory() {
         return priceHistory;
     }
-
-    /**
-     *método para associar um album de um criador de musica a um objeto do tipo musica
-     * @param associatedAlbum
-     */
     public void setAssociatedAlbum(Album associatedAlbum) {
         this.associatedAlbum = associatedAlbum;
     }
@@ -70,17 +69,12 @@ public class Music implements Serializable {
     }
 
     /**
-     *metodo para verificar se a musica está activa para os clientes, por parte do criador
-     * @return
+     * Método que define se determinada musica está activa no sistema.
+     * @return true ou false consoante a musica ter sido definida como tal.
      */
     public boolean isActive() {
         return isActive;
     }
-
-    /**
-     *metodo para o criador definir se a musica está activa para compra por parte dos clientes
-     * @param active
-     */
     public void setActive(boolean active) {
         isActive = active;
     }
@@ -89,7 +83,9 @@ public class Music implements Serializable {
     }
 
     /**
-     *
+     * Método para calcular a classificação média de uma determinada musica consoante as classificações dadas pelos
+     * utilizadores.
+     * Método chamado sempre que é feita uma classificação ou a musica é editada.
      */
     public void calculateClassification(){
         double classificationsSum = 0;
@@ -100,15 +96,13 @@ public class Music implements Serializable {
             this.classification =  (classificationsSum / (double) evaluationList.size());
         }
     }
-    //Calcula a classificação depois de uma nova adição à lista
-
     /**
-     *metodo para avaliar uma musica
-     *Se o cliente já existir atribui um valor diferente à classificação já existente evitando duplicados
-     *Se o cliente não tiver atribuido uma classificação faz uma nova
-     *
-     * @param client
-     * @param evaluation
+     * Método que adiciona uma classificação a um ficheiro de musica por parte de um cliente.
+     * Se o cliente mesmo cliente decidir re-avaliar a musica, altera a classificação já dada e adiciona uma data de
+     * alteração à avaliação.
+     * Se o cliente for novo/ainda não tiver feito nenhuma avaliação, adiciona essa avaliação à musica.
+     * @param client O cliente que está a avaliar a musica.
+     * @param evaluation A avaliação dada pelo utilizador.
      */
     public void addEvaluation(Client client, int evaluation){
         boolean evaluationAlreadyExists = false;

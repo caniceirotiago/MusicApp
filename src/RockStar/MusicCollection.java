@@ -1,3 +1,7 @@
+/**
+ * @Authors Tiago Caniceiro & Pedro Monteiro
+ * @Version 1.0
+ */
 package src.RockStar;
 
 import java.io.Serializable;
@@ -5,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- *Classe abstrata das coleções de musica
+ * Classe abstrata das coleções de musica
  * serve de base para as playlists do cliente e o album do criador de musica
  */
 public abstract class MusicCollection implements Serializable {
@@ -35,11 +39,6 @@ public abstract class MusicCollection implements Serializable {
         this.musicList = musicList;
         this.creationDate = LocalDateTime.now();
     }
-
-    /**
-     * método abstrato para adicionar musica à coleção
-     * @param music
-     */
     public abstract void addMusicToCollection(Music music);
     public abstract void removeMusicFromCollection(Music music);
     public String getName() {
