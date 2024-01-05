@@ -93,12 +93,13 @@ public class Music implements Serializable {
         }
     }
     /**
-     *metodo para avaliar uma musica
-     *Se o cliente já existir atribui um valor diferente à classificação já existente evitando duplicados
-     *Se o cliente não tiver atribuido uma classificação faz uma nova
+     * Método que adiciona uma classificação a um ficheiro de musica por parte de um cliente.
+     * Se o cliente mesmo cliente decidir re-avaliar a musica, altera a classificação já dada e adiciona uma data de
+     * alteração à avaliação.
+     * Se o cliente for novo/ainda não tiver feito nenhuma avaliação, adiciona essa avaliação à musica.
      *
-     * @param client
-     * @param evaluation
+     * @param client O cliente que está a avaliar a musica.
+     * @param evaluation A avaliação dada pelo utilizador.
      */
     public void addEvaluation(Client client, int evaluation){
         boolean evaluationAlreadyExists = false;
