@@ -62,52 +62,38 @@ public class Client extends User implements Serializable {
         String genre = listOfMusic.get(0).getGenre().name();
         allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
     }
-
-    /**
-     *
-     * @param music
-     */
     public void addMusicToMusicToBuy(Music music){
         if(!listOfMusicsToBuy.contains(music)) listOfMusicsToBuy.add(music);
     }
 
     /**
-     *Método para adicionar musica a uma playlist criada
-     * @param music
-     * @param musicCollection
+     * Método para adicionar musica a uma playlist criada
+     * @param music musica selecionada para adicionar
+     * @param musicCollection Playlist escolhida onde se vai integrar a musica
      */
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
         if(allCollections.contains(musicCollection) && music.isActive()) musicCollection.addMusicToCollection(music);
     };
 
     /**
-     *adicionar musica à lista geral (library que contem a musica geral do cliente)
-     * @param music
+     * Método para adicionar musicas à coleção de musicas totais do cliente.
+     * @param music Musica selecionada
      */
     public void newMusicToAllMusicCollection(Music music){
         allMusic.add(music);
     }
 
-    /**
-     * Remover musica de uma playlist
-     * @param music
-     * @param collection
-     */
     public void removeMusicFromCollection(Music music, MusicCollection collection){
         collection.removeMusicFromCollection(music);
     };
 
-    /**
-     * remover coleção/playlist da coleção do utilizador
-     * @param collection
-     */
     public void removeMusicCollection(MusicCollection collection){
         allCollections.remove(collection);
     };
 
     /**
      * adicionar dinheiro à carteira do cliente
-     * @param moneyToAdd
+     * @param moneyToAdd valor a adicionar
      */
     public void addMoney(double moneyToAdd){
         balance += moneyToAdd;
@@ -115,10 +101,10 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     *método que permite ao cliente comprar musicas consoante o saldo que tenha no carrinho
+     *método que permite ao cliente validar a compra de musicas, consoante o saldo que tenha na carteira.
      *Se não tiver saldo não permite a compra de musicas
-     *@param musics
-     *@return
+     *@param musics Musicas escolhidas para comprar
+     *@return Retorna falso se o utilizador não tiver dinheiro suficiente para aquisição de musica.
      */
     public boolean validationOfAquisition(ArrayList<Music> musics){
         double totalPrice = 0;
@@ -131,6 +117,6 @@ public class Client extends User implements Serializable {
             allMusic.addAll(musics);
             return true;
         }
-        return false; //Se a compra não é efetuada por falta de saldo
+        return false;
     }
 }
