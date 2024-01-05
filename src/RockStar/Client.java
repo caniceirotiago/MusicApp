@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *classe que gere o utilizador cliente
+ * Classe cliente que implementa a classe abstrata User
+ * Para alem de integrar as funcionalidades da classe User, como ter uma coleção de musica, tem lista de compras,
+ * uma carteira em que se consegue colocar dinheiro e a possibilidade de se comprar e adquirir ficheiros de musica.
+ *
  */
 public class Client extends User implements Serializable {
     private double balance;
@@ -13,12 +16,12 @@ public class Client extends User implements Serializable {
     ArrayList<Music> listOfMusicsToBuy;
 
     /**
-     *Construtor do cliente
-     * @param name
-     * @param username
-     * @param password
-     * @param email
-     * @param balance
+     * Construtor do utilizador Cliente
+     * @param name nome do cliente
+     * @param username Username do cliente
+     * @param password password do cliente
+     * @param email email do cliente
+     * @param balance saldo do cliente
      */
     public Client(String name, String username, String password, String email, double balance) {
         super(name, username, password, email);
