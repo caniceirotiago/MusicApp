@@ -329,7 +329,7 @@ public class RockstarIncManager  implements Serializable {
      * @param notFreeMusicSelection
      * @param nOfMusics
      * @param allMusicOfTheChosenGenre
-     * @return
+     * @return retorna a playlist aleatória criada com sucesso.
      */
     public boolean processorOnRandomToPayMusic(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
                                                int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
@@ -361,11 +361,6 @@ public class RockstarIncManager  implements Serializable {
         return successfullyCreated;
     }
 
-    /**
-     *
-     * @param musicList
-     * @return
-     */
     public double musicListPriceCalculator(ArrayList<Music> musicList){
         double totalPrice = 0;
         for (Music m : musicList){
@@ -375,9 +370,9 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @param musicOfTheChosenGenre
-     * @param nOfMusics
+     * Método que cria a playlist aleatória apenas com as musicas gratuitas
+     * @param musicOfTheChosenGenre musicas do género escolhido
+     * @param nOfMusics número de musicas desejadas para a playlist.
      */
     public void newRandomPlaylistOnlyFree(ArrayList<Music> musicOfTheChosenGenre, int nOfMusics){
         ArrayList<Music> onlyFreeMusicByGenre = new ArrayList<>();
@@ -406,7 +401,7 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
+     * Método que inicia a criação de uma playlist aleatória em que apenas musicas gratuitas foram selecioknadas
      * @param SizeOfNewVector
      * @param sizeOfSample
      * @return
