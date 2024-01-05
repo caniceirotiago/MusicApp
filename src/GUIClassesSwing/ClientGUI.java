@@ -901,6 +901,10 @@ public class ClientGUI extends JFrame {
         centerPanel.repaint();
     }
 
+    /**
+     * Método que atualiza a tabela de pesquisa consoante os termos de musica inseridos
+     * @param list lista de musicas presente na coleção de musicas do sistema
+     */
     public void updateSearchMusicTable(ArrayList<Music> list){
         searchMusicTableModel.setRowCount(0);
         if(list != null){
@@ -918,6 +922,9 @@ public class ClientGUI extends JFrame {
         }
     }
 
+    /**
+     * Método que atualiza a tabela de pesquisa consoante os termos de coleção pesquisados
+     */
     public void updateSearchCollectionTable(){
         searchCollectionTableModel.setRowCount(0);
         if(search.getFoundMusicCollections() != null){
@@ -938,6 +945,9 @@ public class ClientGUI extends JFrame {
         }
     }
 
+    /**
+     * Método para a comboBox de pesquisa com os codigos e casos associados
+     */
     public void onSearchComboBoxClick(){
         //eventualmete adicionar a pesquisa de colleções e de artistas
         int comboSelection = comboSearchBox.getSelectedIndex();
@@ -981,7 +991,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     *
+     * Método para ao clicar escolher ver o historico de preços da musica selecionada
      */
     public void onPriceHistoricClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
@@ -999,7 +1009,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     *
+     * Método que permite, ao clicar na lista do cesto, verificar o historico de preços das musicas selecionadas
      */
     public void onPriceHistoricBascketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
@@ -1015,10 +1025,6 @@ public class ClientGUI extends JFrame {
         scrollPane.setPreferredSize(new Dimension(300,100));
         JOptionPane.showMessageDialog(null, scrollPane);
     }
-
-    /**
-     *
-     */
     public void onRemoveFromBasketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
         guiManager.getListOfMusicsToBuy().remove(selectedMusic);
