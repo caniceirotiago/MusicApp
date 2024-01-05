@@ -659,6 +659,7 @@ public class MusicCreatorGUIX extends JFrame {
         guiManager.editMusicDialogCall(selectedMusic);
         updateMusicJTableModel(selectedAlbum.getMusicList());
         updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
+        updateFirstStatsPanel(guiManager.getStatistics());
     }
 
     /**

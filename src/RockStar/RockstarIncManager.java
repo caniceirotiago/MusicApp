@@ -527,6 +527,7 @@ public class RockstarIncManager  implements Serializable {
      */
     public double musicPriceValidation (String priceString){
         priceString = priceString.replace(',','.');
+        priceString = priceString.replace("€","");
         double price = -1;
         try{
             price = Double.parseDouble(priceString);
