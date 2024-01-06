@@ -615,9 +615,7 @@ public class RockstarIncManager  implements Serializable {
     public int totalSongs(){
         int countMusic = 0;
         for(User mc : musicCreatorList){
-            for (Music m : mc.getAllMusic()){
-                countMusic++;
-            }
+            countMusic += mc.getAllMusic().size();
         }
         return countMusic;
     }
