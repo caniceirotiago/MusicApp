@@ -440,8 +440,9 @@ public class ClientGUI extends JFrame {
          * o historico dos preços da musica.
          */
 
-        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification"};
-        centralTableModel = new DefaultTableModel(columnNamesMusic,0){
+        String[] columnNamesOwnMusic = {"Title", "Artist", "Album", "Evaluation"};
+        String[] columnNamesSearchMusic = {"Title", "Artist", "Album", "Classification"};
+        centralTableModel = new DefaultTableModel(columnNamesOwnMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -483,14 +484,13 @@ public class ClientGUI extends JFrame {
             }
         });
 
-
         JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         //Cria um objeto tipo search vazio
         if(search == null) search = new Search();
-        searchMusicTableModel = new DefaultTableModel(columnNamesMusic,0){
+        searchMusicTableModel = new DefaultTableModel(columnNamesSearchMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -523,7 +523,6 @@ public class ClientGUI extends JFrame {
                 }
             }
         });
-
 
         //Criação da pesquisa por coleções num cardLayout aninhado
         String[] columnNamesCollection = {"Collection", "Type", "Creator"};
@@ -604,7 +603,10 @@ public class ClientGUI extends JFrame {
             if(ms.getAssociatedAlbum() == null) albumName = "Single";
             else albumName = ms.getAssociatedAlbum().getName();
             line.add(albumName);
-            line.add(ms.getClassification());
+            if(guiManager.getClientEvaluation(ms) != -1){
+                line.add(guiManager.getClientEvaluation(ms));
+            }
+            else line.add(0);
             centralTableModel.addRow(line);
         }
     }

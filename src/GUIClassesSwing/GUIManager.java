@@ -174,6 +174,9 @@ public class GUIManager  {
     public double getUserBalance(){
         return logicManager.getCurrentUserBalance();
     }
+    public int getClientEvaluation(Music music){
+        return logicManager.getClientEvaluation(music);
+    }
 
     public ArrayList<Music> getUserAllMusic(){
         return logicManager.getCurrentUserALlMusic();

@@ -565,6 +565,9 @@ public class RockstarIncManager  implements Serializable {
     public Album getMusicCreatorAllMusicAsCollection(){
         return new Album("Created Music",(MusicCreator) currentUser,currentUser.getAllMusic());
     }
+    public int getClientEvaluation(Music music){
+        return music.getClientEvaluationForSpecificMusic(currentUser);
+    }
     public ArrayList<Music> getUserBasketList(){
         return ((Client)currentUser).getListOfMusicsToBuy();
     }

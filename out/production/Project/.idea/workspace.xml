@@ -1,51 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="Project:jar" />
-    </artifacts-to-build>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="resolver bugs importantes">
-      <change beforePath="$PROJECT_DIR$/mainSaveFile" beforeDir="false" afterPath="$PROJECT_DIR$/mainSaveFile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/mainSaveFile" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/mainSaveFile" afterDir="false" />
-    </list>
+    <list default="true" id="f34876ce-4d39-4004-9f18-5329ee7346ae" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="4" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../Nova pasta" />
+  </component>
   <component name="Git.Settings">
-    <favorite-branches>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="alterar-dimensões-e-elementos-tabela" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </favorite-branches>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2aDwzSNbadkA9JBU32ooMzyBRek" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2aYJ5vBtXuZVM7tabNS5CDb4Wfq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -55,17 +33,13 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Main",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/canic/Desktop/Nova pasta",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -92,192 +66,29 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="93e481a3-83e8-4ebc-b2f9-b1833c9df80a" name="Changes" comment="" />
-      <created>1703866722835</created>
+      <changelist id="f34876ce-4d39-4004-9f18-5329ee7346ae" name="Changes" comment="" />
+      <created>1704489401379</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1703866722835</updated>
-      <workItem from="1703866724810" duration="1531000" />
-      <workItem from="1703872755479" duration="10050000" />
-      <workItem from="1703988191625" duration="1408000" />
-      <workItem from="1704019153200" duration="20240000" />
-      <workItem from="1704192247438" duration="82000" />
-      <workItem from="1704197757158" duration="3951000" />
-      <workItem from="1704221416718" duration="1692000" />
-      <workItem from="1704293405650" duration="5654000" />
-      <workItem from="1704303734650" duration="19754000" />
-      <workItem from="1704409291504" duration="15958000" />
-      <workItem from="1704475622245" duration="7602000" />
+      <updated>1704489401379</updated>
+      <workItem from="1704489402720" duration="1985000" />
     </task>
-    <task id="LOCAL-00001" summary="Quaseacabado">
+    <task id="LOCAL-00001" summary="fd">
       <option name="closed" value="true" />
-      <created>1703933736797</created>
+      <created>1704491387965</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1703933736797</updated>
+      <updated>1704491387965</updated>
     </task>
-    <task id="LOCAL-00002" summary="Quaseacabado">
-      <option name="closed" value="true" />
-      <created>1703969822730</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1703969822730</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1703985790202</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1703985790202</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1703986928249</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1703986928249</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704300385457</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1704300385457</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704303743069</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1704303743069</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704306241891</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1704306241891</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704310604840</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1704310604840</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704381801712</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1704381801712</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704382549205</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1704382549205</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704389535737</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1704389535737</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704389613175</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1704389613175</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704389667349</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1704389667349</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704390426123</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1704390426123</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704409027871</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1704409027871</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704448628939</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1704448628939</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Gravação a funcionar">
-      <option name="closed" value="true" />
-      <created>1704471168713</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1704471168713</updated>
-    </task>
-    <task id="LOCAL-00018" summary="resolver bugs importantes">
-      <option name="closed" value="true" />
-      <created>1704483220839</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1704483220839</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Quaseacabado" />
-    <MESSAGE value="Gravação a funcionar" />
-    <MESSAGE value="resolver bugs importantes" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolver bugs importantes" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
+    <MESSAGE value="fd" />
+    <option name="LAST_COMMIT_MESSAGE" value="fd" />
   </component>
 </project>
