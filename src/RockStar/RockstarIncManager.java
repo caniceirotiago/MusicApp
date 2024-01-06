@@ -635,7 +635,7 @@ public class RockstarIncManager  implements Serializable {
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  clientList){
-            for (MusicAquisition ma : ((Client) us).getListOfAcquisitions()){
+            for (MusicAcquisition ma : ((Client) us).getListOfAcquisitions()){
                 totalValue += ma.getTotalPrice();
             }
         }

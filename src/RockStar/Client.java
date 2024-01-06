@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Client extends User implements Serializable {
     private double balance;
-    ArrayList<MusicAquisition> listOfAcquisitions;
+    ArrayList<MusicAcquisition> listOfAcquisitions;
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
     ArrayList<Music> musicOnBasketList;
 
@@ -42,7 +42,7 @@ public class Client extends User implements Serializable {
     public ArrayList<Music> getMusicOnBasketList() {
         return musicOnBasketList;
     }
-    public ArrayList<MusicAquisition> getListOfAcquisitions() {
+    public ArrayList<MusicAcquisition> getListOfAcquisitions() {
         return listOfAcquisitions;
     }
 
@@ -116,7 +116,7 @@ public class Client extends User implements Serializable {
             totalPrice += m.getPrice();
         }
         if(totalPrice <= balance){
-            listOfAcquisitions.add(new MusicAquisition(musicList));
+            listOfAcquisitions.add(new MusicAcquisition(musicList));
             balance -= totalPrice;
             allMusic.addAll(musicList);
             return true;
