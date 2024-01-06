@@ -17,9 +17,8 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * Classe Graphical User Interface associada ao cliente
+ * Classe Gráfica associada ao cliente
  * Carregada depois da validação do login na interface Grafica do login e registo
- *
  */
 public class ClientGUI extends JFrame {
     private GUIManager guiManager;
@@ -30,7 +29,6 @@ public class ClientGUI extends JFrame {
     private DefaultListModel<Music> listModelEast;
     private JPanel centerPanel;
     private JPanel westPanel;
-    private JPanel eastPanel;
     private JPanel searchTablesPanel;
     private MusicCollection selectedPlaylist;
     private JTable centralTable;
@@ -70,33 +68,34 @@ public class ClientGUI extends JFrame {
      * Método que inicializa os componentes gráficos
      * No geral, os componentes são divididos em paineis Norte, Este, Centro e Oeste e os seus detalhes, como botões,
      * Pop-up menus e outros detalhes que correspondem a cada painel individualmente.
-     * O painel Norte é responsável por ter o simbolo da musica, a barra de pesquisa e o botão de logout para ser
+     * 
+     * O painel Norte é responsável por ter o símbolo da música, a barra de pesquisa e o botão de logout para ser
      * possível ao utilizador sair da sua frame de Cliente e voltar à frame de registo/login.
      *
-     * O painel Oeste é o painel responsável por lidar com a coleção geral de musicas do utilizador e por ter uma lista
-     * onde é possível criar e manipular novas playlists. Ao criar uma nova playlist, um botão aparece ao utilizador a
-     * perguntar se quer criar uma playlist aleatória ou uma playlist vazia.
+     * O painel Oeste é o painel responsável por lidar com a coleção geral de músicas do utilizador e por ter uma lista
+     * onde é possível criar e manipular novas playlists. Ao criar uma nova playlist, uma JOptionPaneaparece ao 
+     * utilizador a questionar a intenção de criar uma playlist aleatória ou uma playlist vazia.
      *
-     * O painel Central é o responsável por mostrar ao utilizador as musicas que possuí, as musicas
-     * que inclui nas playlists que criou e tambem as musicas que existem no programa quando o utilizador procura
-     * por musicas novas pela pesquisa.
+     * O painel Central é o responsável por mostrar ao utilizador as músicas que possuí, as músicas
+     * que incluiu nas playlists que criou e também as músicas que existem no programa quando o utilizador procura
+     * por músicas novas pela pesquisa.
      *
-     * O painel Este mostra ao utilizador quanto dinheiro é que tem na carteira, permite adicionar mais musicas à
-     * sua coleção e permite adquirir mais musicas.
+     * O painel Este mostra ao utilizador quanto dinheiro é que tem na carteira, permite adicionar mais músicas à
+     * sua coleção e permite adquirir mais músicas.
      */
     public void initComponents(){
         //Container principal, ao qual vão ser incorporados os paineis e suas especificidades
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
-        //---------------------ADDING POPUPMENUS AND SUBMENUS---------------------
+        //---------------------------------------Adicionar POPUPMENUS e SUBMENUS----------------------------------------
         /**
-         *Esta seção destina-se aos detalhes como popup menus e submenus que são utilizados nos paineis da frame do
+         *Esta secção destina-se aos detalhes como popup menus e submenus que são utilizados nos paineis da frame do
          * Cliente. Foram colocados noutro local para permitir melhor visualização e organização do código.
          */
 
-        //PopUp menu central para adicionar musicas a playlist ou avaliar musica quando as musicas NÃO ESTÃO inseridas
-        //em nenhuma playlist e se encontram apenas na coleção geral do cliente
+        //PopUp menu da tabela central para adicionar músicas a playlist ou avaliar músicas, este menu apenas é acionado
+        //quando o primeiro elemento da lista do painel oeste (músicas totais do cliente) está selecionado
         JPopupMenu centralTablePopMenu = new JPopupMenu();
         JMenuItem addToPlaylistMenu = new JMenuItem("Add to Playlist");
         JMenuItem evaluateMusicMenu = new JMenuItem("Evaluate Music");
@@ -105,8 +104,8 @@ public class ClientGUI extends JFrame {
         addToPlaylistMenu.addActionListener(e -> addMusicToPlaylistOnClick());
         evaluateMusicMenu.addActionListener(e -> addEvaluationClick());
 
-        //Popup menu central para remover musicas de uma playlist ou avaliar. Este popup menu só surge
-        //quando se clica na musica DENTRO de uma playlist.
+        //Popup menu central para remover músicas de uma playlist ou avaliar certa música. Este popup menu só surge
+        //quando se clica na música de uma playlist e não no primeiro elemento da lista oeste.
         JPopupMenu centralTablePUM2 = new JPopupMenu();
         JMenuItem removeFromPlaylist = new JMenuItem("Remove from Playlist");
         JMenuItem evaluateMusic2 = new JMenuItem("Evaluate Music");
@@ -115,7 +114,7 @@ public class ClientGUI extends JFrame {
         removeFromPlaylist.addActionListener(e -> onRemoveFromPlaylistClick());
         evaluateMusic2.addActionListener(e -> addEvaluationClick());
 
-        //PopUp menu oeste que abre opções relacionadas com playlists criadas pelo Cliente. É possível apagar playlsts
+        //PopUp menu oeste que abre opções relacionadas com playlists criadas pelo Cliente. É possível apagar playlists
         //ou alterar a sua visibilidade
         JPopupMenu westListPopMenu = new JPopupMenu();
         JMenuItem deletePlaylist = new JMenuItem("Delete Playlist");
@@ -125,8 +124,8 @@ public class ClientGUI extends JFrame {
         deletePlaylist.addActionListener(e -> onDeletePlaylistClick());
         changeVisibility.addActionListener(e -> onVisibilityClick());
 
-        //Central PopUpMenu que aparece quando as musicas no painel central são as musicas
-        //que aparecem através da pesquisa
+        //Central PopUpMenu que aparece quando as músicas no painel central são as músicas que apenas surge quando está
+        //visivel o painel de pesquisa
         JPopupMenu centralTableSearchedMusicPuM = new JPopupMenu();
         JMenuItem acquireMusic = new JMenuItem("Acquire Music");
         JMenuItem seePriceHistoric = new JMenuItem("See Historic Prices");
@@ -135,9 +134,9 @@ public class ClientGUI extends JFrame {
         acquireMusic.addActionListener(e -> onAcquireMusicClick());
         seePriceHistoric.addActionListener(e -> onPriceHistoricClick());
 
-        //East PopUpMenu que seleciona as musicas que estão no cesto, que permitem ao utilizador escolher as opções
-        //de remover as musicas do cesto, ver as alterações de preço que a musica sofreu ao longo do tempo e também
-        //a opção de limpar o cesto
+        //East PopUpMenu que seleciona as músicas que estão no cesto, permite ao utilizador escolher as opções
+        //de remover as músicas do cesto, ver as alterações de preço que a música sofreu ao longo do tempo e também
+        //a opção de eliminar todos os elementos do cesto
         JPopupMenu basketMusicPuM = new JPopupMenu();
         JMenuItem removeFromBasket = new JMenuItem("Remove From Basket");
         JMenuItem seePriceHistoric2 = new JMenuItem("See Historic Prices");
@@ -157,45 +156,51 @@ public class ClientGUI extends JFrame {
          * O painel Oeste representa visualmente as coleções e playlists que o Cliente tem. Este painel tem associado
          * dois action listeners e a possibilidade de criar novas playlists, vazias ou aleatórias.
          *
-         * Inicialmente há sempre uma coleção de musica presente (Owned Music), que representa todas as musicas que o
-         * utilizador adquiriu. Tem funcionalidades diferentes das outras playlists que possam ser criadas, já que o seu
-         * primeiro action listener (botão esquerdo do rato) demonstra as musicas que possui no painel central. No entanto
-         * esta playlist não tem funcão nenhuma associada ao botao direito do rato, ao contrario das outras playlists
-         * que possam ser criadas.
+         * Inicialmente há sempre uma coleção de música presente (Owned Music), que representa todas as músicas que o
+         * utilizador adquiriu. Tem funcionalidades diferentes de outros elementos nesta lista, já que o seu
+         * primeiro action listener (botão esquerdo do rato) demonstra as músicas que possui no painel central.
+         * No entanto este primeiro elemento da lista não tem nenhuma funcão associada ao botao direito do rato,
+         * ao contrario das outras playlists que possam ser criadas.
          *
-         * As outras playlists criadas possuem igualmente a funcionalidade associada ao botão esquerdo do rato, mas o
-         * segundo action listener permite eliminar uma playlist ou alterar a sua visibilidade.
+         * As outras playlists criadas possuem igualmente a funcionalidade associada ao botão esquerdo do rato de
+         * seleção que faz aparecer as músicas correspondentes na tabela central. O segundo action listener permite
+         * eliminar uma playlist ou alterar a sua visibilidade (botão direito do rato).
          *
-         * Há também a possibilidade de se criar novas playlists através da funcionalidade associada a um botão
-         * "new Playlist", que permite criar novas playlists vazias ou aleatórias. As novas playlists vazias tem
+         * Existe também a possibilidade de se criar novas playlists através da funcionalidade associada ao botão
+         * "New Playlist", que permite criar novas playlists vazias ou aleatórias. As novas playlists vazias tem
          * obrigatoriamente um nome e não é possivel repetir nomes.
          *
-         * As playlists aleatórias permitem a criação de uma nova playlist com um nome e um número definido pelo
-         * utilizador de quantas musicas essa playlist terá e o género que quer. Se houver um numero suficiente de musicas adquiridas
-         * pelo utilizador para criar a playlist ela é criada. Se o utilizador não tiver musicas suficientes, há 3 opções
-         * que o utilizador pode escolher:
-         * Adicionar musicas ao cesto: Vão ser adicionadas ao cesto musicas aleatórias que o utilizador não tem possuí
-         * e cria a playlist apenas com as que o utilizador tem.
-         *Comprar as musicas: Esta funcionalidade só está disponivel se o utilizador tiver saldo suficiente para comprar
-         * as musicas e se assim for, compra as musicas e adiciona à playlist, criando a playlist com os elementos que o
-         * utilizador escolheu.
-         * Só musica grátis: Esta funcionalidade tambem está disponivel no momento de criação da playlist aleatória e
-         * quando escolhida, cria a playlist apenas com musicas que estejam disponiveis gratuitamente no sistema, avisando
-         * o utilizador no caso de não haverem musicas suficientes para o numero que o utilizador escolheu.
+         * A funcionalidade aleatória permite a criação de uma nova playlist com um nome e um número definido pelo
+         * utilizador da quantidade de músicas que essa playlist terá assim como o género pretendido.
+         * Se dentro das músicas selecionadas todas estas forem gratuitas ao o utilizador já as tiver adquirido a
+         * playlist é criada diretamente.
+         * No caso de alguma das músicas ser paga e o utilizador e o utilizador não a possuir, exitem disponíveis
+         * 3 opções que são apresentadas ao utilizadar:
+         *
+         * -Adicionar músicas ao cesto: Vão ser adicionadas ao cesto músicas pagas que o utilizador não possuí
+         * e cria a playlist apenas com as que o utilizador tem ou as que são gratuitas. Esta opção poderá criar uma
+         * playlist com uma quantidade inferior de músicas às pedidas inicialmente pelo utilizador.
+         *
+         * -Comprar as músicas: Esta funcionalidade só está disponivel se o utilizador tiver saldo suficiente para
+         * comprar as músicas: executa uma nova aquisição e cria a playlist.
+         *
+         * -Apenas música gratuitas: Esta funcionalidade também está disponivel no momento de criação da playlist
+         * aleatória e quando escolhida, cria a playlist apenas com músicas que estejam disponiveis gratuitamente
+         * no sistema ou já adquioridas pelo utilizador e pagas, avisando o utilizador no caso de não haver músicas
+         * suficientes para o numero que o utilizador escolheu.
          */
 
-        /**
-         * Criação do painel Oeste e implementação das diversas funcionalidades
-         */
+        //Criação do painel Oeste e implementação das diversas funcionalidades
+
         westPanel = new JPanel(new GridBagLayout());
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Playlist");
 
-        //ListModel creation, there is a method for updating the model in different locations of the code
         listModelWest = new DefaultListModel<>();
         updateMusicJListModel();
 
-        //In case of a new user to is created and turn the selected element the "Owned music" element
+        //No caso de um novo utilizador é criada uma nova instância Playlist para futuramente guardar a totalidade de
+        // músicas adquiridas
         if(currentUserCollection == null) currentUserCollection = new Playlist();
         selectedPlaylist = currentUserCollection;
 
@@ -260,21 +265,21 @@ public class ClientGUI extends JFrame {
 
         //------------------------------------------------EAST PANEL----------------------------------------------------
         /**
-         * O painel Este tem as funcionalidades e elementos relacionados à compra e aquisição de musicas.
-         * Tem uma etiqueta com o balanço a tempo real do utilizador, uma lista que corresponde ao cesto com as musicas
+         * O painel Este tem as funcionalidades e elementos relacionados à compra e aquisição de músicas.
+         * Tem uma etiqueta com o balanço a tempo real do utilizador, uma lista que corresponde ao cesto com as músicas
          * que o utilizador quer comprar, um botão que permite adicionar saldo à carteira do cliente e um botão de compra
-         * de musicas que estejam no cesto.
-         * Existem duas maneiras de adicionar musicas ao cesto. Através da seleção manual de musicas pela pesquisa de musicas
-         * ou através de musicas que sejam inseridas no cesto pela criação de uma playlist aleatoria.
-         * Este cesto tem um popup menu com a funcionalidade de remover a musica selecionada do cesto (quando carregada
-         * individualmente), remover todas as musicas no cesto ou visualizar o historico de preços associado às musicas.
-         * A compra de musicas tem uma caixa de confirmação, que impede a compra caso não haja saldo suficiente.
+         * de músicas que estejam no cesto.
+         * Existem duas maneiras de adicionar músicas ao cesto. Através da seleção manual de músicas pela pesquisa de músicas
+         * ou através de músicas que sejam inseridas no cesto pela criação de uma playlist aleatoria.
+         * Este cesto tem um popup menu com a funcionalidade de remover a música selecionada do cesto (quando carregada
+         * individualmente), remover todas as músicas no cesto ou visualizar o historico de preços associado às músicas.
+         * A compra de músicas tem uma caixa de confirmação, que impede a compra caso não haja saldo suficiente.
          *
          * Relativamente à carteira, o utilizador pode adicionar dinheiro desde 5€ até 999€.
          */
 
         //Criação do painel Este
-        eastPanel = new JPanel(new GridBagLayout());
+        JPanel eastPanel = new JPanel(new GridBagLayout());
         balanceLbl =  new JLabel();
         double userBalance = guiManager.getUserBalance();
         balanceLbl.setText("Balance " + "\n " + userBalance + "€");
@@ -419,25 +424,25 @@ public class ClientGUI extends JFrame {
         //-----------------------------------------------CENTER PANEL---------------------------------------------------
 
         /**
-         * O painel Central tem dois sistemas de CardLayout. O primeiro altera entre a tabela que mostra a musica que o
-         * utilizador possui e as musicas disponiveis no sistema quando se carrega na procura. O outro sistema altera
-         * dentro do painel de pesquisa, quando se procura musicas ou quando se procuram coleções.
+         * O painel Central tem dois sistemas de CardLayout. O primeiro altera entre a tabela que mostra a música que o
+         * utilizador possui e as músicas disponiveis no sistema quando se carrega na procura. O outro sistema altera
+         * dentro do painel de pesquisa, quando se procura músicas ou quando se procuram coleções.
          * O botão de pesquisa é responsável por permitir a visibilidade do painel de pesquisa. Ao premir o botão back
-         * ou carregar no painel Oeste, o painel central volta a mostrar o primeiro painel, que mostra as musicas do
+         * ou carregar no painel Oeste, o painel central volta a mostrar o primeiro painel, que mostra as músicas do
          * utilizador.
          * Quando o painel de pesquisa está visivel, há uma comboBox com 3 opções:
-         * Musica: mostra no painel central todas as musicas com os termos de pesquisa inseridos;
-         * Musicas por artista: Mostra todas as musicas associadas a um artista cujo nome foi pesquisado;
+         * Musica: mostra no painel central todas as músicas com os termos de pesquisa inseridos;
+         * Musicas por artista: Mostra todas as músicas associadas a um artista cujo nome foi pesquisado;
          * Coleções: Mostra todos os albuns e coleções publicas disponiveis no sistema;
          *
          * As tabelas não são editáveis e são ordenadas através do método "setAutoCreateRowSorter()". O index das
-         * musicas e das coleções é corrigido no método respectivo.
+         * músicas e das coleções é corrigido no método respectivo.
          *
-         * O menu de popup na tabela de pesquisa permite adicionar musica a uma playlist especifica e avaliar a musica
-         * respectivamente. Este popup menu também permite ao utilizador adquirir musica individual, com comportamento
-         * diferente no caso de a musica ser gratuita ou não. No caso de ser gratuita, é adicionada automaticamente à
+         * O menu de popup na tabela de pesquisa permite adicionar música a uma playlist especifica e avaliar a música
+         * respectivamente. Este popup menu também permite ao utilizador adquirir música individual, com comportamento
+         * diferente no caso de a música ser gratuita ou não. No caso de ser gratuita, é adicionada automaticamente à
          * coleção (owned music) do utilizador. No caso de ser paga, é adicionada ao cesto. Permite também ver
-         * o historico dos preços da musica.
+         * o historico dos preços da música.
          */
 
         String[] columnNamesOwnMusic = {"Title", "Artist", "Album", "Evaluation"};
@@ -589,7 +594,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que atualiza a tabela central consoante a playlist que for seleciona e as musicas que contem
+     * Método que atualiza a tabela central consoante a playlist que for seleciona e as músicas que contem
      * @param selectedPlaylist é a playlist selecionada que atualiza a tabela central
      */
     public void updateMusicJTableModel(ArrayList<Music> selectedPlaylist){
@@ -612,7 +617,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que atualiza as musicas na tabela central aquando integração de uma musica nova
+     * Método que atualiza as músicas na tabela central aquando integração de uma música nova
      */
     public void updateMusicJListModel(){
         currentUserCollection =guiManager.getCorrentUserMainCollectionClient();
@@ -624,7 +629,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que atualiza o cesto consoante se adicionam musicas para compra
+     * Método que atualiza o cesto consoante se adicionam músicas para compra
      */
     public void updateBasketJListModel(){
         listModelEast.removeAllElements();
@@ -702,8 +707,8 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que adicional musica a uma playlist
-     * método que se adiciona a um action listener para adicionar uma musica selecionada a uma playlist do utilizador.
+     * Método que adicional música a uma playlist
+     * método que se adiciona a um action listener para adicionar uma música selecionada a uma playlist do utilizador.
      */
     public void addMusicToPlaylistOnClick(){
         JPopupMenu playlistMenu =new JPopupMenu();
@@ -890,7 +895,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método de nova pesquisa que altera paineis consoante a pesquisa for por musica ou coleções
+     * Método de nova pesquisa que altera paineis consoante a pesquisa for por música ou coleções
      */
     public void newSearch(){
         ActionListener listener = comboSearchBox.getActionListeners()[0];
@@ -907,8 +912,8 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que atualiza a tabela de pesquisa consoante os termos de musica inseridos
-     * @param list lista de musicas presente na coleção de musicas do sistema
+     * Método que atualiza a tabela de pesquisa consoante os termos de música inseridos
+     * @param list lista de músicas presente na coleção de músicas do sistema
      */
     public void updateSearchMusicTable(ArrayList<Music> list){
         searchMusicTableModel.setRowCount(0);
@@ -996,7 +1001,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método para ao clicar escolher ver o historico de preços da musica selecionada
+     * Método para ao clicar escolher ver o historico de preços da música selecionada
      */
     public void onPriceHistoricClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
@@ -1014,7 +1019,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que permite, ao clicar na lista do cesto, verificar o historico de preços das musicas selecionadas
+     * Método que permite, ao clicar na lista do cesto, verificar o historico de preços das músicas selecionadas
      */
     public void onPriceHistoricBascketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
