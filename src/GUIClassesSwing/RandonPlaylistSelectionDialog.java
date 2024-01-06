@@ -71,35 +71,21 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         pack();
         setVisible(true);
     }
-
-    /**
-     *
-     */
     private void onAddToBasckeClickbtn(){
         returnValue = 1;
         dispose();
     }
 
-    /**
-     *
-     */
     private void onBuyMusicbtnClick(){
         returnValue = 2;
         dispose();
     }
 
-    /**
-     *
-     */
     private void onOnlyFreebtnClick(){
         returnValue = 3;
         dispose();
     }
 
-    /**
-     *
-     * @return
-     */
     public int getReturnValue() {
         return returnValue;
     }
