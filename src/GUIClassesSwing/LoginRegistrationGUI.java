@@ -5,7 +5,10 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- *
+ * Classe responsável pela interface gráfica de login e registro de usuários.
+ * Esta classe cria a janela principal para a autenticação e registro, fornecendo
+ * campos de entrada para informações do usuário, como nome de usuário, senha, e-mail,
+ * além de opções específicas para criadores de música.
  */
 public class LoginRegistrationGUI extends JFrame {
     GUIManager guiManager;
@@ -37,13 +40,15 @@ public class LoginRegistrationGUI extends JFrame {
     private JTextField registPinField;
     private LogRegFrame loginFrame = null;
     private LogRegFrame registrationFrame = null;
-    private Container loginOrRegistContainer;
     private JPanel loginPanel;
     private JPanel registationPanel;
 
     /**
+     * Construtor da classe LoginRegistrationGUI.
+     * Inicializa a janela de login e registo com todas as suas componentes,
+     * incluindo botões, campos de texto, e outros elementos gráficos.
      *
-     * @param guiManager
+     * @param guiManager Referência ao gestor de interface gráfica que controla esta classe.
      */
     public LoginRegistrationGUI(GUIManager guiManager) {
         super("Login and Registration"); // Define o título da janela
@@ -63,9 +68,10 @@ public class LoginRegistrationGUI extends JFrame {
         ImageIcon imageIcon = new ImageIcon(ImagePaths.APP_ICON);
         setIconImage(imageIcon.getImage());
     }
-
     /**
-     *
+     * Método responsável por inicializar todos os componentes gráficos da janela.
+     * Configura o layout, botões, campos de texto e outros elementos necessários para
+     * a interface de login e registo.
      */
     private void initComponents() {
         //Background image input
@@ -101,10 +107,11 @@ public class LoginRegistrationGUI extends JFrame {
 
         add(mainContainer);
     }
-
     /**
+     * Método para criar e exibir a janela de login ou registo com base na opção escolhida.
+     * Configura as propriedades da janela e adiciona os elementos gráficos necessários.
      *
-     * @param option
+     * @param option Inteiro que determina qual janela será criada: 1 para Login, 2 para Registro.
      */
     public void creationOfLoginAndRegistrationFrame(int option){
         //adicionar nota explicativa
@@ -191,8 +198,11 @@ public class LoginRegistrationGUI extends JFrame {
         }
     }
 
+    // Métodos de Login e Registo
     /**
-     *
+     * Método chamado quando o botão de confirmação de login é clicado.
+     * Realiza a tentativa de login utilizando as informações fornecidas pelo utilizador,
+     * como nome, senha e, se aplicável, PIN para acesso de criador de música.
      */
     public void onLoginConfirmationBtnClick(){
         String userField = usernameFieldOnLogin.getText();
@@ -207,7 +217,9 @@ public class LoginRegistrationGUI extends JFrame {
     }
 
     /**
-     *
+     * Método chamado quando o botão de confirmação de registo é clicado.
+     * Regista um novo utilizador com as informações fornecidas, como nome,
+     * senha, confirmação de senha, e-mail e, se aplicável, PIN para registro de criador de música.
      */
     public void onbtnConfirmRegistrationClick(){
         String name = firstNameOnRegistration.getText();
@@ -233,7 +245,8 @@ public class LoginRegistrationGUI extends JFrame {
     };
 
     /**
-     *
+     * Método chamado quando o botão de rádio para login de criador de música é clicado.
+     * Ativa ou desativa a visibilidade do campo de entrada de PIN com base na seleção do botão.
      */
     public void onRadioLoginMusicCreatorBtnClick(){
         if(musicCreatorLoginbtn.isSelected()){
@@ -248,9 +261,10 @@ public class LoginRegistrationGUI extends JFrame {
             loginPanel.repaint();
         }
     }
-
     /**
-     *
+     * Método chamado quando o botão de confirmação de registo é clicado.
+     * Regista um novo utilizador com as informações fornecidas, como nome,
+     * senha, confirmação de senha, e-mail e, se aplicável, PIN para registro de criador de música.
      */
     public void onRadioRegistMusicCreatorBtnClick(){
         if(musicCreatorRegistbtn.isSelected()){
