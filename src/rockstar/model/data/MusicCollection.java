@@ -2,11 +2,12 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.model.data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe abstrata das coleções de musica
@@ -52,4 +53,5 @@ public abstract class MusicCollection implements Serializable {
     public String toString() {
         return name;
     }
+
 }

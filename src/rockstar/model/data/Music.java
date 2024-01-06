@@ -2,7 +2,9 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.model.data;
+
+import src.rockstar.model.enums.Genre;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Music implements Serializable {
     private String name;
-    private Genre.GENRE genre;
+    private Genre genre;
     private MusicCreator musicCreator;
     private ArrayList<MusicEvaluation> evaluationList;
     private double price;
@@ -29,7 +31,7 @@ public class Music implements Serializable {
      * @param musicCreator O criador associado à musica.
      * @param price o preço correspondente da musica.
      */
-    public Music(String name, Genre.GENRE genre, MusicCreator musicCreator, double price) {
+    public Music(String name, Genre genre, MusicCreator musicCreator, double price) {
         this.name = name;
         this.genre = genre;
         this.musicCreator = musicCreator;
@@ -57,7 +59,7 @@ public class Music implements Serializable {
     public String getArtistNameFromMusic(){
         return musicCreator.getName();
     }
-    public Genre.GENRE getGenre() {
+    public Genre getGenre() {
         return genre;
     }
     public String getName() {return name;}
@@ -78,7 +80,7 @@ public class Music implements Serializable {
     public void setActive(boolean active) {
         isActive = active;
     }
-    public void setGenre(Genre.GENRE genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 

@@ -2,7 +2,7 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.model.data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -122,5 +122,33 @@ public class Client extends User implements Serializable {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Classe pesquisa que gere a pesquisa de musica
+     * Funcionalidades de encontrar musicas por nome, por Artista e por playlists
+     */
+    public static class Search implements Serializable {
+        private ArrayList<Music> foundMusics;
+        private ArrayList<Music> foundMusicsByArtist;
+        private ArrayList<MusicCollection> foundMusicCollections;
+        public ArrayList<Music> getFoundMusics() {
+            return foundMusics;
+        }
+        public ArrayList<Music> getFoundMusicsByArtist() {
+            return foundMusicsByArtist;
+        }
+        public ArrayList<MusicCollection> getFoundMusicCollections() {
+            return foundMusicCollections;
+        }
+        public Search(){}
+        public Search(ArrayList<Music> foundMusics) {
+            this.foundMusics = foundMusics;
+        }
+        public Search(ArrayList<Music> foundMusics, ArrayList<Music> foundMusicsByArtist, ArrayList<MusicCollection> foundMusicCollections) {
+            this.foundMusics = foundMusics;
+            this.foundMusicsByArtist = foundMusicsByArtist;
+            this.foundMusicCollections = foundMusicCollections;
+        }
     }
 }

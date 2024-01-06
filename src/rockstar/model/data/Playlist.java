@@ -2,7 +2,11 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.model.data;
+
+import src.rockstar.model.data.Client;
+import src.rockstar.model.data.Music;
+import src.rockstar.model.data.MusicCollection;
 
 import java.io.Serializable;
 import java.util.ArrayList;

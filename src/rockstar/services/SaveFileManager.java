@@ -2,7 +2,7 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.services;
 
 import java.io.*;
 import java.util.Timer;

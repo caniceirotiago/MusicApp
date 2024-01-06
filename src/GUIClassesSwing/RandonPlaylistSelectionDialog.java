@@ -1,6 +1,6 @@
 package src.GUIClassesSwing;
 
-import src.RockStar.Music;
+import src.rockstar.model.data.Music;
 
 import javax.swing.*;
 import java.awt.*;

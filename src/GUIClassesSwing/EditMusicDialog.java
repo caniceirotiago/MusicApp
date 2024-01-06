@@ -1,7 +1,7 @@
 package src.GUIClassesSwing;
 
-import src.RockStar.Genre;
-import src.RockStar.Music;
+import src.rockstar.model.enums.Genre;
+import src.rockstar.model.data.Music;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class EditMusicDialog extends JDialog {
     private GUIManager guiManager;
 
     private JTextField newName;
-    private JComboBox<Genre.GENRE> selectedGender;
+    private JComboBox<Genre> selectedGender;
     private JTextField newPriceTF;
     private JComboBox<String> musicStateCombo;
 
@@ -41,10 +41,10 @@ public class EditMusicDialog extends JDialog {
         newName = new JTextField(20);
 
 
-        Genre.GENRE[] genres = Genre.GENRE.values();
+        Genre[] genres = Genre.values();
         int indexCount = 0;
         int selectedIndex = 0;
-        for(Genre.GENRE g : genres){
+        for(Genre g : genres){
             if(g == music.getGenre()) selectedIndex = indexCount;
             indexCount++;
         }
@@ -97,7 +97,7 @@ public class EditMusicDialog extends JDialog {
         return newName.getText();
     }
 
-    public Genre.GENRE getSelectedGender() {
+    public Genre getSelectedGender() {
         return selectedGender.getItemAt(selectedGender.getSelectedIndex());
     }
 

@@ -4,7 +4,8 @@
  */
 package src.GUIClassesSwing;
 
-import src.RockStar.*;
+import src.rockstar.model.data.*;
+import src.rockstar.model.enums.Genre;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,7 +46,7 @@ public class ClientGUI extends JFrame {
     private JLabel totalLbl;
     private CardLayout centralCardLayout;
     private CardLayout searchCardLayout;
-    private Search search;
+    private Client.Search search;
     private JTextField searchTextField;
     private JComboBox<String> comboSearchBox;
 
@@ -489,7 +491,7 @@ public class ClientGUI extends JFrame {
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         //Cria um objeto tipo search vazio
-        if(search == null) search = new Search();
+        if(search == null) search = new Client.Search();
         searchMusicTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -680,7 +682,7 @@ public class ClientGUI extends JFrame {
     public MusicCollection getSelectedPlaylist(){
         int row = playlistListWest.getSelectedIndex()-1;
         if(row != -1){
-            ArrayList<MusicCollection> playlist = guiManager.getUserAllCollection();
+            List<MusicCollection> playlist = guiManager.getUserAllCollection();
             return playlist.get(row);
         }
         return null;
@@ -777,8 +779,8 @@ public class ClientGUI extends JFrame {
             }
         } else if(userChoice == 1){
 
-            Genre.GENRE[] genres = Genre.GENRE.values();
-            Genre.GENRE selectedGenre = (Genre.GENRE) JOptionPane.showInputDialog(null,
+            Genre[] genres = Genre.values();
+            Genre selectedGenre = (Genre) JOptionPane.showInputDialog(null,
                     "Chose the genre: ","Genre", JOptionPane.QUESTION_MESSAGE,null, genres,genres[0]);
             if(selectedGenre != null){
                 String nMusicsString = JOptionPane.showInputDialog("Type the number of musics");

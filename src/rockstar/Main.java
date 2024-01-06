@@ -2,7 +2,10 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar;
+
+import src.rockstar.services.RockstarIncManager;
+import src.rockstar.services.SaveFileManager;
 
 import java.io.*;
 

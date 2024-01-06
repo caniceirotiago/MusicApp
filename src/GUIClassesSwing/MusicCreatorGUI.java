@@ -1,6 +1,10 @@
 package src.GUIClassesSwing;
 
-import src.RockStar.*;
+import src.rockstar.model.data.Album;
+import src.rockstar.model.data.Client;
+import src.rockstar.model.data.Music;
+import src.rockstar.model.data.MusicCollection;
+import src.rockstar.model.enums.Genre;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -44,11 +49,11 @@ public class MusicCreatorGUI extends JFrame {
     private JPanel secondStatsPanel;
     private CardLayout centralCardLayout;
     private CardLayout statsCardLayout;
-    private Search search;
+    private Client.Search search;
     private JTextField searchTextField;
     private TextField musicNameTextField;
     private TextField priceTextField;
-    private JComboBox<Genre.GENRE> selectedGender;
+    private JComboBox<Genre> selectedGender;
 
     /**
      *
@@ -211,7 +216,7 @@ public class MusicCreatorGUI extends JFrame {
         newMusicLbl =  new JLabel("Name");
         musicNameTextField = new TextField(20);
 
-        Genre.GENRE[] genres = Genre.GENRE.values();
+        Genre[] genres = Genre.values();
         selectedGender = new JComboBox<>(genres);
 
         JLabel priceLbl =  new JLabel("price");
@@ -368,7 +373,7 @@ public class MusicCreatorGUI extends JFrame {
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         //Creates an empty search object
-        if(search == null) search = new Search();
+        if(search == null) search = new Client.Search();
         searchMusicTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -581,7 +586,7 @@ public class MusicCreatorGUI extends JFrame {
     public MusicCollection getSelectedAlbum(){
         int row = albumListWest.getSelectedIndex()-1;
         if(row != -1){
-            ArrayList<MusicCollection> playlist = guiManager.getUserAllCollection();
+            List<MusicCollection> playlist = guiManager.getUserAllCollection();
             return playlist.get(row);
         }
         return null;
@@ -789,7 +794,7 @@ public class MusicCreatorGUI extends JFrame {
         int totalAlbums = (int)(double)albumStatistics.get(0);
         int counter = 1;
         graphicStatsPanel.removeAll();
-        for(Genre.GENRE ge : Genre.GENRE.values()){
+        for(Genre ge : Genre.values()){
             int genreValue = (int)(double) albumStatistics.get(counter);
             JLabel labelGenre = new JLabel("<html>"+ ge +"<br><p style='text-align:center;'>" +
                     genreValue + "</p></html>");

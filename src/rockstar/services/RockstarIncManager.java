@@ -2,14 +2,15 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.services;
 
 import src.GUIClassesSwing.GUIManager;
+import src.rockstar.model.data.*;
+import src.rockstar.model.enums.Genre;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import java.util.List;
 
 /**
  * Classe principal do programa
@@ -214,7 +215,7 @@ public class RockstarIncManager  implements Serializable {
      * @param searchTerm O termo a ser pesquisado nos nomes das músicas, nomes dos artistas e nomes das coleções.
      * @return Um objeto Search que contem os resultados da pesquisa, incluindo músicas e albuns encontrados.
      */
-    public Search search(String searchTerm) {
+    public Client.Search search(String searchTerm) {
         ArrayList<Music> foundMusics= new ArrayList<>();
         ArrayList<Music> foundMusicsByArtist = new ArrayList<>();
         ArrayList<MusicCollection> foundMusicCollections = new ArrayList<>();
@@ -242,13 +243,13 @@ public class RockstarIncManager  implements Serializable {
                     }
                 }
             }
-            return new Search(foundMusics,foundMusicsByArtist,foundMusicCollections);
+            return new Client.Search(foundMusics,foundMusicsByArtist,foundMusicCollections);
         } else {
             //se for um criador de musica, retorna apenas a musica desse proprio criador
             for(Music m : currentUser.getAllMusic()){
                 if(m.getName().toLowerCase().contains(searchTerm.toLowerCase())) foundMusics.add(m);
             }
-            return new Search(foundMusics);
+            return new Client.Search(foundMusics);
         }
     }
 
@@ -261,7 +262,7 @@ public class RockstarIncManager  implements Serializable {
      * @param genre O género musical escolhido para a nova lista aleatória.
      * @param nOfMusics O número de músicas para a nova lista aleatória.
      */
-    public void newRandomPlaylistAttempt(Genre.GENRE genre, int nOfMusics){
+    public void newRandomPlaylistAttempt(Genre genre, int nOfMusics){
         ArrayList<Music> allMusicOfTheChosenGenre = new ArrayList<>();
         for(User mc : musicCreatorList){
             for(Music m : mc.getAllMusic()){
@@ -456,7 +457,7 @@ public class RockstarIncManager  implements Serializable {
      * @param priceString preço da musica.
      * @param genre género da musica.
      */
-    public void newMusic(String name, String priceString, Genre.GENRE genre){
+    public void newMusic(String name, String priceString, Genre genre){
         boolean validatedName = musicNameValidation(name);
         double price = musicPriceValidation(priceString);
         if(validatedName && price != -1){
@@ -475,7 +476,7 @@ public class RockstarIncManager  implements Serializable {
      * @param genre género da musica.
      * @param state determina o estado da musica, se está activa ou não.
      */
-    public void musicEditionAttempt(Music selectedMusic, String name, String priceString, Genre.GENRE genre, int state){
+    public void musicEditionAttempt(Music selectedMusic, String name, String priceString, Genre genre, int state){
         boolean musicEdited = false;
         if(!name.isEmpty() && musicNameValidation(name)){
             selectedMusic.setName(name);
@@ -555,7 +556,7 @@ public class RockstarIncManager  implements Serializable {
     public ArrayList<Music> getCurrentUserALlMusic(){
         return currentUser.getAllMusic();
     }
-    public ArrayList<MusicCollection> getCurretUserAllCollections(){
+    public List<MusicCollection> getCurretUserAllCollections(){
         return currentUser.getAllCollections();
     }
     public double getCurrentUserBalance(){
@@ -620,10 +621,10 @@ public class RockstarIncManager  implements Serializable {
         }
         return countMusic;
     }
-    public int totalAlbumsByGenre(Genre.GENRE albumGenre){
+    public int totalAlbumsByGenre(Genre albumGenre){
         int cont = 0;
         for (User us : musicCreatorList){
-            for (MusicCollection ab :  us.allCollections){
+            for (MusicCollection ab :  us.getAllCollections()){
                 if(((Album)ab).getMainGenre() != null){
                     if (((Album)ab).getMainGenre().equals(albumGenre)){
                         cont++;
@@ -666,7 +667,7 @@ public class RockstarIncManager  implements Serializable {
     public ArrayList<Integer> getAlbumTypeStatistics(){
         ArrayList<Integer> albumStatistics =  new ArrayList<>();
         ArrayList<Integer> albumCountByGenre = new ArrayList<>();
-        for(Genre.GENRE ge : Genre.GENRE.values()){
+        for(Genre ge : Genre.values()){
             albumCountByGenre.add(totalAlbumsByGenre(ge));
         }
         albumCountByGenre.add(totalAlbumsByGenre(null));

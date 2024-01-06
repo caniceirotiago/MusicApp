@@ -1,10 +1,14 @@
 package src.GUIClassesSwing;
 
-import src.RockStar.*;
+import src.rockstar.model.data.*;
+import src.rockstar.model.enums.Genre;
+import src.rockstar.services.RockstarIncManager;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Classe responsável pela gestão e ligação da Classe Rockstar (e consequentemente toda a lógica da aplicação) à interface
@@ -92,7 +96,7 @@ public class GUIManager  {
      * @param selectedGenre género selecionado para a playlist aleatória
      * @param nMusics número de musicas escolhidas para a playlist aleatória
      */
-    public void randomPlaylistCreationAttempt(Genre.GENRE selectedGenre,int nMusics){
+    public void randomPlaylistCreationAttempt(Genre selectedGenre, int nMusics){
         logicManager.newRandomPlaylistAttempt(selectedGenre,nMusics);
     }
 
@@ -163,12 +167,12 @@ public class GUIManager  {
         clientFrame.updateTotalBascketPrice();
     }
 
-    public Search newSearch(String searchTextField){
+    public Client.Search newSearch(String searchTextField){
         return logicManager.search(searchTextField);
     }
 
-    public ArrayList<MusicCollection> getUserAllCollection(){
-        return logicManager.getCurretUserAllCollections();
+    public List<MusicCollection> getUserAllCollection(){
+        return Collections.unmodifiableList(logicManager.getCurretUserAllCollections());
     }
 
     public double getUserBalance(){
@@ -227,7 +231,7 @@ public class GUIManager  {
         logicManager.addMusicToMusicToBuy(selectedMusic);
     }
 
-    public void newMusicAttempt(String musicNameTextField, String priceTextField, Genre.GENRE selectedGender){
+    public void newMusicAttempt(String musicNameTextField, String priceTextField, Genre selectedGender){
         logicManager.newMusic(musicNameTextField, priceTextField, selectedGender);
     }
 
@@ -264,7 +268,7 @@ public class GUIManager  {
         EditMusicDialog editMusicDialog = new EditMusicDialog(this, musicCreatorFrame, selectedMusic);
         String name = editMusicDialog.getNewName();
         String price = editMusicDialog.getNewPrice();
-        Genre.GENRE genre = editMusicDialog.getSelectedGender();
+        Genre genre = editMusicDialog.getSelectedGender();
         int state = editMusicDialog.getMusicState();
         logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
         musicCreatorFrame.updateSecondStatsPanel(getAlbumTypeStatistics());

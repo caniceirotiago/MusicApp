@@ -2,7 +2,9 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.rockstar.model.data;
+import src.rockstar.model.enums.Genre;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +15,7 @@ import java.util.Map;
  */
 public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
-    private Genre.GENRE mainGenre;
+    private Genre mainGenre;
     public Album(){}
 
     /**
@@ -41,7 +43,7 @@ public class Album extends MusicCollection implements Serializable {
     public MusicCreator getCreator() {
         return mainCreator;
     }
-    public Genre.GENRE getMainGenre() {
+    public Genre getMainGenre() {
         return mainGenre;
     }
 
@@ -62,7 +64,7 @@ public class Album extends MusicCollection implements Serializable {
      */
     public void calculateMainGenre(){
         //primeiro passo é associar o género das musicas encontradas no album a um valor int atraves de um hashmap
-        HashMap <Genre.GENRE, Integer> genreFrequency = new HashMap<>();
+        HashMap <Genre, Integer> genreFrequency = new HashMap<>();
         //para cada musica encontrada na lista da musica
         //adiciona 1 valor à entrada correspondente cada vez que encontra uma musica desse genero
         for (Music mc : musicList){
@@ -71,14 +73,14 @@ public class Album extends MusicCollection implements Serializable {
         //max frequency é utilizado para definir qual o genero que é encontrado com mais frequencia (contador)
         int maxFreq = 0;
         //a "ciclar" pelo hashmap de modo a encontrar o genero com a frequencia maxima
-        for (Map.Entry<Genre.GENRE,Integer> entry : genreFrequency.entrySet()){
+        for (Map.Entry<Genre,Integer> entry : genreFrequency.entrySet()){
             if (entry.getValue() > maxFreq){
                 maxFreq = entry.getValue();
             }
         }
         //adiciona à lista os generos principais no caso de haver mais do que um
-        ArrayList <Genre.GENRE> genreList = new ArrayList<>();
-        for (Map.Entry<Genre.GENRE,Integer> entry : genreFrequency.entrySet()){
+        ArrayList <Genre> genreList = new ArrayList<>();
+        for (Map.Entry<Genre,Integer> entry : genreFrequency.entrySet()){
             if (entry.getValue() == maxFreq){
                 genreList.add(entry.getKey());
             }
