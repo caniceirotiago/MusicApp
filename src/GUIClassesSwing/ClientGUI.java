@@ -91,7 +91,7 @@ public class ClientGUI extends JFrame {
         //---------------------------------------Adicionar POPUPMENUS e SUBMENUS----------------------------------------
         /**
          *Esta secção destina-se aos detalhes como popup menus e submenus que são utilizados nos paineis da frame do
-         * Cliente. Foram colocados noutro local para permitir melhor visualização e organização do código.
+         * Cliente. Foram colocados separadamente para permitir melhor visualização e organização do código.
          */
 
         //PopUp menu da tabela central para adicionar músicas a playlist ou avaliar músicas, este menu apenas é acionado
@@ -134,7 +134,7 @@ public class ClientGUI extends JFrame {
         acquireMusic.addActionListener(e -> onAcquireMusicClick());
         seePriceHistoric.addActionListener(e -> onPriceHistoricClick());
 
-        //East PopUpMenu que seleciona as músicas que estão no cesto, permite ao utilizador escolher as opções
+        //PopUpMenu Este que seleciona as músicas que estão no cesto, permite ao utilizador escolher as opções
         //de remover as músicas do cesto, ver as alterações de preço que a música sofreu ao longo do tempo e também
         //a opção de eliminar todos os elementos do cesto
         JPopupMenu basketMusicPuM = new JPopupMenu();
@@ -204,14 +204,12 @@ public class ClientGUI extends JFrame {
         if(currentUserCollection == null) currentUserCollection = new Playlist();
         selectedPlaylist = currentUserCollection;
 
-        //Associate the model to the new list and add the action listeners
+
         playlistListWest = new JList<>(listModelWest);
         playlistListWest.addListSelectionListener(e -> {
-            if(!e.getValueIsAdjusting()){ //Adjust the for a scrolling event
+            if(!e.getValueIsAdjusting()){
                 selectedPlaylist = playlistListWest.getSelectedValue();
                 if(selectedPlaylist != null){
-                    //It will update the central table and show the first card on the central panel.
-                    //(the second shows the search tables)
                     updateMusicJTableModel(selectedPlaylist.getMusicList());
                     centralCardLayout.show(centerPanel,"1");
                 }
@@ -220,14 +218,14 @@ public class ClientGUI extends JFrame {
         playlistListWest.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                //First, we save the mouse coordinate values to correctly position the popup menus
+                //Guarda as coordenadas do rato para posicionar corretamente a posição dos popup menus
                 lastPositionMouseRightClickX = e.getX();
                 lastPositionMouseRightClickY = e.getY();
                 if(SwingUtilities.isRightMouseButton(e)){
                     int row = playlistListWest.locationToIndex(e.getPoint());
                     Rectangle rectangle = playlistListWest.getCellBounds(row,row);
                     if(rectangle != null && rectangle.contains(e.getPoint()) &&
-                            //Adding 1 to the row logic to ensure the first element is not included
+                            //adiciona 1 à lógica das linhas para garantir que o primeiro elemento não está incluido
                             row >= 1 && row < listModelWest.getSize()){
                         playlistListWest.setSelectedIndex(row);
                         westListPopMenu.show(e.getComponent(),lastPositionMouseRightClickX,lastPositionMouseRightClickY);
@@ -594,7 +592,10 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que atualiza a tabela central consoante a playlist que for seleciona e as músicas que contem
+     * Método que atualiza a tabela central
+     * Mostra as músicas que o utilizador tem e atualiza a tabela centras de músicas caso seja adquirida uma nova música
+     * Altera para uma tabela diferente caso seja escolhida uma playlist específica, atualizando a tabela para
+     * mostrar as músicas que estão contidas nessa playlist.
      * @param selectedPlaylist é a playlist selecionada que atualiza a tabela central
      */
     public void updateMusicJTableModel(ArrayList<Music> selectedPlaylist){
@@ -653,7 +654,7 @@ public class ClientGUI extends JFrame {
     }
 
     /**
-     * Método que atualuza o index do elemento selecionado;
+     * Método que atualiza o index do elemento selecionado;
      * @return retorna nulo no caso de a fila ser -1;
      */
     public Music getSelectedMusicOnCentralTable(){
@@ -705,11 +706,6 @@ public class ClientGUI extends JFrame {
             System.out.println("Music eliminated from playlist");
         }
     }
-
-    /**
-     * Método que adicional música a uma playlist
-     * método que se adiciona a um action listener para adicionar uma música selecionada a uma playlist do utilizador.
-     */
     public void addMusicToPlaylistOnClick(){
         JPopupMenu playlistMenu =new JPopupMenu();
 
@@ -803,10 +799,6 @@ public class ClientGUI extends JFrame {
             }
         }
     }
-
-    /**
-     *
-     */
     public void onPurchasebtnClick(){
         if(updateTotalBascketPrice() > guiManager.getUserBalance()){
             JOptionPane.showMessageDialog(null,"There are not enough money");
@@ -852,9 +844,6 @@ public class ClientGUI extends JFrame {
         }
     }
 
-    /**
-     *
-     */
     public void onDeletePlaylistClick(){
         MusicCollection selected = getSelectedPlaylist();
         if(selected != null){
@@ -893,10 +882,6 @@ public class ClientGUI extends JFrame {
             System.out.println("Playlist changed");
         }
     }
-
-    /**
-     * Método de nova pesquisa que altera paineis consoante a pesquisa for por música ou coleções
-     */
     public void newSearch(){
         ActionListener listener = comboSearchBox.getActionListeners()[0];
         comboSearchBox.removeActionListener(listener);
@@ -954,10 +939,6 @@ public class ClientGUI extends JFrame {
             }
         }
     }
-
-    /**
-     * Método para a comboBox de pesquisa com os codigos e casos associados
-     */
     public void onSearchComboBoxClick(){
         //eventualmete adicionar a pesquisa de colleções e de artistas
         int comboSelection = comboSearchBox.getSelectedIndex();
@@ -999,10 +980,6 @@ public class ClientGUI extends JFrame {
             }
         }
     }
-
-    /**
-     * Método para ao clicar escolher ver o historico de preços da música selecionada
-     */
     public void onPriceHistoricClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
 
@@ -1017,10 +994,6 @@ public class ClientGUI extends JFrame {
         scrollPane.setPreferredSize(new Dimension(300,100));
         JOptionPane.showMessageDialog(null, scrollPane);
     }
-
-    /**
-     * Método que permite, ao clicar na lista do cesto, verificar o historico de preços das músicas selecionadas
-     */
     public void onPriceHistoricBascketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
 
