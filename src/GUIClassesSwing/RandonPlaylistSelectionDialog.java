@@ -7,7 +7,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe que faz a gestão da janela de diálogo que é chamada quando o utilizador Cliente quer criar uma nova
+ * playlist aleatória.
  */
 public class RandonPlaylistSelectionDialog extends JDialog {
     private JButton addToBasketbtn;
@@ -17,12 +18,14 @@ public class RandonPlaylistSelectionDialog extends JDialog {
     private int returnValue;
 
     /**
+     * A classe que faz gestão da caixa de diálogo para seleção de músicas pagas quando se cria uma playlist aleatória
+     * Permite ao utilizador adicionar músicas ao carrinho, comprar músicas ou escolher apenas músicas gratuitas.
      *
-     * @param guiManager
-     * @param associated
-     * @param songNames
-     * @param totalPrice
-     * @param canBuy
+     * @param guiManager O gestor da interface gráfica responsável pela comunicação com o sistema.
+     * @param associated O quadro associado à caixa de diálogo.
+     * @param songNames A lista de músicas selecionadas na lista de reprodução aleatória.
+     * @param totalPrice O preço total das músicas pagas na seleção.
+     * @param canBuy Indica se o utilizador tem saldo suficiente para comprar as músicas pagas.
      */
     public RandonPlaylistSelectionDialog(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
         super (associated,"Paid Music", true);
@@ -68,35 +71,21 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         pack();
         setVisible(true);
     }
-
-    /**
-     *
-     */
     private void onAddToBasckeClickbtn(){
         returnValue = 1;
         dispose();
     }
 
-    /**
-     *
-     */
     private void onBuyMusicbtnClick(){
         returnValue = 2;
         dispose();
     }
 
-    /**
-     *
-     */
     private void onOnlyFreebtnClick(){
         returnValue = 3;
         dispose();
     }
 
-    /**
-     *
-     * @return
-     */
     public int getReturnValue() {
         return returnValue;
     }
