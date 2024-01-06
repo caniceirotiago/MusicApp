@@ -14,7 +14,7 @@ import java.util.Vector;
 /**
  *
  */
-public class MusicCreatorGUIX extends JFrame {
+public class MusicCreatorGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private DefaultTableModel searchMusicTableModel;
@@ -55,7 +55,7 @@ public class MusicCreatorGUIX extends JFrame {
      * @param username
      * @param guiManager
      */
-    public MusicCreatorGUIX(String username, GUIManager guiManager){
+    public MusicCreatorGUI(String username, GUIManager guiManager){
         super("Music Creator - " + username);
         this.guiManager = guiManager;
 
@@ -320,7 +320,7 @@ public class MusicCreatorGUIX extends JFrame {
 
          */
 
-        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification","Price","Genre","Active"};
+        String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification","Price €","Genre","Active"};
         centralTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -339,7 +339,7 @@ public class MusicCreatorGUIX extends JFrame {
         ArrayList<Music> userAllMusic = guiManager.getUserAllMusic();
         updateMusicJTableModel(userAllMusic);
         centralTable = new JTable(centralTableModel);
-        centralTable.getTableHeader().setReorderingAllowed(true);
+        centralTable.getTableHeader().setReorderingAllowed(false);
         centralTable.setAutoCreateRowSorter(true);
 
         //This action listener will trigger different popup menus depending on the selected element in panel west
@@ -385,7 +385,7 @@ public class MusicCreatorGUIX extends JFrame {
         };
         updateSearchMusicTable(search.getFoundMusics());
         searchMusicTable = new JTable(searchMusicTableModel);
-        searchMusicTable.getTableHeader().setReorderingAllowed(true);
+        searchMusicTable.getTableHeader().setReorderingAllowed(false);
         searchMusicTable.setAutoCreateRowSorter(true);
 
         searchMusicTable.addMouseListener(new MouseAdapter() {
@@ -412,7 +412,7 @@ public class MusicCreatorGUIX extends JFrame {
             }
         };
         JTable searchCollectionTable = new JTable(searchCollectionTableModel);
-        searchCollectionTable.getTableHeader().setReorderingAllowed(true);
+        searchCollectionTable.getTableHeader().setReorderingAllowed(false);
         searchCollectionTable.setAutoCreateRowSorter(true);
 
         //Creation of the back button and combobox
@@ -659,6 +659,7 @@ public class MusicCreatorGUIX extends JFrame {
         guiManager.editMusicDialogCall(selectedMusic);
         updateMusicJTableModel(selectedAlbum.getMusicList());
         updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
+        updateFirstStatsPanel(guiManager.getStatistics());
     }
 
     /**
@@ -703,6 +704,8 @@ public class MusicCreatorGUIX extends JFrame {
     public void onCreateMusicBtnClick(){
         guiManager.newMusicAttempt(musicNameTextField.getText(), priceTextField.getText(),
                 selectedGender.getItemAt(selectedGender.getSelectedIndex()));
+        selectedAlbum = currentUserCollection;
+        updateMusicJTableModel(selectedAlbum.getMusicList());
     }
 
     /**
@@ -790,7 +793,7 @@ public class MusicCreatorGUIX extends JFrame {
             int genreValue = (int)(double) albumStatistics.get(counter);
             JLabel labelGenre = new JLabel("<html>"+ ge +"<br><p style='text-align:center;'>" +
                     genreValue + "</p></html>");
-            RetangleBarCart bar = new RetangleBarCart(genreValue,totalAlbums);
+            RetangleBarChartComp bar = new RetangleBarChartComp(genreValue,totalAlbums);
             JPanel genrePanel = new JPanel(new BorderLayout());
             genrePanel.add(labelGenre, BorderLayout.NORTH);
             genrePanel.add(bar, BorderLayout.CENTER);

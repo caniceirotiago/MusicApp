@@ -2,10 +2,8 @@ package src.GUIClassesSwing;
 
 import src.RockStar.Genre;
 import src.RockStar.Music;
-import src.RockStar.RockstarIncManager;
 
 import javax.swing.*;
-import javax.swing.text.DefaultEditorKit;
 import java.awt.*;
 
 /**
@@ -13,7 +11,7 @@ import java.awt.*;
  * Quando se escolhe editar uma musica (pelo utilizador criador de musica), abre uma janela de diálogo em que se escolhem
  * as propriedades das musicas a alterar
  */
-public class EditMusic extends JDialog {
+public class EditMusicDialog extends JDialog {
 
     private GUIManager guiManager;
 
@@ -28,7 +26,7 @@ public class EditMusic extends JDialog {
      * @param associated A frame associada à jDialog desta classe
      * @param music A musica que se quer editar
      */
-    public EditMusic(GUIManager guiManager, Frame associated, Music music){
+    public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
         this.guiManager = guiManager;
 
