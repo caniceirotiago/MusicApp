@@ -706,11 +706,6 @@ public class ClientGUI extends JFrame {
             System.out.println("Music eliminated from playlist");
         }
     }
-
-    /**
-     * Método que adiciona música a uma playlist
-     * método que se adiciona a um action listener para adicionar uma música selecionada a uma playlist do utilizador.
-     */
     public void addMusicToPlaylistOnClick(){
         JPopupMenu playlistMenu =new JPopupMenu();
 
@@ -804,10 +799,6 @@ public class ClientGUI extends JFrame {
             }
         }
     }
-
-    /**
-     *
-     */
     public void onPurchasebtnClick(){
         if(updateTotalBascketPrice() > guiManager.getUserBalance()){
             JOptionPane.showMessageDialog(null,"There are not enough money");
@@ -853,9 +844,6 @@ public class ClientGUI extends JFrame {
         }
     }
 
-    /**
-     *
-     */
     public void onDeletePlaylistClick(){
         MusicCollection selected = getSelectedPlaylist();
         if(selected != null){
@@ -894,10 +882,6 @@ public class ClientGUI extends JFrame {
             System.out.println("Playlist changed");
         }
     }
-
-    /**
-     * Método de nova pesquisa que altera paineis consoante a pesquisa for por música ou coleções
-     */
     public void newSearch(){
         ActionListener listener = comboSearchBox.getActionListeners()[0];
         comboSearchBox.removeActionListener(listener);
@@ -955,10 +939,6 @@ public class ClientGUI extends JFrame {
             }
         }
     }
-
-    /**
-     * Método para a comboBox de pesquisa com os codigos e casos associados
-     */
     public void onSearchComboBoxClick(){
         //eventualmete adicionar a pesquisa de colleções e de artistas
         int comboSelection = comboSearchBox.getSelectedIndex();
@@ -1000,10 +980,6 @@ public class ClientGUI extends JFrame {
             }
         }
     }
-
-    /**
-     * Método para ao clicar escolher ver o historico de preços da música selecionada
-     */
     public void onPriceHistoricClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
 
@@ -1018,10 +994,6 @@ public class ClientGUI extends JFrame {
         scrollPane.setPreferredSize(new Dimension(300,100));
         JOptionPane.showMessageDialog(null, scrollPane);
     }
-
-    /**
-     * Método que permite, ao clicar na lista do cesto, verificar o historico de preços das músicas selecionadas
-     */
     public void onPriceHistoricBascketClick(){
         Music selectedMusic = getSelectedMusicOnBascket();
 

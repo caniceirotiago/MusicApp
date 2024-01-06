@@ -608,11 +608,6 @@ public class MusicCreatorGUI extends JFrame {
         }
         return null;
     }
-
-    /**
-     *
-     * @return
-     */
     public MusicCollection getSelectedAlbum(){
         int row = albumListWest.getSelectedIndex()-1;
         if(row != -1){
@@ -622,18 +617,9 @@ public class MusicCreatorGUI extends JFrame {
         return null;
     }
 
-    /**
-     *
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
     public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
         guiManager.logoutMCreator();
     }
-
-    /**
-     *
-     */
     public void onRemoveFromAlbumClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         if(selectedMusic!= null){
@@ -645,10 +631,6 @@ public class MusicCreatorGUI extends JFrame {
             System.out.println("Music eliminated from Album");
         }
     }
-
-    /**
-     *
-     */
     public void addMusicToAlbumOnClick(){
         JPopupMenu albumsMenu =new JPopupMenu();
 
@@ -685,10 +667,6 @@ public class MusicCreatorGUI extends JFrame {
         }
         albumsMenu.show(centralTable,lastPositionMouseRightClickX,lastPositionMouseRightClickY);
     }
-
-    /**
-     *
-     */
     public void editMusicOnClick(){
         Music selectedMusic = getSelectedMusicOnCentralTable();
         guiManager.editMusicDialogCall(selectedMusic);
@@ -696,19 +674,11 @@ public class MusicCreatorGUI extends JFrame {
         updateSecondStatsPanel(guiManager.getAlbumTypeStatistics());
         updateFirstStatsPanel(guiManager.getStatistics());
     }
-
-    /**
-     *
-     */
     public void editMusicSearchTableOnClick(){
         Music selectedMusic = getSelectedMusicOnSearchTable();
         guiManager.editMusicDialogCall(selectedMusic);
         updateSearchMusicTable(search.getFoundMusics());
     }
-
-    /**
-     *
-     */
     public void onNewAlbumbtnClick(){
         centralCardLayout.show(centerPanel,"1");
         String albumName = JOptionPane.showInputDialog("Enter the name of the new album");
@@ -732,20 +702,12 @@ public class MusicCreatorGUI extends JFrame {
             }
         }
     }
-
-    /**
-     *
-     */
     public void onCreateMusicBtnClick(){
         guiManager.newMusicAttempt(musicNameTextField.getText(), priceTextField.getText(),
                 selectedGender.getItemAt(selectedGender.getSelectedIndex()));
         selectedAlbum = currentUserCollection;
         updateMusicJTableModel(selectedAlbum.getMusicList());
     }
-
-    /**
-     *
-     */
     public void onDeleteAlbumClick(){
         MusicCollection selected = getSelectedAlbum();
         if(selected != null){
@@ -762,10 +724,6 @@ public class MusicCreatorGUI extends JFrame {
             }
         }
     }
-
-    /**
-     *
-     */
     public void newSearch(){
         centralCardLayout.show(centerPanel, "2");
         search = guiManager.newSearch(searchTextField.getText());
@@ -775,8 +733,8 @@ public class MusicCreatorGUI extends JFrame {
     }
 
     /**
-     *
-     * @param list
+     * Método que atualiza a tabela de pesquisa consoante os termos de música inseridos
+     * @param list lista de músicas presente na coleção de músicas do sistema
      */
     public void updateSearchMusicTable(ArrayList<Music> list){
         searchMusicTableModel.setRowCount(0);
@@ -806,6 +764,12 @@ public class MusicCreatorGUI extends JFrame {
     public void onSwithcStatsBtnClick2(){
         statsCardLayout.show(southGrapgStatsPanel,"2");
     }
+
+    /**
+     * Método responsável pela atualização em tempo real das estatisticas globais do criador de música
+     * @param overallStatistics lista de valores associados ao tipo de estatística que está a ser mostrada ao
+     *                          utilizador
+     */
     public void updateFirstStatsPanel(ArrayList<Double> overallStatistics){
         totalUsers.setText("<html>Total Users<br><p style='text-align:center;'>" +
                 (int)(double) overallStatistics.get(0) + "</p></html>");
@@ -820,6 +784,11 @@ public class MusicCreatorGUI extends JFrame {
         individualMusicCreated.setText( "<html>Music Created<br><p style='text-align:center;'>" +
                 (int)(double) overallStatistics.get(5) + "</p></html>");
     }
+
+    /**
+     * Método responsável pela atualização dos dados relativos aos géneros dos álbuns de música que existem no sistema
+     * @param albumStatistics Os valores que são associados ao tipo de género encontrado no álbum
+     */
     public void updateSecondStatsPanel(ArrayList<Integer> albumStatistics){
         int totalAlbums = (int)(double)albumStatistics.get(0);
         int counter = 1;
