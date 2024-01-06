@@ -573,7 +573,7 @@ public class MusicCreatorGUI extends JFrame {
     }
 
     /**
-     * Método que atualiza a lista de albuns
+     * Método que atualiza a lista de álbuns aquando a criação de um novo álbum.
      */
     public void updateMusicJListModel(){
         currentUserCollection =guiManager.getCorrentUserMainCollectionMusicCreator();
@@ -585,8 +585,8 @@ public class MusicCreatorGUI extends JFrame {
     }
 
     /**
-     *
-     * @return
+     * Método que atualiza o index do elemento selecionado;
+     * @return retorna nulo no caso de a fila ser -1;
      */
     public Music getSelectedMusicOnCentralTable(){
         int row = centralTable.getSelectedRow();
@@ -598,14 +598,10 @@ public class MusicCreatorGUI extends JFrame {
         return null;
     }
 
-    /**
-     *
-     * @return
-     */
     public Music getSelectedMusicOnSearchTable(){
         int row = searchMusicTable.getSelectedRow();
         if(row != -1){
-            int updatedIndex = searchMusicTable.convertRowIndexToModel(row);
+            int updatedIndex = searchMusicTable.convertRowIndexToModel(row); //este método atualiza o index do elemento
             ArrayList<Music> musics = new ArrayList<>();
             musics = search.getFoundMusics();
             return musics.get(updatedIndex);
