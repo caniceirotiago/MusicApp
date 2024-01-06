@@ -39,15 +39,14 @@ public abstract class MusicCollection implements Serializable {
         this.musicList = musicList;
         this.creationDate = LocalDateTime.now();
     }
-    public abstract void addMusicToCollection(Music music);
-    public abstract void removeMusicFromCollection(Music music);
     public String getName() {
         return name;
     }
-
     public ArrayList<Music> getMusicList() {
         return musicList;
     }
+    public abstract void addMusicToCollection(Music music);
+    public abstract void removeMusicFromCollection(Music music);
     @Override
     public String toString() {
         return name;

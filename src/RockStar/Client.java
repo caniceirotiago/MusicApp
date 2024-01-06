@@ -17,7 +17,7 @@ public class Client extends User implements Serializable {
     private double balance;
     ArrayList<MusicAquisition> listOfAcquisitions;
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
-    ArrayList<Music> listOfMusicsToBuy;
+    ArrayList<Music> musicOnBasketList;
 
     /**
      * Construtor do utilizador Cliente
@@ -32,15 +32,15 @@ public class Client extends User implements Serializable {
         this.balance = balance;
         this.listOfAcquisitions = new ArrayList<>();
         this.listOfBalanceDeposits = new ArrayList<>();
-        this.listOfMusicsToBuy = new ArrayList<>();
+        this.musicOnBasketList = new ArrayList<>();
     }
 
     public double getBalance() {
         return balance;
     }
 
-    public ArrayList<Music> getListOfMusicsToBuy() {
-        return listOfMusicsToBuy;
+    public ArrayList<Music> getMusicOnBasketList() {
+        return musicOnBasketList;
     }
     public ArrayList<MusicAquisition> getListOfAcquisitions() {
         return listOfAcquisitions;
@@ -66,8 +66,8 @@ public class Client extends User implements Serializable {
         String genre = listOfMusic.get(0).getGenre().name();
         allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
     }
-    public void addMusicToMusicToBuy(Music music){
-        if(!listOfMusicsToBuy.contains(music)) listOfMusicsToBuy.add(music);
+    public void addMusicToBasket(Music music){
+        if(!musicOnBasketList.contains(music)) musicOnBasketList.add(music);
     }
 
     /**
@@ -83,7 +83,7 @@ public class Client extends User implements Serializable {
      * Método para adicionar musicas à coleção de musicas totais do cliente.
      * @param music Musica selecionada
      */
-    public void newMusicToAllMusicCollection(Music music){
+    public void newMusicToUserMainCollection(Music music){
         allMusic.add(music);
     }
 
@@ -107,18 +107,18 @@ public class Client extends User implements Serializable {
     /**
      *método que permite ao cliente validar a compra de musicas, consoante o saldo que tenha na carteira.
      *Se não tiver saldo não permite a compra de musicas
-     *@param musics Musicas escolhidas para comprar
+     *@param musicList Musicas escolhidas para comprar
      *@return Retorna falso se o utilizador não tiver dinheiro suficiente para aquisição de musica.
      */
-    public boolean validationOfAquisition(ArrayList<Music> musics){
+    public boolean validationOfAquisition(ArrayList<Music> musicList){
         double totalPrice = 0;
-        for(Music m : musics){
+        for(Music m : musicList){
             totalPrice += m.getPrice();
         }
         if(totalPrice <= balance){
-            listOfAcquisitions.add(new MusicAquisition(musics));
+            listOfAcquisitions.add(new MusicAquisition(musicList));
             balance -= totalPrice;
-            allMusic.addAll(musics);
+            allMusic.addAll(musicList);
             return true;
         }
         return false;

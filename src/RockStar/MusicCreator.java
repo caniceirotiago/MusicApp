@@ -30,7 +30,9 @@ public class MusicCreator extends User implements Serializable {
     public String getPin() {
         return pin;
     }
-
+    public double getTotalValueSales() {
+        return totalValueSales;
+    }
     /**
      * Método para a criação de um album de musicas vazio.
      * @param name nome associado ao album.
@@ -43,9 +45,9 @@ public class MusicCreator extends User implements Serializable {
 
     /**
      * Método para criação de album com musicas associadas.
-     * @param listMusic lista de musicas que são inseridas no album.
+     * @param musicList lista de musicas que são inseridas no album.
      */
-    public void newCollection(ArrayList<Music> listMusic) {}
+    public void newCollection(ArrayList<Music> musicList) {}
     @Override
     public void addMusicToCollection(Music music, MusicCollection album) {
         if(allCollections.contains(album)){
@@ -53,7 +55,7 @@ public class MusicCreator extends User implements Serializable {
             music.setAssociatedAlbum((Album)album);
         }
     }
-    public void newMusicToAllMusicCollection(Music music){
+    public void newMusicToUserMainCollection(Music music){
         allMusic.add(music);
     }
     public void removeMusicFromCollection(Music music, MusicCollection collection){
@@ -70,7 +72,5 @@ public class MusicCreator extends User implements Serializable {
     public void addRevenueFromMusicSale (double valueToAdd){
         totalValueSales += valueToAdd;
     }
-    public double getTotalValueSales() {
-        return totalValueSales;
-    }
+
 }
