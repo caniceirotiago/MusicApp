@@ -15,7 +15,7 @@ import java.util.TimerTask;
  */
 public class SaveFileManager {
     private static final String FILE_NAME = "mainSaveFile";
-    private static RockstarIncManager gc;
+    private static RockstarIncManager rm;
     public static void run() throws IOException, ClassNotFoundException {
         loadFile();
         autoSave();
@@ -24,7 +24,7 @@ public class SaveFileManager {
     public static void updateDataFile() throws IOException, ClassNotFoundException{
         FileOutputStream fos = new FileOutputStream(FILE_NAME);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(gc);
+        oos.writeObject(rm);
         oos.close();
         System.out.println("File Updated");
     }
@@ -34,12 +34,12 @@ public class SaveFileManager {
             System.out.println("Open archive");
             ObjectInputStream ois = new ObjectInputStream(fis);
             System.out.println("File read");
-            gc = (RockstarIncManager) ois.readObject();
+            rm = (RockstarIncManager) ois.readObject();
             System.out.println("File loaded");
             ois.close();
             System.out.println("loaded file");
         }catch (FileNotFoundException e){
-            gc= new RockstarIncManager();
+            rm = new RockstarIncManager();
              updateDataFile();
             System.out.println("Created file");
         } catch (IOException | ClassNotFoundException e) {
@@ -84,7 +84,7 @@ public class SaveFileManager {
             }
         }));
     }
-    public static RockstarIncManager getGc() {
-        return gc;
+    public static RockstarIncManager getRm() {
+        return rm;
     }
 }

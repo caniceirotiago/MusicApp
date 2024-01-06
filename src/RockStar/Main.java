@@ -9,7 +9,7 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
        SaveFileManager.run();
-       RockstarIncManager gc = SaveFileManager.getGc();
+       RockstarIncManager gc = SaveFileManager.getRm();
         gc.run();
 
     }
