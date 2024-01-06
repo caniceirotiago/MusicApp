@@ -3,10 +3,10 @@ package src.GUIClassesSwing;
 import javax.swing.*;
 import java.awt.*;
 
-public class RetangleBarCart extends JComponent {
+public class RetangleBarChartComp extends JComponent {
     private int value;
     private int maxValue;
-    public RetangleBarCart(int value, int maxValue){
+    public RetangleBarChartComp(int value, int maxValue){
         this.value = value;
         this.maxValue = maxValue;
         this.setPreferredSize(new Dimension(40,10));

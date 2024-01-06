@@ -118,6 +118,13 @@ public class Music implements Serializable {
         }
         calculateClassification();
     }
+    public int getClientEvaluationForSpecificMusic(User client){
+        int findedEvaluation = -1;
+        for(MusicEvaluation me : evaluationList){
+            if(client.equals(me.getClient())) findedEvaluation = me.getEvaluation();
+        }
+        return findedEvaluation;
+    }
     public String toString() {
         return name + " \t" + price + "€";
     }
