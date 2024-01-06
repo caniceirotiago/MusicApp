@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Classe que faz a gestão da janela de diálogo que é chamada quando o utilizador Cliente quer criar uma nova
- * playlist aleatória
+ * playlist aleatória.
  */
 public class RandonPlaylistSelectionDialog extends JDialog {
     private JButton addToBasketbtn;
