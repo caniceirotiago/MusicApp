@@ -14,7 +14,6 @@ import java.util.ArrayList;
  * Contem informação sobre clientes, criadores de música, músicas que existem no sistema
  * Classe que faz a ponte entre o back-end e o front-end
  * Classe que é inicializada no inicio do programa
- *
  */
 public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
@@ -70,7 +69,6 @@ public class RockstarIncManager  implements Serializable {
             System.out.println("Wrong Login");
         }
     }
-
     /**
      * Método para gerir a entrada de um novo utilizador na aplicação
      * @param name nome do utilizador que se quer registar
@@ -122,7 +120,6 @@ public class RockstarIncManager  implements Serializable {
             guiManager.successfulRegistration();
         }
     }
-
     /**
      * método sequencial para verificar se as credencias respeitam as regras impostas pelos programadores
      * @param name nome do utilizador que tem de respeitar certas caracteristicas
@@ -232,7 +229,6 @@ public class RockstarIncManager  implements Serializable {
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);
                 }
             }
-            //neste caso procura playlists publicas
             for(User us :  clientList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublicState()){
@@ -249,7 +245,6 @@ public class RockstarIncManager  implements Serializable {
             return new Search(foundMusics);
         }
     }
-
     /**
      * Tenta criar uma nova lista aleatória de músicas com base no género escolhido e no número de músicas escolhidas.
      * Se não houver músicas suficientes desse genero para o numero que o utilizador escolheu devolve uma mensagem de
@@ -275,7 +270,6 @@ public class RockstarIncManager  implements Serializable {
             randomPlaylistCreation(nOfMusics,allMusicOfTheChosenGenre);
         }
     }
-
     /**
      * Cria uma nova lista de músicas aleatória com base no número de músicas escolhido
      * e em uma seleção aleatória de músicas do género escolhido.
@@ -302,7 +296,6 @@ public class RockstarIncManager  implements Serializable {
         }
         if(successfullyCreated) guiManager.randomPLSuccssefullyCreated();
     }
-
     /**
      * Método que realiza a seleção de músicas de forma aleatória, utilizando o método randomIndexVector(), que cria
      * uma lista de indices aleatorio que irá corresponder aos indices da lista de músicas do género selecionadas, que
@@ -333,7 +326,6 @@ public class RockstarIncManager  implements Serializable {
         lists.add(notFreeMusicSelection);
         return lists;
     }
-
     /**
      * Método responsavel pela gestão da criação de novas listas aleatorias, cujas músicas selecionadas sao pagas e
      * que não estão adquiridas pelo utilizador.
