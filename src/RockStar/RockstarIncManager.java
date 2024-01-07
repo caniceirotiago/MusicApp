@@ -337,10 +337,10 @@ public class RockstarIncManager  implements Serializable {
      * redireciona a lista de músicas para o carrinho de compras, permite e executa a compra das músicas automaticamente
      * ou redireciona para um novo método de criação de playlists aleatórias com músicas adquiridas ou grátis
      * newRandomPlaylistOnlyFree().
-     * @param randomMusicSelection
-     * @param notFreeMusicSelection
-     * @param nOfMusics
-     * @param allMusicOfTheChosenGenre
+     * @param randomMusicSelection lista de música escolhida aleatóriamente
+     * @param notFreeMusicSelection lista de música que não é gratuita
+     * @param nOfMusics número de músicas escolhidas
+     * @param allMusicOfTheChosenGenre lista de músicas com o género escolhido
      * @return retorna a playlist aleatória criada com sucesso.
      */
     public boolean processorOnRandomToPayMusic(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
