@@ -4,35 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f34876ce-4d39-4004-9f18-5329ee7346ae" name="Changes" comment="fdLMN">
-      <change afterPath="$PROJECT_DIR$/src/RockStar/Validation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Project/mainSaveFile" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/mainSaveFile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/ClientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/EditMusicDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/EditMusicDialog.java" afterDir="false" />
+    <list default="true" id="f34876ce-4d39-4004-9f18-5329ee7346ae" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/GUIManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/GUIManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/HistoricPurchaseDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/HistoricPurchaseDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/ImagePaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/ImagePaths.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/LogRegFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/LogRegFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/LoginRegistrationGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/LoginRegistrationGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/MusicCreatorGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/RandonPlaylistSelectionDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/RandonPlaylistSelectionDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/RetangleBarChartComp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/RetangleBarChartComp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/Album.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/BalanceDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/BalanceDeposit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/Music.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/MusicAcquisition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/MusicAcquisition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/MusicCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/MusicCollection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/MusicCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/MusicCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/MusicEvaluation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/MusicEvaluation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/PriceHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/PriceHistory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/Search.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Search.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RockStar/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/RandonPlaylistSelectionDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/RandonPlaylistSelectionDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/RetangleBarChartComp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/OtherClasses/RetangleBarChartComp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RockStar/Genre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Genre.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +95,7 @@
       <workItem from="1704542966564" duration="13940000" />
       <workItem from="1704583865017" duration="10338000" />
       <workItem from="1704631079160" duration="4030000" />
-      <workItem from="1704638497403" duration="12849000" />
+      <workItem from="1704638497403" duration="13680000" />
     </task>
     <task id="LOCAL-00001" summary="fd">
       <option name="closed" value="true" />
@@ -209,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704657355720</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fdLMN">
+      <option name="closed" value="true" />
+      <created>1704668790764</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1704668790764</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
