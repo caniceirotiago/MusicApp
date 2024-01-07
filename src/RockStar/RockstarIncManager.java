@@ -34,7 +34,7 @@ public class RockstarIncManager  implements Serializable {
         guiManager.run();
     }
     /**
-     * método para o utilizador já registado tentar entrar na aplicação
+     * Método para o utilizador já registado tentar entrar na aplicação
      * @param username o nome do utilizador
      * @param password a password do utilizador
      * @param isMCreator condição para verificar se o utilizador é criador
@@ -72,7 +72,7 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     * Metodo para governar a entrada de um novo utilizador na aplicação
+     * Método para gerir a entrada de um novo utilizador na aplicação
      * @param name nome do utilizador que se quer registar
      * @param username username do utilizador que se quer registar
      * @param password password do utilizador para efetuar o registo
@@ -326,7 +326,7 @@ public class RockstarIncManager  implements Serializable {
             if (currentUser.getAllMusic().contains(music)) {
                 randomMusicSelection.add(music);
             } else if (!currentUser.getAllMusic().contains(music) && music.getPrice() == 0) {
-                currentUser.newMusicToAllMusicCollection(music);
+                currentUser.newMusicToUserMainCollection(music);
                 randomMusicSelection.add(music);
             } else if(!currentUser.getAllMusic().contains(music) && music.getPrice() > 0){
                 notFreeMusicSelection.add(music);
@@ -365,7 +365,7 @@ public class RockstarIncManager  implements Serializable {
         switch (userOption){
             case 1:
                 for (Music m : notFreeMusicSelection){
-                    ((Client)currentUser).addMusicToMusicToBuy(m); //Se optar por adicionar ao carrinho apenas as músicas gratuitas serão adicionadas
+                    ((Client)currentUser).addMusicToBasket(m); //Se optar por adicionar ao carrinho apenas as músicas gratuitas serão adicionadas
                 }
                 successfullyCreated = true;
                 break;
@@ -413,7 +413,7 @@ public class RockstarIncManager  implements Serializable {
                 if (currentUser.getAllMusic().contains(music)) {
                     freeMusicSelection.add(music);
                 } else  {
-                    currentUser.newMusicToAllMusicCollection(music);
+                    currentUser.newMusicToUserMainCollection(music);
                     freeMusicSelection.add(music);
                 }
             }
@@ -426,16 +426,16 @@ public class RockstarIncManager  implements Serializable {
 
     /**
      * Método que inicia a criação de uma playlist aleatória em que apenas músicas gratuitas foram selecioknadas
-     * @param SizeOfNewVector define o tamanho do novo vector.
+     * @param sizeOfNewVector define o tamanho do novo vector.
      * @param sizeOfSample
      * @return retorna uma lista de indexes.
      */
-    public int[] randomIndexVector(int SizeOfNewVector, int sizeOfSample){
+    public int[] randomIndexVector(int sizeOfNewVector, int sizeOfSample){
         //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
         //Ver metodo nweRandomPLaylist
-        int[] listOfIndexes = new int[SizeOfNewVector];
+        int[] listOfIndexes = new int[sizeOfNewVector];
         ArrayList<Integer> addedIndexes = new ArrayList<>();
-        for (int i = 0; i < SizeOfNewVector; i++) {
+        for (int i = 0; i < sizeOfNewVector; i++) {
             int randomIndex;
             do {
                 randomIndex = (int) (Math.floor(Math.random() * sizeOfSample));
@@ -459,7 +459,7 @@ public class RockstarIncManager  implements Serializable {
         double price = musicPriceValidation(priceString);
         if(validatedName && price != -1){
             Music music = new Music(name, genre,(MusicCreator) currentUser, price);
-            currentUser.newMusicToAllMusicCollection(music);
+            currentUser.newMusicToUserMainCollection(music);
             guiManager.newMusicCreated();
         }
     }
@@ -569,7 +569,7 @@ public class RockstarIncManager  implements Serializable {
         return music.getClientEvaluationForSpecificMusic(currentUser);
     }
     public ArrayList<Music> getUserBasketList(){
-        return ((Client)currentUser).getListOfMusicsToBuy();
+        return ((Client)currentUser).getMusicOnBasketList();
     }
     public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
         selectedMusic.setAssociatedAlbum(null);
@@ -586,21 +586,21 @@ public class RockstarIncManager  implements Serializable {
         currentUser.removeMusicCollection(selected);
     }
     public void newMusicToAllCollection(Music selectedMusic){
-        currentUser.newMusicToAllMusicCollection(selectedMusic);
+        currentUser.newMusicToUserMainCollection(selectedMusic);
     }
     public void evaluateMusic(int evaluation, Music selectedMusic){
         selectedMusic.addEvaluation((Client)currentUser, evaluation);
     }
     public void validationOfAquisition(){
         ((Client)currentUser).validationOfAquisition(getUserBasketList());
-        ((Client)currentUser).getListOfMusicsToBuy().clear();
+        ((Client)currentUser).getMusicOnBasketList().clear();
     }
     public void addMoney(double money){
         ((Client)currentUser).addMoney(money);
     }
 
-    public void addMusicToMusicToBuy(Music selectedMusic){
-        ((Client)currentUser).addMusicToMusicToBuy(selectedMusic);
+    public void addMusicToBasket(Music selectedMusic){
+        ((Client)currentUser).addMusicToBasket(selectedMusic);
     }
     public int totalUsers(){return clientList.size() + musicCreatorList.size();}
     public double musicTotalPriceValue(){ //valor total músicas no sistema
@@ -635,7 +635,7 @@ public class RockstarIncManager  implements Serializable {
     public double totalSalesValue() {
         double totalValue = 0.0;
         for (User us :  clientList){
-            for (MusicAquisition ma : ((Client) us).getListOfAcquisitions()){
+            for (MusicAcquisition ma : ((Client) us).getListOfAcquisitions()){
                 totalValue += ma.getTotalPrice();
             }
         }
@@ -652,7 +652,7 @@ public class RockstarIncManager  implements Serializable {
      *
      * @return
      */
-    public ArrayList<Double> getStatistics(){
+    public ArrayList<Double> getOverallStatistics(){
         ArrayList<Double> overallStatistics =  new ArrayList<>();
         overallStatistics.add((double)totalUsers());
         overallStatistics.add((double)totalSongs());

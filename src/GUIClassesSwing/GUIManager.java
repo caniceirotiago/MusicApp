@@ -227,7 +227,7 @@ public class GUIManager  {
     }
 
     public void addMusicToMusicToBuy(Music selectedMusic){
-        logicManager.addMusicToMusicToBuy(selectedMusic);
+        logicManager.addMusicToBasket(selectedMusic);
     }
 
     public void newMusicAttempt(String musicNameTextField, String priceTextField, Genre.GENRE selectedGender){
@@ -278,7 +278,7 @@ public class GUIManager  {
     }
 
     public ArrayList<Double> getStatistics(){
-        return logicManager.getStatistics();
+        return logicManager.getOverallStatistics();
     }
     public ArrayList<Integer> getAlbumTypeStatistics(){
         return logicManager.getAlbumTypeStatistics();

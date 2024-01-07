@@ -15,6 +15,15 @@ public class Search implements Serializable {
     private ArrayList<Music> foundMusics;
     private ArrayList<Music> foundMusicsByArtist;
     private ArrayList<MusicCollection> foundMusicCollections;
+    public Search(){}
+    public Search(ArrayList<Music> foundMusics, ArrayList<Music> foundMusicsByArtist, ArrayList<MusicCollection> foundMusicCollections) {
+        this.foundMusics = foundMusics;
+        this.foundMusicsByArtist = foundMusicsByArtist;
+        this.foundMusicCollections = foundMusicCollections;
+    }
+    public Search(ArrayList<Music> foundMusics) {
+        this.foundMusics = foundMusics;
+    }
     public ArrayList<Music> getFoundMusics() {
         return foundMusics;
     }
@@ -24,13 +33,6 @@ public class Search implements Serializable {
     public ArrayList<MusicCollection> getFoundMusicCollections() {
         return foundMusicCollections;
     }
-    public Search(){}
-    public Search(ArrayList<Music> foundMusics) {
-        this.foundMusics = foundMusics;
-    }
-    public Search(ArrayList<Music> foundMusics, ArrayList<Music> foundMusicsByArtist, ArrayList<MusicCollection> foundMusicCollections) {
-        this.foundMusics = foundMusics;
-        this.foundMusicsByArtist = foundMusicsByArtist;
-        this.foundMusicCollections = foundMusicCollections;
-    }
+
+
 }
