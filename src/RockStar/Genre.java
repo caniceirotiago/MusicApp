@@ -4,8 +4,6 @@
  */
 package src.RockStar;
 
-import java.io.Serializable;
-
 /**
  * Classe género com um enumerador dos géneros possiveis das músicas que existem na aplicação
  */

@@ -1,4 +1,4 @@
-package src.GUIClassesSwing;
+package src.GUIClassesSwing.OtherClasses;
 
 import javax.swing.*;
 import java.awt.*;

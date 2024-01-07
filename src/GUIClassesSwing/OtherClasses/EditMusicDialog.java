@@ -20,10 +20,12 @@ public class EditMusicDialog extends JDialog {
     private JComboBox<String> musicStateCombo;
     /**
      * Construtor com as funcionalidades que permitem a alteração de nome,genero, preco e estado da musica.
+     *
+     * @param guiManager
      * @param associated A frame associada à jDialog desta classe
-     * @param music A musica que se quer editar
+     * @param music      A musica que se quer editar
      */
-    public EditMusicDialog( Frame associated, Music music){
+    public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
 
         String musicState;
