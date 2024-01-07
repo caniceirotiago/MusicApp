@@ -154,6 +154,7 @@ public class RockstarIncManager  implements Serializable {
         //Name
         boolean validName = true;
         for (int i = 0; i < name.length(); i++){
+            char nova = 'í';
             if(!((name.charAt(i) >= 'a' && name.charAt(i) <= 'z') || (name.charAt(i) >= 'A' && name.charAt(i) <= 'Z'))) {
 
                 validName =false;
