@@ -421,7 +421,7 @@ public class RockstarIncManager  implements Serializable {
     /**
      * Método que inicia a criação de uma playlist aleatória em que apenas músicas gratuitas foram selecioknadas
      * @param sizeOfNewVector define o tamanho do novo vector.
-     * @param sizeOfSample
+     * @param sizeOfSample define o alcance de indexes para a escolha aleatória
      * @return retorna uma lista de indexes.
      */
     public int[] randomIndexVector(int sizeOfNewVector, int sizeOfSample){
