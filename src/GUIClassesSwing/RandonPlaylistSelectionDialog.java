@@ -16,7 +16,6 @@ public class RandonPlaylistSelectionDialog extends JDialog {
     private JButton onlyFreebtn;
     private GUIManager guiManager;
     private int returnValue;
-
     /**
      * A classe que faz gestão da caixa de diálogo para seleção de músicas pagas quando se cria uma playlist aleatória
      * Permite ao utilizador adicionar músicas ao carrinho, comprar músicas ou escolher apenas músicas gratuitas.
@@ -29,22 +28,16 @@ public class RandonPlaylistSelectionDialog extends JDialog {
     public RandonPlaylistSelectionDialog(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
         super (associated,"Some of the chosen songs require purchase", true);
         this.guiManager = guiManager;
-
-
         JPanel musicListPanel = new JPanel();
-
         musicListPanel.setLayout(new BoxLayout(musicListPanel, BoxLayout.Y_AXIS));
         for(Music m : songNames){
             musicListPanel.add(new JLabel(m.toString()));
         }
         musicListPanel.add(new JLabel("Total price: " + totalPrice));
-
         addToBasketbtn = new JButton("Add to Basket");
         buyMusicbtn = new JButton("Buy Music");
         onlyFreebtn = new JButton("Only Free Music");
-
         buyMusicbtn.setEnabled(canBuy); // Se não tiver dinheiro o butão não  dá para clicar
-
         addToBasketbtn.addActionListener(e -> onAddToBasckeClickbtn());
         buyMusicbtn.addActionListener(e -> onBuyMusicbtnClick());
         onlyFreebtn.addActionListener(e -> onOnlyFreebtnClick());
@@ -54,7 +47,6 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         JPanel btnPanel = new JPanel();
-
         btnPanel.add(addToBasketbtn);
         btnPanel.add(buyMusicbtn);
         btnPanel.add(onlyFreebtn);
@@ -73,17 +65,14 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         returnValue = 1;
         dispose();
     }
-
     private void onBuyMusicbtnClick(){
         returnValue = 2;
         dispose();
     }
-
     private void onOnlyFreebtnClick(){
         returnValue = 3;
         dispose();
     }
-
     public int getReturnValue() {
         return returnValue;
     }

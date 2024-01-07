@@ -28,12 +28,10 @@ public class LoginRegistrationGUI extends JFrame {
     private LogRegFrame registrationFrame = null;
     private JPanel loginPanel;
     private JPanel registrationPanel;
-
     /**
      * Construtor da classe LoginRegistrationGUI.
      * Inicializa a janela de login e registo com todas as suas componentes,
      * incluindo botões, campos de texto, e outros elementos gráficos.
-     *
      * @param guiManager Referência ao gestor de interface gráfica que controla esta classe.
      */
     public LoginRegistrationGUI(GUIManager guiManager) {
@@ -85,7 +83,7 @@ public class LoginRegistrationGUI extends JFrame {
      * Método para criar e exibir a janela de login ou registo com base na opção escolhida.
      * Configura as propriedades da janela e adiciona os elementos gráficos necessários.
      *
-     * @param option Inteiro que determina qual janela será criada: 1 para Login, 2 para Registro.
+     * @param option valor inteiro que determina qual janela será criada: 1 para Login, 2 para Registro.
      */
     public void creationOfLoginAndRegistrationFrame(int option){
         switch (option){
@@ -170,8 +168,6 @@ public class LoginRegistrationGUI extends JFrame {
                 break;
         }
     }
-
-    // Métodos de Login e Registo
     /**
      * Método chamado quando o botão de confirmação de login é clicado.
      * Realiza a tentativa de login utilizando as informações fornecidas pelo utilizador,
@@ -188,7 +184,6 @@ public class LoginRegistrationGUI extends JFrame {
             guiManager.loginAttempt(userField,passToString,false,pin);
         }
     }
-
     /**
      * Método chamado quando o botão de confirmação de registo é clicado.
      * Regista um novo utilizador com as informações fornecidas, como nome,
@@ -215,7 +210,6 @@ public class LoginRegistrationGUI extends JFrame {
             }
         }
     }
-
     /**
      * Método chamado quando o botão de rádio para login de criador de música é clicado.
      * Ativa ou desativa a visibilidade do campo de entrada de PIN com base na seleção do botão.

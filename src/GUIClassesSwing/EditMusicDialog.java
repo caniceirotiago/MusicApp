@@ -7,24 +7,21 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Classe que gere a edição de musica
- * Quando se escolhe editar uma musica (pelo utilizador criador de musica), abre uma janela de diálogo em que se escolhem
- * as propriedades das musicas a alterar
+ * Classe que gere a edição de música
+ * Quando se escolhe editar uma música (pelo utilizador criador de música), abre uma janela de diálogo em que se escolhem
+ * as propriedades das músicas a alterar
  */
 public class EditMusicDialog extends JDialog {
-
     private GUIManager guiManager;
-
     private JTextField newName;
     private JComboBox<Genre.GENRE> selectedGender;
     private JTextField newPriceTF;
     private JComboBox<String> musicStateCombo;
-
     /**
-     * Construtor com as funcionalidades que permitem a alteração de nome,genero, preco e estado da musica.
+     * Construtor com as funcionalidades que permitem a alteração de nome,género, preco e estado da música.
      * @param guiManager Faz a ligação ao gestor da graphical user interface
      * @param associated A frame associada à jDialog desta classe
-     * @param music A musica que se quer editar
+     * @param music A música que se quer editar
      */
     public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
@@ -39,7 +36,6 @@ public class EditMusicDialog extends JDialog {
         JLabel songData = new JLabel(songDataString);
         JLabel newTitle = new JLabel("New Title");
         newName = new JTextField(20);
-
 
         Genre.GENRE[] genres = Genre.GENRE.values();
         int indexCount = 0;
@@ -61,9 +57,8 @@ public class EditMusicDialog extends JDialog {
 
         JButton confirmationBtn = new JButton("Confirm");
         confirmationBtn.addActionListener(e -> onConfirmationClick());
-
         /**
-         * Configurações da janela de diálogo quando se escolhe editar musicas.
+         * Configurações da janela de diálogo quando se escolhe editar músicas.
          */
         GridBagConstraints ce = new GridBagConstraints();
         JPanel centerPanel = new JPanel(new GridBagLayout());
@@ -92,19 +87,15 @@ public class EditMusicDialog extends JDialog {
     private void onConfirmationClick(){
         dispose();
     }
-
     public String getNewName() {
         return newName.getText();
     }
-
     public Genre.GENRE getSelectedGender() {
         return selectedGender.getItemAt(selectedGender.getSelectedIndex());
     }
-
     public String getNewPrice() {
         return newPriceTF.getText();
     }
-
     public int getMusicState() {
         return musicStateCombo.getSelectedIndex();
     }
