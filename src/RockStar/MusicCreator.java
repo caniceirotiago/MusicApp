@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class MusicCreator extends User implements Serializable {
     private String pin;
     private double totalValueSales;
-
     /**
      * Construtor da classe do criador de musica.
      * @param name Nome do criador
@@ -42,7 +41,6 @@ public class MusicCreator extends User implements Serializable {
         //Criação de um álbum vazio
         allCollections.add(new Album(name,  this));
     }
-
     /**
      * Método para criação de álbum com músicas associadas.
      * @param musicList lista de músicas que são inseridas no álbum.
@@ -72,5 +70,4 @@ public class MusicCreator extends User implements Serializable {
     public void addRevenueFromMusicSale (double valueToAdd){
         totalValueSales += valueToAdd;
     }
-
 }

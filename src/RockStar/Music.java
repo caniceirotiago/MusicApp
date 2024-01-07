@@ -21,7 +21,6 @@ public class Music implements Serializable {
     private boolean isActive;
     private double classification;
     private Album associatedAlbum;
-
     /**
      * Construtor para o objeto do tipo música.
      * @param name Nome da música.
@@ -67,7 +66,6 @@ public class Music implements Serializable {
         this.price = price;
         priceHistory.add(new PriceHistory(price, LocalDateTime.now()));
     }
-
     /**
      * Método que define se determinada música está activa no sistema.
      * @return true ou false consoante a música ser sido definida como ativa ou inativa.
@@ -81,7 +79,6 @@ public class Music implements Serializable {
     public void setGenre(Genre.GENRE genre) {
         this.genre = genre;
     }
-
     /**
      * Método para calcular a classificação média de uma determinada música consoante as classificações dadas pelos
      * utilizadores.

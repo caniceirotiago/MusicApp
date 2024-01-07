@@ -33,6 +33,4 @@ public class Search implements Serializable {
     public ArrayList<MusicCollection> getFoundMusicCollections() {
         return foundMusicCollections;
     }
-
-
 }

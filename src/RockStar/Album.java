@@ -15,7 +15,6 @@ public class Album extends MusicCollection implements Serializable {
     private MusicCreator mainCreator;
     private Genre.GENRE mainGenre;
     public Album(){}
-
     /**
      * Construtor de um album vazio
      * @param name nome do album
@@ -26,7 +25,6 @@ public class Album extends MusicCollection implements Serializable {
         super(name);
         this.mainCreator = mainCreator;
     }
-
     /**
      * Construtor de um album com uma lista de músicas já integradas
      * @param name Nome do album
@@ -44,7 +42,6 @@ public class Album extends MusicCollection implements Serializable {
     public Genre.GENRE getMainGenre() {
         return mainGenre;
     }
-
     public void addMusicToCollection(Music music) {
         musicList.add(music);
         calculateMainGenre();
@@ -53,7 +50,6 @@ public class Album extends MusicCollection implements Serializable {
         musicList.remove(music);
         calculateMainGenre();
     }
-
     /**
      * Método para calcular o género principal no album
      * Utiliza um hashmap para associar um género especifico encontrado nas músicas do album e aumentar um valor

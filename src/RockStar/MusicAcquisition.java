@@ -18,7 +18,6 @@ public class MusicAcquisition implements Serializable {
     private ArrayList<Music> acquiredMusics;
     private LocalDate date;
     private double totalPrice;
-
     /**
      * Construtor da aquisição de música
      * @param acquiredMusics Lista do tipo música.
@@ -34,7 +33,6 @@ public class MusicAcquisition implements Serializable {
     public double getTotalPrice() {
         return totalPrice;
     }
-
     @Override
     public String toString() {
         return date.toString() + " - Price: " + totalPrice + "€";

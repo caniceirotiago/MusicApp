@@ -8,7 +8,6 @@ import src.GUIClassesSwing.GUIManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 /**
  * Classe principal do programa
  * Contem informação sobre clientes, criadores de música, músicas que existem no sistema
@@ -200,7 +199,6 @@ public class RockstarIncManager  implements Serializable {
         }else guiManager.unsuccessfulRegistration(3);
         return validRegistration;
     }
-
     /**
      * Procura por músicas e coleções de música com base no termo de pesquisa
      * Se o utilizador atual não for um criador de música, a pesquisa inclui todas as músicas disponíveis
@@ -310,7 +308,6 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<Music> randomMusicSelection = new ArrayList<>();
         ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
         int[] listOfIndexes = randomIndexVector(nOfMusics, allMusicOfTheChosenGenre.size());
-
         for (int listOfIndex : listOfIndexes) {
             Music music = allMusicOfTheChosenGenre.get(listOfIndex);
             if (currentUser.getAllMusic().contains(music)) {
@@ -625,6 +622,11 @@ public class RockstarIncManager  implements Serializable {
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
     }
+
+    /**
+     * Método que retorna os valores associados às estatísticas gerais do criador de música
+     * @return retorna os valores estatísticos
+     */
     public ArrayList<Double> getOverallStatistics(){
         ArrayList<Double> overallStatistics =  new ArrayList<>();
         overallStatistics.add((double)totalUsers());
@@ -635,6 +637,11 @@ public class RockstarIncManager  implements Serializable {
         overallStatistics.add((double)currentUserTotalMusicCreated());
         return overallStatistics;
     }
+
+    /**
+     * Método que retorna os géneros dos álbuns para análise estatística
+     * @return retorna os géneros dos álbuns do criador de música
+     */
     public ArrayList<Integer> getAlbumTypeStatistics(){
         ArrayList<Integer> albumStatistics =  new ArrayList<>();
         ArrayList<Integer> albumCountByGenre = new ArrayList<>();
@@ -642,9 +649,7 @@ public class RockstarIncManager  implements Serializable {
             albumCountByGenre.add(totalAlbumsByGenre(ge));
         }
         albumCountByGenre.add(totalAlbumsByGenre(null));
-
         int totalAlbuns = 0;
-
         for(Integer i: albumCountByGenre){
             totalAlbuns += i;
         }

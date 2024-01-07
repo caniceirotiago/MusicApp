@@ -14,6 +14,5 @@ public class Main {
        SaveFileManager.run();
        RockstarIncManager gc = SaveFileManager.getRm();
         gc.run();
-
     }
 }

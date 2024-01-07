@@ -17,7 +17,6 @@ public abstract class MusicCollection implements Serializable {
     protected ArrayList<Music> musicList;
     protected LocalDateTime creationDate;
     public MusicCollection() {}
-
     /**
      * Construtor de uma coleção de músicas vazia.
      * @param name Define o nome da coleção.
@@ -27,7 +26,6 @@ public abstract class MusicCollection implements Serializable {
         this.musicList = new ArrayList<>();
         this.creationDate = LocalDateTime.now();
     }
-
     /**
      * Construtor de uma coleção de música com nome e uma lista de músicas associadas.
      * Utilizado na criação de playlists ou álbums.

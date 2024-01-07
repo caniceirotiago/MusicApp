@@ -46,7 +46,6 @@ public class SaveFileManager {
             System.out.println("Load error");
         }
     }
-
     /**
      * Método de gravação automatica de x em x segundos.
      * Condição true cria uma thread "Daemon "que permite a gravação automática consoante um intervalo definido.

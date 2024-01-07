@@ -18,7 +18,6 @@ public class Client extends User implements Serializable {
     ArrayList<MusicAcquisition> listOfAcquisitions;
     ArrayList<BalanceDeposit> listOfBalanceDeposits;
     ArrayList<Music> musicOnBasketList;
-
     /**
      * Construtor do utilizador Cliente
      * @param name nome do cliente
@@ -34,18 +33,15 @@ public class Client extends User implements Serializable {
         this.listOfBalanceDeposits = new ArrayList<>();
         this.musicOnBasketList = new ArrayList<>();
     }
-
     public double getBalance() {
         return balance;
     }
-
     public ArrayList<Music> getMusicOnBasketList() {
         return musicOnBasketList;
     }
     public ArrayList<MusicAcquisition> getListOfAcquisitions() {
         return listOfAcquisitions;
     }
-
     /**
      * Método para criação de uma nova playlist vazia.
      * @param name nome da playlist
@@ -55,7 +51,6 @@ public class Client extends User implements Serializable {
         Playlist newPlaylist = new Playlist(name, this);
         allCollections.add(newPlaylist);
     }
-
     /**
      * Método auxiliar do construtor de música aleatória.
      * @param listOfMusic Uma lista de música escolhida pelos métodos random na Classe RockstarManager, no método
@@ -71,7 +66,6 @@ public class Client extends User implements Serializable {
     public void addMusicToBasket(Music music){
         if(!musicOnBasketList.contains(music)) musicOnBasketList.add(music);
     }
-
     /**
      * Método para adicionar música a uma playlist criada.
      * @param music música selecionada para adicionar
@@ -80,7 +74,6 @@ public class Client extends User implements Serializable {
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
         if(allCollections.contains(musicCollection) && music.isActive()) musicCollection.addMusicToCollection(music);
     };
-
     /**
      * Método para adicionar músicas à coleção de músicas totais do cliente.
      * @param music ficheiro de música selecionado
@@ -88,11 +81,9 @@ public class Client extends User implements Serializable {
     public void newMusicToUserMainCollection(Music music){
         allMusic.add(music);
     }
-
     public void removeMusicFromCollection(Music music, MusicCollection collection){
         collection.removeMusicFromCollection(music);
     };
-
     public void removeMusicCollection(MusicCollection collection){
         allCollections.remove(collection);
     };
@@ -100,7 +91,6 @@ public class Client extends User implements Serializable {
         balance += moneyToAdd;
         listOfBalanceDeposits.add(new BalanceDeposit(moneyToAdd));
     }
-
     /**
      *método que permite ao cliente validar a compra de músicas, consoante o saldo que tenha na carteira.
      *Se não tiver saldo não permite a compra de músicas.
@@ -120,5 +110,4 @@ public class Client extends User implements Serializable {
         }
         return false;
     }
-
 }

@@ -18,31 +18,24 @@ public abstract class User implements Serializable {
     protected String email;
     protected ArrayList<Music> allMusic;
     protected ArrayList<MusicCollection> allCollections;
-
     public ArrayList<Music> getAllMusic() {
         return allMusic;
     }
-
     public String getUsername() {
         return username;
     }
-
     public String getPassword() {
         return password;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getName() {
         return name;
     }
-
     public ArrayList<MusicCollection> getAllCollections() {
         return allCollections;
     }
-
     /**
      * Criação de novo utilizador
      * @param name Nome do utilizador

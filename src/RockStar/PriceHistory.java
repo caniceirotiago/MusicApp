@@ -12,7 +12,6 @@ import java.util.HashMap;
 public class PriceHistory implements Serializable {
     private LocalDateTime priceChangeDate;
     private double newPrice;
-
     /**
      * Construtor do histórico de preços, que atualiza o preço de uma música e adiciona uma data em que o preço foi
      * atualizado.

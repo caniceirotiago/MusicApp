@@ -14,7 +14,6 @@ public class MusicEvaluation implements Serializable {
     private Client client;
     private LocalDateTime evaluationDateTime;
     private int evaluation;
-
     /**
      * Construtor da classe que tem como parâmetro um cliente e a avaliação que deseja dar.
      * @param client O utilizador Client na aplicação
@@ -28,15 +27,12 @@ public class MusicEvaluation implements Serializable {
     public int getEvaluation() {
         return evaluation;
     }
-
     public Client getClient() {
         return client;
     }
-
     public void setEvaluation(int evaluation) {
         this.evaluation = evaluation;
     }
-
     /**
      * Método que associa uma data à avaliação de uma música
      * @param evaluationDateTime data de avaliação de música.

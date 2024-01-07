@@ -14,7 +14,6 @@ public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
     private Client clientCreator;
     public Playlist() {}
-
     /**
      * Construtor da playlist do Cliente
      * @param name nome da playlist
@@ -26,7 +25,6 @@ public class Playlist extends MusicCollection implements Serializable {
         this.isPublic = true;
         this.clientCreator = clientCreator;
     }
-
     /**
      * Construtor de uma playlist aleatória.
      * @param name nome da playlist.
@@ -42,11 +40,9 @@ public class Playlist extends MusicCollection implements Serializable {
     public Client getClientCreator() {
         return clientCreator;
     }
-
     public Boolean getPublicState() {
         return isPublic;
     }
-
     public void setPublicState(Boolean aPublic) {
         isPublic = aPublic;
     }
