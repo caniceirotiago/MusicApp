@@ -5,6 +5,7 @@
 package src.RockStar;
 
 import src.GUIClassesSwing.GUIManager;
+import src.RockStar.Model.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -139,68 +140,36 @@ public class RockstarIncManager  implements Serializable {
         //Pin
         if(isCreator){
             boolean validPin = false;
-            for (int i = 0; i < pin.length(); i++){
-                if(pin.charAt(i) >= '0' && pin.charAt(i) <= '9') {
-                    validPin =true;
-                }
-                else validRegistration = false;
-            }
+            if(Validation.isAnNumber(pin)) validPin = true;
+            else validRegistration = false;
             if(!validPin) guiManager.unsuccessfulRegistration(5);
-            if (pin.length() < 4 || pin.length() > 8){
+            if(!Validation.pinSizeIsCorrect(pin)){
                 guiManager.unsuccessfulRegistration(5);
                 validRegistration = false;
             }
         }
         //Name
-        boolean validName = true;
-        for (int i = 0; i < name.length(); i++){
-            char c = name.charAt(i);
-            if(!(Character.isLetter(c) || c == ' ')) {
-                validName =false;
-                validRegistration = false;
-            }
-        }
-        if(!validName)guiManager.unsuccessfulRegistration(6);
-        if (name.length() < 3 || name.length() > 30){
-            guiManager.unsuccessfulRegistration(6);
+        boolean validName = Validation.hasNameOnlyLetters(name);
+        boolean validNameLenght = Validation.nameHasRightLenght(name);
+        if(!validName || !validNameLenght) {
             validRegistration = false;
+            guiManager.unsuccessfulRegistration(6);
         }
         //Username
-        if (username.length() < 3 || username.length() > 20){
+        if (!Validation.usernameOrPassWordHasRightLenght(username)){
             guiManager.unsuccessfulRegistration(4);
             validRegistration = false;
         }
         //Password
-        if (password.length() < 3 || password.length() > 20){
+        if (!Validation.usernameOrPassWordHasRightLenght(password)){
             guiManager.unsuccessfulRegistration(7);
             validRegistration = false;
         }
         //Email
-        if(email == null || email.isEmpty()){
+        boolean isEmailValid = Validation.emailValidation(email);
+        if(!isEmailValid){
             guiManager.unsuccessfulRegistration(3);
-            validRegistration = false;
         }
-        int atCount = email.length() - email.replace("@","").length();
-        if(atCount != 1){
-            guiManager.unsuccessfulRegistration(3);
-            validRegistration = false;
-        }
-        String[] emailDivision = email.split("@");
-        if(emailDivision.length == 2){
-            String beforeAt = emailDivision[0];
-            String afterAt = emailDivision[1];
-            if(beforeAt.isEmpty() || afterAt.isEmpty()){
-                guiManager.unsuccessfulRegistration(3);
-                validRegistration = false;
-            }
-            if(!afterAt.contains(".")){
-                guiManager.unsuccessfulRegistration(3);
-                validRegistration = false;
-            }
-            if(beforeAt.startsWith(".") || beforeAt.endsWith(".")){
-                validRegistration = false;
-            }
-        }else guiManager.unsuccessfulRegistration(3);
         return validRegistration;
     }
 
@@ -283,9 +252,7 @@ public class RockstarIncManager  implements Serializable {
      * Cria playlist aleatoria no caso das músicas selecionadas serem gratuitas/ já serem do utilizador.
      * Utiliza para tal o metodo randomMusicSelection() que retorna duas listas: lista de músicas gratuitas/ adquiridas
      * e a lista de músicas que tem de ser adquirida.
-     *
      * No caso de pelo menos uma música ter de ser adquirida, chama o método processorOnRandomToPayMusic();
-     *
      * @param nOfMusics O número de músicas desejado para a nova lista de reprodução aleatória.
      * @param allMusicOfTheChosenGenre Lista de todas as músicas do género escolhido.
      */
@@ -310,7 +277,6 @@ public class RockstarIncManager  implements Serializable {
      * Método que realiza a seleção de músicas de forma aleatória, utilizando o método randomIndexVector(), que cria
      * uma lista de indices aleatorio que irá corresponder aos indices da lista de músicas do género selecionadas, que
      * foram criadas anteriormente.
-     *
      * Todas as músicas que são pagas e não adquiridas pelo utilizador irão para uma segunda lista.
      * @param nOfMusics número de músicas que se quer escolher
      * @param allMusicOfTheChosenGenre tipo de género do qual queremos as músicas.
@@ -341,7 +307,6 @@ public class RockstarIncManager  implements Serializable {
     /**
      * Método responsavel pela gestão da criação de novas listas aleatorias, cujas músicas selecionadas sao pagas e
      * que não estão adquiridas pelo utilizador.
-     *
      * Este método chama um método acessório que calcula o preco de uma lista de músicas selecionadas, para depois
      * apresentar a opção de compra ao utilizador.
      * Este método é tambem o responsavel pela comunicação com a interface gráfica e envia informações ao utilizador
@@ -458,7 +423,7 @@ public class RockstarIncManager  implements Serializable {
      */
     public void newMusic(String name, String priceString, Genre.GENRE genre){
         boolean validatedName = musicNameValidation(name);
-        double price = musicPriceValidation(priceString);
+        double price = musicPriceProcessor(priceString);
         if(validatedName && price != -1){
             Music music = new Music(name, genre,(MusicCreator) currentUser, price);
             currentUser.newMusicToUserMainCollection(music);
@@ -482,7 +447,7 @@ public class RockstarIncManager  implements Serializable {
             musicEdited = true;
         }
         if(!priceString.isEmpty()){
-            double price = musicPriceValidation(priceString);
+            double price = musicPriceProcessor(priceString);
             if(price != -1) {
                 selectedMusic.setPrice(price);
                 musicEdited = true;
@@ -518,7 +483,7 @@ public class RockstarIncManager  implements Serializable {
                 validatedName = false;
             }
         }
-        if(name.isEmpty() || name.length() > 20) {
+        if(Validation.validMusicName(name)) {
             guiManager.musicAttemptError(1);
             validatedName = false;
         }
@@ -534,7 +499,7 @@ public class RockstarIncManager  implements Serializable {
      * @param priceString Parâmetro de preço que se quer colocar numa música.
      * @return retorna o preço da música.
      */
-    public double musicPriceValidation (String priceString){
+    public double musicPriceProcessor(String priceString){
         priceString = priceString.replace(',','.');
         priceString = priceString.replace("€","");
         double price = -1;
@@ -624,7 +589,7 @@ public class RockstarIncManager  implements Serializable {
     public int totalAlbumsByGenre(Genre.GENRE albumGenre){
         int cont = 0;
         for (User us : musicCreatorList){
-            for (MusicCollection ab :  us.allCollections){
+            for (MusicCollection ab : us.getAllCollections()){
                 if(((Album)ab).getMainGenre() != null){
                     if (((Album)ab).getMainGenre().equals(albumGenre)){
                         cont++;

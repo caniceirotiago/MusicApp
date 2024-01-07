@@ -4,6 +4,9 @@
  */
 package src.RockStar;
 
+import src.RockStar.Model.Music;
+import src.RockStar.Model.MusicCollection;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

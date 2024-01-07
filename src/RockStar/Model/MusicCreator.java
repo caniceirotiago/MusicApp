@@ -2,7 +2,7 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.RockStar.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

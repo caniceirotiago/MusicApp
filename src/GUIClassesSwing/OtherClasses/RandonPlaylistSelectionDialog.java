@@ -1,6 +1,7 @@
-package src.GUIClassesSwing;
+package src.GUIClassesSwing.OtherClasses;
 
-import src.RockStar.Music;
+import src.GUIClassesSwing.GUIManager;
+import src.RockStar.Model.Music;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,6 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         super (associated,"Some of the chosen songs require purchase", true);
         this.guiManager = guiManager;
 
-
         JPanel musicListPanel = new JPanel();
 
         musicListPanel.setLayout(new BoxLayout(musicListPanel, BoxLayout.Y_AXIS));
@@ -39,7 +39,6 @@ public class RandonPlaylistSelectionDialog extends JDialog {
             musicListPanel.add(new JLabel(m.toString()));
         }
         musicListPanel.add(new JLabel("Total price: " + totalPrice));
-
         addToBasketbtn = new JButton("Add to Basket");
         buyMusicbtn = new JButton("Buy Music");
         onlyFreebtn = new JButton("Only Free Music");
@@ -74,17 +73,14 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         returnValue = 1;
         dispose();
     }
-
     private void onBuyMusicbtnClick(){
         returnValue = 2;
         dispose();
     }
-
     private void onOnlyFreebtnClick(){
         returnValue = 3;
         dispose();
     }
-
     public int getReturnValue() {
         return returnValue;
     }

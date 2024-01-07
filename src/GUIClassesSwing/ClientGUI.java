@@ -4,7 +4,10 @@
  */
 package src.GUIClassesSwing;
 
+import src.GUIClassesSwing.OtherClasses.HistoricPurchaseDialog;
+import src.GUIClassesSwing.OtherClasses.ImagePaths;
 import src.RockStar.*;
+import src.RockStar.Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -191,7 +194,6 @@ public class ClientGUI extends JFrame {
          */
 
         //Criação do painel Oeste e implementação das diversas funcionalidades
-
         westPanel = new JPanel(new GridBagLayout());
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Playlist");
@@ -1033,6 +1035,6 @@ public class ClientGUI extends JFrame {
         }
     }
     public void onHistoricClick(){
-        new HistoricPurchaseDialog(guiManager,this, guiManager.getPurchaseHistory());
+        new HistoricPurchaseDialog(this, guiManager.getPurchaseHistory());
     }
 }

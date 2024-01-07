@@ -1,7 +1,8 @@
-package src.GUIClassesSwing;
+package src.GUIClassesSwing.OtherClasses;
 
+import src.GUIClassesSwing.GUIManager;
 import src.RockStar.Genre;
-import src.RockStar.Music;
+import src.RockStar.Model.Music;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,22 +14,17 @@ import java.awt.*;
  */
 public class EditMusicDialog extends JDialog {
 
-    private GUIManager guiManager;
-
     private JTextField newName;
     private JComboBox<Genre.GENRE> selectedGender;
     private JTextField newPriceTF;
     private JComboBox<String> musicStateCombo;
-
     /**
      * Construtor com as funcionalidades que permitem a alteração de nome,genero, preco e estado da musica.
-     * @param guiManager Faz a ligação ao gestor da graphical user interface
      * @param associated A frame associada à jDialog desta classe
      * @param music A musica que se quer editar
      */
-    public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
+    public EditMusicDialog( Frame associated, Music music){
         super (associated,"Edit Music", true);
-        this.guiManager = guiManager;
 
         String musicState;
         if(music.isActive()) musicState = "active";
@@ -39,7 +35,6 @@ public class EditMusicDialog extends JDialog {
         JLabel songData = new JLabel(songDataString);
         JLabel newTitle = new JLabel("New Title");
         newName = new JTextField(20);
-
 
         Genre.GENRE[] genres = Genre.GENRE.values();
         int indexCount = 0;

@@ -1,4 +1,4 @@
-package src.GUIClassesSwing;
+package src.GUIClassesSwing.OtherClasses;
 
 /**
  * Classe que contém as informações relativas às imagens utilizadas na aplicação

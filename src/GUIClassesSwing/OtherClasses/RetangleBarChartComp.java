@@ -1,8 +1,7 @@
-package src.GUIClassesSwing;
+package src.GUIClassesSwing.OtherClasses;
 
 import javax.swing.*;
 import java.awt.*;
-
 public class RetangleBarChartComp extends JComponent {
     private int value;
     private int maxValue;

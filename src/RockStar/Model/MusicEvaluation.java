@@ -2,7 +2,9 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src.RockStar.Model;
+
+import src.RockStar.Model.Client;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

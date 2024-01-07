@@ -1,6 +1,10 @@
 package src.GUIClassesSwing;
 
+import src.GUIClassesSwing.OtherClasses.EditMusicDialog;
+import src.GUIClassesSwing.OtherClasses.LogRegFrame;
+import src.GUIClassesSwing.OtherClasses.RandonPlaylistSelectionDialog;
 import src.RockStar.*;
+import src.RockStar.Model.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -69,17 +73,22 @@ public class GUIManager  {
      */
     public void unsuccessfulRegistration(int cod){
         switch (cod){
-            case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The email already exists");
+            case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - " +
+                    "The email already exists");
                 break;
-            case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
+            case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - " +
+                    "The username already exists");
                 break;
             case 3: JOptionPane.showMessageDialog(null,"That email is not valid");
                 break;
-            case 4: JOptionPane.showMessageDialog(null, "The username have size requirements (MIN:3 MAX 20) special characters allowed");
+            case 4: JOptionPane.showMessageDialog(null, "The username have size requirements " +
+                    "(MIN:3 MAX 20) special characters allowed");
                 break;
-            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8) only digits");
+            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8) " +
+                    "only digits");
                 break;
-            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 30) only letters");
+            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 30) only " +
+                    "letters");
                 break;
             case 7: JOptionPane.showMessageDialog(null, "Invalid Password (MIN:3 MAX 20)");
                 break;
@@ -103,8 +112,6 @@ public class GUIManager  {
                 "\nOn the selected genre there are only " + maxSize + " " + freeMusicsString + " musics available");
     }
 
-
-
     //---------------------------------Frame and JDialog management--------------------------------
 
     /**
@@ -116,19 +123,16 @@ public class GUIManager  {
         this.loginFrame = lf;
         return lf;
     }
-
     public LogRegFrame creationRegistrationFrame(){
         LogRegFrame rf = new LogRegFrame();
         this.registrationFrame = rf;
         return rf;
     }
-
     public void logoutClient() throws IOException, ClassNotFoundException {
         clientFrame.dispose();
         logicManager.logout();
         run();
     }
-
     public void logoutMCreator()throws IOException, ClassNotFoundException{
         musicCreatorFrame.dispose();
         logicManager.logout();
@@ -147,14 +151,12 @@ public class GUIManager  {
             if(registrationFrame != null) registrationFrame.dispose();
         }
     }
-
     public int randomPlaylistToPaySongsChoose(ArrayList<Music> notFreeMusicSelection, double totalPrice, boolean canBuy) {
         RandonPlaylistSelectionDialog rpp = new RandonPlaylistSelectionDialog(this, clientFrame, notFreeMusicSelection,totalPrice,canBuy);
         int userOption = rpp.getReturnValue();
         System.out.println(userOption);
         return userOption;
     }
-
     public void randomPLSuccssefullyCreated(){
         JOptionPane.showMessageDialog(null,"Random playlist created");
         clientFrame.updateMusicJTableModel(logicManager.getCurrentUserALlMusic());
@@ -162,7 +164,6 @@ public class GUIManager  {
         clientFrame.updateBalance();
         clientFrame.updateTotalBascketPrice();
     }
-
     public Search newSearch(String searchTextField){
         return logicManager.search(searchTextField);
     }
@@ -170,70 +171,54 @@ public class GUIManager  {
     public ArrayList<MusicCollection> getUserAllCollection(){
         return logicManager.getCurretUserAllCollections();
     }
-
     public double getUserBalance(){
         return logicManager.getCurrentUserBalance();
     }
     public int getClientEvaluation(Music music){
         return logicManager.getClientEvaluation(music);
     }
-
     public ArrayList<Music> getUserAllMusic(){
         return logicManager.getCurrentUserALlMusic();
     }
-
     public Playlist getCorrentUserMainCollectionClient(){
         return logicManager.getClientAllMusicAsCollection();
     }
-
     public Album getCorrentUserMainCollectionMusicCreator(){
         return logicManager.getMusicCreatorAllMusicAsCollection();
     }
-
     public ArrayList<Music> getListOfMusicsToBuy(){
         return logicManager.getUserBasketList();
     }
-
     public void removeMusicFromCollection(Music selectedMusic,MusicCollection selectedPlaylist){
         logicManager.removeMusicFromCollection(selectedMusic,selectedPlaylist);
     }
-
     public void addMusicToCollection(Music selectedMusic,MusicCollection cl){
         logicManager.addMusicToCollection(selectedMusic,cl);
     }
-
     public void evaluateMusic(int evaluation, Music selectedMusic){
         logicManager.evaluateMusic(evaluation, selectedMusic);
     }
-
     public void newCollection(String playlistName){
        logicManager.newCollection(playlistName);
     }
-
     public void validationOfAquisition(){
         logicManager.validationOfAquisition();
     }
-
     public void addMoney(double money){
         logicManager.addMoney(money);
     }
-
     public void removeMusicCollection(MusicCollection selected){
         logicManager.removeMusicCollection(selected);
     }
-
     public void newMusicToAllCollection(Music selectedMusic){
         logicManager.newMusicToAllCollection(selectedMusic);
     }
-
     public void addMusicToMusicToBuy(Music selectedMusic){
         logicManager.addMusicToBasket(selectedMusic);
     }
-
     public void newMusicAttempt(String musicNameTextField, String priceTextField, Genre.GENRE selectedGender){
         logicManager.newMusic(musicNameTextField, priceTextField, selectedGender);
     }
-
     /**
      * Método que mostra uma janela de diálogo consoante o erro cometifo na criação de musica
      * @param errorN tipo de erro
@@ -258,13 +243,12 @@ public class GUIManager  {
         musicCreatorFrame.updateMusicJTableModel(getCorrentUserMainCollectionMusicCreator().getMusicList());
         musicCreatorFrame.updateFirstStatsPanel(getStatistics());
     }
-
     /**
      * Método que permite chamar a janela de diálogo para a edição de musica e que atualiza as estatisticas a tempo real
      * @param selectedMusic Musica selecionada para editar
      */
     public void editMusicDialogCall(Music selectedMusic){
-        EditMusicDialog editMusicDialog = new EditMusicDialog(this, musicCreatorFrame, selectedMusic);
+        EditMusicDialog editMusicDialog = new EditMusicDialog(musicCreatorFrame, selectedMusic);
         String name = editMusicDialog.getNewName();
         String price = editMusicDialog.getNewPrice();
         Genre.GENRE genre = editMusicDialog.getSelectedGender();
@@ -278,7 +262,6 @@ public class GUIManager  {
     public void musicSuccessfullyEdited(){
         JOptionPane.showMessageDialog(null,"Music Successfully Edited");
     }
-
     public ArrayList<Double> getStatistics(){
         return logicManager.getOverallStatistics();
     }

@@ -1,5 +1,8 @@
 package src.GUIClassesSwing;
 
+import src.GUIClassesSwing.OtherClasses.ImagePaths;
+import src.GUIClassesSwing.OtherClasses.LogRegFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -45,7 +48,6 @@ public class LoginRegistrationGUI extends JFrame {
         // Configurações padrão da janela
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(750, 750);
-
         setUndecorated(true);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -188,7 +190,6 @@ public class LoginRegistrationGUI extends JFrame {
             guiManager.loginAttempt(userField,passToString,false,pin);
         }
     }
-
     /**
      * Método chamado quando o botão de confirmação de registo é clicado.
      * Regista um novo utilizador com as informações fornecidas, como nome,

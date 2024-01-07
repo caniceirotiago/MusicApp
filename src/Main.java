@@ -2,7 +2,10 @@
  * @Authors Tiago Caniceiro & Pedro Monteiro
  * @Version 1.0
  */
-package src.RockStar;
+package src;
+
+import src.RockStar.RockstarIncManager;
+import src.RockStar.SaveFileManager;
 
 import java.io.*;
 
@@ -11,6 +14,5 @@ public class Main {
        SaveFileManager.run();
        RockstarIncManager gc = SaveFileManager.getRm();
         gc.run();
-
     }
 }

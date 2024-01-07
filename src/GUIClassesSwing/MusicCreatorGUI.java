@@ -1,6 +1,11 @@
 package src.GUIClassesSwing;
 
+import src.GUIClassesSwing.OtherClasses.ImagePaths;
+import src.GUIClassesSwing.OtherClasses.RetangleBarChartComp;
 import src.RockStar.*;
+import src.RockStar.Model.Album;
+import src.RockStar.Model.Music;
+import src.RockStar.Model.MusicCollection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,11 +25,9 @@ public class MusicCreatorGUI extends JFrame {
     private GUIManager guiManager;
     private DefaultTableModel centralTableModel;
     private DefaultTableModel searchMusicTableModel;
-    private DefaultTableModel searchCollectionTableModel;
     private DefaultListModel<MusicCollection> listModelWest;
     private JPanel centerPanel;
     private JPanel westPanel;
-    private JPanel eastPanel;
     private JPanel southPanel;
     private MusicCollection selectedAlbum;
     private JTable centralTable;
@@ -35,15 +38,12 @@ public class MusicCreatorGUI extends JFrame {
     private int lastPositionMouseRightClickX;
     private int lastPositionMouseRightClickY;
     private MusicCollection currentUserCollection;
-    private JLabel newMusicLbl;
     private JLabel totalUsers;
     private JLabel totalSongs ;
     private JLabel totalPriceValue ;
     private JLabel totalSales ;
     private JLabel individualSales ;
     private JLabel individualMusicCreated ;
-    private JPanel firstStatsPanel;
-    private JPanel secondStatsPanel;
     private CardLayout centralCardLayout;
     private CardLayout statsCardLayout;
     private Search search;
@@ -237,8 +237,8 @@ public class MusicCreatorGUI extends JFrame {
          */
 
         //Criação do painel Este e suas funcionalidades
-        eastPanel = new JPanel(new GridBagLayout());
-        newMusicLbl =  new JLabel("Name");
+        JPanel eastPanel = new JPanel(new GridBagLayout());
+        JLabel newMusicLbl = new JLabel("Name");
         musicNameTextField = new TextField(20);
 
         Genre.GENRE[] genres = Genre.GENRE.values();
@@ -430,7 +430,7 @@ public class MusicCreatorGUI extends JFrame {
 
         //Criação de uma tabela de pesquisa por coleções inserida num CardLayout aninhado.
         String[] columnNamesCollection = {"Collection", "Type", "Creator"};
-        searchCollectionTableModel = new DefaultTableModel(columnNamesCollection,0){
+        DefaultTableModel searchCollectionTableModel = new DefaultTableModel(columnNamesCollection, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -480,7 +480,7 @@ public class MusicCreatorGUI extends JFrame {
 
         southPanel = new JPanel();
         ArrayList<Double> overallStatistics = guiManager.getStatistics();
-        firstStatsPanel = new JPanel(new FlowLayout());
+        JPanel firstStatsPanel = new JPanel(new FlowLayout());
         totalUsers = new JLabel();
         totalSongs = new JLabel();
         totalPriceValue = new JLabel();
@@ -504,7 +504,7 @@ public class MusicCreatorGUI extends JFrame {
         updateSecondStatsPanel(albumStatistics);
 
 
-        secondStatsPanel = new JPanel(new BorderLayout());
+        JPanel secondStatsPanel = new JPanel(new BorderLayout());
         secondStatsPanel.add(graphicStatsPanel, BorderLayout.CENTER);
         secondStatsPanel.add(new JLabel("Global Statistics - Albums by Genre"), BorderLayout.SOUTH);
 
