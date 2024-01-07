@@ -63,8 +63,10 @@ public class Client extends User implements Serializable {
      */
     public void newCollection(ArrayList<Music> listOfMusic){
         //Creation of collection by random methods
-        String genre = listOfMusic.get(0).getGenre().name();
-        allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
+        if(!listOfMusic.isEmpty()){
+            String genre = listOfMusic.get(0).getGenre().name();
+            allCollections.add(new Playlist("Random Playlist - " + genre, this, listOfMusic));
+        }
     }
     public void addMusicToBasket(Music music){
         if(!musicOnBasketList.contains(music)) musicOnBasketList.add(music);

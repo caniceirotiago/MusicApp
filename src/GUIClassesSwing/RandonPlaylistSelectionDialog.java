@@ -28,14 +28,13 @@ public class RandonPlaylistSelectionDialog extends JDialog {
      * @param canBuy Indica se o utilizador tem saldo suficiente para comprar as músicas pagas.
      */
     public RandonPlaylistSelectionDialog(GUIManager guiManager, Frame associated, ArrayList<Music> songNames, double totalPrice, boolean canBuy){
-        super (associated,"Paid Music", true);
+        super (associated,"Some of the chosen songs require purchase", true);
         this.guiManager = guiManager;
 
 
         JPanel musicListPanel = new JPanel();
 
         musicListPanel.setLayout(new BoxLayout(musicListPanel, BoxLayout.Y_AXIS));
-        musicListPanel.add(new Label("Some of the chosen songs require purchase"));
         for(Music m : songNames){
             musicListPanel.add(new JLabel(m.toString()));
         }
@@ -66,7 +65,7 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(associated);
 
-        setPreferredSize(new Dimension(450,400));
+        setMaximumSize(new Dimension(450,400));
         setResizable(false);
         pack();
         setVisible(true);
