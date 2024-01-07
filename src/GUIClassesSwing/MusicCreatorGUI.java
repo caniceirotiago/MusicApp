@@ -54,7 +54,6 @@ public class MusicCreatorGUI extends JFrame {
 
     /**
      * Construtor da classe MusicCreatorGUI.
-     *
      * @param username O nome de utilizador associado ao criador de música.
      * @param guiManager O gestor da interface gráfica responsável pela comunicação com o sistema.
      */
@@ -75,21 +74,15 @@ public class MusicCreatorGUI extends JFrame {
      * Método que inicializa os componentes gráficos
      * No geral, os componentes são divididos em paineis Norte, Este, Centro, Oeste e Sul, e os seus detalhes, como botões,
      * Pop-up menus e outros detalhes que correspondem a cada painel individualmente.
-     *
      * O painel Norte é responsável por ter o logo da aplicação, a barra de pesquisa e o botão de logout para ser
      * possível ao utilizador sair da sua frame de criador de música e voltar à frame de registo/login.
-     *
      * O painel Oeste é o painel responsável por lidar com a coleção geral de músicas do utilizador e por ter uma lista
      * onde é possível criar e manipular novos álbuns. Ao criar um novo álbum, uma JOptionPane aparece ao
-     * utilizador a questionar o nome do novo álbum.
-     *
+     * utilizador a pedir o nome do novo álbum.
      * O painel Central é o responsável por mostrar ao utilizador as músicas que possuí de sua autoria, as músicas
      * que incluiu nos álbuns que criou e também as suas músicas que existem no programa quando o utilizador pesquisa
      * por músicas.
-     *
-     * O painel Este permite ao utilizador a criação de uma nova música, com campos para colocar o nome que deseja
-     * atribuir à música, o género que deseja definir na nova música e o preço que lhe deseja atríbuir.
-     *
+     * O painel Este permite ao utilizador a criação de uma nova música, com campos para colocar o nome, o género e o preço que lhe deseja atríbuir.
      * O painel Sul mostra as estatísticas associadas ao utilizador, com botões que permitem alterar entre as estatísticas
      * globais e individuais do utilizador e também as estatísticas dos seus álbuns.
      */
@@ -97,7 +90,6 @@ public class MusicCreatorGUI extends JFrame {
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
-        //---------------------ADDING POPUPMENUS AND SUBMENUS---------------------
         /**
          *Esta secção destina-se aos detalhes como popup menus e submenus que são utilizados nos painéis da frame do
          * criador de música. Foram colocados separadamente para permitir melhor visualização e organização do código.
@@ -113,7 +105,7 @@ public class MusicCreatorGUI extends JFrame {
         addToAlbumMenu.addActionListener(e -> addMusicToAlbumOnClick());
         editMusicMenu.addActionListener(e -> editMusicOnClick());
 
-        //Popup menu central para remover músicas de um álbum ou editar certa música. Este popup menu só surge
+        //Popup menu central para remover músicas de um álbum ou editar música. Este popup menu só surge
         //quando se clica na música de um álbum e não no primeiro elemento da lista oeste.
         JPopupMenu centralTablePUM2 = new JPopupMenu();
         JMenuItem removeFromAlbum = new JMenuItem("Remove from Album");
@@ -137,40 +129,30 @@ public class MusicCreatorGUI extends JFrame {
         centralTableSearchedMusicPuM.add(editMusicMenu3);
         editMusicMenu3.addActionListener(e -> editMusicSearchTableOnClick());
 
-
-
-        //------------------------------------------------WEST PANEL----------------------------------------------------
         /**
          * No painel Oeste há uma representação visual de todos os álbuns que o utilizador criou. O primeiro elemento
          * da lista não é um álbum, mas sim a coleção geral de músicas criadas pelo artista. O nome do elemento denomina-se
          * "Created music" e as suas funcionalidades são diferentes do que as dos outros elementos da lista.
-         * Quando o programa inicia esta é a primeira coleção selecionada e respectivamente a primeira que é revelada no
-         * painel central.
+         * Quando o programa inicia esta é a primeira coleção selecionada e respectivamente a primeira que é revelada na
+         * tabela central.
          * Esta lista tem dois action listeners associados. O primeiro (botão esquerdo do rato) permite selecionar o álbum
          * de interesse. No caso de se selecionar a primeira lista ("Created Music"), o segundo action listener que está
          * associado ao botão direito do rato não tem nenhuma funcionalidade. No caso de se selecionar um álbum que não seja
          * o "Created Music", o segundo action listener permite a funcionalidade de apagar o álbum.
-         *
          * Neste painel existe também o botão de adicionar um novo álbum. Este botão tem um action listener que abre uma
          * janela de diálogo, pedido ao utilizador para colocar o nome que deseja atribuir ao album, que seguidamente
          * irá ser colocado neste painel Oeste.
          */
-
         //Criação do painel Oeste e implementação das suas funcionalidades
         westPanel = new JPanel(new GridBagLayout());
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Album");
-
-
         listModelWest = new DefaultListModel<>();
         updateMusicJListModel();
-
         //No caso de um novo utilizador é criada uma nova instância de álbum para futuramente guardar a totalidade de
         // músicas adquiridas
         if(currentUserCollection == null) currentUserCollection = new Album();
         selectedAlbum = currentUserCollection;
-
-
         albumListWest = new JList<>(listModelWest);
         albumListWest.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){
@@ -229,13 +211,10 @@ public class MusicCreatorGUI extends JFrame {
         cw.anchor = GridBagConstraints.NORTH;
         westPanel.add(newAlbumBtn, cw);
 
-        //------------------------------------------------EAST PANEL----------------------------------------------------
-
         /**
          * O painel Este é responsável pela funcionalidade de criação de um novo ficheiro de música, através de campos
          * de texto e um botão com funcionalidade de adicionar nova música à lista "Created music".
          */
-
         //Criação do painel Este e suas funcionalidades
         eastPanel = new JPanel(new GridBagLayout());
         newMusicLbl =  new JLabel("Name");
@@ -264,13 +243,10 @@ public class MusicCreatorGUI extends JFrame {
         eastPanel.add(priceTextField, ce);
         eastPanel.add(createMusicBtn, ce);
 
-        //------------------------------------------------NORTH PANEL---------------------------------------------------
-
         /**
          * O painel Norte tem o logo da aplicação, o campo de texto para a pesquisa, o respectivo botão de pesquisa e
          * o botão de logout da aplicação, que retorna o utilizador para o painel de Registo/Login.
          */
-
         int newWidth = 100;
         int newHeight = 100;
         ImageIcon originalIcon = new ImageIcon(ImagePaths.APP_ICON);
@@ -291,7 +267,6 @@ public class MusicCreatorGUI extends JFrame {
                 throw new RuntimeException(ex);
             }
         });
-
         JPanel northPanel = new JPanel(new GridBagLayout());
         GridBagConstraints cn = new GridBagConstraints();
         northPanel.setPreferredSize(new Dimension(0, 100));
@@ -331,8 +306,6 @@ public class MusicCreatorGUI extends JFrame {
         cn.insets = new Insets(0, 0, 0, 40);
         northPanel.add(logOutbtn, cn);
 
-        //-----------------------------------------------CENTER PANEL---------------------------------------------------
-
         /**
          * O painel central é caracterizado por um sistema de "Card layout". Altera entre a tabela que mostra toda a
          * música nos álbuns do utilizador e a tabela de pesquisa.
@@ -343,7 +316,6 @@ public class MusicCreatorGUI extends JFrame {
          * O popup menu na tabela de pesquisa de música permite adicionar música a um álbum específico e edita-la.
          * O popup menu na pesquisa de músicas permite ao utilizador editar músicas específicas.
          */
-
         String[] columnNamesMusic = {"Title", "Artist", "Album", "Classification","Price €","Genre","Active"};
         centralTableModel = new DefaultTableModel(columnNamesMusic,0){
             @Override
@@ -359,13 +331,11 @@ public class MusicCreatorGUI extends JFrame {
                 }
             }
         };
-
         ArrayList<Music> userAllMusic = guiManager.getUserAllMusic();
         updateMusicJTableModel(userAllMusic);
         centralTable = new JTable(centralTableModel);
         centralTable.getTableHeader().setReorderingAllowed(false);
         centralTable.setAutoCreateRowSorter(true);
-
 
         //Este action listener abre differentes popup menus dependendo do elemento selecionado no painel Oeste
         centralTable.addMouseListener(new MouseAdapter() {
@@ -387,7 +357,6 @@ public class MusicCreatorGUI extends JFrame {
                 }
             }
         });
-
         JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -427,7 +396,6 @@ public class MusicCreatorGUI extends JFrame {
             }
         });
 
-
         //Criação de uma tabela de pesquisa por coleções inserida num CardLayout aninhado.
         String[] columnNamesCollection = {"Collection", "Type", "Creator"};
         searchCollectionTableModel = new DefaultTableModel(columnNamesCollection,0){
@@ -455,17 +423,14 @@ public class MusicCreatorGUI extends JFrame {
         searchPanel.add(searchbtnPanel,"North");
         searchPanel.add(scrollPane4,"Center");
 
-        //Creation of the outer cardlayout
+        //Criação do carLayout externo
         centralCardLayout = new CardLayout();
         centerPanel = new JPanel(centralCardLayout);
 
-        //Adding center panels
         centerPanel.add(scrollPane3,"1");
         centerPanel.add(searchPanel,"2");
         centralCardLayout.show(centerPanel, "1");
         backToMainbtn.addActionListener(e -> centralCardLayout.show(centerPanel, "1"));
-
-        //-----------------------------------------------SOUTH PANEL---------------------------------------------------
 
         /**
          * Criação do painel Sul
@@ -527,10 +492,6 @@ public class MusicCreatorGUI extends JFrame {
         southPanel.add(southGrapgStatsPanel,BorderLayout.CENTER);
         southPanel.add(btnPanel,BorderLayout.SOUTH);
 
-
-
-        //--------------------------------------------------------------------------------------------------------------
-
         mainContainer.add(northPanel,"North");
         mainContainer.add(centerPanel,"Center");
         mainContainer.add(eastPanel,"East");
@@ -538,9 +499,7 @@ public class MusicCreatorGUI extends JFrame {
         mainContainer.add(southPanel,"South");
 
         add(mainContainer);
-
     }
-
     /**
      * Método que atualiza a tabela de músicas central
      * Caso seja criada uma música nova e adicionada à coleção de música criada pelo utilizador, atualiza a tabela para
@@ -571,7 +530,6 @@ public class MusicCreatorGUI extends JFrame {
             centralTableModel.addRow(line);
         }
     }
-
     /**
      * Método que atualiza a lista de álbuns aquando a criação de um novo álbum.
      */
@@ -583,7 +541,6 @@ public class MusicCreatorGUI extends JFrame {
             listModelWest.addElement(cl);
         }
     }
-
     /**
      * Método que atualiza o index do elemento selecionado;
      * @return retorna nulo no caso de a fila ser -1;
@@ -597,7 +554,6 @@ public class MusicCreatorGUI extends JFrame {
         }
         return null;
     }
-
     public Music getSelectedMusicOnSearchTable(){
         int row = searchMusicTable.getSelectedRow();
         if(row != -1){
@@ -616,7 +572,6 @@ public class MusicCreatorGUI extends JFrame {
         }
         return null;
     }
-
     public void onlogOutbtnClick() throws IOException, ClassNotFoundException {
         guiManager.logoutMCreator();
     }
@@ -633,9 +588,7 @@ public class MusicCreatorGUI extends JFrame {
     }
     public void addMusicToAlbumOnClick(){
         JPopupMenu albumsMenu =new JPopupMenu();
-
         int nOfPlaylists = guiManager.getUserAllCollection().size();
-
         if(nOfPlaylists == 0){
             JMenuItem emptyList = new JMenuItem("No Albums to Show");
             albumsMenu.add(emptyList);
@@ -731,7 +684,6 @@ public class MusicCreatorGUI extends JFrame {
         centerPanel.revalidate();
         centerPanel.repaint();
     }
-
     /**
      * Método que atualiza a tabela de pesquisa consoante os termos de música inseridos
      * @param list lista de músicas presente na coleção de músicas do sistema
@@ -764,11 +716,10 @@ public class MusicCreatorGUI extends JFrame {
     public void onSwithcStatsBtnClick2(){
         statsCardLayout.show(southGrapgStatsPanel,"2");
     }
-
     /**
      * Método responsável pela atualização em tempo real das estatisticas globais do criador de música
      * @param overallStatistics lista de valores associados ao tipo de estatística que está a ser mostrada ao
-     *                          utilizador
+     * utilizador
      */
     public void updateFirstStatsPanel(ArrayList<Double> overallStatistics){
         totalUsers.setText("<html>Total Users<br><p style='text-align:center;'>" +
@@ -784,7 +735,6 @@ public class MusicCreatorGUI extends JFrame {
         individualMusicCreated.setText( "<html>Music Created<br><p style='text-align:center;'>" +
                 (int)(double) overallStatistics.get(5) + "</p></html>");
     }
-
     /**
      * Método responsável pela atualização dos dados relativos aos géneros dos álbuns de música que existem no sistema
      * @param albumStatistics Os valores que são associados ao tipo de género encontrado no álbum

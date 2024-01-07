@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * classe que gere os depósitos na conta do cliente
+ * Classe que gere os depósitos na conta do cliente
  */
 public class BalanceDeposit implements Serializable {
     private double balanceToAdd;

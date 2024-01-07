@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe pesquisa que gere a pesquisa de musica
- * Funcionalidades de encontrar musicas por nome, por Artista e por playlists
+ * Classe pesquisa que gere a lógica da pesquisa de músicas
+ * Funcionalidades de encontrar músicas por nome, por Artista, álbuns de artistas e playlists públicas
  */
 public class Search implements Serializable {
     private ArrayList<Music> foundMusics;

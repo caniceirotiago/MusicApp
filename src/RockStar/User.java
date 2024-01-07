@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe abstrata de utilizador
+ * Classe abstrata de utilizador do sistema
  * Métodos abstratos que são implementados nas classes Client e Music Creator
  */
 public abstract class User implements Serializable {
@@ -45,7 +45,7 @@ public abstract class User implements Serializable {
 
     /**
      * Criação de novo utilizador
-     * @param name Nome de utilizador
+     * @param name Nome do utilizador
      * @param username Username do utilizador
      * @param password Password do utilizador
      * @param email Email do utilizador

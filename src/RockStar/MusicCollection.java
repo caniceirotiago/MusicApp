@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Classe abstrata das coleções de musica
- * serve de base para as playlists do cliente e o album do criador de musica
+ * Classe abstrata das coleções de música.
+ * Serve de base para as playlists do cliente e o álbum do criador de música
  */
 public abstract class MusicCollection implements Serializable {
     protected String name;
@@ -19,7 +19,7 @@ public abstract class MusicCollection implements Serializable {
     public MusicCollection() {}
 
     /**
-     * construtor de uma coleção de musicas vazia.
+     * Construtor de uma coleção de músicas vazia.
      * @param name Define o nome da coleção.
      */
     public MusicCollection(String name) {
@@ -29,10 +29,10 @@ public abstract class MusicCollection implements Serializable {
     }
 
     /**
-     * Construtor de uma coleção de musica com nome e uma lista de musicas associadas.
-     * Utilizado na criação de playlists ou albums
+     * Construtor de uma coleção de música com nome e uma lista de músicas associadas.
+     * Utilizado na criação de playlists ou álbums.
      * @param name Nome da playlist.
-     * @param musicList Lista de musicas a inserir na coleção
+     * @param musicList Lista de músicas a inserir na coleção.
      */
     public MusicCollection(String name, ArrayList<Music> musicList) {
         this.name = name;
