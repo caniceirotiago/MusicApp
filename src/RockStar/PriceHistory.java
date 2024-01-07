@@ -14,10 +14,10 @@ public class PriceHistory implements Serializable {
     private double newPrice;
 
     /**
-     * Construtor do historico de preços, que atualiza o preço de uma musica e adiciona uma data em que o preço foi
+     * Construtor do histórico de preços, que atualiza o preço de uma música e adiciona uma data em que o preço foi
      * atualizado.
-     * @param newPrice Novo preço a adicionar a uma musica.
-     * @param priceChangeDate data em que o preço foi alterado para adicionar ao historico de atualizações.
+     * @param newPrice Novo preço a adicionar a uma música.
+     * @param priceChangeDate data em que o preço foi alterado para adicionar ao histórico de atualizações.
      */
     public PriceHistory(double newPrice, LocalDateTime priceChangeDate) {
         this.priceChangeDate = LocalDateTime.now();

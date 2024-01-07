@@ -8,9 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe cliente que implementa a classe abstrata User
- * Para alem de integrar as funcionalidades da classe User, como ter uma coleção de musica, tem lista de compras,
- * uma carteira em que se consegue colocar dinheiro e a possibilidade de se comprar e adquirir ficheiros de musica.
+ * Classe cliente que implementa a classe abstrata User.
+ * Para além de integrar as funcionalidades da classe User, como ter uma coleção de música, tem lista de compras,
+ * uma carteira em que se consegue colocar dinheiro e a possibilidade de se comprar e adquirir ficheiros de música.
  *
  */
 public class Client extends User implements Serializable {
@@ -47,7 +47,7 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     * Método para criação de uma nova playlist vazia
+     * Método para criação de uma nova playlist vazia.
      * @param name nome da playlist
      */
     public void newCollection(String name){
@@ -57,8 +57,8 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     * Método auxiliar do construtor de musica aleatoria.
-     * @param listOfMusic Uma lista de musica escolhida pelos métodos random na Classe RockstarManager, no método
+     * Método auxiliar do construtor de música aleatória.
+     * @param listOfMusic Uma lista de música escolhida pelos métodos random na Classe RockstarManager, no método
      * RandomPlaylistCreation.
      */
     public void newCollection(ArrayList<Music> listOfMusic){
@@ -71,17 +71,17 @@ public class Client extends User implements Serializable {
     }
 
     /**
-     * Método para adicionar musica a uma playlist criada
-     * @param music musica selecionada para adicionar
-     * @param musicCollection Playlist escolhida onde se vai integrar a musica
+     * Método para adicionar música a uma playlist criada.
+     * @param music música selecionada para adicionar
+     * @param musicCollection Playlist escolhida onde se vai integrar a música
      */
     public void addMusicToCollection(Music music, MusicCollection musicCollection){
         if(allCollections.contains(musicCollection) && music.isActive()) musicCollection.addMusicToCollection(music);
     };
 
     /**
-     * Método para adicionar musicas à coleção de musicas totais do cliente.
-     * @param music Musica selecionada
+     * Método para adicionar músicas à coleção de músicas totais do cliente.
+     * @param music ficheiro de música selecionado
      */
     public void newMusicToUserMainCollection(Music music){
         allMusic.add(music);
@@ -94,21 +94,16 @@ public class Client extends User implements Serializable {
     public void removeMusicCollection(MusicCollection collection){
         allCollections.remove(collection);
     };
-
-    /**
-     * adicionar dinheiro à carteira do cliente
-     * @param moneyToAdd valor a adicionar
-     */
     public void addMoney(double moneyToAdd){
         balance += moneyToAdd;
         listOfBalanceDeposits.add(new BalanceDeposit(moneyToAdd));
     }
 
     /**
-     *método que permite ao cliente validar a compra de musicas, consoante o saldo que tenha na carteira.
-     *Se não tiver saldo não permite a compra de musicas
-     *@param musicList Musicas escolhidas para comprar
-     *@return Retorna falso se o utilizador não tiver dinheiro suficiente para aquisição de musica.
+     *método que permite ao cliente validar a compra de músicas, consoante o saldo que tenha na carteira.
+     *Se não tiver saldo não permite a compra de músicas.
+     *@param musicList músicas escolhidas para comprar
+     *@return Retorna falso se o utilizador não tiver dinheiro suficiente para aquisição de música.
      */
     public boolean validationOfAquisition(ArrayList<Music> musicList){
         double totalPrice = 0;
