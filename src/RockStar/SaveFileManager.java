@@ -7,7 +7,6 @@ package src.RockStar;
 import java.io.*;
 import java.util.Timer;
 import java.util.TimerTask;
-
 /**
  * Classe que gere gravação dos dados da aplicação.
  * Gere o carregamento de ficheiros guardados, grava automaticamente os ficheiros através de um temporizador

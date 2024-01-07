@@ -209,7 +209,6 @@ public class RockstarIncManager  implements Serializable {
      * Se o utilizador atual não for um criador de música, a pesquisa inclui todas as músicas disponíveis
      * associadas ou não a albuns.
      * Se o utilizador atual for um criador de música, a pesquisa inclui apenas as músicas criadas pelo proprio.
-     *
      * @param searchTerm O termo a ser pesquisado nos nomes das músicas, nomes dos artistas e nomes das coleções.
      * @return Um objeto Search que contem os resultados da pesquisa, incluindo músicas e albuns encontrados.
      */
@@ -283,9 +282,7 @@ public class RockstarIncManager  implements Serializable {
      * Cria playlist aleatoria no caso das músicas selecionadas serem gratuitas/ já serem do utilizador.
      * Utiliza para tal o metodo randomMusicSelection() que retorna duas listas: lista de músicas gratuitas/ adquiridas
      * e a lista de músicas que tem de ser adquirida.
-     *
      * No caso de pelo menos uma música ter de ser adquirida, chama o método processorOnRandomToPayMusic();
-     *
      * @param nOfMusics O número de músicas desejado para a nova lista de reprodução aleatória.
      * @param allMusicOfTheChosenGenre Lista de todas as músicas do género escolhido.
      */
@@ -310,7 +307,6 @@ public class RockstarIncManager  implements Serializable {
      * Método que realiza a seleção de músicas de forma aleatória, utilizando o método randomIndexVector(), que cria
      * uma lista de indices aleatorio que irá corresponder aos indices da lista de músicas do género selecionadas, que
      * foram criadas anteriormente.
-     *
      * Todas as músicas que são pagas e não adquiridas pelo utilizador irão para uma segunda lista.
      * @param nOfMusics número de músicas que se quer escolher
      * @param allMusicOfTheChosenGenre tipo de género do qual queremos as músicas.
@@ -341,7 +337,6 @@ public class RockstarIncManager  implements Serializable {
     /**
      * Método responsavel pela gestão da criação de novas listas aleatorias, cujas músicas selecionadas sao pagas e
      * que não estão adquiridas pelo utilizador.
-     *
      * Este método chama um método acessório que calcula o preco de uma lista de músicas selecionadas, para depois
      * apresentar a opção de compra ao utilizador.
      * Este método é tambem o responsavel pela comunicação com a interface gráfica e envia informações ao utilizador
@@ -386,7 +381,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return successfullyCreated;
     }
-
     public double musicListPriceCalculator(ArrayList<Music> musicList){
         double totalPrice = 0;
         for (Music m : musicList){
@@ -394,7 +388,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return totalPrice;
     }
-
     /**
      * Método que cria a playlist aleatória apenas com as músicas gratuitas
      * @param musicOfTheChosenGenre músicas do género escolhido
@@ -425,7 +418,6 @@ public class RockstarIncManager  implements Serializable {
             guiManager.notEnoughMusicForRandom(maxSyzeFreeMusic,true);
         }
     }
-
     /**
      * Método que inicia a criação de uma playlist aleatória em que apenas músicas gratuitas foram selecioknadas
      * @param sizeOfNewVector define o tamanho do novo vector.
@@ -433,8 +425,6 @@ public class RockstarIncManager  implements Serializable {
      * @return retorna uma lista de indexes.
      */
     public int[] randomIndexVector(int sizeOfNewVector, int sizeOfSample){
-        //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
-        //Ver metodo nweRandomPLaylist
         int[] listOfIndexes = new int[sizeOfNewVector];
         ArrayList<Integer> addedIndexes = new ArrayList<>();
         for (int i = 0; i < sizeOfNewVector; i++) {
@@ -448,7 +438,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return listOfIndexes;
     }
-
     /**
      * Método que gere a validação dos termos para o nome e preço de uma música para a implementar no sistema.
      * Adiciona a música à lista geral de músicas no sistema e as respectivas listas de utilizadores.
@@ -465,7 +454,6 @@ public class RockstarIncManager  implements Serializable {
             guiManager.newMusicCreated();
         }
     }
-
     /**
      * Método que lida com a tentativa de edição de música. Verifica se os parametros da música estão corretos,
      * gere a lógica da edição de música e comunica com a interface gráfica aquando sucesso na edição.
@@ -503,7 +491,6 @@ public class RockstarIncManager  implements Serializable {
         }
         if(musicEdited) guiManager.musicSuccessfullyEdited();
     }
-
     /**
      * Método para validação do nome da música consoante as regras desejadas.
      * @param name Nome da música que vai ser verificada consonte os parametros impostos.
@@ -528,7 +515,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return validatedName;
     }
-
     /**
      * Método para validação do preço colocado numa música.
      * @param priceString Parâmetro de preço que se quer colocar numa música.
@@ -583,7 +569,6 @@ public class RockstarIncManager  implements Serializable {
     public void newCollection(String collection){
         currentUser.newCollection(collection);
     }
-
     public void removeMusicCollection(MusicCollection selected){
         currentUser.removeMusicCollection(selected);
     }
@@ -600,7 +585,6 @@ public class RockstarIncManager  implements Serializable {
     public void addMoney(double money){
         ((Client)currentUser).addMoney(money);
     }
-
     public void addMusicToBasket(Music selectedMusic){
         ((Client)currentUser).addMusicToBasket(selectedMusic);
     }
@@ -649,11 +633,6 @@ public class RockstarIncManager  implements Serializable {
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
     }
-
-    /**
-     *
-     * @return
-     */
     public ArrayList<Double> getOverallStatistics(){
         ArrayList<Double> overallStatistics =  new ArrayList<>();
         overallStatistics.add((double)totalUsers());
