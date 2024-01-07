@@ -35,7 +35,7 @@ public class RandonPlaylistSelectionDialog extends JDialog {
         JPanel musicListPanel = new JPanel();
 
         musicListPanel.setLayout(new BoxLayout(musicListPanel, BoxLayout.Y_AXIS));
-        musicListPanel.add(new Label("Some of the chosen songs are paid"));
+        musicListPanel.add(new Label("Some of the chosen songs require purchase"));
         for(Music m : songNames){
             musicListPanel.add(new JLabel(m.toString()));
         }

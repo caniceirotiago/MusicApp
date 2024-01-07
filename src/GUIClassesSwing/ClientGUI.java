@@ -541,12 +541,13 @@ public class ClientGUI extends JFrame {
         searchCollectionTable.setAutoCreateRowSorter(true);
 
         //Criação do botão de retroceder e combobox
+        JLabel searchLabel = new JLabel("Search");
         JButton backToMainbtn = new JButton("Back");
         String[] filterOptions = {"Music", "Music By Artist","Collections"};
         comboSearchBox = new JComboBox<>(filterOptions);
         comboSearchBox.addActionListener(e -> onSearchComboBoxClick());
         JPanel searchbtnPanel = new JPanel(new FlowLayout());
-
+        searchbtnPanel.add(searchLabel);
         searchbtnPanel.add(backToMainbtn);
         searchbtnPanel.add(comboSearchBox);
 
@@ -649,8 +650,8 @@ public class ClientGUI extends JFrame {
         for(Music m : guiManager.getListOfMusicsToBuy()){
             totalPrice += m.getPrice();
         }
-        totalLbl.setText("Total " + totalPrice + "€");
-        return totalPrice;
+        totalLbl.setText("Total " + (double) Math.round(totalPrice * 100) /100 + "€");
+        return (double) Math.round(totalPrice * 100) /100;
     }
 
     /**

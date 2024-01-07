@@ -440,10 +440,10 @@ public class MusicCreatorGUI extends JFrame {
         searchCollectionTable.getTableHeader().setReorderingAllowed(false);
         searchCollectionTable.setAutoCreateRowSorter(true);
 
-
+        JLabel searchLabel = new JLabel("Search");
         JButton backToMainbtn = new JButton("Back");
         JPanel searchbtnPanel = new JPanel(new FlowLayout());
-
+        searchbtnPanel.add(searchLabel);
         searchbtnPanel.add(backToMainbtn);
 
         JScrollPane scrollPane4 = new JScrollPane(searchMusicTable);

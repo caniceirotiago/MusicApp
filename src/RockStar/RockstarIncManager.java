@@ -154,19 +154,19 @@ public class RockstarIncManager  implements Serializable {
         //Name
         boolean validName = true;
         for (int i = 0; i < name.length(); i++){
-            if(!((name.charAt(i) >= 'a' && name.charAt(i) <= 'z') || (name.charAt(i) >= 'A' && name.charAt(i) <= 'Z'))) {
-
+            char c = name.charAt(i);
+            if(!(Character.isLetter(c) || c == ' ')) {
                 validName =false;
                 validRegistration = false;
             }
         }
         if(!validName)guiManager.unsuccessfulRegistration(6);
-        if (name.length() < 3 || name.length() > 20){
+        if (name.length() < 3 || name.length() > 30){
             guiManager.unsuccessfulRegistration(6);
             validRegistration = false;
         }
-        //Usename
-        if (username.length() < 3 || username.length() > 10){
+        //Username
+        if (username.length() < 3 || username.length() > 20){
             guiManager.unsuccessfulRegistration(4);
             validRegistration = false;
         }
@@ -357,7 +357,7 @@ public class RockstarIncManager  implements Serializable {
      */
     public boolean processorOnRandomToPayMusic(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
                                                int nOfMusics, ArrayList<Music> allMusicOfTheChosenGenre){
-        double totalPrice = musicListPriceCalculator(notFreeMusicSelection);
+        double totalPrice = (double) Math.round(musicListPriceCalculator(notFreeMusicSelection)*100)/100;
         double balance = ((Client)currentUser).getBalance();
         boolean canBuy  = totalPrice < balance;
         int userOption = guiManager.randomPlaylistToPaySongsChoose(notFreeMusicSelection, totalPrice,canBuy);
@@ -367,6 +367,7 @@ public class RockstarIncManager  implements Serializable {
                 for (Music m : notFreeMusicSelection){
                     ((Client)currentUser).addMusicToBasket(m); //Se optar por adicionar ao carrinho apenas as músicas gratuitas serão adicionadas
                 }
+                currentUser.newCollection(randomMusicSelection);
                 successfullyCreated = true;
                 break;
             case 2:
@@ -557,7 +558,7 @@ public class RockstarIncManager  implements Serializable {
         return currentUser.getAllCollections();
     }
     public double getCurrentUserBalance(){
-        return (double) Math.round(((Client) currentUser).getBalance() * 100) /100;
+        return (double) Math.round(((Client) currentUser).getBalance() * 100)/100;
     }
     public Playlist getClientAllMusicAsCollection(){
         return new Playlist("Owned Music",(Client) currentUser,currentUser.getAllMusic());
@@ -656,9 +657,9 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<Double> overallStatistics =  new ArrayList<>();
         overallStatistics.add((double)totalUsers());
         overallStatistics.add((double)totalSongs());
-        overallStatistics.add(musicTotalPriceValue());
-        overallStatistics.add(totalSalesValue());
-        overallStatistics.add(salesCurrentUser());
+        overallStatistics.add((double)Math.round(musicTotalPriceValue()*100)/100);
+        overallStatistics.add((double)Math.round(totalSalesValue()*100)/100);
+        overallStatistics.add((double)Math.round(salesCurrentUser()*100)/100);
         overallStatistics.add((double)currentUserTotalMusicCreated());
         return overallStatistics;
     }

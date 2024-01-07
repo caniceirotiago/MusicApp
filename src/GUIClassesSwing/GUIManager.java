@@ -79,7 +79,7 @@ public class GUIManager  {
                 break;
             case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8) only digits");
                 break;
-            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 20) only letters");
+            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 30) only letters");
                 break;
             case 7: JOptionPane.showMessageDialog(null, "Invalid Password (MIN:3 MAX 20)");
                 break;
