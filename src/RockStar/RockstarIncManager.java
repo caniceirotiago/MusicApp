@@ -203,7 +203,6 @@ public class RockstarIncManager  implements Serializable {
         }else guiManager.unsuccessfulRegistration(3);
         return validRegistration;
     }
-
     /**
      * Procura por músicas e coleções de música com base nos termos de pesquisa
      * Se o utilizador atual não for um criador de música, a pesquisa inclui todas as músicas disponíveis
@@ -642,7 +641,6 @@ public class RockstarIncManager  implements Serializable {
     public int currentUserTotalMusicCreated(){
         return currentUser.getAllMusic().size();
     }
-
     /**
      * Método que retorna um valor double para as estatísticas gerais do utilizador criador de música
      * @return retorna os valores estatísticos atualizados a tempo real
@@ -657,7 +655,6 @@ public class RockstarIncManager  implements Serializable {
         overallStatistics.add((double)currentUserTotalMusicCreated());
         return overallStatistics;
     }
-
     /**
      * Método que devolve a lista de géneros de álbuns musicais do utilizador criador de musica
      * @return retorna uma lista de valores que correspondem ao número de álbuns de um género específico
@@ -669,9 +666,7 @@ public class RockstarIncManager  implements Serializable {
             albumCountByGenre.add(totalAlbumsByGenre(ge));
         }
         albumCountByGenre.add(totalAlbumsByGenre(null));
-
         int totalAlbuns = 0;
-
         for(Integer i: albumCountByGenre){
             totalAlbuns += i;
         }

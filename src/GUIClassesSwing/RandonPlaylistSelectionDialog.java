@@ -20,7 +20,6 @@ public class RandonPlaylistSelectionDialog extends JDialog {
     /**
      * A classe que faz gestão da caixa de diálogo para seleção de músicas pagas quando se cria uma playlist aleatória
      * Permite ao utilizador adicionar músicas ao carrinho, comprar músicas ou escolher apenas músicas gratuitas.
-     *
      * @param guiManager O gestor da interface gráfica responsável pela comunicação com o sistema.
      * @param associated O quadro associado à caixa de diálogo.
      * @param songNames A lista de músicas selecionadas na lista de reprodução aleatória.
