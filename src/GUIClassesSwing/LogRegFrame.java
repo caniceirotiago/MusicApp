@@ -31,7 +31,6 @@ public class LogRegFrame extends JFrame {
     /**
      * Método para obter as configurações de GridBagConstraints.
      * Utilizado para aplicar estas configurações aos componentes que serão adicionados à janela.
-     *
      * @return Retorna o objeto GridBagConstraints com as configurações definidas.
      */
     public GridBagConstraints getConstraints() {
