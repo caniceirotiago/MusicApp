@@ -63,7 +63,6 @@ public class ClientGUI extends JFrame {
         setIconImage(imageIcon.getImage());
         setMinimumSize(new Dimension(1200, 700));
     }
-
     /**
      * Método que inicializa os componentes gráficos
      * Componentes são divididos em painéis Norte, Este, Centro e Oeste e os seus detalhes, como botões,
@@ -82,12 +81,10 @@ public class ClientGUI extends JFrame {
         //Container principal, ao qual vão ser incorporados os painéis e suas especificidades
         Container mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
-
         /**
          *Esta secção destina-se aos detalhes como popup menus e submenus que são utilizados nos painéis da frame do
          * Cliente. Foram colocados separadamente para permitir melhor visualização e organização do código.
          */
-
         //PopUp menu da tabela central para adicionar músicas a playlist ou avaliar músicas, este menu apenas é acionado
         //quando o primeiro elemento da lista do painel oeste (músicas totais do cliente) está selecionado
         JPopupMenu centralTablePopMenu = new JPopupMenu();
@@ -97,7 +94,6 @@ public class ClientGUI extends JFrame {
         centralTablePopMenu.add(evaluateMusicMenu);
         addToPlaylistMenu.addActionListener(e -> addMusicToPlaylistOnClick());
         evaluateMusicMenu.addActionListener(e -> addEvaluationClick());
-
         //Popup menu central para remover músicas de uma playlist ou avaliar certa música. Este popup menu só surge
         //quando se clica na música de uma playlist e não no primeiro elemento da lista oeste.
         JPopupMenu centralTablePUM2 = new JPopupMenu();
@@ -107,7 +103,6 @@ public class ClientGUI extends JFrame {
         centralTablePUM2.add(evaluateMusic2);
         removeFromPlaylist.addActionListener(e -> onRemoveFromPlaylistClick());
         evaluateMusic2.addActionListener(e -> addEvaluationClick());
-
         //PopUp menu oeste que abre opções relacionadas a playlists criadas pelo Cliente. É possível apagar playlists
         //ou alterar a sua visibilidade
         JPopupMenu westListPopMenu = new JPopupMenu();
@@ -117,7 +112,6 @@ public class ClientGUI extends JFrame {
         westListPopMenu.add(changeVisibility);
         deletePlaylist.addActionListener(e -> onDeletePlaylistClick());
         changeVisibility.addActionListener(e -> onVisibilityClick());
-
         //Central PopUpMenu que aparece quando as músicas no painel central são procuradas na pesquisa
         JPopupMenu centralTableSearchedMusicPuM = new JPopupMenu();
         JMenuItem acquireMusic = new JMenuItem("Acquire Music");
@@ -126,7 +120,6 @@ public class ClientGUI extends JFrame {
         centralTableSearchedMusicPuM.add(seePriceHistoric);
         acquireMusic.addActionListener(e -> onAcquireMusicClick());
         seePriceHistoric.addActionListener(e -> onPriceHistoricClick());
-
         //PopUpMenu Este que seleciona as músicas que estão no cesto, permite ao utilizador escolher as opções
         //de remover as músicas do cesto, ver as alterações de preço que a música sofreu ao longo do tempo e também
         //a opção de eliminar todos os elementos do cesto
@@ -140,8 +133,6 @@ public class ClientGUI extends JFrame {
         removeFromBasket.addActionListener(e -> onRemoveFromBasketClick());
         seePriceHistoric2.addActionListener(e -> onPriceHistoricBascketClick());
         cleanBasket.addActionListener(e -> onCleanBasketClick());
-
-
         /**
          * Funcionalidades que correspondem ao painel Oeste
          * O painel Oeste representa visualmente as coleções e playlists que o Cliente tem. Tem associado
@@ -173,7 +164,6 @@ public class ClientGUI extends JFrame {
          */
 
         //Criação do painel Oeste e implementação das diversas funcionalidades
-
         westPanel = new JPanel(new GridBagLayout());
         JLabel playlistLabel =  new JLabel();
         playlistLabel.setText("Playlist");
@@ -185,8 +175,6 @@ public class ClientGUI extends JFrame {
         // músicas adquiridas
         if(currentUserCollection == null) currentUserCollection = new Playlist();
         selectedPlaylist = currentUserCollection;
-
-
         playlistListWest = new JList<>(listModelWest);
         playlistListWest.addListSelectionListener(e -> {
             if(!e.getValueIsAdjusting()){
@@ -242,7 +230,6 @@ public class ClientGUI extends JFrame {
         cw.fill = GridBagConstraints.NONE;
         cw.anchor = GridBagConstraints.NORTH;
         westPanel.add(newPlaylistBtn, cw);
-
         /**
          * O painel Este tem as funcionalidades e elementos relacionados à compra e aquisição de músicas.
          * Tem uma etiqueta com o balanço a tempo real do utilizador, uma lista que corresponde ao cesto com as músicas
@@ -287,7 +274,6 @@ public class ClientGUI extends JFrame {
                 }
             }
         });
-
         JScrollPane scrollPane2 = new JScrollPane(basketList);
         scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -340,13 +326,9 @@ public class ClientGUI extends JFrame {
         ce.anchor = GridBagConstraints.NORTH;
         eastPanel.add(historycPurchBtn, ce);
 
-
-        //------------------------------------------------NORTH PANEL---------------------------------------------------
-
         /**
          * Painel Norte, que contém o logo, a barra e botão de pesquisa e o botão de LogOut da aplicação
          */
-
         int newWidth = 100;
         int newHeight = 100;
         ImageIcon originalIcon = new ImageIcon(ImagePaths.APP_ICON);
@@ -425,7 +407,6 @@ public class ClientGUI extends JFrame {
          * coleção (owned music) do utilizador. No caso de ser paga, é adicionada ao cesto. Permite também ver
          * o histórico dos preços da música.
          */
-
         String[] columnNamesOwnMusic = {"Title", "Artist", "Album", "Evaluation"};
         String[] columnNamesSearchMusic = {"Title", "Artist", "Album", "Classification"};
         centralTableModel = new DefaultTableModel(columnNamesOwnMusic,0){
@@ -442,7 +423,6 @@ public class ClientGUI extends JFrame {
                 }
             }
         };
-
         ArrayList<Music> userAllMusic = guiManager.getUserAllMusic();
         updateMusicJTableModel(userAllMusic);
         centralTable = new JTable(centralTableModel);
@@ -469,12 +449,10 @@ public class ClientGUI extends JFrame {
                 }
             }
         });
-
         JScrollPane scrollPane3 = new JScrollPane(centralTable);
         scrollPane3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        //Cria um objeto tipo search vazio
         if(search == null) search = new Search();
         searchMusicTableModel = new DefaultTableModel(columnNamesSearchMusic,0){
             @Override
@@ -509,7 +487,6 @@ public class ClientGUI extends JFrame {
                 }
             }
         });
-
         //Criação da pesquisa por coleções num cardLayout aninhado
         String[] columnNamesCollection = {"Collection", "Type", "Creator"};
         searchCollectionTableModel = new DefaultTableModel(columnNamesCollection,0){
@@ -566,11 +543,8 @@ public class ClientGUI extends JFrame {
         mainContainer.add(centerPanel,"Center");
         mainContainer.add(eastPanel,"East");
         mainContainer.add(westPanel,"West");
-
         add(mainContainer);
-
     }
-
     /**
      * Método que atualiza a tabela central.
      * Mostra as músicas que o utilizador tem e atualiza a tabela central de músicas caso seja adquirida uma nova música.
@@ -596,7 +570,6 @@ public class ClientGUI extends JFrame {
             centralTableModel.addRow(line);
         }
     }
-
     /**
      * Método que atualiza as músicas na tabela central aquando integração de uma música nova.
      */
@@ -608,7 +581,6 @@ public class ClientGUI extends JFrame {
             listModelWest.addElement(cl);
         }
     }
-
     /**
      * Método que atualiza o cesto consoante se adicionam músicas para compra.
      */
@@ -620,7 +592,6 @@ public class ClientGUI extends JFrame {
         }
     }
     public void updateBalance(){
-
         balanceLbl.setText("Balance" +
                 "\n" + guiManager.getUserBalance() + "€");
     }
@@ -632,7 +603,6 @@ public class ClientGUI extends JFrame {
         totalLbl.setText("Total " + (double) Math.round(totalPrice * 100) /100 + "€");
         return (double) Math.round(totalPrice * 100) /100;
     }
-
     /**
      * Método que atualiza o índex do elemento selecionado;
      * @return retorna nulo no caso de a fila ser -1;

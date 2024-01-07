@@ -26,17 +26,14 @@ public class EditMusicDialog extends JDialog {
     public EditMusicDialog(GUIManager guiManager, Frame associated, Music music){
         super (associated,"Edit Music", true);
         this.guiManager = guiManager;
-
         String musicState;
         if(music.isActive()) musicState = "active";
         else musicState = "inactive";
-
         String songDataString = music.getName() + " - " + music.getGenre() + " - " +
                 music.getPrice() + "€ - " + musicState;
         JLabel songData = new JLabel(songDataString);
         JLabel newTitle = new JLabel("New Title");
         newName = new JTextField(20);
-
         Genre.GENRE[] genres = Genre.GENRE.values();
         int indexCount = 0;
         int selectedIndex = 0;
@@ -54,7 +51,6 @@ public class EditMusicDialog extends JDialog {
         musicStateCombo = new JComboBox<>(state);
         if(music.isActive()) musicStateCombo.setSelectedIndex(0);
         else musicStateCombo.setSelectedIndex(1);
-
         JButton confirmationBtn = new JButton("Confirm");
         confirmationBtn.addActionListener(e -> onConfirmationClick());
         /**

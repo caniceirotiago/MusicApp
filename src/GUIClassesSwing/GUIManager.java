@@ -231,7 +231,6 @@ public class GUIManager  {
         logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
         musicCreatorFrame.updateSecondStatsPanel(getAlbumTypeStatistics());
     }
-
     public ArrayList<MusicAcquisition> getPurchaseHistory(){
         return logicManager.getPurchaseHistory();
     }
