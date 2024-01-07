@@ -1,7 +1,13 @@
-package src.GUIClassesSwing.OtherClasses;
+package src.GUIClassesSwing;
 
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * Classe que permite a representação gráfica da estatística "Álbuns por género musical"
+ * Calcula o número de músicas que existem de um determinado género nos álbuns criados e cria uma barra de cor
+ * associada ao género.
+ */
 public class RetangleBarChartComp extends JComponent {
     private int value;
     private int maxValue;

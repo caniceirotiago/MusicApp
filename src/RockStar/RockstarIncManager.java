@@ -9,13 +9,11 @@ import src.RockStar.Model.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 /**
  * Classe principal do programa
  * Contem informação sobre clientes, criadores de música, músicas que existem no sistema
  * Classe que faz a ponte entre o back-end e o front-end
  * Classe que é inicializada no inicio do programa
- *
  */
 public class RockstarIncManager  implements Serializable {
     private ArrayList<User> clientList;
@@ -71,7 +69,6 @@ public class RockstarIncManager  implements Serializable {
             System.out.println("Wrong Login");
         }
     }
-
     /**
      * Método para gerir a entrada de um novo utilizador na aplicação
      * @param name nome do utilizador que se quer registar
@@ -123,7 +120,6 @@ public class RockstarIncManager  implements Serializable {
             guiManager.successfulRegistration();
         }
     }
-
     /**
      * método sequencial para verificar se as credencias respeitam as regras impostas pelos programadores
      * @param name nome do utilizador que tem de respeitar certas caracteristicas
@@ -172,13 +168,11 @@ public class RockstarIncManager  implements Serializable {
         }
         return validRegistration;
     }
-
     /**
      * Procura por músicas e coleções de música com base no termo de pesquisa
      * Se o utilizador atual não for um criador de música, a pesquisa inclui todas as músicas disponíveis
      * associadas ou não a albuns.
      * Se o utilizador atual for um criador de música, a pesquisa inclui apenas as músicas criadas pelo proprio.
-     *
      * @param searchTerm O termo a ser pesquisado nos nomes das músicas, nomes dos artistas e nomes das coleções.
      * @return Um objeto Search que contem os resultados da pesquisa, incluindo músicas e albuns encontrados.
      */
@@ -202,7 +196,6 @@ public class RockstarIncManager  implements Serializable {
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()))foundMusicCollections.add(mc);
                 }
             }
-            //neste caso procura playlists publicas
             for(User us :  clientList){
                 for(MusicCollection mc : us.getAllCollections()){
                     if(mc.getName().toLowerCase().contains(searchTerm.toLowerCase()) && ((Playlist)mc).getPublicState()){
@@ -219,7 +212,6 @@ public class RockstarIncManager  implements Serializable {
             return new Search(foundMusics);
         }
     }
-
     /**
      * Tenta criar uma nova lista aleatória de músicas com base no género escolhido e no número de músicas escolhidas.
      * Se não houver músicas suficientes desse genero para o numero que o utilizador escolheu devolve uma mensagem de
@@ -245,7 +237,6 @@ public class RockstarIncManager  implements Serializable {
             randomPlaylistCreation(nOfMusics,allMusicOfTheChosenGenre);
         }
     }
-
     /**
      * Cria uma nova lista de músicas aleatória com base no número de músicas escolhido
      * e em uma seleção aleatória de músicas do género escolhido.
@@ -272,7 +263,6 @@ public class RockstarIncManager  implements Serializable {
         }
         if(successfullyCreated) guiManager.randomPLSuccssefullyCreated();
     }
-
     /**
      * Método que realiza a seleção de músicas de forma aleatória, utilizando o método randomIndexVector(), que cria
      * uma lista de indices aleatorio que irá corresponder aos indices da lista de músicas do género selecionadas, que
@@ -287,7 +277,6 @@ public class RockstarIncManager  implements Serializable {
         ArrayList<Music> randomMusicSelection = new ArrayList<>();
         ArrayList<Music> notFreeMusicSelection = new ArrayList<>();
         int[] listOfIndexes = randomIndexVector(nOfMusics, allMusicOfTheChosenGenre.size());
-
         for (int listOfIndex : listOfIndexes) {
             Music music = allMusicOfTheChosenGenre.get(listOfIndex);
             if (currentUser.getAllMusic().contains(music)) {
@@ -303,7 +292,6 @@ public class RockstarIncManager  implements Serializable {
         lists.add(notFreeMusicSelection);
         return lists;
     }
-
     /**
      * Método responsavel pela gestão da criação de novas listas aleatorias, cujas músicas selecionadas sao pagas e
      * que não estão adquiridas pelo utilizador.
@@ -315,10 +303,10 @@ public class RockstarIncManager  implements Serializable {
      * redireciona a lista de músicas para o carrinho de compras, permite e executa a compra das músicas automaticamente
      * ou redireciona para um novo método de criação de playlists aleatórias com músicas adquiridas ou grátis
      * newRandomPlaylistOnlyFree().
-     * @param randomMusicSelection
-     * @param notFreeMusicSelection
-     * @param nOfMusics
-     * @param allMusicOfTheChosenGenre
+     * @param randomMusicSelection lista de música escolhida aleatóriamente
+     * @param notFreeMusicSelection lista de música que não é gratuita
+     * @param nOfMusics número de músicas escolhidas
+     * @param allMusicOfTheChosenGenre lista de músicas com o género escolhido
      * @return retorna a playlist aleatória criada com sucesso.
      */
     public boolean processorOnRandomToPayMusic(ArrayList<Music> randomMusicSelection, ArrayList<Music> notFreeMusicSelection,
@@ -351,7 +339,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return successfullyCreated;
     }
-
     public double musicListPriceCalculator(ArrayList<Music> musicList){
         double totalPrice = 0;
         for (Music m : musicList){
@@ -359,7 +346,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return totalPrice;
     }
-
     /**
      * Método que cria a playlist aleatória apenas com as músicas gratuitas
      * @param musicOfTheChosenGenre músicas do género escolhido
@@ -390,16 +376,13 @@ public class RockstarIncManager  implements Serializable {
             guiManager.notEnoughMusicForRandom(maxSyzeFreeMusic,true);
         }
     }
-
     /**
      * Método que inicia a criação de uma playlist aleatória em que apenas músicas gratuitas foram selecioknadas
      * @param sizeOfNewVector define o tamanho do novo vector.
-     * @param sizeOfSample
+     * @param sizeOfSample define o alcance de indexes para a escolha aleatória
      * @return retorna uma lista de indexes.
      */
     public int[] randomIndexVector(int sizeOfNewVector, int sizeOfSample){
-        //Escolhe de forma aleatoria um vector com indices num certo número de possibilidades. Pensar na utilização de um SEt Integer
-        //Ver metodo nweRandomPLaylist
         int[] listOfIndexes = new int[sizeOfNewVector];
         ArrayList<Integer> addedIndexes = new ArrayList<>();
         for (int i = 0; i < sizeOfNewVector; i++) {
@@ -413,7 +396,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return listOfIndexes;
     }
-
     /**
      * Método que gere a validação dos termos para o nome e preço de uma música para a implementar no sistema.
      * Adiciona a música à lista geral de músicas no sistema e as respectivas listas de utilizadores.
@@ -430,7 +412,6 @@ public class RockstarIncManager  implements Serializable {
             guiManager.newMusicCreated();
         }
     }
-
     /**
      * Método que lida com a tentativa de edição de música. Verifica se os parametros da música estão corretos,
      * gere a lógica da edição de música e comunica com a interface gráfica aquando sucesso na edição.
@@ -468,7 +449,6 @@ public class RockstarIncManager  implements Serializable {
         }
         if(musicEdited) guiManager.musicSuccessfullyEdited();
     }
-
     /**
      * Método para validação do nome da música consoante as regras desejadas.
      * @param name Nome da música que vai ser verificada consonte os parametros impostos.
@@ -493,7 +473,6 @@ public class RockstarIncManager  implements Serializable {
         }
         return validatedName;
     }
-
     /**
      * Método para validação do preço colocado numa música.
      * @param priceString Parâmetro de preço que se quer colocar numa música.
@@ -548,7 +527,6 @@ public class RockstarIncManager  implements Serializable {
     public void newCollection(String collection){
         currentUser.newCollection(collection);
     }
-
     public void removeMusicCollection(MusicCollection selected){
         currentUser.removeMusicCollection(selected);
     }
@@ -565,7 +543,6 @@ public class RockstarIncManager  implements Serializable {
     public void addMoney(double money){
         ((Client)currentUser).addMoney(money);
     }
-
     public void addMusicToBasket(Music selectedMusic){
         ((Client)currentUser).addMusicToBasket(selectedMusic);
     }
@@ -616,8 +593,8 @@ public class RockstarIncManager  implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Método que retorna os valores associados às estatísticas gerais do criador de música
+     * @return retorna os valores estatísticos
      */
     public ArrayList<Double> getOverallStatistics(){
         ArrayList<Double> overallStatistics =  new ArrayList<>();
@@ -629,6 +606,11 @@ public class RockstarIncManager  implements Serializable {
         overallStatistics.add((double)currentUserTotalMusicCreated());
         return overallStatistics;
     }
+
+    /**
+     * Método que retorna os géneros dos álbuns para análise estatística
+     * @return retorna os géneros dos álbuns do criador de música
+     */
     public ArrayList<Integer> getAlbumTypeStatistics(){
         ArrayList<Integer> albumStatistics =  new ArrayList<>();
         ArrayList<Integer> albumCountByGenre = new ArrayList<>();
@@ -636,9 +618,7 @@ public class RockstarIncManager  implements Serializable {
             albumCountByGenre.add(totalAlbumsByGenre(ge));
         }
         albumCountByGenre.add(totalAlbumsByGenre(null));
-
         int totalAlbuns = 0;
-
         for(Integer i: albumCountByGenre){
             totalAlbuns += i;
         }

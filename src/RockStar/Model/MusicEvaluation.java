@@ -10,17 +10,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Classe de avaliação de musica
+ * Classe de avaliação de música
  */
 public class MusicEvaluation implements Serializable {
     private Client client;
     private LocalDateTime evaluationDateTime;
     private int evaluation;
-
     /**
-     * Construtor da classe que tem como parametro um cliente e a avaliação que deseja dar
+     * Construtor da classe que tem como parâmetro um cliente e a avaliação que deseja dar.
      * @param client O utilizador Client na aplicação
-     * @param evaluation A avaliação que deseja dar à musica
+     * @param evaluation A avaliação que deseja dar à música
      */
     public MusicEvaluation(Client client, int evaluation) {
         this.client = client;
@@ -30,18 +29,15 @@ public class MusicEvaluation implements Serializable {
     public int getEvaluation() {
         return evaluation;
     }
-
     public Client getClient() {
         return client;
     }
-
     public void setEvaluation(int evaluation) {
         this.evaluation = evaluation;
     }
-
     /**
      * Método que associa uma data à avaliação de uma música
-     * @param evaluationDateTime data de avaliação de musica.
+     * @param evaluationDateTime data de avaliação de música.
      */
     public void setEvaluationDateTime(LocalDateTime evaluationDateTime) {
         this.evaluationDateTime = evaluationDateTime;

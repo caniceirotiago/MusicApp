@@ -1,10 +1,6 @@
 package src.GUIClassesSwing;
 
-import src.GUIClassesSwing.OtherClasses.EditMusicDialog;
-import src.GUIClassesSwing.OtherClasses.LogRegFrame;
-import src.GUIClassesSwing.OtherClasses.RandonPlaylistSelectionDialog;
 import src.RockStar.*;
-import src.RockStar.Model.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -12,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Classe responsável pela gestão e ligação da Classe Rockstar (e consequentemente toda a lógica da aplicação) à interface
- * gráfica com a qual o utilizador interage
+ * gráfica com a qual o utilizador interage.
  */
 public class GUIManager  {
     private ClientGUI clientFrame;
@@ -21,35 +17,31 @@ public class GUIManager  {
     private LogRegFrame loginFrame;
     private LogRegFrame registrationFrame;
     private final RockstarIncManager logicManager;
-
     /**
-     * Construtor do gestor gráfico que liga à classe RockstarManager
+     * Construtor do gestor gráfico que liga à classe RockstarManager.
      * @param logicManager o construtor da classe RockstarManager
      */
     public GUIManager(RockstarIncManager logicManager) {
         this.logicManager = logicManager;
     }
-
     public void run(){
         loginRegistrationGUI = new LoginRegistrationGUI(GUIManager.this);
     }
-
     /**
      * Método que mostra ao utilizador a tentativa de login e que comunica com a classe RockstarManager.
      * No caso do login ser bem sucedido, inicia a frame do utilizador que está a fazer o login (Cliente ou Criador de
-     * Musica)
+     * música)
      * @param userField campo para o utilizador colocar o username.
      * @param passToString campo para colocar a password.
-     * @param isMCreator botão para identificar se o utilizador é um criador de musica.
-     * @param pin campo de pin para validar o login de um criador de musica.
+     * @param isMCreator botão para identificar se o utilizador é um criador de música.
+     * @param pin campo de pin para validar o login de um criador de música.
      */
     public void loginAttempt(String userField, String passToString, boolean isMCreator, String pin){
         logicManager.loginAttempt(userField,passToString,isMCreator,pin);
     }
     public void unsuccessfulLogin(){
         JOptionPane.showMessageDialog(null,"Unsuccessful Login");
-    };
-
+    }
     /**
      * Método que permite ao utilizador registar-se na plataforma
      * Comunica com os métodos na Classe RockstarManager
@@ -57,7 +49,7 @@ public class GUIManager  {
      * @param usernameField campo para o utilizador colocar o seu username
      * @param password campo para o utilizador colocar a password
      * @param email campo para o utilizador colocar o seu email
-     * @param isMCreator botão para identificar o utilizador como criador de musica
+     * @param isMCreator botão para identificar o utilizador como criador de música
      * @param pin campo para o utilizador registar o pin
      */
     public void newUserAttempt(String name,String usernameField,String password,String email,boolean isMCreator, String pin){
@@ -66,58 +58,42 @@ public class GUIManager  {
     public void successfulRegistration(){
         JOptionPane.showMessageDialog(null,"New User Created");
     }
-
     /**
      * método para mostrar ao utilizador uma mensagem de erro consoante o erro que o programa detectar
      * @param cod código de erro respetivo
      */
     public void unsuccessfulRegistration(int cod){
         switch (cod){
-            case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - " +
-                    "The email already exists");
+            case 1 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The email already exists");
                 break;
-            case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - " +
-                    "The username already exists");
+            case 2 : JOptionPane.showMessageDialog(null,"Unsuccessful Registration - The username already exists");
                 break;
             case 3: JOptionPane.showMessageDialog(null,"That email is not valid");
                 break;
-            case 4: JOptionPane.showMessageDialog(null, "The username have size requirements " +
-                    "(MIN:3 MAX 20) special characters allowed");
+            case 4: JOptionPane.showMessageDialog(null, "The username have size requirements (MIN:3 MAX 20) special characters allowed");
                 break;
-            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8) " +
-                    "only digits");
+            case 5: JOptionPane.showMessageDialog(null, "The pin is not valid (MIN:4 MAX:8) only digits");
                 break;
-            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 30) only " +
-                    "letters");
+            case 6: JOptionPane.showMessageDialog(null, "Invalid Name (MIN:3 MAX 30) only letters");
                 break;
             case 7: JOptionPane.showMessageDialog(null, "Invalid Password (MIN:3 MAX 20)");
                 break;
         }
-
     }
-
     /**
      * Método para mostrar ao utilizador na tentativa de criação de uma playlist aleatória
      * @param selectedGenre género selecionado para a playlist aleatória
-     * @param nMusics número de musicas escolhidas para a playlist aleatória
+     * @param nMusics número de músicas escolhidas para a playlist aleatória
      */
     public void randomPlaylistCreationAttempt(Genre.GENRE selectedGenre,int nMusics){
         logicManager.newRandomPlaylistAttempt(selectedGenre,nMusics);
     }
-
     public void notEnoughMusicForRandom(int maxSize,boolean freeMusics){
         String freeMusicsString = "";
         if(freeMusics) freeMusicsString = "free";
         JOptionPane.showMessageDialog(null,"Not enough musics for this random playlist " +
                 "\nOn the selected genre there are only " + maxSize + " " + freeMusicsString + " musics available");
     }
-
-    //---------------------------------Frame and JDialog management--------------------------------
-
-    /**
-     *
-     * @return
-     */
     public LogRegFrame creationLoginFrame(){
         LogRegFrame lf = new LogRegFrame();
         this.loginFrame = lf;
@@ -167,7 +143,6 @@ public class GUIManager  {
     public Search newSearch(String searchTextField){
         return logicManager.search(searchTextField);
     }
-
     public ArrayList<MusicCollection> getUserAllCollection(){
         return logicManager.getCurretUserAllCollections();
     }
@@ -220,7 +195,7 @@ public class GUIManager  {
         logicManager.newMusic(musicNameTextField, priceTextField, selectedGender);
     }
     /**
-     * Método que mostra uma janela de diálogo consoante o erro cometifo na criação de musica
+     * Método que mostra uma janela de diálogo consoante o erro cometido na criação de música
      * @param errorN tipo de erro
      */
     public void musicAttemptError(int errorN){
@@ -244,11 +219,11 @@ public class GUIManager  {
         musicCreatorFrame.updateFirstStatsPanel(getStatistics());
     }
     /**
-     * Método que permite chamar a janela de diálogo para a edição de musica e que atualiza as estatisticas a tempo real
-     * @param selectedMusic Musica selecionada para editar
+     * Método que permite chamar a janela de diálogo para a edição de música e que atualiza as estatísticas a tempo real
+     * @param selectedMusic música selecionada para editar
      */
     public void editMusicDialogCall(Music selectedMusic){
-        EditMusicDialog editMusicDialog = new EditMusicDialog(musicCreatorFrame, selectedMusic);
+        EditMusicDialog editMusicDialog = new EditMusicDialog(this, musicCreatorFrame, selectedMusic);
         String name = editMusicDialog.getNewName();
         String price = editMusicDialog.getNewPrice();
         Genre.GENRE genre = editMusicDialog.getSelectedGender();

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Classe que gere e constroi os objetos do tipo musica
+ * Classe que gere e constrói os objetos do tipo musica.
  */
 public class Music implements Serializable {
     private String name;
@@ -23,13 +23,12 @@ public class Music implements Serializable {
     private boolean isActive;
     private double classification;
     private Album associatedAlbum;
-
     /**
-     * Construtor para o objeto do tipo musica.
-     * @param name Nome da musica.
-     * @param genre género da musica.
-     * @param musicCreator O criador associado à musica.
-     * @param price o preço correspondente da musica.
+     * Construtor para o objeto do tipo música.
+     * @param name Nome da música.
+     * @param genre género da música.
+     * @param musicCreator O criador associado à música.
+     * @param price o preço correspondente da música.
      */
     public Music(String name, Genre.GENRE genre, MusicCreator musicCreator, double price) {
         this.name = name;
@@ -69,10 +68,9 @@ public class Music implements Serializable {
         this.price = price;
         priceHistory.add(new PriceHistory(price, LocalDateTime.now()));
     }
-
     /**
-     * Método que define se determinada musica está activa no sistema.
-     * @return true ou false consoante a musica ter sido definida como tal.
+     * Método que define se determinada música está activa no sistema.
+     * @return true ou false consoante a música ser sido definida como ativa ou inativa.
      */
     public boolean isActive() {
         return isActive;
@@ -83,11 +81,10 @@ public class Music implements Serializable {
     public void setGenre(Genre.GENRE genre) {
         this.genre = genre;
     }
-
     /**
-     * Método para calcular a classificação média de uma determinada musica consoante as classificações dadas pelos
+     * Método para calcular a classificação média de uma determinada música consoante as classificações dadas pelos
      * utilizadores.
-     * Método chamado sempre que é feita uma classificação ou a musica é editada.
+     * Método chamado sempre que é feita uma classificação ou a música é editada.
      */
     public void calculateClassification(){
         double classificationsSum = 0;
@@ -99,11 +96,11 @@ public class Music implements Serializable {
         }
     }
     /**
-     * Método que adiciona uma classificação a um ficheiro de musica por parte de um cliente.
-     * Se o cliente mesmo cliente decidir re-avaliar a musica, altera a classificação já dada e adiciona uma data de
+     * Método que adiciona uma classificação a um ficheiro de música por parte de um cliente.
+     * Se o cliente decidir re-avaliar a música, altera a classificação já dada para a mais recente e adiciona uma data de
      * alteração à avaliação.
-     * Se o cliente for novo/ainda não tiver feito nenhuma avaliação, adiciona essa avaliação à musica.
-     * @param client O cliente que está a avaliar a musica.
+     * Se o cliente for novo/ainda não tiver feito nenhuma avaliação, adiciona essa avaliação à música.
+     * @param client O cliente que está a avaliar a música.
      * @param evaluation A avaliação dada pelo utilizador.
      */
     public void addEvaluation(Client client, int evaluation){
