@@ -5,6 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f34876ce-4d39-4004-9f18-5329ee7346ae" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/GUIClassesSwing/HistoricPurchaseDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mainSaveFile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Project/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Project/mainSaveFile" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Project/mainSaveFile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/ClientGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUIClassesSwing/GUIManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUIClassesSwing/GUIManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RockStar/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RockStar/MusicAcquisition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/MusicAcquisition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RockStar/RockstarIncManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +57,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="src.GUIClassesSwing" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="src.RockStar.Main" />
@@ -77,7 +92,9 @@
       <updated>1704489401379</updated>
       <workItem from="1704489402720" duration="1985000" />
       <workItem from="1704530845303" duration="9527000" />
-      <workItem from="1704542966564" duration="2513000" />
+      <workItem from="1704542966564" duration="13940000" />
+      <workItem from="1704583865017" duration="10338000" />
+      <workItem from="1704631079160" duration="4030000" />
     </task>
     <task id="LOCAL-00001" summary="fd">
       <option name="closed" value="true" />
@@ -127,7 +144,31 @@
       <option name="project" value="LOCAL" />
       <updated>1704539549650</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fd">
+      <option name="closed" value="true" />
+      <created>1704555195768</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1704555195768</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fd">
+      <option name="closed" value="true" />
+      <created>1704572070075</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1704572070075</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fdLMN">
+      <option name="closed" value="true" />
+      <created>1704584051789</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1704584051789</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +187,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fd" />
-    <option name="LAST_COMMIT_MESSAGE" value="fd" />
+    <MESSAGE value="fdLMN" />
+    <option name="LAST_COMMIT_MESSAGE" value="fdLMN" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

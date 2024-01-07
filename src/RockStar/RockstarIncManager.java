@@ -186,20 +186,21 @@ public class RockstarIncManager  implements Serializable {
             validRegistration = false;
         }
         String[] emailDivision = email.split("@");
-        String beforeAt = emailDivision[0];
-        String afterAt = emailDivision[1];
-        if(beforeAt.isEmpty() || afterAt.isEmpty()){
-            guiManager.unsuccessfulRegistration(3);
-            validRegistration = false;
-        }
-        if(!afterAt.contains(".")){
-            guiManager.unsuccessfulRegistration(3);
-            validRegistration = false;
-        }
-        if(beforeAt.startsWith(".") || beforeAt.endsWith(".")){
-            guiManager.unsuccessfulRegistration(3);
-            validRegistration = false;
-        }
+        if(emailDivision.length == 2){
+            String beforeAt = emailDivision[0];
+            String afterAt = emailDivision[1];
+            if(beforeAt.isEmpty() || afterAt.isEmpty()){
+                guiManager.unsuccessfulRegistration(3);
+                validRegistration = false;
+            }
+            if(!afterAt.contains(".")){
+                guiManager.unsuccessfulRegistration(3);
+                validRegistration = false;
+            }
+            if(beforeAt.startsWith(".") || beforeAt.endsWith(".")){
+                validRegistration = false;
+            }
+        }else guiManager.unsuccessfulRegistration(3);
         return validRegistration;
     }
 
@@ -677,5 +678,8 @@ public class RockstarIncManager  implements Serializable {
         albumStatistics.add(totalAlbuns);
         albumStatistics.addAll(albumCountByGenre);
         return albumStatistics;
+    }
+    public ArrayList<MusicAcquisition> getPurchaseHistory(){
+        return ((Client)currentUser).getListOfAcquisitions();
     }
 }

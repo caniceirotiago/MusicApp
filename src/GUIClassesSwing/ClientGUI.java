@@ -297,6 +297,8 @@ public class ClientGUI extends JFrame {
         totalLbl.setText("Total " + totalPrice + "€");
 
         JButton purchaseBtn = new JButton("Purchase");
+        JButton historycPurchBtn = new JButton("Historic");
+        historycPurchBtn.addActionListener(e -> onHistoricClick());
         purchaseBtn.addActionListener(e -> onPurchasebtnClick());
 
         eastPanel.setPreferredSize(new Dimension(175, 0));
@@ -332,6 +334,14 @@ public class ClientGUI extends JFrame {
         ce.weighty = 0.05;
         ce.anchor = GridBagConstraints.NORTH;
         eastPanel.add(purchaseBtn, ce);
+
+        ce.gridy++;
+        ce.weighty = 0.05;
+        ce.anchor = GridBagConstraints.NORTH;
+        eastPanel.add(historycPurchBtn, ce);
+
+
+        //------------------------------------------------NORTH PANEL---------------------------------------------------
 
         /**
          * Painel Norte, que contém o logo, a barra e botão de pesquisa e o botão de LogOut da aplicação
@@ -980,5 +990,8 @@ public class ClientGUI extends JFrame {
             updateBasketJListModel();
             updateTotalBascketPrice();
         }
+    }
+    public void onHistoricClick(){
+        new HistoricPurchaseDialog(guiManager,this, guiManager.getPurchaseHistory());
     }
 }
