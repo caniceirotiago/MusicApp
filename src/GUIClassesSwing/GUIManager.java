@@ -272,7 +272,9 @@ public class GUIManager  {
         logicManager.musicEditionAttempt(selectedMusic,name, price, genre, state);
         musicCreatorFrame.updateSecondStatsPanel(getAlbumTypeStatistics());
     }
-
+    public ArrayList<MusicAcquisition> getPurchaseHistory(){
+        return logicManager.getPurchaseHistory();
+    }
     public void musicSuccessfullyEdited(){
         JOptionPane.showMessageDialog(null,"Music Successfully Edited");
     }

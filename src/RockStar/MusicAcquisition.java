@@ -5,6 +5,7 @@
 package src.RockStar;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public class MusicAcquisition implements Serializable {
     private ArrayList<Music> acquiredMusics;
-    private LocalDateTime dateTime;
+    private LocalDate date;
     private double totalPrice;
 
     /**
@@ -24,7 +25,7 @@ public class MusicAcquisition implements Serializable {
      */
     public MusicAcquisition(ArrayList<Music> acquiredMusics) {
         this.acquiredMusics = acquiredMusics;
-        this.dateTime = LocalDateTime.now();
+        this.date = LocalDate.now();
         for (Music mc : acquiredMusics){
             this.totalPrice += mc.getPrice();
             mc.getMusicCreator().addRevenueFromMusicSale(mc.getPrice());
@@ -32,5 +33,10 @@ public class MusicAcquisition implements Serializable {
     }
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    @Override
+    public String toString() {
+        return date.toString() + " - Price: " + totalPrice + "€";
     }
 }
