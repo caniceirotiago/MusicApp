@@ -10,8 +10,8 @@ import java.util.TimerTask;
 
 /**
  * Classe que gere gravação dos dados da aplicação.
- * Gere o carregamento de ficheiros guardados, grava automaticamente os ficheiros consoante um timer e tambem no caso de
- * fecho da aplicação.
+ * Gere o carregamento de ficheiros guardados, grava automaticamente os ficheiros através de um temporizador
+ * automático e  também no encerramento da aplicação.
  */
 public class SaveFileManager {
     private static final String FILE_NAME = "mainSaveFile";
@@ -49,9 +49,9 @@ public class SaveFileManager {
     }
 
     /**
-     * Método de gravação automatica de x em x segundos
-     * true cria uma thread "Daemon "que encerra quando o programa desliga
-     * O delay corresponde ao tempo inicial de atraso em milissegundos efectua a primeira gravação automática
+     * Método de gravação automatica de x em x segundos.
+     * Condição true cria uma thread "Daemon "que permite a gravação automática consoante um intervalo definido.
+     * O delay corresponde ao tempo inicial de atraso em milissegundos em que se efectua a primeira gravação automática
      * O interval corresponde ao intervalo entre as execuções em milissegundos (exemplo: 2 minutos)
      */
     private static void autoSave(){

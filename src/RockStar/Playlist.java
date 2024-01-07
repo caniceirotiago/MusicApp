@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Classe que gere a construção de uma coleção de musica/playlist associada ao utilizador Cliente
+ * Classe que gere a construção de uma coleção de música/playlist associada ao utilizador Cliente
  */
 public class Playlist extends MusicCollection implements Serializable {
     private Boolean isPublic;
@@ -31,7 +31,7 @@ public class Playlist extends MusicCollection implements Serializable {
      * Construtor de uma playlist aleatória.
      * @param name nome da playlist.
      * @param clientCreator nome do utilizador da classe Cliente.
-     * @param musicList lista de musicas a serem inseridas na playlist aleatória criada.
+     * @param musicList lista de músicas a serem inseridas na playlist aleatória criada.
      */
     public Playlist(String name, Client clientCreator, ArrayList<Music> musicList) {
         //Creation of random playlist or temporary Gui Playlist
